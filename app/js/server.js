@@ -18,7 +18,7 @@ var Captcha                 = require('js/components/window/captcha');
 var defaults = {
     module     : '',
     method     : '',
-    params     : [],
+    params     : {},
     addSession : true,
     success    : _.noop,
     error      : _.noop,
@@ -48,7 +48,7 @@ var addSession = function(options) {
 var handleParams = function(options) {
     // If there was only one parameter passed and it's an object, it's fine. Otherwise make it into
     // an array to be sent off.
-    if (!_.isObject(options.params) || !_.isArray(options.params)) {
+    if (!_.isObject(options.params) && !_.isArray(options.params)) {
         options.params = [options.params];
     }
 
