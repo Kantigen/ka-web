@@ -24,7 +24,7 @@ EmpireRPCActions.requestEmpireRPCViewBoosts.listen(function(o) {
         method  : 'view_boosts',
         params  : [],
         success : 'successEmpireRPCViewBoosts',
-        error   : 'failureEmpireRPCViewBoosts' 
+        error   : 'failureEmpireRPCViewBoosts'
     });
 });
 
@@ -151,11 +151,10 @@ EmpireRPCActions.successEmpireRPCInviteFriend.listen(function(result) {
 EmpireRPCActions.successEmpireRPCGetSurvey.listen(function(result) {
     if (result.survey.choice == 0) {
         vex.alert('Please fill in the survey.');
-        WindowActions.windowAdd(SurveyWindow, 'survey'); 
+        WindowActions.windowAdd(SurveyWindow, 'survey');
     }
 });
 
 
 
 module.exports = EmpireRPCActions;
-
