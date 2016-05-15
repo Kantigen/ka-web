@@ -13,7 +13,7 @@ function makeEmpireCall(options) {
 EmpireRPCActions.requestEmpireRPCLogout.listen(function(o) {
     makeEmpireCall({
         method  : 'logout',
-        params  : [],
+        params  : {},
         success : 'successEmpireRPCLogout',
         error   : 'failureEmpireRPCLogout' 
     });
