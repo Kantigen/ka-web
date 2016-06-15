@@ -1,6 +1,7 @@
 node_modules/
 bower_components/
-lacuna/
+build/
 scripts/
 docs/
 app/js-yui/
+.publish

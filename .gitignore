@@ -8,4 +8,7 @@ node_modules/
 bower_components/
 
 # Built JS and CSS files.
-lacuna/
+build/
+
+.publish
+dist/

@@ -6,7 +6,7 @@ var concatCss = require('gulp-concat-css');
 module.exports = function() {
     var stream = gulp.src('app/css/styles.css')
         .pipe(concatCss(''))
-        .pipe(gulp.dest('lacuna/styles.css'));
+        .pipe(gulp.dest('build/styles.css'));
 
     return stream;
 };
