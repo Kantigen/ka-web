@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var CaptchaRPCActions = Reflux.createActions([
     'requestCaptchaRPCFetch',

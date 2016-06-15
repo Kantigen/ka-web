@@ -40,7 +40,7 @@ var CreditsStatsRPCStore = Reflux.createStore({
 
     onSuccessStatsRPCGetCredits : function(result) {
         var credits = {};
-        
+
         _.each(result, function(foo) {
             _.each(foo, function(names, header) {
                 credits[header] = names;

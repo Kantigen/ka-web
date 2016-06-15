@@ -1,8 +1,6 @@
 'use strict';
 
 var Reflux  = require('reflux');
-var Server  = require('js/server');
-var _       = require('lodash');
 
 var TransporterRPCActions = Reflux.createActions([
     'requestTransporterRPCView',

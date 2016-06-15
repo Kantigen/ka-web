@@ -22,7 +22,7 @@ var MailWindowStore = Reflux.createStore({
     },
 
     getInitialState : function() {
-        if (! this.state) {
+        if (!this.state) {
             this.state = this.getDefaultData();
         }
         return this.state;

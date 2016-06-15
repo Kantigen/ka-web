@@ -2,21 +2,16 @@
 
 var React                       = require('react');
 var Reflux                      = require('reflux');
-var _                           = require('lodash');
 
 var BodyRPCStore                = require('js/stores/rpc/body');
-var GenericBuildingRPCActions   = require('js/actions/rpc/genericBuilding');
 
 var PlanetDetails               = require('js/components/window/planetPanel/planetDetails');
 var PlanetOre                   = require('js/components/window/planetPanel/planetOre');
 
-var util                        = require('js/util');
-var vex                         = require('js/vex');
-
 var PlanetDetailsTab = React.createClass({
 
     mixins : [
-        Reflux.connect(BodyRPCStore, 'bodyRPCStore'),
+        Reflux.connect(BodyRPCStore, 'bodyRPCStore')
     ],
 
     render : function() {

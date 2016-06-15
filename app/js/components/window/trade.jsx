@@ -3,8 +3,7 @@
 var React                   = require('react');
 var Reflux                  = require('reflux');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding.js');
-var BodyRPCStore            = require('js/stores/rpc/body');
+var GenericBuildingStore    = require('js/stores/genericBuilding');
 
 var WindowActions           = require('js/actions/window');
 var BuildingWindowActions   = require('js/actions/windows/building');
@@ -12,25 +11,31 @@ var TradeRPCActions         = require('js/actions/rpc/trade');
 
 var StandardTabs            = require('js/components/window/building/standardTabs');
 var BuildingInformation     = require('js/components/window/building/information');
-var Tabber                  = require('js/components/tabber');
 
+var Tabber                  = require('js/components/tabber');
 var Tabs                    = Tabber.Tabs;
 var Tab                     = Tabber.Tab;
 
 var Trade = React.createClass({
     statics : {
         options : {
-            title   : 'Trade',
-            width   : 700,
-            height  : 420
+            title  : 'Trade',
+            width  : 700,
+            height : 420
         }
     },
+
+    propTypes : {
+        options : React.PropTypes.object
+    },
+
     mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
+        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
     ],
+
     componentWillMount : function() {
         BuildingWindowActions.buildingWindowClear();
-        TradeRPCActions.requestTradeRPCView( this.props.options.id );
+        TradeRPCActions.requestTradeRPCView(this.props.options.id);
     },
 
     closeWindow : function() {
@@ -45,7 +50,7 @@ var Trade = React.createClass({
                 <p>Not Yet Implemented!</p>
             </Tab>
         );
-        
+
         tabs.push(
             <Tab title="Trades" key="Trades" >
                 <p>Not Yet Implemented</p>
@@ -77,9 +82,8 @@ var Trade = React.createClass({
 
         return (
             <div>
-                <BuildingInformation
-                    options={this.props.options}
-                />
+                <BuildingInformation options={this.props.options} />
+
                 <div>
                     <Tabs>
                         {tabs}

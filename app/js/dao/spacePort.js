@@ -14,7 +14,7 @@ SpacePortRPCActions.requestSpacePortRPCView.listen(function(o) {
         method  : 'view',
         params  : [o],
         success : 'successSpacePortRPCView',
-        error   : 'failureSpacePortRPCView' 
+        error   : 'failureSpacePortRPCView'
     });
 });
 
@@ -22,12 +22,12 @@ SpacePortRPCActions.successSpacePortRPCView.listen(function(result) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-SpacePortRPCActions.requestSpacePortRPCViewAllFleets.listen(function(building_id) {
+SpacePortRPCActions.requestSpacePortRPCViewAllFleets.listen(function(buildingId) {
     makeSpacePortCall({
         method  : 'view_all_fleets',
-        params  : { building_id : building_id },
+        params  : { buildingId : buildingId },
         success : 'successSpacePortRPCViewAllFleets',
-        error   : 'failureSpacePortRPCViewAllFleets' 
+        error   : 'failureSpacePortRPCViewAllFleets'
     });
 });
 
@@ -36,7 +36,7 @@ SpacePortRPCActions.requestSpacePortRPCViewIncomingFleets.listen(function(o) {
         method  : 'view_incoming_fleets',
         params  : [o],
         success : 'successSpacePortRPCViewIncomingFleets',
-        error   : 'failureSpacePortRPCViewIncomingFleets' 
+        error   : 'failureSpacePortRPCViewIncomingFleets'
     });
 });
 
@@ -45,7 +45,7 @@ SpacePortRPCActions.requestSpacePortRPCViewAvailableFleets.listen(function(o) {
         method  : 'view_available_fleets',
         params  : [o],
         success : 'successSpacePortRPCViewAvailableFleets',
-        error   : 'failureSpacePortRPCViewAvailableFleets' 
+        error   : 'failureSpacePortRPCViewAvailableFleets'
     });
 });
 
@@ -54,7 +54,7 @@ SpacePortRPCActions.requestSpacePortRPCViewUnavailableFleets.listen(function(o) 
         method  : 'view_unavailable_fleets',
         params  : [o],
         success : 'successSpacePortRPCViewUnavailableFleets',
-        error   : 'failureSpacePortRPCViewUnavailableFleets' 
+        error   : 'failureSpacePortRPCViewUnavailableFleets'
     });
 });
 
@@ -63,7 +63,7 @@ SpacePortRPCActions.requestSpacePortRPCViewOrbitingFleets.listen(function(o) {
         method  : 'view_orbiting_fleets',
         params  : [o],
         success : 'successSpacePortRPCViewOrbitingFleets',
-        error   : 'failureSpacePortRPCViewOrbitingFleets' 
+        error   : 'failureSpacePortRPCViewOrbitingFleets'
     });
 });
 
@@ -72,7 +72,7 @@ SpacePortRPCActions.requestSpacePortRPCViewMiningPlatforms.listen(function(o) {
         method  : 'view_mining_platforms',
         params  : [o],
         success : 'successSpacePortRPCViewMiningPlatforms',
-        error   : 'failureSpacePortRPCViewMiningPlatforms' 
+        error   : 'failureSpacePortRPCViewMiningPlatforms'
     });
 });
 
@@ -81,7 +81,7 @@ SpacePortRPCActions.requestSpacePortRPCViewExcavators.listen(function(o) {
         method  : 'view_excavators',
         params  : [o],
         success : 'successSpacePortRPCViewExcavators',
-        error   : 'failureSpacePortRPCViewExcavators' 
+        error   : 'failureSpacePortRPCViewExcavators'
     });
 });
 
@@ -90,7 +90,7 @@ SpacePortRPCActions.requestSpacePortRPCSendFleet.listen(function(o) {
         method  : 'send_fleet',
         params  : [o],
         success : 'successSpacePortRPCSendFleet',
-        error   : 'failureSpacePortRPCSendFleet' 
+        error   : 'failureSpacePortRPCSendFleet'
     });
 });
 
@@ -99,7 +99,7 @@ SpacePortRPCActions.requestSpacePortRPCRecallFleet.listen(function(o) {
         method  : 'recall_fleet',
         params  : [o],
         success : 'successSpacePortRPCRecallFleet',
-        error   : 'failureSpacePortRPCRecallFleet' 
+        error   : 'failureSpacePortRPCRecallFleet'
     });
 });
 
@@ -108,7 +108,7 @@ SpacePortRPCActions.requestSpacePortRPCRenameFleet.listen(function(o) {
         method  : 'rename_fleet',
         params  : [o],
         success : 'successSpacePortRPCRenameFleet',
-        error   : 'failureSpacePortRPCRenameFleet' 
+        error   : 'failureSpacePortRPCRenameFleet'
     });
 });
 
@@ -117,7 +117,7 @@ SpacePortRPCActions.requestSpacePortRPCScuttleFleet.listen(function(o) {
         method  : 'scuttle_fleet',
         params  : [o],
         success : 'successSpacePortRPCScuttleFleet',
-        error   : 'failureSpacePortRPCScuttleFleet' 
+        error   : 'failureSpacePortRPCScuttleFleet'
     });
 });
 
@@ -126,7 +126,7 @@ SpacePortRPCActions.requestSpacePortRPCViewTravellingFleets.listen(function(o) {
         method  : 'view_travelling_fleets',
         params  : [o],
         success : 'successSpacePortRPCViewTravellingFleets',
-        error   : 'failureSpacePortRPCViewTravellingFleets' 
+        error   : 'failureSpacePortRPCViewTravellingFleets'
     });
 });
 
@@ -135,7 +135,7 @@ SpacePortRPCActions.requestSpacePortRPCPrepareSendSpies.listen(function(o) {
         method  : 'prepare_send_spies',
         params  : [o],
         success : 'successSpacePortRPCPrepareSendSpies',
-        error   : 'failureSpacePortRPCPrepareSendSpies' 
+        error   : 'failureSpacePortRPCPrepareSendSpies'
     });
 });
 
@@ -144,7 +144,7 @@ SpacePortRPCActions.requestSpacePortRPCSendSpies.listen(function(o) {
         method  : 'send_spies',
         params  : [o],
         success : 'successSpacePortRPCSendSpies',
-        error   : 'failureSpacePortRPCSendSpies' 
+        error   : 'failureSpacePortRPCSendSpies'
     });
 });
 
@@ -153,7 +153,7 @@ SpacePortRPCActions.requestSpacePortRPCPrepareFetchSpies.listen(function(o) {
         method  : 'prepare_fetch_spies',
         params  : [o],
         success : 'successSpacePortRPCPrepareFetchSpies',
-        error   : 'failureSpacePortRPCPrepareFetchSpies' 
+        error   : 'failureSpacePortRPCPrepareFetchSpies'
     });
 });
 
@@ -162,7 +162,7 @@ SpacePortRPCActions.requestSpacePortRPCFetchSpies.listen(function(o) {
         method  : 'fetch_spies',
         params  : [o],
         success : 'successSpacePortRPCFetchSpies',
-        error   : 'failureSpacePortRPCFetchSpies' 
+        error   : 'failureSpacePortRPCFetchSpies'
     });
 });
 
@@ -171,8 +171,6 @@ SpacePortRPCActions.requestSpacePortRPCViewBattleLog.listen(function(o) {
         method  : 'view_battle_log',
         params  : [o],
         success : 'successSpacePortRPCViewBattleLog',
-        error   : 'failureSpacePortRPCViewBattleLog' 
+        error   : 'failureSpacePortRPCViewBattleLog'
     });
 });
-
-

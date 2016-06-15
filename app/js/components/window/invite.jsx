@@ -1,23 +1,24 @@
 'use strict';
 
-var React               = require('react');
-var Reflux              = require('reflux');
+var React            = require('react');
+var Reflux           = require('reflux');
 
-var $                   = require('js/shims/jquery');
+var $                = require('js/shims/jquery');
 
-var EmpireRPCActions    = require('js/actions/rpc/empire');
+var EmpireRPCActions = require('js/actions/rpc/empire');
+var WindowActions    = require('js/actions/window');
 
-var BodyRPCStore        = require('js/stores/rpc/body');
-var InviteRPCStore      = require('js/stores/rpc/invite');
+var InviteRPCStore   = require('js/stores/rpc/invite');
 
 var InviteWindow = React.createClass({
     statics : {
         options : {
-            title   : 'Invite a Friend',
-            width   : 450,
-            height  : 400
+            title  : 'Invite a Friend',
+            width  : 450,
+            height : 400
         }
     },
+
     mixins : [
         Reflux.connect(InviteRPCStore,  'inviteRPCStore')
     ],
@@ -25,7 +26,6 @@ var InviteWindow = React.createClass({
     closeWindow : function() {
         WindowActions.windowCloseByType('invite');
     },
-
 
     handleInvite : function() {
         var email = this.refs.email.value;

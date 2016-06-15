@@ -10,7 +10,6 @@ var ServerStatusActions     = require('js/actions/serverStatus');
 var BodyStatusActions       = require('js/actions/bodyStatus');
 var EmpireStatusActions     = require('js/actions/empireStatus');
 
-var WindowManagerActions    = require('js/actions/windowManager');
 var WindowActions           = require('js/actions/window');
 
 var Captcha                 = require('js/components/window/captcha');
@@ -146,7 +145,7 @@ var sendRequest = function(url, data, options, retry) {
             if (error.code === 1016) {
                 WindowActions.windowAdd(Captcha, 'captcha', {
                     success : retry
-                } );
+                });
             } else {
                 fail();
             }

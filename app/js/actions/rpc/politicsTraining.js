@@ -5,7 +5,7 @@ var Reflux  = require('reflux');
 var PoliticsTrainingRPCActions = Reflux.createActions([
     'requestPoliticsTrainingRPCView',
     'successPoliticsTrainingRPCView',
-    'failurePoliticsTrainingRPCView',
+    'failurePoliticsTrainingRPCView'
 ]);
 
 module.exports = PoliticsTrainingRPCActions;

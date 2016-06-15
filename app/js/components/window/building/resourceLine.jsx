@@ -8,7 +8,8 @@ var ResourceLine = React.createClass({
     propTypes : {
         icon    : React.PropTypes.string.isRequired,
         title   : React.PropTypes.string.isRequired,
-        red     : React.PropTypes.bool
+        red     : React.PropTypes.bool,
+        content : React.PropTypes.string
     },
 
     render : function() {

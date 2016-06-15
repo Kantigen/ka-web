@@ -13,7 +13,6 @@ var WindowsStore = Reflux.createStore({
         WindowActions
     ],
 
-
     mixins : [
         StatefulMixinStore
     ],
@@ -44,7 +43,7 @@ var WindowsStore = Reflux.createStore({
         // add the window to the options
         options = options || {};
         options.window = window;
-        
+
         // Otherwise re-use the existing window type
         // (e.g. 'building')
         state.windows[index] = {
@@ -80,7 +79,7 @@ var WindowsStore = Reflux.createStore({
     onWindowClose : function(window) {
         console.log('onWindowClose');
         var state = _.cloneDeep(this.state);
-        var index = _.findIndex(state.windows, function(o) { 
+        var index = _.findIndex(state.windows, function(o) {
             if (o) {
                 return o.window === window;
             }

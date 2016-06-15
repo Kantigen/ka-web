@@ -5,7 +5,12 @@ var React                   = require('react');
 var Boost                   = require('js/components/window/essentia/boost');
 
 var BoostsTab = React.createClass({
-    
+    propTypes : {
+        exactEssentia : React.PropTypes.number.isRequired,
+        boosts        : React.PropTypes.object.isRequired,
+        essentia      : React.PropTypes.number.isRequired
+    },
+
     render : function() {
         return (
             <div className="ui grid">

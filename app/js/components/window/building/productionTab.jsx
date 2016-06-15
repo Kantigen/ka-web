@@ -18,8 +18,12 @@ var vex                         = require('js/vex');
 var ProductionTab = React.createClass({
 
     mixins : [
-        Reflux.connect(BodyRPCStore, 'bodyRPCStore'),
+        Reflux.connect(BodyRPCStore, 'bodyRPCStore')
     ],
+
+    propTypes : {
+        building : React.PropTypes.object
+    },
 
     onDemolishClick : function() {
         var name = this.props.building.name + ' ' + this.props.building.level;
@@ -27,7 +31,8 @@ var ProductionTab = React.createClass({
         vex.confirm(
             'Are you sure you want to demolish your ' + name + '?',
             _.bind(function() {
-                GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(this.props.building.url, this.props.building.id);
+                GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(
+                    this.props.building.url, this.props.building.id);
             }, this)
         );
     },
@@ -38,13 +43,15 @@ var ProductionTab = React.createClass({
         vex.confirm(
             'Are you sure you want to downgrade your ' + name + '?',
             _.bind(function() {
-                GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(this.props.building.url, this.props.building.id);
+                GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(
+                    this.props.building.url, this.props.building.id);
             }, this)
         );
     },
 
     onUpgradeClick : function() {
-        GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(this.props.building.url, this.props.building.id);
+        GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(
+            this.props.building.url, this.props.building.id);
     },
 
     render : function() {
@@ -201,7 +208,7 @@ var ProductionTab = React.createClass({
                                 onClick={this.onDemolishClick}
                             />
 
-                           <ActionButton
+                            <ActionButton
                                 color="green"
                                 actionName="Upgrade"
                                 error={b.upgrade.can ? '' : b.upgrade.reason[1]}
@@ -214,8 +221,7 @@ var ProductionTab = React.createClass({
                                 error={b.downgrade.can ? '' : b.downgrade.reason[1]}
                                 onClick={this.onDowngradeClick}
                             />
-
-                         </div>
+                        </div>
                     </div>
                 </div>
             </div>

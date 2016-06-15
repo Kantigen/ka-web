@@ -32,7 +32,7 @@ var GameWindow = React.createClass({
                 <LeftSidebar />
                 <RightSidebar />
 
-                { /* One container to rule them all... */ }
+                {/* One container to rule them all... */}
                 <div className="pusher">
 
                     { /*
@@ -48,7 +48,7 @@ var GameWindow = React.createClass({
                     <Menu />
 
                     <Map />
-                    <div id="content"></div> { /* This div is used by map. */ }
+                    <div id="content"></div> {/* This div is used by map. */}
 
                     <WindowManager />
 

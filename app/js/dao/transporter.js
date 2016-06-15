@@ -147,5 +147,3 @@ TransporterRPCActions.requestTransporterRPCGetGlyphSummary.listen(function(o) {
         error   : 'failureTransporterRPCGetGlyphSummary'
     });
 });
-
-

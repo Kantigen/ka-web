@@ -1,38 +1,44 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React                 = require('react');
+var Reflux                = require('reflux');
+var _                     = require('lodash');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding.js');
+var GenericBuildingStore  = require('js/stores/genericBuilding');
 
-var WindowActions           = require('js/actions/window');
-var BuildingWindowActions   = require('js/actions/windows/building');
-var ShipyardRPCActions      = require('js/actions/rpc/shipyard');
+var WindowActions         = require('js/actions/window');
+var BuildingWindowActions = require('js/actions/windows/building');
+var ShipyardRPCActions    = require('js/actions/rpc/shipyard');
 
-var StandardTabs            = require('js/components/window/building/standardTabs');
-var BuildingInformation     = require('js/components/window/building/information');
-var BuildFleetTab           = require('js/components/window/shipyard/buildFleetTab');
-var BuildQueueTab           = require('js/components/window/shipyard/buildQueueTab');
+var StandardTabs          = require('js/components/window/building/standardTabs');
+var BuildingInformation   = require('js/components/window/building/information');
+var BuildFleetTab         = require('js/components/window/shipyard/buildFleetTab');
+var BuildQueueTab         = require('js/components/window/shipyard/buildQueueTab');
 
-var Tabber                  = require('js/components/tabber');
-
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabber                = require('js/components/tabber');
+var Tabs                  = Tabber.Tabs;
+var Tab                   = Tabber.Tab;
 
 var Shipyard = React.createClass({
     statics : {
         options : {
-            title   : 'Shipyard',
-            width   : 700,
-            height  : 420
+            title  : 'Shipyard',
+            width  : 700,
+            height : 420
         }
     },
+
+    propTypes : {
+        options : React.PropTypes.object
+    },
+
     mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
+        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
     ],
+
     componentWillMount : function() {
         BuildingWindowActions.buildingWindowClear();
-        ShipyardRPCActions.requestShipyardRPCView( this.props.options.id );
+        ShipyardRPCActions.requestShipyardRPCView(this.props.options.id);
     },
 
     closeWindow : function() {
@@ -47,9 +53,15 @@ var Shipyard = React.createClass({
                 <BuildQueueTab buildingId={building.id} />
             </Tab>
         );
-        
+
         tabs.push(
-            <Tab title="Build Ships" key="Build Ships" onSelect={ _.partial(ShipyardRPCActions.requestShipyardRPCGetBuildable, building.id ) } >
+            <Tab
+                title="Build Ships"
+                key="Build Ships"
+                onSelect={
+                    _.partial(ShipyardRPCActions.requestShipyardRPCGetBuildable, building.id)
+                }
+            >
                 <BuildFleetTab buildingId={building.id} />
             </Tab>
         );

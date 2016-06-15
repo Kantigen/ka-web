@@ -1,12 +1,12 @@
 'use strict';
 
-//var StarmapActions  = require('js/actions/starmap');
-//var server          = require('js/server');
+// var StarmapActions  = require('js/actions/starmap');
+// var server          = require('js/server');
 
 // Convert a user request for a get_star_chunk rpc into a server request
 // on success, create a getStarChunk event
 //
-//StarmapActions.requestGetStarChunk.listen(function(o) {
+// StarmapActions.requestGetStarChunk.listen(function(o) {
 //    console.log('Starmap Action: requestStarChunk [' + o.xChunk + '][' + o.yChunk + ']');
 
 //    server.call({
@@ -24,4 +24,4 @@
 //            console.log('Starmap Action: failGetStarChunk');
 //            StarmapActions.failGetStarChunk();
 //    })
-//});
+// });

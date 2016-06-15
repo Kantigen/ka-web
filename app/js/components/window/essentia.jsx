@@ -26,9 +26,9 @@ var Essentia = React.createClass({
 
     statics : {
         options : {
-            title   : 'Essentia',
-            width   : 600,
-            height  : 350
+            title  : 'Essentia',
+            width  : 600,
+            height : 350
         }
     },
 
@@ -40,8 +40,8 @@ var Essentia = React.createClass({
         return (
             <Tabs>
                 <Tab title="Boosts" onSelect={EmpireRPCActions.requestEmpireRPCViewBoosts}>
-                    <BoostsTab 
-                        essentia={this.state.empireStore.essentia} 
+                    <BoostsTab
+                        essentia={this.state.empireStore.essentia}
                         exactEssentia={this.state.empireStore.exactEssentia}
                         boosts={this.state.boostsStore}
                     />
@@ -56,10 +56,3 @@ var Essentia = React.createClass({
 });
 
 module.exports = Essentia;
-
-
-
-
-
-
-

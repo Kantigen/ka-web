@@ -5,7 +5,7 @@ var Reflux  = require('reflux');
 var TheftTrainingRPCActions = Reflux.createActions([
     'requestTheftTrainingRPCView',
     'successTheftTrainingRPCView',
-    'failureTheftTrainingRPCView',
+    'failureTheftTrainingRPCView'
 ]);
 
 module.exports = TheftTrainingRPCActions;

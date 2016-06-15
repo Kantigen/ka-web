@@ -27,8 +27,8 @@ BodyRPCActions.requestBodyRPCRename.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCGetBuildings.listen(function(o) {
     makeBodyCall({
-        method : 'get_buildings',
-        params : [o.bodyId],
+        method  : 'get_buildings',
+        params  : [o.bodyId],
         success : 'successBodyRPCGetBuildings',
         error   : 'failureBodyRPCGetBuildings'
     });
@@ -36,8 +36,8 @@ BodyRPCActions.requestBodyRPCGetBuildings.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCGetBuildable.listen(function(o) {
     makeBodyCall({
-        method : 'get_buildable',
-        params : [],
+        method  : 'get_buildable',
+        params  : [],
         success : 'successBodyRPCGetBuildable',
         error   : 'failureBodyRPCGetBuildable'
     });
@@ -45,8 +45,8 @@ BodyRPCActions.requestBodyRPCGetBuildable.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCGetBuildableLocations.listen(function(o) {
     makeBodyCall({
-        method : 'get_buildable_locations',
-        params : [],
+        method  : 'get_buildable_locations',
+        params  : [],
         success : 'successBodyRPCGetBuildableLocations',
         error   : 'failureBodyRPCGetBuildableLocations'
     });
@@ -54,8 +54,8 @@ BodyRPCActions.requestBodyRPCGetBuildableLocations.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCGetStatus.listen(function(o) {
     makeBodyCall({
-        method : 'get_status',
-        params : [],
+        method  : 'get_status',
+        params  : [],
         success : 'successBodyRPCGetStatus',
         error   : 'failureBodyRPCGetStatus'
     });
@@ -74,8 +74,8 @@ BodyRPCActions.requestBodyRPCGetBodyStatus.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCRepairList.listen(function(o) {
     makeBodyCall({
-        method : 'repair_list',
-        params : [],
+        method  : 'repair_list',
+        params  : [],
         success : 'successBodyRPCRepairList',
         error   : 'failureBodyRPCRepairList'
     });
@@ -83,8 +83,8 @@ BodyRPCActions.requestBodyRPCRepairList.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCRearrangeBuildings.listen(function(o) {
     makeBodyCall({
-        method : 'rearrangeBuildings',
-        params : [],
+        method  : 'rearrangeBuildings',
+        params  : [],
         success : 'successBodyRPCRearrangeBuildings',
         error   : 'failureBodyRPCRearrangeBuildings'
     });
@@ -106,8 +106,8 @@ BodyRPCActions.requestBodyRPCSetColonyNotes.listen(function(o) {
 
 BodyRPCActions.requestBodyRPCViewLaws.listen(function(o) {
     makeBodyCall({
-        method : 'view_laws',
-        params : [],
+        method  : 'view_laws',
+        params  : [],
         success : 'successBodyRPCViewLaws',
         error   : 'failureBodyRPCViewLaws'
     });

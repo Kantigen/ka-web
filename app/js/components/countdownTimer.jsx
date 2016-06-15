@@ -6,8 +6,13 @@ var Reflux          = require('reflux');
 var TickerStore     = require('js/stores/ticker');
 
 var CountdownTimer = React.createClass({
+
+    propTypes : {
+        endDate : React.PropTypes.string
+    },
+
     mixins : [
-        Reflux.connect(TickerStore, 'ticker'),
+        Reflux.connect(TickerStore, 'ticker')
     ],
 
     render : function() {

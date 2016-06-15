@@ -5,12 +5,8 @@ var StatefulMixinStore          = require('js/stores/mixins/stateful');
 var _                           = require('lodash');
 
 var BuildingWindowActions       = require('js/actions/windows/building');
-var WindowManagerActions        = require('js/actions/windowManager');
 var WindowActions               = require('js/actions/window');
 var GenericBuildingRPCActions   = require('js/actions/rpc/genericBuilding');
-
-var server                      = require('js/server');
-var clone                       = require('js/util').clone;
 
 var GenericBuildingRPCStore = Reflux.createStore({
 
@@ -116,7 +112,6 @@ var GenericBuildingRPCStore = Reflux.createStore({
 
         building.extraViewData = extraViewData;
 
- 
         // Manually update the old planet map with the new data we got.
         YAHOO.lacuna.MapPlanet.ReloadBuilding(_.cloneDeep(building));
 
@@ -127,9 +122,11 @@ var GenericBuildingRPCStore = Reflux.createStore({
         this.emit(this.getDefaultData());
     },
 
-    onBuildingWindowUpdate: function(o) {
+    onBuildingWindowUpdate : function(o) {
         this.handleNewData(o);
-        YAHOO.lacuna.MapPlanet.RefreshWithData({ result : o});
+        YAHOO.lacuna.MapPlanet.RefreshWithData({
+            result : o
+        });
     },
 
     onSuccessBuildingWindowView : function(result) {

@@ -13,7 +13,7 @@ StatsRPCActions.requestStatsRPCGetCredits.listen(function(o) {
         method  : 'credits',
         params  : [],
         success : 'successStatsRPCGetCredits',
-        error   : 'failureStatsRPCGetCredits' 
+        error   : 'failureStatsRPCGetCredits'
     });
 });
 

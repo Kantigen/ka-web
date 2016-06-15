@@ -14,10 +14,9 @@ IntelTrainingRPCActions.requestIntelTrainingRPCView.listen(function(o) {
         method  : 'view',
         params  : [o],
         success : 'successIntelTrainingRPCView',
-        error   : 'failureIntelTrainingRPCView' 
+        error   : 'failureIntelTrainingRPCView'
     });
 });
 IntelTrainingRPCActions.successIntelTrainingRPCView.listen(function(result) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
-

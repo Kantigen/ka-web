@@ -3,22 +3,17 @@
 var React           = require('react');
 var Reflux          = require('reflux');
 
-var StatsRPCActions = require('js/actions/rpc/stats');
 var WindowActions   = require('js/actions/window');
 
 var ServerRPCStore     = require('js/stores/rpc/server');
 var TickerStore        = require('js/stores/ticker');
 
-var Tabber          = require('js/components/tabber');
-var Tabs            = Tabber.Tabs;
-var Tab             = Tabber.Tab;
-
 var ServerClock = React.createClass({
     statics : {
         options : {
-            title   : 'Server Clock',
-            width   : 330,
-            height  : 'auto'
+            title  : 'Server Clock',
+            width  : 330,
+            height : 'auto'
         }
     },
     mixins : [

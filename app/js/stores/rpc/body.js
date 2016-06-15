@@ -173,13 +173,13 @@ var BodyRPCStore = Reflux.createStore({
         _.map(body.incoming_ally_ships, tickIncoming);
         _.map(body.incoming_enemy_ships, tickIncoming);
 
-        var tickResource = function(production, capacity, stored, stop_at_zero) {
+        var tickResource = function(production, capacity, stored, stopAtZero) {
             var amount = production / 60 / 60;
             var rv = stored + amount;
 
             if (typeof capacity !== 'undefined' && rv > capacity) {
                 return int(capacity);
-            } else if (rv < 0 && stop_at_zero) {
+            } else if (rv < 0 && stopAtZero) {
                 return 0;
             } else {
                 return int(rv);

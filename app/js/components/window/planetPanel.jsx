@@ -17,16 +17,24 @@ var Tab                     = Tabber.Tab;
 var PlanetPanel = React.createClass({
     statics : {
         options : {
-            title   : 'Planet Details',
-            width   : 700,
-            height  : 450
+            title  : 'Planet Details',
+            width  : 700,
+            height : 450
         }
     },
+
+    propTypes : {
+        options : React.PropTypes.object
+    },
+
     mixins : [
         Reflux.connect(GetBodyStatusRPCStore, 'getBodyStatusStore')
     ],
+
     componentWillMount : function() {
-        BodyRPCActions.requestBodyRPCGetBodyStatus( { bodyId : this.props.options.data.id } );
+        BodyRPCActions.requestBodyRPCGetBodyStatus({
+            bodyId : this.props.options.data.id
+        });
     },
 
     closeWindow : function() {
@@ -40,7 +48,7 @@ var PlanetPanel = React.createClass({
                 <PlanetDetailsTab />
             </Tab>
         );
-        
+
         tabs.push(
             <Tab title="My Fleets" key="My Fleets" >
                 <p>Not Yet Implemented</p>

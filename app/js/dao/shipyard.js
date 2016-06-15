@@ -14,7 +14,7 @@ ShipyardRPCActions.requestShipyardRPCView.listen(function(o) {
         method  : 'view',
         params  : [o],
         success : 'successShipyardRPCView',
-        error   : 'failureShipyardRPCView' 
+        error   : 'failureShipyardRPCView'
     });
 });
 
@@ -22,12 +22,12 @@ ShipyardRPCActions.successShipyardRPCView.listen(function(result) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-ShipyardRPCActions.requestShipyardRPCGetBuildable.listen(function(building_id) {
+ShipyardRPCActions.requestShipyardRPCGetBuildable.listen(function(buildingId) {
     makeShipyardCall({
         method  : 'get_buildable',
-        params  : { building_id : building_id },
+        params  : { buildingId : buildingId },
         success : 'successShipyardRPCGetBuildable',
-        error   : 'failureShipyardRPCGetBuildable' 
+        error   : 'failureShipyardRPCGetBuildable'
     });
 });
 
@@ -36,7 +36,7 @@ ShipyardRPCActions.requestShipyardRPCGetRepairable.listen(function(o) {
         method  : 'get_repairable',
         params  : [o],
         success : 'successShipyardRPCGetRepairable',
-        error   : 'failureShipyardRPCGetRepairable' 
+        error   : 'failureShipyardRPCGetRepairable'
     });
 });
 
@@ -45,7 +45,7 @@ ShipyardRPCActions.requestShipyardRPCBuildFleet.listen(function(o) {
         method  : 'build_fleet',
         params  : o,
         success : 'successShipyardRPCBuildFleet',
-        error   : 'failureShipyardRPCBuildFleet' 
+        error   : 'failureShipyardRPCBuildFleet'
     });
 });
 
@@ -54,7 +54,7 @@ ShipyardRPCActions.requestShipyardRPCRepairFleet.listen(function(o) {
         method  : 'repair_fleet',
         params  : [o],
         success : 'successShipyardRPCRepairFleet',
-        error   : 'failureShipyardRPCRepairFleet' 
+        error   : 'failureShipyardRPCRepairFleet'
     });
 });
 
@@ -63,7 +63,7 @@ ShipyardRPCActions.requestShipyardRPCViewBuildQueue.listen(function(o) {
         method  : 'view_build_queue',
         params  : o,
         success : 'successShipyardRPCViewBuildQueue',
-        error   : 'failureShipyardRPCViewBuildQueue' 
+        error   : 'failureShipyardRPCViewBuildQueue'
     });
 });
 
@@ -72,7 +72,7 @@ ShipyardRPCActions.requestShipyardRPCSubsidizeBuildQueue.listen(function(o) {
         method  : 'subsidize_build_queue',
         params  : [o],
         success : 'successShipyardRPCSubsidizeBuildQueue',
-        error   : 'failureShipyardRPCSubsidizeBuildQueue' 
+        error   : 'failureShipyardRPCSubsidizeBuildQueue'
     });
 });
 
@@ -81,8 +81,6 @@ ShipyardRPCActions.requestShipyardRPCSubsidizeFleet.listen(function(o) {
         method  : 'subsidize_fleet',
         params  : [o],
         success : 'successShipyardRPCSubsidizeFleet',
-        error   : 'failureShipyardRPCSubsidizeFleet' 
+        error   : 'failureShipyardRPCSubsidizeFleet'
     });
 });
-
-

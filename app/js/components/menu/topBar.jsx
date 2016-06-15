@@ -1,21 +1,21 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
-var classNames              = require('classnames');
+var React              = require('react');
+var Reflux             = require('reflux');
+var classNames         = require('classnames');
 
-var EmpireRPCStore          = require('js/stores/rpc/empire');
-var MapModeMenuStore        = require('js/stores/menu/mapMode');
-var ServerRPCStore          = require('js/stores/rpc/server');
+var EmpireRPCStore     = require('js/stores/rpc/empire');
+var MapModeMenuStore   = require('js/stores/menu/mapMode');
+var ServerRPCStore     = require('js/stores/rpc/server');
 
-var EmpireRPCActions        = require('js/actions/rpc/empire');
-var MapMenuActions          = require('js/actions/menu/map');
-var WindowActions           = require('js/actions/window');
-var MailWindowActions       = require('js/actions/windows/mail');
-var StatsWindowActions      = require('js/actions/windows/stats');
+var EmpireRPCActions   = require('js/actions/rpc/empire');
+var MapMenuActions     = require('js/actions/menu/map');
+var WindowActions      = require('js/actions/window');
+var MailWindowActions  = require('js/actions/windows/mail');
+var StatsWindowActions = require('js/actions/windows/stats');
 
-var EssentiaWindow          = require('js/components/window/essentia');
-
+var EssentiaWindow     = require('js/components/window/essentia');
+var PromotionsWindow   = require('js/components/window/promotions');
 
 var TopBar = React.createClass({
     mixins : [

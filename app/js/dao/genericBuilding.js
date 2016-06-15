@@ -15,7 +15,7 @@ GenericBuildingRPCActions.requestGenericBuildingRPCView.listen(function(url, o) 
         method  : 'view',
         params  : [o],
         success : 'successGenericBuildingRPCView',
-        error   : 'failureGenericBuildingRPCView' 
+        error   : 'failureGenericBuildingRPCView'
     });
 });
 
@@ -28,7 +28,7 @@ GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade.listen(function(url, 
         method  : 'upgrade',
         params  : [o],
         success : 'successGenericBuildingRPCUpgrade',
-        error   : 'failureGenericBuildingRPCUpgrade' 
+        error   : 'failureGenericBuildingRPCUpgrade'
     });
 });
 
@@ -41,7 +41,7 @@ GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade.listen(function(url
         method  : 'downgrade',
         params  : [o],
         success : 'successGenericBuildingRPCDowngrade',
-        error   : 'failureGenericBuildingRPCDowngrade' 
+        error   : 'failureGenericBuildingRPCDowngrade'
     });
 });
 
@@ -54,7 +54,7 @@ GenericBuildingRPCActions.requestGenericBuildingRPCDemolish.listen(function(url,
         method  : 'demolish',
         params  : [o],
         success : 'successGenericBuildingRPCDemolish',
-        error   : 'failureGenericBuildingRPCDemolish' 
+        error   : 'failureGenericBuildingRPCDemolish'
     });
 });
 
@@ -67,12 +67,10 @@ GenericBuildingRPCActions.requestGenericBuildingRPCRepair.listen(function(url, o
         method  : 'repair',
         params  : [o],
         success : 'successGenericBuildingRPCRepair',
-        error   : 'failureGenericBuildingRPCRepair' 
+        error   : 'failureGenericBuildingRPCRepair'
     });
 });
 
 GenericBuildingRPCActions.successGenericBuildingRPCRepair.listen(function(result) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
-
-

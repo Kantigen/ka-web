@@ -1,24 +1,29 @@
 'use strict';
 
-var React               = require('react');
-var _                   = require('lodash');
+var React            = require('react');
 
-var EmpireRPCActions    = require('js/actions/rpc/empire');
+var EmpireRPCActions = require('js/actions/rpc/empire');
 
-var WindowActions       = require('js/actions/window');
+var WindowActions    = require('js/actions/window');
 
-var InviteWindow        = require('js/components/window/invite');
+var InviteWindow     = require('js/components/window/invite');
 
 var GetEssentiaTab = React.createClass({
 
+    propTypes : {
+        session : React.PropTypes.string.isRequired
+    },
+
     purchase : function() {
-        var url = '/pay?session_id=' + this.props.session;
+        var url = YAHOO.lacuna.Game.RPCBase + 'pay?session_id=' + this.props.session;
         window.open(url, 'essentiaPayment', 'status=0,toolbar=0,location=0,menubar=0,resizable=1,scrollbars=1,height=550,width=600,directories=0');
     },
 
     redeem : function() {
         var node = this.refs.code;
-        EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({ code : node.value });
+        EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({
+            code : node.value
+        });
         node.value = '';
     },
 

@@ -18,7 +18,7 @@ var InviteRPCStore = Reflux.createStore({
 
     getDefaultData : function() {
         return {
-            referral_url : ""
+            referral_url : ''
         };
     },
 

@@ -3,8 +3,7 @@
 var React                       = require('react');
 var Reflux                      = require('reflux');
 
-var BuildingWindowActions       = require('js/actions/windows/building');
-var GenericBuildingRPCActions   = require('js/actions/rpc/genericBuilding')
+var GenericBuildingRPCActions   = require('js/actions/rpc/genericBuilding');
 
 var GenericBuildingStore        = require('js/stores/genericBuilding');
 var BodyRPCStore                = require('js/stores/rpc/body');

@@ -13,7 +13,7 @@ var LoaderMenuStore = Reflux.createStore({
 
     getInitialState : function() {
         return {
-            show :  false
+            show : false
         };
     },
     // Deprecated

@@ -15,9 +15,9 @@ var Tab             = Tabber.Tab;
 var AboutWindow = React.createClass({
     statics : {
         options : {
-            title   : 'About',
-            width   : 450,
-            height  : 400
+            title  : 'About',
+            width  : 450,
+            height : 400
         }
     },
 

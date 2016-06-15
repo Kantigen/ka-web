@@ -3,8 +3,7 @@
 var React                   = require('react');
 var Reflux                  = require('reflux');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding.js');
-var BodyRPCStore            = require('js/stores/rpc/body');
+var GenericBuildingStore    = require('js/stores/genericBuilding');
 
 var StandardTabs            = require('js/components/window/building/standardTabs');
 
@@ -16,7 +15,6 @@ var BuildingWindowActions   = require('js/actions/windows/building');
 
 var EssentiaVeinRPCActions  = require('js/actions/rpc/essentiaVein');
 
-
 var Tabber                  = require('js/components/tabber');
 var Tabs                    = Tabber.Tabs;
 var Tab                     = Tabber.Tab;
@@ -24,17 +22,23 @@ var Tab                     = Tabber.Tab;
 var EssentiaVein = React.createClass({
     statics : {
         options : {
-            title   : 'Essentia Vein',
-            width   : 700,
-            height  : 420
+            title  : 'Essentia Vein',
+            width  : 700,
+            height : 420
         }
     },
+
+    propTypes : {
+        options : React.PropTypes.object
+    },
+
     mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
+        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
     ],
+
     componentWillMount : function() {
         BuildingWindowActions.buildingWindowClear();
-        EssentiaVeinRPCActions.requestEssentiaVeinRPCView( this.props.options.id );
+        EssentiaVeinRPCActions.requestEssentiaVeinRPCView(this.props.options.id);
     },
 
     closeWindow : function() {

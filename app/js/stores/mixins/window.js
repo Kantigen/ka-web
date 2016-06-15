@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-
     getData : function() {
         return this.state;
     },
