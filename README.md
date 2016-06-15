@@ -1,14 +1,16 @@
-# Lacuna Web Client [![Stories in Ready](https://badge.waffle.io/plainblack/lacuna-web-client.png?label=ready&title=Ready)](https://waffle.io/plainblack/lacuna-web-client)
+# Keno Antigen
 
->  Web Client for the [open source](http://www.lacunaexpanse.com/developers) game [The Lacuna Expanse](http://www.lacunaexpanse.com/).
+This is the web client for the open source game Keno Antigen.
 
-![Screenshot](docs/img/screenshot.png)
+[![Code Climate](https://codeclimate.com/github/Kantigen/ka-web/badges/gpa.svg)](https://codeclimate.com/github/Kantigen/ka-web)
+[![Dependency Status](https://david-dm.org/Kantigen/ka-web.svg)](https://david-dm.org/Kantigen/ka-web)
+[![devDependency Status](https://david-dm.org/Kantigen/ka-web/dev-status.svg)](https://david-dm.org/Kantigen/ka-web#info=devDependencies)
 
 # Ideas
 
-Got an idea? [Let us know!](https://github.com/plainblack/Lacuna-Web-Client/issues)
+Got an idea? [Let us know!](https://github.com/Kantigen/ka-web/issues)
 
-[![Yoda and feature requests](docs/img/feature-request.jpg)](https://github.com/plainblack/Lacuna-Web-Client/issues)
+[![Yoda and feature requests](docs/img/feature-request.jpg)](https://github.com/Kantigen/ka-web/issues)
 
 # Hacking
 

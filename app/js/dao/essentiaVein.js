@@ -14,21 +14,18 @@ EssentiaVeinRPCActions.requestEssentiaVeinRPCView.listen(function(o) {
         method  : 'view',
         params  : [o],
         success : 'successEssentiaVeinRPCView',
-        error   : 'failureEssentiaVeinRPCView' 
+        error   : 'failureEssentiaVeinRPCView'
     });
 });
 EssentiaVeinRPCActions.successEssentiaVeinRPCView.listen(function(result) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-
 EssentiaVeinRPCActions.requestEssentiaVeinRPCDrain.listen(function(o) {
     makeEssentiaVeinCall({
         method  : 'drain',
         params  : [o.id, o.times],
         success : 'successEssentiaVeinRPCDrain',
-        error   : 'failureEssentiaVeinRPCDrain' 
+        error   : 'failureEssentiaVeinRPCDrain'
     });
 });
-
-
