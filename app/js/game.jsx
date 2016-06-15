@@ -44,7 +44,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
             Start : function(query) {
                 var l = window.location;
-                Game.RPCBase = window.lacuna_rpc_base_url || l.protocol + '//' + l.host + '/';
+                Game.RPCBase = window.lacuna_server_url;
                 Game.domain = l.hostname || 'lacunaexpanse.com';
 
                 // This is some glue code to make the server, body and empire stores listen for changes.
@@ -55,12 +55,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 require('js/stores/ticker').listen(_.noop);
 
                 var body = document.getElementById('body');
-
-                // Blow out YUI-related HTML that is created by the React stuff.
-                body.removeChild(document.getElementById('footer'));
-                body.removeChild(document.getElementById('header'));
-                body.removeChild(document.getElementById('content'));
-                body.removeChild(document.getElementById('pulsing'));
 
                 // Give the React stuff somewhere to go.
                 var container = document.createElement('div');
