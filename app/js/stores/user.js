@@ -7,10 +7,7 @@ var EmpireRPCActions    = require('js/actions/rpc/empire');
 var UserActions         = require('js/actions/user');
 var MenuActions         = require('js/actions/menu');
 var TickerActions       = require('js/actions/ticker');
-var ChatActions         = require('js/actions/menu/chat');
 var MapActions          = require('js/actions/menu/map');
-
-var server              = require('js/server');
 
 // TODO What is the purpose of this store? It does not store anything!
 // (it should disappear when the yui code is replaced totally)
@@ -18,11 +15,9 @@ var server              = require('js/server');
 var UserStore = Reflux.createStore({
     listenables : [EmpireRPCActions, UserActions],
 
-
     onUserSignIn : function() {
         MenuActions.menuShow();
         TickerActions.tickerStart();
-        ChatActions.chatShow();
         // TODO This should be possible to be removed. BUT it is needed for
         // now. It is called in the map store by attaching tothe onUserSignin
         // event (as it does here) but perhaps it requires the other stores

@@ -2875,24 +2875,6 @@ if (typeof YAHOO.lacuna.SMD == "undefined" || !YAHOO.lacuna.SMD) {
                 }
             }
         },
-        Chat : {
-            "SMDVersion":"2.0",
-            "description": "SMD service demonstration",
-
-            "envelope":"JSON-RPC-2.0",
-            "transport":"POST",
-            "target":"/chat/rpc",
-
-            "services": {
-                "init_chat" : {
-                    "description": "Get chat login data.",
-                    "parameters": [
-                        {"name":"session_id", "type":"string", "optional":false}
-                    ],
-                    "returns":{"type":"object"}
-                }
-            }
-        },
         Empire : {
             "SMDVersion":"2.0",
             "description": "SMD service demonstration",
