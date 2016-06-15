@@ -3,11 +3,9 @@
 var dao                 = require('js/dao');
 var vex                 = require('js/vex');
 var EmpireRPCActions    = require('js/actions/rpc/empire');
-var WindowActions       = require('js/actions/window');
-var SurveyWindow        = require('js/components/window/survey');
 
 function makeEmpireCall(options) {
-        dao.makeServerCall('empire', options, EmpireRPCActions);
+    dao.makeServerCall('empire', options, EmpireRPCActions);
 }
 
 EmpireRPCActions.requestEmpireRPCLogout.listen(function(o) {
@@ -15,7 +13,7 @@ EmpireRPCActions.requestEmpireRPCLogout.listen(function(o) {
         method  : 'logout',
         params  : {},
         success : 'successEmpireRPCLogout',
-        error   : 'failureEmpireRPCLogout' 
+        error   : 'failureEmpireRPCLogout'
     });
 });
 
@@ -54,24 +52,6 @@ EmpireRPCActions.requestEmpireRPCInviteFriend.listen(function(o) {
         params  : [o.email, o.message],
         success : 'successEmpireRPCInviteFriend',
         error   : 'failureEmpireRPCInviteFriend'
-    });
-});
-
-EmpireRPCActions.requestEmpireRPCGetSurvey.listen(function(o) {
-    makeEmpireCall({
-        method  : 'get_survey',
-        params  : [],
-        success : 'successEmpireRPCGetSurvey',
-        error   : 'failureEmpireRPCGetSurvey'
-    });
-});
-
-EmpireRPCActions.requestEmpireRPCSetSurvey.listen(function(o) {
-    makeEmpireCall({
-        method  : 'set_survey',
-        params  : [o.choice, o.comment],
-        success : 'successEmpireRPCSetSurvey',
-        error   : 'failureEmpireRPCSetSurvey'
     });
 });
 
@@ -147,14 +127,5 @@ EmpireRPCActions.successEmpireRPCDisableSelfDestruct.listen(function(result) {
 EmpireRPCActions.successEmpireRPCInviteFriend.listen(function(result) {
     vex.alert('Success - your friend has been sent an invite email.');
 });
-
-EmpireRPCActions.successEmpireRPCGetSurvey.listen(function(result) {
-    if (result.survey.choice == 0) {
-        vex.alert('Please fill in the survey.');
-        WindowActions.windowAdd(SurveyWindow, 'survey');
-    }
-});
-
-
 
 module.exports = EmpireRPCActions;

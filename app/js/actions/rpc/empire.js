@@ -45,14 +45,6 @@ var EmpireRPCActions = Reflux.createActions([
     'successEmpireRPCDisableSelfDestruct',
     'failureEmpireRPCDisableSelfDestruct',
 
-    'requestEmpireRPCGetSurvey',
-    'successEmpireRPCGetSurvey',
-    'failureEmpireRPCGetSurvey',
-
-    'requestEmpireRPCSetSurvey',
-    'successEmpireRPCSetSurvey',
-    'failureEmpireRPCSetSurvey',
-
     'requestEmpireRPCRedeemEssentiaCode',
     'successEmpireRPCRedeemEssentiaCode',
     'failureEmpireRPCRedeemEssentiaCode',

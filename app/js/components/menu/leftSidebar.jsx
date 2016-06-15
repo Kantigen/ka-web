@@ -5,7 +5,6 @@ var Reflux                  = require('reflux');
 
 var vex                     = require('js/vex');
 var util                    = require('js/util');
-var server                  = require('js/server');
 var $                       = require('js/shims/jquery');
 
 var LeftSidebarActions      = require('js/actions/menu/leftSidebar');
@@ -14,7 +13,6 @@ var WindowActions           = require('js/actions/window');
 var EmpireRPCActions        = require('js/actions/rpc/empire');
 
 var AboutWindow             = require('js/components/window/about');
-var SurveyWindow            = require('js/components/window/survey');
 var InviteWindow            = require('js/components/window/invite');
 var SitterManagerWindow     = require('js/components/window/sitterManager');
 
@@ -37,7 +35,7 @@ var SelfDestruct = React.createClass({
             EmpireRPCActions.requestEmpireRPCDisableSelfDestruct();
             return;
         }
-        
+
         vex.confirm(
             'Are you ABSOLUTELY sure you want to enable self destuct?  If enabled, your empire will be deleted after 24 hours.',
             EmpireRPCActions.requestEmpireRPCEnableSelfDestruct
@@ -199,14 +197,6 @@ var LeftSidebar = React.createClass({
 
                 <a className="item" onClick={function() {
                     LeftSidebarActions.hide();
-                    WindowActions.windowAdd(SurveyWindow, 'survey');
-                }}>
-                    <i className="newspaper icon"></i>
-                    Survey
-                </a>
-
-                <a className="item" onClick={function() {
-                    LeftSidebarActions.hide();
                     WindowActions.windowAdd(AboutWindow, 'about');
                 }}>
                     <i className="rocket icon"></i>
@@ -231,7 +221,7 @@ var LeftSidebar = React.createClass({
                 </a>
                 <a className="item" onClick={function() {
                     LeftSidebarActions.hide();
-                    WindowActions.windowAdd(ServerClock, 'serverclock')
+                    WindowActions.windowAdd(ServerClock, 'serverclock');
                 }}>
                     <i className="wait icon"></i>
                     Server Clock
