@@ -1,0 +1,4 @@
+exclude_paths:
+  - node_modules/**/*
+  - lacuna/**/*
+  - app/js-yui/**/*
