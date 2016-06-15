@@ -2,6 +2,7 @@
 
 This is the web client for the open source game Keno Antigen.
 
+[![Build Status](https://travis-ci.org/Kantigen/ka-web.svg?branch=master)](https://travis-ci.org/Kantigen/ka-web)
 [![Code Climate](https://codeclimate.com/github/Kantigen/ka-web/badges/gpa.svg)](https://codeclimate.com/github/Kantigen/ka-web)
 [![Dependency Status](https://david-dm.org/Kantigen/ka-web.svg)](https://david-dm.org/Kantigen/ka-web)
 [![devDependency Status](https://david-dm.org/Kantigen/ka-web/dev-status.svg)](https://david-dm.org/Kantigen/ka-web#info=devDependencies)
