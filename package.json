@@ -14,6 +14,10 @@
   "bugs": {
     "url": "https://github.com/Kantigen/ka-web/issues"
   },
+  "scripts": {
+    "test": "gulp lint",
+    "postinstall": "bower install"
+  },
   "homepage": "https://lacunaexpanse.com/",
   "dependencies": {
     "classnames": "2.1.2",
