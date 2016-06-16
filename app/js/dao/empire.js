@@ -17,12 +17,12 @@ EmpireRPCActions.requestEmpireRPCLogout.listen(function(o) {
     });
 });
 
-EmpireRPCActions.requestEmpireRPCViewBoosts.listen(function(o) {
+EmpireRPCActions.requestEmpireRPCGetBoosts.listen(function(o) {
     makeEmpireCall({
-        method  : 'view_boosts',
-        params  : [],
-        success : 'successEmpireRPCViewBoosts',
-        error   : 'failureEmpireRPCViewBoosts'
+        method  : 'get_boosts',
+        params  : {},
+        success : 'successEmpireRPCGetBoosts',
+        error   : 'failureEmpireRPCGetBoosts'
     });
 });
 

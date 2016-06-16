@@ -100,3 +100,6 @@ module.exports.FLEET_TAGS = {
     exploration  : 'Exploration',
     waste_chain  : 'WasteChain'
 };
+
+module.exports.OLD_SERVER_DATE_FORMAT = 'DD MM YYYY HH:mm:ss ZZ';
+module.exports.NEW_SERVER_DATE_FORMAT = 'YYYY MM DD HH:mm:ss ZZ';

@@ -1,8 +1,8 @@
 'use strict';
 
-var React                   = require('react');
+var React = require('react');
 
-var Boost                   = require('js/components/window/essentia/boost');
+var Boost = require('js/components/window/essentia/boost');
 
 var BoostsTab = React.createClass({
     propTypes : {

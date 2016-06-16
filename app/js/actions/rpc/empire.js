@@ -19,9 +19,9 @@ var EmpireRPCActions = Reflux.createActions([
     'successEmpireRPCGetInviteFriendUrl',
     'failureEmpireRPCGetInviteFriendUrl',
 
-    'requestEmpireRPCViewBoosts',
-    'successEmpireRPCViewBoosts',
-    'failureEmpireRPCViewBoosts',
+    'requestEmpireRPCGetBoosts',
+    'successEmpireRPCGetBoosts',
+    'failureEmpireRPCGetBoosts',
 
     'requestEmpireRPCViewAuthorizedSitters',
     'successEmpireRPCViewAuthorizedSitters',

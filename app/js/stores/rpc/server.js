@@ -4,14 +4,13 @@ var Reflux              = require('reflux');
 var _                   = require('lodash');
 var moment              = require('moment');
 var util                = require('js/util');
+var clone               = util.clone;
 
 var StatefulMixinStore  = require('js/stores/mixins/stateful');
 
 var ServerStatusActions = require('js/actions/serverStatus');
 var TickerActions       = require('js/actions/ticker');
 var EmpireRPCActions    = require('js/actions/rpc/empire');
-
-var clone               = util.clone;
 
 var ServerRPCStore = Reflux.createStore({
     listenables : [
@@ -50,7 +49,8 @@ var ServerRPCStore = Reflux.createStore({
         server.serverMoment = util.serverDateToMoment(server.time).utcOffset(0);
         server.clientMoment = util.serverDateToMoment(server.time);
 
-        // The server won't return the promotions block if there aren't any.
+        // The server won't return the promotions block if there aren't any but components
+        // will expect it to exist.
         if (!server.promotions) {
             server.promotions = [];
         }
