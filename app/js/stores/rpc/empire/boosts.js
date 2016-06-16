@@ -51,9 +51,6 @@ var BoostsEmpireRPCStore = Reflux.createStore({
             util.serverDateToMoment(timestamp) -
             ServerRPCStore.getData().serverMoment;
 
-        console.log(timestamp);
-        console.log(millisecondsRemaining);
-
         if (timestamp && millisecondsRemaining > 0) {
             return {
                 ms      : millisecondsRemaining,
