@@ -1,7 +1,9 @@
 YAHOO.namespace("lacuna.modules");
 
+var constants = require('js/constants');
+
 if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modules.Parliament) {
-    
+
 (function(){
     var Lang = YAHOO.lang,
         Util = YAHOO.util,
@@ -14,13 +16,13 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 
     var Parliament = function(result, locationId){
         Parliament.superclass.constructor.call(this, result);
-        
+
         this.locationId = locationId;
         this.service = Game.Services.Modules.Parliament;
-        
+
         this.canRepealLaw = this.building.level >= 5;
     };
-    
+
     Lang.extend(Parliament, Lacuna.buildings.Building, {
         getChildTabs : function() {
             if(this.building.level >= 4) {
@@ -45,7 +47,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                 require('js/actions/menu/loader').hide();
                                 this.rpcSuccess(o);
                                 this.laws = o.result.laws;
-                                
+
                                 this.LawsPopulate();
                             },
                             scope:this
@@ -53,13 +55,13 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     }
                 }
             }, this, true);
-            
+
             Event.delegate("lawsDetails", "click", this.LawClick, "button", this, true);
             Event.delegate("lawsDetails", "click", this.handleProfileLink, "a.profile_link", this, true);
             Event.delegate("lawsDetails", "click", this.handleStarmapLink, "a.starmap_link", this, true);
             Event.delegate("lawsDetails", "click", this.handlePlanetLink, "a.planet_link", this, true);
             Event.delegate("lawsDetails", "click", this.handleAllianceLink, "a.alliance_link", this, true);
-            
+
             return tab;
         },
         _getPropsTab : function() {
@@ -77,7 +79,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                 require('js/actions/menu/loader').hide();
                                 this.rpcSuccess(o);
                                 this.props = o.result.propositions;
-                                
+
                                 this.PropsPopulate();
                             },
                             scope:this
@@ -85,13 +87,13 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     }
                 }
             }, this, true);
-            
+
             Event.delegate("propsDetails", "click", this.PropClick, "button", this, true);
             Event.delegate("propsDetails", "click", this.handleProfileLink, "a.profile_link", this, true);
             Event.delegate("propsDetails", "click", this.handleStarmapLink, "a.starmap_link", this, true);
             Event.delegate("propsDetails", "click", this.handlePlanetLink, "a.planet_link", this, true);
             Event.delegate("propsDetails", "click", this.handleAllianceLink, "a.alliance_link", this, true);
-            
+
             return tab;
         },
         _getCreateTab : function() {
@@ -142,7 +144,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
                                     opts[opts.length] = '<option value="'+obj.id+'">'+obj.name+'</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -249,7 +251,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
                                    	opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -301,7 +303,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
                                     opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -344,7 +346,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
 									opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -417,7 +419,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
                                     opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -454,7 +456,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 '        <button type="button" id="proposeFireBfgSubmit">Propose to Fire BFG!</button>',
                 '    </div>'
                 ].join('');
-				
+
 				this.subscribe("onLoad", function() {
                     this.service.get_stars_in_jurisdiction({
 						session_id: Game.GetSession(),
@@ -469,7 +471,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                                     var obj = stars[m];
                                     opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
                                 }
-                                
+
                                 el.innerHTML = opts.join('');
                                 el.selectedIndex = -1;
                             }
@@ -477,14 +479,14 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                         scope: this
                     });
                 }, this, true);
-				
+
 				Event.on("proposeFireBfgStars", "change", this.PopulateBodiesForStar, {
 					starElement: 'proposeFireBfgStars',
 					bodyElement: 'proposeFireBfgBody',
 					Self: this}, true);
 				Event.on("proposeFireBfgSubmit", "click", this.FireBFG, this, true);
             }
-            
+
             if (getAllianceMembers) {
                 Game.Services.Alliance.view_profile({
 					session_id: Game.GetSession(),
@@ -507,7 +509,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     scope: this
                 });
             }
-            
+
             var tab = new YAHOO.widget.Tab({ label: "Propose", content: [
                 '<div id="proposeContainer">',
                 '    <div style="border-bottom:1px solid #52acff;padding-bottom:5px; margin-bottom:5px;">',
@@ -528,7 +530,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
             this.subscribe("onLoad", function() {
                 this.proposeOptions = Sel.query("div.proposeOption", "proposeContainer");
                 this.proposeMessage = Dom.get("proposeMessage");
-                
+
                 Event.on("proposeSelect", "change", function(e) {
                     Dom.setStyle(this.proposeOptions, "display", "none");
                     Dom.setStyle(Lib.getSelectedOptionValue("proposeSelect"), "display", "");
@@ -549,22 +551,22 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 t.innerHTML = opts.join('');
                 Dom.get("proposeTitle").value = templates[0].title;
                 Dom.get("proposeDesc").value = templates[0].description;
-                
+
                 Event.on(t, "change", this.ProposeWritTemplateChange, this, true);
-                
+
                 Event.on("proposeWritSubmit", "click", this.ProposeWrit, this, true);
             }, this, true);
 
             return tab;
         },
-        
+
         ProposeWritTemplateChange : function() {
             var opt = Game.Resources.writ_templates[Lib.getSelectedOption("proposeWritTemplates").value];
             Dom.get("proposeTitle").value = opt.title;
             Dom.get("proposeDesc").value = opt.description;
         },
         CreateStarSearch : function(id) {
-            var dataSource = new Util.XHRDataSource("/map");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -572,7 +574,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 resultsList : "result.stars",
                 fields : ["name","id","zone","color","x","y"]
             };
-            
+
             var oTextboxList = new YAHOO.lacuna.TextboxList(id, dataSource, { //config options
                 maxResultsDisplayed: 25,
                 minQueryLength:3,
@@ -592,7 +594,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     '    </div>',
                     '</div>'].join("");
             };
-            oTextboxList.generateRequest = function(sQuery){                
+            oTextboxList.generateRequest = function(sQuery){
                 var s = Lang.JSON.stringify({
                         "id": YAHOO.rpc.Service._requestId++,
                         "method": "search_stars",
@@ -608,7 +610,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
             return oTextboxList;
         },
         CreateEmpireSearch : function(id) {
-            var dataSource = new Util.XHRDataSource("/empire");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -616,7 +618,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 resultsList : "result.empires",
                 fields : ["name","id"]
             };
-            
+
             var oTextboxList = new YAHOO.lacuna.TextboxList(id, dataSource, { //config options
                 maxResultsDisplayed: 10,
                 minQueryLength:3,
@@ -638,14 +640,14 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     });
                 return s;
             };
-            
+
             return oTextboxList;
         },
-        
+
         Broadcast : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_broadcast_on_network19({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -668,7 +670,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         StationsOnly : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_members_only_stations({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id
@@ -689,7 +691,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         ColonizeOnly : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_members_only_colonization({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id
@@ -741,11 +743,11 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 			var button = Event.getTarget(e),
 				body   = Lib.getSelectedOptionValue('proposeFireBfgBody'),
 				reason = Dom.get('proposeFireBfgReason').value;
-			
+
 			if (body && reason) {
 				if (confirm('WARNING: The BFG is an extremly powerful weapon - do not point at face!!\n Are you sure you want to fire it?')) {
 					button.disabled = true;
-				
+
 					require('js/actions/menu/loader').show();
 					this.service.propose_fire_bfg({
 						session_id: Game.GetSession(),
@@ -820,7 +822,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 
 							for (var i = 0; i < excavs.length; i++) {
 								var excav = excavs[i];
-								
+
 								//optionValues[optionvalues.length] = opts[opts.length] = '<option value="' + excav.id + '">' + excav.name + '</option>';
 							}
 
@@ -834,7 +836,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         NeutralizeBHG : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_neutralize_bhg({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id
@@ -855,7 +857,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         MemberExpel : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_expel_member({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -882,7 +884,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
                 var selObj = this.inductMemberTextboxList._oTblSingleSelection.Object;
-                
+
                 this.service.propose_induct_member({
                     session_id : Game.GetSession(''),
                     building_id : this.building.id,
@@ -908,7 +910,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         MemberNewLeader : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_elect_new_leader({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -931,7 +933,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         MiningOnly : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_members_only_mining_rights({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id
@@ -952,7 +954,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         ExcavationOnly : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_members_only_excavation({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id
@@ -973,7 +975,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 		PopulateBodiesForStar : function(e) {
 			var starId   = Lib.getSelectedOptionValue(this.starElement),
 				bodyList = Dom.get(this.bodyElement);
-			
+
 			require('js/actions/menu/loader').show()
 			this.Self.service.get_bodies_for_star_in_jurisdiction({
 				session_id: Game.GetSession(''),
@@ -983,14 +985,14 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 				success: function(o) {
 					require('js/actions/menu/loader').hide();
 					this.Self.rpcSuccess(o);
-					
+
 					if (bodyList) {
 						var bodies = o.result.bodies;
-					
+
 						var opts = [];
 						for (var i = 0; i < bodies.length; i++) {
 							var obj = bodies[i];
-							
+
 							if (this.type) {
 								if (obj.type == this.type) {
 									opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
@@ -1000,7 +1002,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 								opts[opts.length] = '<option value="' + obj.id + '">' + obj.name + '</option>';
 							}
 						}
-					
+
 						bodyList.innerHTML = opts.join('');
 						bodyList.selectedIndex = -1;
 					}
@@ -1011,7 +1013,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         ProposeWrit : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_writ({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -1068,11 +1070,11 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 				alert('Must select a body and chose a new name!');
 				button.disabled = false;
 			}
-		},		
+		},
         RenameStar : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-            
+
             this.service.propose_rename_star({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -1098,7 +1100,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
 				body = Lib.getSelectedOptionValue('proposeRenameUninhabitedName'),
 				newName = Dom.get('proposeRenameUninhabitedNewName').value;
 
-			
+
 			button.disabled = true;
 
 			if (body && newName) {
@@ -1134,7 +1136,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         TransferOwner : function(e) {
             var btn = Event.getTarget(e);
             btn.disabled = true;
-        
+
             this.service.propose_transfer_station_ownership({
                 session_id : Game.GetSession(''),
                 building_id : this.building.id,
@@ -1154,16 +1156,16 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 scope:this
             });
         },
-        
-        
+
+
         LawsPopulate : function(){
             var details = Dom.get("lawsDetails");
-            
+
             if(details) {
                 var laws = this.laws,
                     parentEl = details.parentNode,
                     li = document.createElement("li");
-                    
+
                 //Event.purgeElement(details, true);
                 details = parentEl.removeChild(details);
                 details.innerHTML = "";
@@ -1171,7 +1173,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                 for(var i=0; i<laws.length; i++) {
                     var law = laws[i],
                         nLi = li.cloneNode(false);
-                    
+
                     nLi.Law = law;
                     nLi.innerHTML = ['<div style="margin-bottom:2px;">',
                         '<div class="yui-gb" style="border-bottom:1px solid #52acff;">',
@@ -1181,14 +1183,14 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                         '</div>',
                         '<div class="lawDesc">',this.formatBody(law.description),'</div>',
                         '</div>'].join('');
-                                
+
                     details.appendChild(nLi);
-                    
+
                 }
-                
+
                 //add child back in
                 parentEl.appendChild(details);
-                
+
                 //wait for tab to display first
                 setTimeout(function() {
                     var Ht = Game.GetSize().h - 230;
@@ -1220,40 +1222,40 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     });
                 }
             }
-            
+
         },
-        
+
         PropsPopulate : function() {
             var details = Dom.get("propsDetails");
-            
+
             if(details) {
                 var props = this.props,
                     parentEl = details.parentNode,
                     li = document.createElement("li");
-                    
+
                 //Event.purgeElement(details, true);
                 details = parentEl.removeChild(details);
                 details.innerHTML = "";
-                
+
                 var serverTime = Lib.getTime(Game.ServerData.time);
 
                 for(var i=0; i<props.length; i++) {
                     var prop = props[i],
                         nLi = li.cloneNode(false),
                         sec = (Lib.getTime(prop.date_ends) - serverTime) / 1000;
-                
+
                     nLi.Prop = prop;
                     nLi.innerHTML = this.PropLineDetails(prop, sec);
-                    
+
                     this.addQueue(sec, this.PropQueue, nLi);
-                                
+
                     details.appendChild(nLi);
-                    
+
                 }
-                
+
                 //add child back in
                 parentEl.appendChild(details);
-                
+
                 //wait for tab to display first
                 setTimeout(function() {
                     var Ht = Game.GetSize().h - 230;
@@ -1334,7 +1336,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
                     func.call(this, el.Prop, el);
                 }
             }
-            
+
         },
         PropVoteYes : function(prop, line) {
             this.service.cast_vote({
@@ -1370,7 +1372,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
             this.Line.Prop = newProp;
             this.Line.innerHTML = this.Self.PropLineDetails(newProp, 0);
         },
-        
+
         formatBody : function(body) {
             body = body.replace(/&/g,'&amp;');
             body = body.replace(/</g,'&lt;');
@@ -1419,10 +1421,10 @@ if (typeof YAHOO.lacuna.modules.Parliament == "undefined" || !YAHOO.lacuna.modul
         }
 
     });
-    
+
     Lacuna.modules.Parliament = Parliament;
 
 })();
-YAHOO.register("Parliament", YAHOO.lacuna.modules.Parliament, {version: "1", build: "0"}); 
+YAHOO.register("Parliament", YAHOO.lacuna.modules.Parliament, {version: "1", build: "0"});
 
 }

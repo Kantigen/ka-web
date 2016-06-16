@@ -8,6 +8,8 @@ var WindowActions    = require('js/actions/window');
 
 var InviteWindow     = require('js/components/window/invite');
 
+var constants        = require('js/constants');
+
 var GetEssentiaTab = React.createClass({
 
     propTypes : {
@@ -15,7 +17,7 @@ var GetEssentiaTab = React.createClass({
     },
 
     purchase : function() {
-        var url = YAHOO.lacuna.Game.RPCBase + 'pay?session_id=' + this.props.session;
+        var url = constants.RPC_BASE + 'pay?session_id=' + this.props.session;
         window.open(url, 'essentiaPayment', 'status=0,toolbar=0,location=0,menubar=0,resizable=1,scrollbars=1,height=550,width=600,directories=0');
     },
 

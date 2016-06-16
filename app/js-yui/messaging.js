@@ -2,6 +2,8 @@
 
 var MailWindowActions = require('js/actions/windows/mail');
 
+var constants = require('js/constants');
+
 var _ = require('lodash');
 
 YAHOO.namespace("lacuna");
@@ -239,7 +241,7 @@ if (typeof YAHOO.lacuna.Messaging == "undefined" || !YAHOO.lacuna.Messaging) {
 
         }),
         _createToSelect : function() {
-            var dataSource = new Util.XHRDataSource("/empire");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;

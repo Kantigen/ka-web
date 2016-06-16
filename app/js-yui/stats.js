@@ -4,6 +4,8 @@ var StatsWindowActions = require('js/actions/windows/stats');
 
 var _ = require('lodash');
 
+var constants = require('js/constants');
+
 YAHOO.namespace("lacuna");
 
 if (typeof YAHOO.lacuna.Stats == "undefined" || !YAHOO.lacuna.Stats) {
@@ -473,7 +475,7 @@ EmpireStats : function(){
                       {key:"dirtiest", label:"Dirtiest", formatter:"number", sortable:true}
                       ];
 
-                      this.EmpireData = new Util.XHRDataSource("/stats");
+                      this.EmpireData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                       this.EmpireData.connMethodPost = "POST";
                       this.EmpireData.maxCacheEntries = 2;
                       this.EmpireData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -652,7 +654,7 @@ initialRequest: Lang.JSON.stringify({
             }
         },
         EmpireFindCreate : function() {
-            var dataSource = new Util.XHRDataSource("/stats");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -718,7 +720,7 @@ initialRequest: Lang.JSON.stringify({
                     {key:"dirtiest", label:"Dirtiest", formatter:"number", sortable:true}
                 ];
 
-                this.AllianceData = new Util.XHRDataSource("/stats");
+                this.AllianceData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 this.AllianceData.connMethodPost = "POST";
                 this.AllianceData.maxCacheEntries = 2;
                 this.AllianceData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -893,7 +895,7 @@ initialRequest: Lang.JSON.stringify({
             }
         },
         AllianceFindCreate : function() {
-            var dataSource = new Util.XHRDataSource("/stats");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -951,7 +953,7 @@ initialRequest: Lang.JSON.stringify({
                     {key:"highest_building_level", label:"High Bld Lvl"}
                 ];
 
-                this.ColonyData = new Util.XHRDataSource("/stats");
+                this.ColonyData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 this.ColonyData.connMethodPost = "POST";
                 this.ColonyData.maxCacheEntries = 2;
                 this.ColonyData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1078,7 +1080,7 @@ initialRequest: Lang.JSON.stringify({
                     {key:"dirtiest", label:"Dirtiest", sortable:true}
                 ];
 
-                this.SpyData = new Util.XHRDataSource("/stats");
+                this.SpyData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 this.SpyData.connMethodPost = "POST";
                 this.SpyData.maxCacheEntries = 2;
                 this.SpyData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1201,7 +1203,7 @@ initialRequest: Lang.JSON.stringify({
                     }}
                 ];
 
-                this.WeeklyMedalData = new Util.XHRDataSource("/stats");
+                this.WeeklyMedalData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 this.WeeklyMedalData.connMethodPost = "POST";
                 this.WeeklyMedalData.maxCacheEntries = 2;
                 this.WeeklyMedalData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;

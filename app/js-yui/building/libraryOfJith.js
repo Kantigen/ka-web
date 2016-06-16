@@ -1,7 +1,9 @@
 YAHOO.namespace("lacuna.buildings");
 
+var constants = require('js/constants');
+
 if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.buildings.LibraryOfJith) {
-    
+
 (function(){
     var Lang = YAHOO.lang,
         Util = YAHOO.util,
@@ -15,13 +17,13 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
 
     var LibraryOfJith = function(result){
         LibraryOfJith.superclass.constructor.call(this, result);
-        
+
         this.service = Game.Services.Buildings.LibraryOfJith;
         this.maps = {};
-        
+
         this.subscribe("onLoad", this.createFind, this, true);
     };
-    
+
     Lang.extend(LibraryOfJith, Lacuna.buildings.Building, {
         getChildTabs : function() {
             return [this._getTab()];
@@ -34,14 +36,14 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
                     '    </ul>',
                     '</div>'
                 ].join('')});
-                    
+
             return this.libraryTab;
         },
-        
+
         createFind : function() {
             this.species = Dom.get("lojDetails");
 
-            var dataSource = new Util.XHRDataSource("/empire");
+            var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
             dataSource.connMethodPost = "POST";
             dataSource.maxCacheEntries = 2;
             dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -49,7 +51,7 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
                 resultsList : "result.empires",
                 fields : ["name","id"]
             };
-            
+
             var oTextboxList = new YAHOO.lacuna.TextboxList("lojFindEmpire", dataSource, { //config options
                 maxResultsDisplayed: 25,
                 minQueryLength:3,
@@ -57,7 +59,7 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
                 forceSelection:false,
                 useIndicator:true
             });
-            oTextboxList.generateRequest = function(sQuery){                
+            oTextboxList.generateRequest = function(sQuery){
                 var s = Lang.JSON.stringify({
                         "id": YAHOO.rpc.Service._requestId++,
                         "method": "find",
@@ -76,7 +78,7 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
             },this);
             this.find = oTextboxList;
         },
-        
+
         getSpecies : function(id) {
             require('js/actions/menu/loader').show();
             this.service.research_species({session_id:Game.GetSession(),building_id:this.building.id, empire_id:id}, {
@@ -134,17 +136,17 @@ if (typeof YAHOO.lacuna.buildings.LibraryOfJith == "undefined" || !YAHOO.lacuna.
             setTimeout(function() {
                 var Ht = Game.GetSize().h - 180;
                 if(Ht > 300) { Ht = 300; }
-                var tC = Dom.get('lojDetails');    
+                var tC = Dom.get('lojDetails');
                 Dom.setStyle(tC,"height",Ht + "px");
                 Dom.setStyle(tC,"overflow-y","auto");
             },10);
         }
-        
+
     });
-    
+
     YAHOO.lacuna.buildings.LibraryOfJith = LibraryOfJith;
 
 })();
-YAHOO.register("libraryofjith", YAHOO.lacuna.buildings.LibraryOfJith, {version: "1", build: "0"}); 
+YAHOO.register("libraryofjith", YAHOO.lacuna.buildings.LibraryOfJith, {version: "1", build: "0"});
 
 }

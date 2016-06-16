@@ -6,6 +6,8 @@ var WindowActions       = require('js/actions/window');
 var StarPanel           = require('js/components/window/starPanel');
 var PlanetPanel         = require('js/components/window/planetPanel');
 
+var constants = require('js/constants');
+
 if (typeof YAHOO.lacuna.MapStar == "undefined" || !YAHOO.lacuna.MapStar) {
 
 (function(){
@@ -480,7 +482,7 @@ if (typeof YAHOO.lacuna.MapStar == "undefined" || !YAHOO.lacuna.MapStar) {
                 context:["footer","bl","tl", ["beforeShow", "windowResize"], [0,-5]]
             });
             this.starFind.createFind = function() {
-                var dataSource = new Util.XHRDataSource("/map");
+                var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
                 dataSource.connMethodPost = "POST";
                 dataSource.maxCacheEntries = 2;
                 dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;

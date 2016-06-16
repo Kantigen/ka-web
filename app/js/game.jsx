@@ -2,22 +2,24 @@
 
 YAHOO.namespace('lacuna');
 
-var React               = require('react');
-var ReactDom            = require('react-dom');
-var _                   = require('lodash');
-var ReactTooltip        = require('react-tooltip');
+var React           = require('react');
+var ReactDom        = require('react-dom');
+var _               = require('lodash');
+var ReactTooltip    = require('react-tooltip');
 
-var KeyboardActions     = require('js/actions/keyboard');
-var MenuActions         = require('js/actions/menu');
-var SessionActions      = require('js/actions/session');
-var TickerActions       = require('js/actions/ticker');
-var UserActions         = require('js/actions/user');
-var WindowActions       = require('js/actions/window');
+var KeyboardActions = require('js/actions/keyboard');
+var MenuActions     = require('js/actions/menu');
+var SessionActions  = require('js/actions/session');
+var TickerActions   = require('js/actions/ticker');
+var UserActions     = require('js/actions/user');
+var WindowActions   = require('js/actions/window');
 
-var GameWindow          = require('js/components/gameWindow');
-var Captcha             = require('js/components/window/captcha');
+var GameWindow      = require('js/components/gameWindow');
+var Captcha         = require('js/components/window/captcha');
 
-var BodyRPCStore        = require('js/stores/rpc/body');
+var BodyRPCStore    = require('js/stores/rpc/body');
+
+var constants       = require('js/constants');
 
 if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
@@ -42,7 +44,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
             Start : function(query) {
                 var l = window.location;
-                Game.RPCBase = window.lacuna_server_url;
                 Game.domain = l.hostname || 'lacunaexpanse.com';
 
                 // This is some glue code to make the server, body and empire stores listen for changes.
@@ -291,7 +292,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         if (oSmd.services) {
                             serviceOut[sKey] = new YAHOO.rpc.Service(oSmd, {
                                 success : successFunc
-                            }, Game.RPCBase);
+                            }, constants.RPC_BASE);
                         } else {
                             serviceOut[sKey] = Game.InitServices(oSmd);
                         }
