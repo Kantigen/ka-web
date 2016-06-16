@@ -15,12 +15,13 @@ var AboutTab = React.createClass({
         return (
             <div>
                 <h1>
-                    The Lacuna Expanse
+                    Keno Antigen
                 </h1>
 
                 <p>
-                    Copyright 2010, {(new Date()).getFullYear()} Lacuna Expanse Corp.
+                    Copyright {(new Date()).getFullYear()} Keno Antigen open source contributors. Originally forked from code provided by The Lacuna Expanse Corp copyright 2010.
                 </p>
+
                 <p>
                     Server Version: {this.state.serverRPC.version}.
                 </p>
