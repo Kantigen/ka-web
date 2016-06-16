@@ -246,7 +246,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 // enable esc handler
                 Game.escListener.enable();
 
-                document.title = 'Lacuna Expanse - ' + Game.EmpireData.name;
+                document.title = 'KA - ' + Game.EmpireData.name;
 
                 SessionActions.sessionSet(Game.GetSession(''));
                 UserActions.userSignIn();
@@ -583,7 +583,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 // disable esc handler
                 Game.escListener.disable();
 
-                document.title = 'Lacuna Expanse';
+                document.title = 'Keno Antigen';
                 Game.RemoveCookie('locationId');
                 Game.RemoveCookie('locationView');
 
