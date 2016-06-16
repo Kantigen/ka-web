@@ -40,7 +40,7 @@ EmpireRPCActions.requestEmpireRPCBoost.listen(function(o) {
 EmpireRPCActions.requestEmpireRPCGetInviteFriendUrl.listen(function(o) {
     makeEmpireCall({
         method  : 'get_invite_friend_url',
-        params  : [],
+        params  : {},
         success : 'successEmpireRPCGetInviteFriendUrl',
         error   : 'failureEmpireRPCGetInviteFriendUrl'
     });
@@ -48,8 +48,11 @@ EmpireRPCActions.requestEmpireRPCGetInviteFriendUrl.listen(function(o) {
 
 EmpireRPCActions.requestEmpireRPCInviteFriend.listen(function(o) {
     makeEmpireCall({
-        method  : 'invite_friend',
-        params  : [o.email, o.message],
+        method : 'invite_friend',
+        params : {
+            email          : o.email,
+            custom_message : o.message
+        },
         success : 'successEmpireRPCInviteFriend',
         error   : 'failureEmpireRPCInviteFriend'
     });
