@@ -1,2 +1,2 @@
-docker build -t lacuna/tle-client .
+docker build -t kenoantigen/ka-web .
 
