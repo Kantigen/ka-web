@@ -10,7 +10,7 @@ bower_components/
 # Built JS and CSS files.
 build/
 
-# We ignore index.html, copy from a template
+# index.html is ignored, copy it from a template
 index.html
 
 .publish

@@ -43,7 +43,7 @@
          */
 
         window.lacuna_s3_base_url = '//d16cbq0l6kkf21.cloudfront.net/';
-        window.lacuna_server_url = 'http://prime.lacunaexpanse.com/';
+        window.lacuna_server_url = 'http://kenoantigen.com:5000/';
     </script>
 
     <script
