@@ -10,5 +10,8 @@ bower_components/
 # Built JS and CSS files.
 build/
 
+# We ignore index.html, copy from a template
+index.html
+
 .publish
 dist/
