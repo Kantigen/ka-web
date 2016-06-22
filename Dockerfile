@@ -1,7 +1,7 @@
 FROM node:latest
 
-RUN echo "1.7"
-COPY ${PWD}/package.json /src/package.json
+RUN echo "1.11";
+
 COPY ${PWD}/Gulpfile.js /src/Gulpfile.js
 COPY ${PWD}/bower.json /src/bower.json
 COPY ${PWD}/package.json /src/package.json
@@ -15,4 +15,5 @@ RUN npm install
 RUN bower install --allow-root
 
 RUN mkdir -p /src/lacuna
+RUN mkdir -p /src/build
 
