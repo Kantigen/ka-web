@@ -44,7 +44,7 @@
 
         window.lacuna_s3_base_url = '//d16cbq0l6kkf21.cloudfront.net/';
         window.lacuna_server_url = 'http://kenoantigen.com:5000/';
-        window.ka_ws_server_url = 'http://kenoantigen.com:8090/';
+        window.ka_ws_server_url = 'ws://kenoantigen.com:8090/ws/user';
     </script>
 
     <script
