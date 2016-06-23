@@ -5,6 +5,7 @@ var constants = {
     NEW_SERVER_DATE_FORMAT : 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT : 'DD MM YYYY HH:mm:ss ZZ',
     RPC_BASE               : window.lacuna_server_url,
+    WS_BASE                : window.ka_ws_server_url,
 
     FLEET_TAGS : {
         trade        : 'Trade',

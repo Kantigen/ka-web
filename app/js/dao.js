@@ -19,6 +19,8 @@ require('js/dao/transporter');
 require('js/dao/map');
 require('js/dao/body');
 
+require('js/actions/wsTest');
+
 module.exports.makeServerCall = function(uri, options, actions) {
     var defaults = {
         module  : uri,
