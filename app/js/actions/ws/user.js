@@ -3,7 +3,12 @@
 var Reflux = require('reflux');
 
 var UserWSActions = Reflux.createActions([
-    'requestUserClientCode'
+    'requestUserWSClientCode',
+    'successUserWSClientCode',
+    'failureUserWSClientCode',
+    'requestUserWSRegister',
+    'successUserWSRegister',
+    'failureUserWSRegister'
 ]);
 
 module.exports = UserWSActions;

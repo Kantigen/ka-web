@@ -3,6 +3,8 @@
 var server = require('js/server');
 var _      = require('lodash');
 
+// TODO Can we replace this with a function to recursively require them?
+
 require('js/dao/stats');
 require('js/dao/empire');
 require('js/dao/captcha');
@@ -18,6 +20,7 @@ require('js/dao/trade');
 require('js/dao/transporter');
 require('js/dao/map');
 require('js/dao/body');
+require('js/dao/ws');
 
 require('js/ws');
 
