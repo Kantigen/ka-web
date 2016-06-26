@@ -3,6 +3,7 @@
 var React           = require('react');
 
 var WindowActions   = require('js/actions/window');
+var UserWSActions   = require('js/actions/ws/user');
 
 var LoginWindow = React.createClass({
     statics : {
@@ -11,6 +12,16 @@ var LoginWindow = React.createClass({
             width  : 500,
             height : 200
         }
+    },
+
+    clickLogin : function() {
+        var username = this.refs.username.value;
+        var password = this.refs.password.value;
+
+        UserWSActions.requestUserWSLoginWithPassword({
+            username    : username,
+            password    : password
+        });
     },
 
     closeWindow : function() {
@@ -30,7 +41,7 @@ var LoginWindow = React.createClass({
                 </div>
                 <div
                     className="ui green large labeled icon button"
-                    onClick={this.authorizeAllies}
+                    onClick={this.clickLogin}
                 >
                     Login
                 </div>

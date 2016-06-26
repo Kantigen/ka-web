@@ -39,7 +39,7 @@ ws.onmessage = function(event) {
         return;
     }
 
-    if (json.success > 0) {
+    if (json.status > 0) {
         action = 'failure';
     }
 

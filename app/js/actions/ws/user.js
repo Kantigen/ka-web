@@ -8,7 +8,10 @@ var UserWSActions = Reflux.createActions([
     'failureUserWSClientCode',
     'requestUserWSRegister',
     'successUserWSRegister',
-    'failureUserWSRegister'
+    'failureUserWSRegister',
+    'requestUserWSLoginWithPassword',
+    'successUserWSLoginWithPassword',
+    'failureUserWSLoginWithPassword',
 ]);
 
 module.exports = UserWSActions;
