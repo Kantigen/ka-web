@@ -2945,7 +2945,7 @@ if (typeof YAHOO.lacuna.SMD == "undefined" || !YAHOO.lacuna.SMD) {
                     },
                     "returns":{"type":"object"}
                 },
-                "view_profile" : {
+                "get_own_profile" : {
                     "description": "Provides a list of the editable properties of the current empire's profile. See also the edit_profile and view_public_profile  methods.",
                     "parameters": [
                         {"name":"session_id", "type":"string", "optional":false}
@@ -2972,7 +2972,7 @@ if (typeof YAHOO.lacuna.SMD == "undefined" || !YAHOO.lacuna.SMD) {
                     */
                 },
                 "edit_profile" : {
-                    "description": "Edits properties of an empire. Returns the view_profile method. See also the view_profile and view_public_profile  methods.",
+                    "description": "Edits properties of an empire. Returns the get_own_profile method. See also the get_own_profile and view_public_profile  methods.",
                     "parameters": [
                         {"name":"session_id", "type":"string", "optional":false},
                         {"name":"profile", "type":"object", "optional":false}

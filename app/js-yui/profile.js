@@ -443,9 +443,9 @@ if (typeof YAHOO.lacuna.Profile == "undefined" || !YAHOO.lacuna.Profile) {
             Lacuna.Profile.build();
 
             //this is called out of scope so make sure to pass the correct scope in
-            Game.Services.Empire.view_profile({session_id:Game.GetSession("")},{
+            Game.Services.Empire.get_own_profile({session_id:Game.GetSession("")},{
                 success : function(o){
-                    YAHOO.log(o, "info", "Profile.show.view_profile.success");
+                    YAHOO.log(o, "info", "Profile.show.get_own_profile.success");
                     this.fireEvent('onRpc', o.result);
                     this.populateProfile(o.result);
                 },
