@@ -1,6 +1,6 @@
-# Keno Antigen
+# KA Web
 
-> Web client for the open source game Keno Antigen.
+Web client for the up-and-coming community edition of The Lacuna Expanse, known as "Kenó Antigen".
 
 [![Build Status](https://travis-ci.org/Kantigen/ka-web.svg?branch=master)](https://travis-ci.org/Kantigen/ka-web)
 [![Dependency Status](https://david-dm.org/Kantigen/ka-web.svg)](https://david-dm.org/Kantigen/ka-web)
@@ -18,4 +18,4 @@ If you're interested in hacking on the client, hit up the [developer's documenta
 
 # License
 
-See the [license file](LICENSE).
+See the [LICENSE](LICENSE) file.
