@@ -4,7 +4,6 @@ var React               = require('react');
 var PureRenderMixin     = require('react-addons-pure-render-mixin');
 var Reflux              = require('reflux');
 var _                   = require('lodash');
-var $                   = require('js/shims/jquery');
 
 var classNames          = require('classnames');
 

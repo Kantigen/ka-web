@@ -5,7 +5,6 @@ var Reflux                  = require('reflux');
 
 var vex                     = require('js/vex');
 var util                    = require('js/util');
-var $                       = require('js/shims/jquery');
 
 var LeftSidebarActions      = require('js/actions/menu/leftSidebar');
 var OptionsWindowActions    = require('js/actions/windows/options');

@@ -3,8 +3,6 @@
 var React            = require('react');
 var Reflux           = require('reflux');
 
-var $                = require('js/shims/jquery');
-
 var EmpireRPCActions = require('js/actions/rpc/empire');
 var WindowActions    = require('js/actions/window');
 

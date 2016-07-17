@@ -3,7 +3,7 @@
 // Vex is a library for making pretty alert/prompt/confirm windows.
 // This module is a simple wrapper around said library to simplify the process of using Vex.
 
-var vex = require('vex-js/js/vex.dialog.js');
+var vex = window.vex.dialog;
 
 vex.defaultOptions.className = 'vex-theme-default';
 

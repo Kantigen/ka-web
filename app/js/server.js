@@ -1,6 +1,5 @@
 'use strict';
 
-var $                       = require('js/shims/jquery');
 var _                       = require('lodash');
 var util                    = require('js/util');
 

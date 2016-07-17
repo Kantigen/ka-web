@@ -1,7 +1,6 @@
 'use strict';
 
 var moment    = require('moment');
-var $         = require('js/shims/jquery');
 var _         = require('lodash');
 
 var constants = require('js/constants');

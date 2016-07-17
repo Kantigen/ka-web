@@ -1,7 +1,5 @@
 YAHOO.namespace("lacuna.buildings");
 
-var $ = require('js/shims/jquery');
-
 var MapActions = require('js/actions/menu/map');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');

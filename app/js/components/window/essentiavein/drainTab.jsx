@@ -2,7 +2,6 @@
 
 var React                   = require('react');
 var _                       = require('lodash');
-var $                       = require('js/shims/jquery');
 
 var EssentiaVeinRPCActions  = require('js/actions/rpc/essentiaVein');
 

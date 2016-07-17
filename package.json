@@ -16,14 +16,12 @@
     "url": "https://github.com/Kantigen/ka-web/issues"
   },
   "scripts": {
-    "test": "gulp lint",
-    "postinstall": "bower install"
+    "test": "gulp lint"
   },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
     "classnames": "2.2.5",
     "fingerprintjs2": "1.4.0",
-    "jquery": "3.0.0",
     "lodash": "4.13.1",
     "moment": "2.13.0",
     "react": "0.14.7",
@@ -34,16 +32,13 @@
     "react-tabs": "0.5.3",
     "react-tooltip": "1.0.4",
     "reflux": "0.4.1",
-    "validator": "5.4.0",
-    "vex-js": "2.3.4"
+    "validator": "5.4.0"
   },
   "devDependencies": {
     "babel": "6.5.2",
     "babel-preset-react": "6.5.0",
     "babelify": "7.3.0",
-    "bower": "1.7.9",
     "browserify": "13.0.1",
-    "debowerify": "1.5.0",
     "del": "2.2.0",
     "eslint": "2.12.0",
     "eslint-config-standard": "5.3.1",

@@ -4,9 +4,6 @@
 # Modules downloaded by npm.
 node_modules/
 
-# Modules downloaded by Bower
-bower_components/
-
 # Built JS and CSS files.
 build/
 

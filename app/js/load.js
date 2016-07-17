@@ -19,7 +19,7 @@
     }
 
     var loader = new YAHOO.util.YUILoader({
-        base        : '//ajax.googleapis.com/ajax/libs/yui/2.8.2r1/build/',
+        base        : '/app/vendor-js/yui2/build/',
         allowRollup : true,
         combine     : false
     });

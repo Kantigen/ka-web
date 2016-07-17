@@ -22,6 +22,9 @@
     },
 
     "globals": {
-        "YAHOO": true
+        "YAHOO": true,
+        "jQuery": true,
+        "$": true,
+        "vex": true
     }
 }

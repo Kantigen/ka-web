@@ -2,7 +2,6 @@
 
 var browserify = require('browserify');
 var babelify   = require('babelify');
-var debowerify = require('debowerify');
 var watchify   = require('watchify');
 
 var gutil      = require('gulp-util');
@@ -48,9 +47,6 @@ module.exports = function(options) {
             '.jsx'
         ]
     }));
-
-    // This brings Bower-installed libraries into the bundle.
-    b.transform(debowerify);
 
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {

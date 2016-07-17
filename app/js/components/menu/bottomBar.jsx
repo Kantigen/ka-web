@@ -4,7 +4,6 @@ var React                = require('react');
 var ReactDOM             = require('react-dom');
 var ReactDOMServer       = require('react-dom/server');
 var Reflux               = require('reflux');
-var $                    = require('js/shims/jquery');
 
 var BodyRPCStore         = require('js/stores/rpc/body');
 var ServerRPCStore       = require('js/stores/rpc/server');

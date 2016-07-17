@@ -2,7 +2,6 @@
 
 var React                          = require('react');
 var Reflux                         = require('reflux');
-var $                              = require('js/shims/jquery');
 
 var constants                      = require('js/constants');
 

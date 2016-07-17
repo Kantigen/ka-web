@@ -1,7 +1,6 @@
 'use strict';
 
 var Reflux                  = require('reflux');
-var $                       = require('js/shims/jquery');
 var util                    = require('js/util');
 
 var ShipyardRPCActions      = require('js/actions/rpc/shipyard');
