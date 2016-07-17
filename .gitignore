@@ -6,6 +6,7 @@ node_modules/
 
 # Built JS and CSS files.
 build/
+!app/vendor-js/yui2/build
 
 # index.html is ignored, copy it from a template
 index.html
