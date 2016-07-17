@@ -12,6 +12,3 @@ build/
 
 # index.html is ignored, copy it from a template
 index.html
-
-.publish
-dist/
