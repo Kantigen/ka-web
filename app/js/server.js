@@ -1,17 +1,19 @@
 'use strict';
 
-var _                       = require('lodash');
-var util                    = require('js/util');
+var _                   = require('lodash');
+var util                = require('js/util');
 
-var LoaderMenuActions       = require('js/actions/menu/loader');
-var SessionStore            = require('js/stores/session');
-var ServerStatusActions     = require('js/actions/serverStatus');
-var BodyStatusActions       = require('js/actions/bodyStatus');
-var EmpireStatusActions     = require('js/actions/empireStatus');
+var LoaderMenuActions   = require('js/actions/menu/loader');
+var SessionStore        = require('js/stores/session');
+var ServerStatusActions = require('js/actions/serverStatus');
+var BodyStatusActions   = require('js/actions/bodyStatus');
+var EmpireStatusActions = require('js/actions/empireStatus');
 
-var WindowActions           = require('js/actions/window');
+var WindowActions       = require('js/actions/window');
 
-var Captcha                 = require('js/components/window/captcha');
+var Captcha             = require('js/components/window/captcha');
+
+var constants           = require('js/constants');
 
 var defaults = {
     module     : '',
@@ -68,11 +70,7 @@ var createData = function(options) {
 };
 
 var createUrl = function(options) {
-    if (window.lacuna_server_url) {
-        return window.lacuna_server_url + options.module;
-    } else {
-        return window.location.protocol + '//' + window.location.host + '/' + options.module;
-    }
+    return constants.RPC_BASE + options.module;
 };
 
 var handleSuccess = function(options, result) {

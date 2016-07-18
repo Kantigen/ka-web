@@ -4,8 +4,18 @@ var constants = {
     ASSETS_URL             : window.lacuna_s3_base_url + 'assets/',
     NEW_SERVER_DATE_FORMAT : 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT : 'DD MM YYYY HH:mm:ss ZZ',
-    RPC_BASE               : window.lacuna_server_url,
-    WS_BASE                : window.ka_ws_server_url,
+    RPC_BASE               : (function() {
+        var url = window.lacuna_server_url;
+        var lastChar = url.slice(-1);
+
+        // Ensure the URL has a trailing '/' character.
+        if (lastChar === '/') {
+            return url;
+        } else {
+            return url + '/';
+        }
+    })(),
+    WS_BASE : window.ka_ws_server_url,
 
     FLEET_TAGS : {
         trade        : 'Trade',
