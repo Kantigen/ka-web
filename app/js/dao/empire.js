@@ -58,33 +58,6 @@ EmpireRPCActions.requestEmpireRPCInviteFriend.listen(function(o) {
     });
 });
 
-EmpireRPCActions.requestEmpireRPCViewAuthorizedSitters.listen(function(o) {
-    makeEmpireCall({
-        method  : 'view_authorized_sitters',
-        params  : [],
-        success : 'successEmpireRPCViewAuthorizedSitters',
-        error   : 'failureEmpireRPCViewAuthorizedSitters'
-    });
-});
-
-EmpireRPCActions.requestEmpireRPCAuthorizeSitters.listen(function(o) {
-    makeEmpireCall({
-        method  : 'authorize_sitters',
-        params  : [o],
-        success : 'successEmpireRPCAuthorizeSitters',
-        error   : 'failureEmpireRPCAuthorizeSitters'
-    });
-});
-
-EmpireRPCActions.requestEmpireRPCDeauthorizeSitters.listen(function(o) {
-    makeEmpireCall({
-        method  : 'deauthorize_sitters',
-        params  : [o],
-        success : 'successEmpireRPCDeauthorizeSitters',
-        error   : 'failureEmpireRPCDeauthorizeSitters'
-    });
-});
-
 EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode.listen(function(o) {
     makeEmpireCall({
         method  : 'redeem_essentia_code',

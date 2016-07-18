@@ -13,7 +13,6 @@ var EmpireRPCActions        = require('js/actions/rpc/empire');
 
 var AboutWindow             = require('js/components/window/about');
 var InviteWindow            = require('js/components/window/invite');
-var SitterManagerWindow     = require('js/components/window/sitterManager');
 
 var ServerClock             = require('js/components/window/serverClock');
 
@@ -202,14 +201,6 @@ var LeftSidebar = React.createClass({
                     About
                 </a>
 
-                <a className="item" onClick={function() {
-                    LeftSidebarActions.hide();
-                    WindowActions.windowAdd(SitterManagerWindow, 'sitter');
-                }}
-                >
-                    <i className="sitemap icon"></i>
-                    Manage Sitters
-                </a>
                 <a className="item" onClick={function() {
                     LeftSidebarActions.hide();
                     OptionsWindowActions.optionsWindowShow();

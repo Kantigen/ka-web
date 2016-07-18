@@ -23,18 +23,6 @@ var EmpireRPCActions = Reflux.createActions([
     'successEmpireRPCGetBoosts',
     'failureEmpireRPCGetBoosts',
 
-    'requestEmpireRPCViewAuthorizedSitters',
-    'successEmpireRPCViewAuthorizedSitters',
-    'failureEmpireRPCViewAuthorizedSitters',
-
-    'requestEmpireRPCAuthorizeSitters',
-    'successEmpireRPCAuthorizeSitters',
-    'failureEmpireRPCAuthorizeSitters',
-
-    'requestEmpireRPCDeauthorizeSitters',
-    'successEmpireRPCDeauthorizeSitters',
-    'failureEmpireRPCDeauthorizeSitters',
-
     'requestEmpireRPCEnableSelfDestruct',
     'successEmpireRPCEnableSelfDestruct',
     'failureEmpireRPCEnableSelfDestruct',
