@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <title>Keno Antigen</title>
 
@@ -25,28 +26,16 @@
     <script id="noJsScript" type="text/javascript">
         (function() {
             // Remove no script notice.
-            var nojs = document.getElementById("nojavascript");
+            var nojs = document.getElementById('nojavascript');
 
             if (nojs) {
                 nojs.parentNode.removeChild(nojs);
             }
 
             // Remove this script node as well.
-            var njs = document.getElementById("noJsScript");
+            var njs = document.getElementById('noJsScript');
             njs.parentNode.removeChild(njs);
         })();
-    </script>
-
-    <script type="text/javascript">
-        /*
-         * ===========================
-         * == CONFIGURATION OPTIONS ==
-         * ===========================
-         */
-
-        window.lacuna_s3_base_url = '//d16cbq0l6kkf21.cloudfront.net/';
-        window.lacuna_server_url = 'http://192.168.99.100:5000';
-        window.ka_ws_server_url = 'ws://192.168.99.100:8090/ws/user';
     </script>
 
     <script type="text/javascript" src="app/vendor-js/jquery.js"></script>
@@ -54,8 +43,7 @@
     <script type="text/javascript" src="app/vendor-js/vex.js"></script>
     <script type="text/javascript" src="app/vendor-js/vex.dialog.js"></script>
 
-    <script type="text/javascript" src="app/vendor-js/yui2/build/yuiloader/yuiloader.js">
-    </script>
+    <script type="text/javascript" src="app/vendor-js/yui2/build/yuiloader/yuiloader.js"></script>
 
     <script type="text/javascript" src="build/bundle.js"></script>
 

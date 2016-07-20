@@ -29,6 +29,7 @@ module.exports = function(options) {
         paths : [
             path.join(options.rootDir, 'app')
         ],
+        ignoreMissing : true,
 
         // watchify options
         cache        : {},

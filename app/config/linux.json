@@ -1,0 +1,5 @@
+{
+    "assets_url": "//d16cbq0l6kkf21.cloudfront.net/assets/",
+    "server_url": "http://localhost:5000",
+    "ws_server_url": "ws://localhost:8090/ws/user"
+}

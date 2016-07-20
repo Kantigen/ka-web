@@ -8,5 +8,4 @@ node_modules/
 build/
 !app/vendor-js/yui2/build
 
-# index.html is ignored, copy it from a template
-index.html
+app/config/user.json

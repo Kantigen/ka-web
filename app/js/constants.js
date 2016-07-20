@@ -1,11 +1,13 @@
 'use strict';
 
+var config = require('js/config');
+
 var constants = {
-    ASSETS_URL             : window.lacuna_s3_base_url + 'assets/',
+    ASSETS_URL             : config.get('assets_url'),
     NEW_SERVER_DATE_FORMAT : 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT : 'DD MM YYYY HH:mm:ss ZZ',
     RPC_BASE               : (function() {
-        var url = window.lacuna_server_url;
+        var url = config.get('server_url');
         var lastChar = url.slice(-1);
 
         // Ensure the URL has a trailing '/' character.
@@ -15,7 +17,7 @@ var constants = {
             return url + '/';
         }
     })(),
-    WS_BASE : window.ka_ws_server_url,
+    WS_BASE : config.get('ws_server_url'),
 
     FLEET_TAGS : {
         trade        : 'Trade',
