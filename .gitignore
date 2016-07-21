@@ -9,3 +9,4 @@ build/
 !app/vendor-js/yui2/build
 
 app/config/user.json
+app/assets
