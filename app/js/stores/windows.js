@@ -5,12 +5,35 @@ var _                   = require('lodash');
 
 var StatefulMixinStore  = require('js/stores/mixins/stateful');
 
+var KeyboardActions     = require('js/actions/keyboard');
 var WindowActions       = require('js/actions/window');
+
+var findWindowByType = function(windows, type) {
+    var index = _.findIndex(windows, function(o) {
+        if (o) {
+            return o.type === type;
+        }
+
+        return false;
+    });
+
+    if (index > -1) {
+        var obj = windows[index];
+
+        // Add the index we found this at for convenience.
+        obj.index = index;
+
+        return obj;
+    } else {
+        return undefined;
+    }
+};
 
 var WindowsStore = Reflux.createStore({
 
     listenables : [
-        WindowActions
+        WindowActions,
+        KeyboardActions
     ],
 
     mixins : [
@@ -20,76 +43,93 @@ var WindowsStore = Reflux.createStore({
     getDefaultData : function() {
         return {
             windows : [],
-            index   : 0,
             zIndex  : 2000000
         };
     },
 
     // We only allow one window of each type (e.g. 'about' or 'building')
-    onWindowAdd : function(window, type, options) {
+    onWindowAdd : function(newWindow, type, options) {
         var state = _.cloneDeep(this.state);
-        // First see if there is an existing window type
-        var index = _.findIndex(state.windows, function(o) {
-            if (o) {
-                return o.type === type;
-            }
-            return false;
-        });
-        // If not found, then create another row
-        if (index < 0) {
-            index = state.index;
-            state.index = state.index + 1;
-        }
-        // add the window to the options
-        options = options || {};
-        options.window = window;
 
-        // Otherwise re-use the existing window type
-        // (e.g. 'building')
+        // By default, we create a new window.
+        var index = state.windows.length;
+
+        // However, if there is an existing window type, we replace it because we only want
+        // one of each type of window on screen at a given time.
+        var existingWindow = findWindowByType(state.windows, type);
+        if (existingWindow) {
+            index = existingWindow.index;
+        }
+
         state.windows[index] = {
-            window  : window,
+            window  : newWindow,
             type    : type,
             zIndex  : state.zIndex,
-            options : options
+            options : options || {}
         };
-        state.zIndex = state.zIndex + 1;
+
+        state.zIndex += 1;
+
         this.emit(state);
     },
 
     // Close window by type, e.g. 'captcha'
     //
     onWindowCloseByType : function(type) {
-        console.log('onWindowCloseByType');
         var state = _.cloneDeep(this.state);
-        var index = _.findIndex(state.windows, function(o) {
-            if (o) {
-                return o.type === type;
-            }
-            return false;
-        });
-        if (index >= 0) {
-            // This will close the window
-            state.windows[index] = null;
+
+        var existingWindow = findWindowByType(state.windows, type);
+
+        if (existingWindow) {
+            state.windows.splice(existingWindow.index, 1);
         }
+
         this.emit(state);
     },
 
     // Close window based on the window itself
     //
-    onWindowClose : function(window) {
-        console.log('onWindowClose');
+    onWindowClose : function(theWindow) {
+        WindowActions.windowCloseByType(theWindow.type);
+    },
+
+    // Close all windows (i.e., where we log out).
+    //
+    onWindowCloseAll : function() {
+        this.emit(this.getDefaultData());
+    },
+
+    // Close the window on top when user hits the escape key.
+    //
+    onEscKey : function() {
         var state = _.cloneDeep(this.state);
-        var index = _.findIndex(state.windows, function(o) {
-            if (o) {
-                return o.window === window;
-            }
-            return false;
-        });
-        if (index >= 0) {
-            // This will close the window
-            state.windows[index] = null;
+        var toClose = _.chain(state.windows)
+            .sortBy('zIndex')
+            .reverse()
+            .first()
+            .value();
+
+        if (toClose) {
+            WindowActions.windowCloseByType(toClose.type);
         }
-        this.emit(state);
+    },
+
+    // Bring a window to the top of the stack by type.
+    //
+    onWindowBringToTop : function(type) {
+        var state = _.cloneDeep(this.state);
+        var toBringToTop = findWindowByType(state.windows, type);
+
+        if (toBringToTop) {
+            if (state.windows[toBringToTop.index].zIndex === (state.zIndex - 1)) {
+                // We're already the top window and there's therfore nothing to do...
+            } else {
+                state.windows[toBringToTop.index].zIndex = state.zIndex;
+                state.zIndex += 1;
+            }
+
+            this.emit(state);
+        }
     }
 
 });

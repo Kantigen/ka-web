@@ -17,8 +17,16 @@ var Panel = React.createClass({
         window  : React.PropTypes.object
     },
 
+    onBringToTop : function() {
+        WindowActions.windowBringToTop(this.props.type);
+    },
+
     closeWindow : function() {
         WindowActions.windowCloseByType(this.props.type);
+    },
+
+    handleCentering : function() {
+        return ($(window.document).width() - this.props.window.options.width) / 2;
     },
 
     render : function() {
@@ -29,11 +37,15 @@ var Panel = React.createClass({
 
         return (
             <Draggable handle=".drag-handle" zIndex={this.props.zIndex}>
-                <div ref="container" style={{
-                    position : 'absolute',
-                    zIndex   : this.props.zIndex,
-                    left     : ($(window.document).width() - this.props.window.options.width) / 2
-                }}>
+                <div
+                    ref="container"
+                    style={{
+                        position : 'absolute',
+                        zIndex   : this.props.zIndex,
+                        left     : this.handleCentering()
+                    }}
+                    onClick={this.onBringToTop}
+                >
                     <PanelHeader
                         title={this.props.window.options.title}
                         panelWidth={this.props.window.options.width}

@@ -103,6 +103,7 @@ var WindowManagerStore = Reflux.createStore({
     },
 
     onEscKey : function() {
+        console.log('Hello!');
         this.onHideTopWindow();
     }
 });
