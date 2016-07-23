@@ -14,7 +14,7 @@ var Panel = React.createClass({
         type    : React.PropTypes.string,
         zIndex  : React.PropTypes.number,
         options : React.PropTypes.object,
-        window  : React.PropTypes.object
+        window  : React.PropTypes.func
     },
 
     onBringToTop : function() {

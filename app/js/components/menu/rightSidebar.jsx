@@ -18,8 +18,11 @@ var RightSidebarStore   = require('js/stores/menu/rightSidebar');
 var PlanetListItem = React.createClass({
 
     propTypes : {
-        name        : React.PropTypes.string.isRequired,
-        id          : React.PropTypes.number.isRequired,
+        name : React.PropTypes.string.isRequired,
+        id   : React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.string
+        ]).isRequired,
         currentBody : React.PropTypes.number.isRequired,
         zone        : React.PropTypes.string.isRequired
     },
