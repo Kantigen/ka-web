@@ -4,8 +4,8 @@ var React                   = require('react');
 var Reflux                  = require('reflux');
 
 var CaptchaWindowActions    = require('js/actions/windows/captcha');
-var WindowManagerActions    = require('js/actions/windowManager');
 var CaptchaRPCActions       = require('js/actions/rpc/captcha');
+var WindowActions           = require('js/actions/window');
 
 var CaptchaRPCStore         = require('js/stores/rpc/captcha');
 
@@ -73,7 +73,7 @@ var Captcha = React.createClass({
 
     onClickClose : function() {
         this.clearSolutionField();
-        WindowManagerActions.hideWindow(this.props.options.id);
+        WindowActions.windowCloseByType('captcha');
     },
 
     clearSolutionField : function() {
