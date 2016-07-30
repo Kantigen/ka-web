@@ -30,13 +30,17 @@ var config = {
         var plat = window.navigator.platform.toLowerCase();
 
         if (plat.indexOf('mac') > -1) {
+            console.log('Loading mac config');
             this.loadedConfig = _.merge({}, macConfig, userConfig);
             this.hasLoaded = true;
         } else if (plat.indexOf('linux') > -1) {
+            console.log('Loading linux config');
             this.loadedConfig = _.merge({}, linuxConfig, userConfig);
             this.hasLoaded = true;
         } else {
-            console.error('Platform not supported. See config.js');
+            console.log('Platform ("' + plat + '") not supported - loading user config anyway');
+            this.loadedConfig = _.merge({}, userConfig);
+            this.hasLoaded = true;
         }
     }
 };
