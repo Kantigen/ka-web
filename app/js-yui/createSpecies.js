@@ -112,8 +112,8 @@ if (typeof YAHOO.lacuna.CreateSpecies == "undefined" || !YAHOO.lacuna.CreateSpec
             Dom.replaceClass(this.elMessage, Lib.Styles.HIDDEN, Lib.Styles.ALERT);
             this.elMessage.innerHTML = str;
         },
-        show : function(empire) {
-            this.empireId = empire.empire_id;
+        show : function(empire_id) {
+            this.empireId = empire_id;
             Game.OverlayManager.hideAll();
             this.Dialog.show();
             this.Dialog.center();
