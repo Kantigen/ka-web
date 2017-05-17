@@ -44,7 +44,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
             Start : function(query) {
                 var l = window.location;
-                Game.domain = l.hostname || 'lacunaexpanse.com';
+                Game.domain = l.hostname || 'kenoantigen.com';
 
                 // This is some glue code to make the server, body and empire stores listen for changes.
                 // Normally, React Components should do this automatically, but since we need these
@@ -166,7 +166,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     Game.QuickDialog({
                         width : '500px',
                         text  : [
-                            '<p>An internal error has occurred.  Please report this on <a target="_blank" href="http://community.lacunaexpanse.com/forums/support">the support forums</a>, and include the data below.</p>',
+                            '<p>An internal error has occurred.  Please report this on <a target="_blank" href="https://github.com/kantigen/ka-server/issues">the support forums</a>, and include the data below.</p>',
                             '<textarea style="width: 100%; height: 300px;" id="internalErrorMessageText" readonly="readonly" onclick="this.select()"></textarea>'
                         ].join(''),
                         buttons : [{

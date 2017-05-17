@@ -32,7 +32,8 @@ var ProductionTab = React.createClass({
             'Are you sure you want to demolish your ' + name + '?',
             _.bind(function() {
                 GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(
-                    this.props.building.url, this.props.building.id);
+                                                                            this.props.building.url,
+                                                                            { building_id: this.props.building.id });
             }, this)
         );
     },
