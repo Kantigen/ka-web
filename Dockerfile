@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:5.12.0
 
 RUN echo "1.12";
 
