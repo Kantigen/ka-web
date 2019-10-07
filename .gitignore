@@ -10,3 +10,5 @@ build/
 
 app/config/user.json
 app/assets
+
+package-lock.json
