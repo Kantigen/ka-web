@@ -1,61 +1,45 @@
 'use strict';
 
-var gulp        = require('gulp');
-var gulpTasks   = require('./gulp-tasks');
-var runSequence = require('run-sequence');
+const { series } = require('gulp');
+const gulpTasks   = require('./gulp-tasks');
 
-gulp.task('browserify', function() {
+function browserify() {
     return gulpTasks.browserify({
         rootDir : __dirname,
         watch   : true
     });
-});
+}
 
-gulp.task('browserify-no-watch', function() {
+function browserifyWithoutWatch() {
     return gulpTasks.browserify({
         rootDir : __dirname,
         watch   : false
     });
-});
+}
 
-gulp.task('build', function(done) {
-    runSequence(
-        'lint',
-        'browserify-no-watch',
-        'cssify',
-    done);
-});
+function clean() {
+    return gulpTasks.clean();
+}
 
-gulp.task('build-no-lint', function(done) {
-    runSequence(
-        'browserify-no-watch',
-        'cssify',
-    done);
-});
+function cssify() {
+    return gulpTasks.cssify();
+}
 
-gulp.task('clean', gulpTasks.clean);
+function lint() {
+    return gulpTasks.lint();
+}
 
-gulp.task('cssify', gulpTasks.cssify);
+function server(done) {
+    return gulpTasks.server(done);
+}
 
-gulp.task('default', [
-    'build'
-]);
-
-gulp.task('dev', function(done) {
-    runSequence(
-        'cssify',
-        'browserify',
-    done);
-});
-
-gulp.task('dev-with-server', function(done) {
-    runSequence(
-        'cssify',
-        'browserify',
-        'server',
-    done);
-});
-
-gulp.task('lint', gulpTasks.lint);
-
-gulp.task('server', gulpTasks.server);
+module.exports.server = server;
+module.exports.lint = lint;
+module.exports.devWithServer = series(browserify, cssify, server);
+module.exports.dev = series(browserify, cssify);
+module.exports.cssify = cssify;
+module.exports.clean = clean;
+module.exports.build = series(browserifyWithoutWatch, cssify);
+module.exports.browserify = browserify;
+module.exports.browserifyWithoutWatch = browserifyWithoutWatch;
+module.exports.default = module.exports.build;
