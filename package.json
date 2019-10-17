@@ -8,8 +8,9 @@
     "type": "git",
     "url": "https://github.com/Kantigen/ka-web"
   },
-  "authors": [
-    "Nathan McCallum <me@1vasari.xyz> (http://1vasari.xyz)",
+  "author": "Lacuna Expanse Corp, Keno Antigen Community & Open Source Contributors",
+  "contributors": [
+    "Nathan McCallum <nathan@1vas.me>",
     "Darin McBride <dmcbride@cpan.org> (https://github.com/dmcbride)"
   ],
   "bugs": {
