@@ -1,26 +1,10 @@
 {
-    "extends": [
-        "eslint-config-standard",
-        "eslint-config-standard-react"
-    ],
-
+    "parser": "babel-eslint",
+    "extends": ["prettier"],
+    "plugins": ["prettier"],
     "rules": {
-        "semi": [2, "always"],
-        "indent": [2, 4, {
-            "SwitchCase": 1
-        }],
-        "react/jsx-indent": [2, 4],
-        "react/jsx-indent-props": [2, 4],
-        "key-spacing": [2, {
-            "beforeColon": true,
-            "align": "colon"
-        }],
-        "jsx-quotes": [2, "prefer-double"],
-        "no-multi-spaces": [0],
-        "space-before-function-paren": [2, "never"],
-        "padded-blocks": [0]
+        "prettier/prettier": "error"
     },
-
     "globals": {
         "YAHOO": true,
         "jQuery": true,

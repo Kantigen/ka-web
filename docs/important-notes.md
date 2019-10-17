@@ -2,12 +2,12 @@
 
 ## Code Style
 
-- Follow ESLint.
+- Follow the (Prettier)[https://prettier.io/] setup.
 - camelCase for file names. (`longFileName.js`)
 - No `index.js` or `index.jsx` files.
 - As always: **when in Rome, do as the Romans do.**
 
-You can run `gulp lint` to make sure everything passes. However, it would be much more effective to get ESLint integrated with your editor so that you get live feedback. [Here are some options](http://eslint.org/docs/user-guide/integrations).
+You can run `npm run lint` to make sure everything passes. However, it would be much more effective to get ESLint/Prettier integrated with your editor so that you get live feedback.
 
 ## Removal of YUI
 
