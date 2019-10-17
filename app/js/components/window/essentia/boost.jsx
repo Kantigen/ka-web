@@ -1,41 +1,40 @@
 'use strict';
 
-var vex                     = require('js/vex');
+var vex = require('js/vex');
 
-var React                   = require('react');
-var classnames              = require('classnames');
-var validator               = require('validator');
+var React = require('react');
+var classnames = require('classnames');
+var validator = require('validator');
 
-var EmpireRPCActions        = require('js/actions/rpc/empire');
+var EmpireRPCActions = require('js/actions/rpc/empire');
 
-var BoostCountdown          = require('js/components/window/essentia/boostCountdown');
+var BoostCountdown = require('js/components/window/essentia/boostCountdown');
 
 var Boost = React.createClass({
-
-    propTypes : {
-        type        : React.PropTypes.string.isRequired,
-        iconName    : React.PropTypes.string.isRequired,
-        description : React.PropTypes.string.isRequired,
-        essentia    : React.PropTypes.number.isRequired,
-        boosts      : React.PropTypes.object.isRequired
+    propTypes: {
+        type: React.PropTypes.string.isRequired,
+        iconName: React.PropTypes.string.isRequired,
+        description: React.PropTypes.string.isRequired,
+        essentia: React.PropTypes.number.isRequired,
+        boosts: React.PropTypes.object.isRequired,
     },
 
-    getDefaultProps : function() {
+    getDefaultProps: function() {
         return {
-            type        : '',
-            iconName    : '',
-            description : ''
+            type: '',
+            iconName: '',
+            description: '',
         };
     },
 
-    handleBoost : function() {
+    handleBoost: function() {
         var type = this.props.type;
         var weeks = this.refs.weeks.value;
 
         if (
             !validator.isInt(weeks, {
-                min : 1,
-                max : 100 // The server has no max but this seems like a reasonable limit, to me.
+                min: 1,
+                max: 100, // The server has no max but this seems like a reasonable limit, to me.
             })
         ) {
             vex.alert('Number of weeks must be an integer between 1 and 100.');
@@ -44,18 +43,18 @@ var Boost = React.createClass({
             vex.alert('Insufficient Essentia.');
             return;
         }
-        EmpireRPCActions.requestEmpireRPCBoost({ type : type, weeks : weeks });
+        EmpireRPCActions.requestEmpireRPCBoost({ type: type, weeks: weeks });
     },
 
-    renderButton : function() {
+    renderButton: function() {
         var iconClassName = classnames('icon', this.props.iconName);
 
         return (
             <div
-                className="ui orange button"
+                className='ui orange button'
                 onClick={this.handleBoost}
                 data-tip={this.props.description}
-                data-place="top"
+                data-place='top'
             >
                 <i className={iconClassName}></i>
                 Boost
@@ -63,31 +62,31 @@ var Boost = React.createClass({
         );
     },
 
-    render : function() {
+    render: function() {
         return (
-            <div style={{
-                marginTop : 5
-            }}>
-                <div className="ui action input">
+            <div
+                style={{
+                    marginTop: 5,
+                }}
+            >
+                <div className='ui action input'>
                     <input
-                        type="text"
-                        defaultValue="1"
-                        ref="weeks"
-                        title="Weeks to boost for"
+                        type='text'
+                        defaultValue='1'
+                        ref='weeks'
+                        title='Weeks to boost for'
                         disabled={this.props.essentia < 35}
                         style={{
-                            width : 45
+                            width: 45,
                         }}
                     />
 
-                    {
-                        this.renderButton()
-                    }
+                    {this.renderButton()}
                 </div>
                 <BoostCountdown boost={this.props.boosts[this.props.type]} />
             </div>
         );
-    }
+    },
 });
 
 module.exports = Boost;

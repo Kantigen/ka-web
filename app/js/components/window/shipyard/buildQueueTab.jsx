@@ -1,30 +1,27 @@
 'use strict';
 
-var React                       = require('react');
-var Reflux                      = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var ShipyardRPCActions          = require('js/actions/rpc/shipyard');
-var BuildQueueShipyardRPCStore  = require('js/stores/rpc/shipyard/buildQueue');
+var ShipyardRPCActions = require('js/actions/rpc/shipyard');
+var BuildQueueShipyardRPCStore = require('js/stores/rpc/shipyard/buildQueue');
 
-var BuildQueueItem              = require('js/components/window/shipyard/buildQueue/item');
+var BuildQueueItem = require('js/components/window/shipyard/buildQueue/item');
 
 var BuildQueueTab = React.createClass({
-
-    propTypes : {
-        buildingId : React.PropTypes.number.isRequired
+    propTypes: {
+        buildingId: React.PropTypes.number.isRequired,
     },
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         ShipyardRPCActions.requestShipyardRPCViewBuildQueue({
-            building_id : this.props.buildingId
+            building_id: this.props.buildingId,
         });
     },
 
-    mixins : [
-        Reflux.connect(BuildQueueShipyardRPCStore, 'buildQueueStore')
-    ],
+    mixins: [Reflux.connect(BuildQueueShipyardRPCStore, 'buildQueueStore')],
 
-    render : function() {
+    render: function() {
         var fleetsBuilding = this.state.buildQueueStore.fleets_building;
 
         var buildQueueLen = fleetsBuilding.length;
@@ -42,26 +39,25 @@ var BuildQueueTab = React.createClass({
         return (
             <div>
                 <div>
-                    You may subsidize the whole build queue for {this.state.buildQueueStore.cost_to_subsidize} Essentia
+                    You may subsidize the whole build queue for{' '}
+                    {this.state.buildQueueStore.cost_to_subsidize} Essentia
                 </div>
 
-                <div className="ui sixteen column grid">
-                    <div className="row">
-                        <div className="column three wide">Ship Type</div>
-                        <div className="column four wide">Number of ships</div>
-                        <div className="column four wide">Time to complete</div>
-                        <div className="column five wide">Subsidize cost</div>
+                <div className='ui sixteen column grid'>
+                    <div className='row'>
+                        <div className='column three wide'>Ship Type</div>
+                        <div className='column four wide'>Number of ships</div>
+                        <div className='column four wide'>Time to complete</div>
+                        <div className='column five wide'>Subsidize cost</div>
                     </div>
                 </div>
 
-                <div className="ui divider"></div>
+                <div className='ui divider'></div>
 
-                <div>
-                    {fleetItems}
-                </div>
+                <div>{fleetItems}</div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = BuildQueueTab;

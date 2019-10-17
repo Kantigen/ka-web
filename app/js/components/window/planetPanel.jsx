@@ -1,74 +1,70 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var GetBodyStatusRPCStore   = require('js/stores/rpc/body/getBodyStatus');
+var GetBodyStatusRPCStore = require('js/stores/rpc/body/getBodyStatus');
 
-var WindowActions           = require('js/actions/window');
-var BodyRPCActions          = require('js/actions/rpc/body');
+var WindowActions = require('js/actions/window');
+var BodyRPCActions = require('js/actions/rpc/body');
 
-var PlanetDetailsTab        = require('js/components/window/planetPanel/planetDetailsTab');
-var Tabber                  = require('js/components/tabber');
+var PlanetDetailsTab = require('js/components/window/planetPanel/planetDetailsTab');
+var Tabber = require('js/components/tabber');
 
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabs = Tabber.Tabs;
+var Tab = Tabber.Tab;
 
 var PlanetPanel = React.createClass({
-    statics : {
-        options : {
-            title  : 'Planet Details',
-            width  : 700,
-            height : 450
-        }
+    statics: {
+        options: {
+            title: 'Planet Details',
+            width: 700,
+            height: 450,
+        },
     },
 
-    propTypes : {
-        options : React.PropTypes.object
+    propTypes: {
+        options: React.PropTypes.object,
     },
 
-    mixins : [
-        Reflux.connect(GetBodyStatusRPCStore, 'getBodyStatusStore')
-    ],
+    mixins: [Reflux.connect(GetBodyStatusRPCStore, 'getBodyStatusStore')],
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         BodyRPCActions.requestBodyRPCGetBodyStatus({
-            bodyId : this.props.options.data.id
+            bodyId: this.props.options.data.id,
         });
     },
 
-    closeWindow : function() {
+    closeWindow: function() {
         WindowActions.windowCloseByType('planetPanel');
     },
 
-    render : function() {
+    render: function() {
         var tabs = [];
         tabs.push(
-            <Tab title="Planet Details" key="Planet Details" >
+            <Tab title='Planet Details' key='Planet Details'>
                 <PlanetDetailsTab />
             </Tab>
         );
 
         tabs.push(
-            <Tab title="My Fleets" key="My Fleets" >
+            <Tab title='My Fleets' key='My Fleets'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="Foreign Fleets" key="Foreign Fleets" >
+            <Tab title='Foreign Fleets' key='Foreign Fleets'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         return (
             <div>
                 <div>
-                    <Tabs>
-                        {tabs}
-                    </Tabs>
+                    <Tabs>{tabs}</Tabs>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = PlanetPanel;

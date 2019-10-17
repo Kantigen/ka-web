@@ -1,54 +1,54 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding');
+var GenericBuildingStore = require('js/stores/genericBuilding');
 
-var WindowActions           = require('js/actions/window');
-var BuildingWindowActions   = require('js/actions/windows/building');
+var WindowActions = require('js/actions/window');
+var BuildingWindowActions = require('js/actions/windows/building');
 var IntelTrainingRPCActions = require('js/actions/rpc/intelTraining');
 
-var StandardTabs            = require('js/components/window/building/standardTabs');
-var BuildingInformation     = require('js/components/window/building/information');
-var SpyTrainingStatus       = require('js/components/window/spyTraining/spyTrainingStatus');
-var Tabber                  = require('js/components/tabber');
+var StandardTabs = require('js/components/window/building/standardTabs');
+var BuildingInformation = require('js/components/window/building/information');
+var SpyTrainingStatus = require('js/components/window/spyTraining/spyTrainingStatus');
+var Tabber = require('js/components/tabber');
 
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabs = Tabber.Tabs;
+var Tab = Tabber.Tab;
 
 var IntelTraining = React.createClass({
-    statics : {
-        options : {
-            title  : 'Intel Training',
-            width  : 700,
-            height : 420
-        }
+    statics: {
+        options: {
+            title: 'Intel Training',
+            width: 700,
+            height: 420,
+        },
     },
 
-    propTypes : {
-        options : React.PropTypes.object
+    propTypes: {
+        options: React.PropTypes.object,
     },
 
-    mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
-    ],
+    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
-        IntelTrainingRPCActions.requestIntelTrainingRPCView(this.props.options.id);
+        IntelTrainingRPCActions.requestIntelTrainingRPCView(
+            this.props.options.id
+        );
     },
 
-    closeWindow : function() {
+    closeWindow: function() {
         WindowActions.windowCloseByType('building');
     },
 
-    render : function() {
+    render: function() {
         var building = this.state.genericBuildingStore;
         var tabs = StandardTabs.tabs(this.props.options, building);
         if (building.extraViewData.spies) {
             tabs.push(
-                <Tab title="Spy Training" key="Spy Training">
+                <Tab title='Spy Training' key='Spy Training'>
                     <SpyTrainingStatus
                         inTraining={building.extraViewData.spies.in_training}
                         pointsPerHour={building.extraViewData.spies.points_per}
@@ -60,17 +60,13 @@ var IntelTraining = React.createClass({
 
         return (
             <div>
-                <BuildingInformation
-                    options={this.props.options}
-                />
+                <BuildingInformation options={this.props.options} />
                 <div>
-                    <Tabs>
-                        {tabs}
-                    </Tabs>
+                    <Tabs>{tabs}</Tabs>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = IntelTraining;

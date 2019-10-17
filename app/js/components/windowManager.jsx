@@ -1,45 +1,41 @@
 'use strict';
 
-var React                   = require('react');
+var React = require('react');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
-var Reflux                  = require('reflux');
-var _                       = require('lodash');
+var Reflux = require('reflux');
+var _ = require('lodash');
 
-var WindowsStore            = require('js/stores/windows');
-var Panel                   = require('js/components/window/panel');
+var WindowsStore = require('js/stores/windows');
+var Panel = require('js/components/window/panel');
 
 var WindowManager = React.createClass({
-    mixins : [
-        Reflux.connect(WindowsStore, 'windows')
-    ],
+    mixins: [Reflux.connect(WindowsStore, 'windows')],
 
-    render : function() {
+    render: function() {
         return (
             <ReactCSSTransitionGroup
-                transitionName="fade"
+                transitionName='fade'
                 transitionAppearTimeout={200}
                 transitionEnterTimeout={200}
                 transitionLeaveTimeout={200}
                 transitionAppear
             >
-                {
-                    _.map(this.state.windows.windows, function(row, index) {
-                        if (row && row.window) {
-                            return (
-                                <Panel
-                                    window={row.window}
-                                    type={row.type}
-                                    options={row.options}
-                                    zIndex={row.zIndex}
-                                    key={index}
-                                />
-                            );
-                        }
-                    })
-                }
+                {_.map(this.state.windows.windows, function(row, index) {
+                    if (row && row.window) {
+                        return (
+                            <Panel
+                                window={row.window}
+                                type={row.type}
+                                options={row.options}
+                                zIndex={row.zIndex}
+                                key={index}
+                            />
+                        );
+                    }
+                })}
             </ReactCSSTransitionGroup>
         );
-    }
+    },
 });
 
 module.exports = WindowManager;

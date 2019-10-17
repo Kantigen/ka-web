@@ -1,29 +1,32 @@
 'use strict';
 
-var React      = require('react');
+var React = require('react');
 var classnames = require('classnames');
 
 var ResourceLine = React.createClass({
-
-    propTypes : {
-        icon    : React.PropTypes.string.isRequired,
-        title   : React.PropTypes.string.isRequired,
-        red     : React.PropTypes.bool,
-        content : React.PropTypes.string
+    propTypes: {
+        icon: React.PropTypes.string.isRequired,
+        title: React.PropTypes.string.isRequired,
+        red: React.PropTypes.bool,
+        content: React.PropTypes.string,
     },
 
-    render : function() {
-        var iconClass = classnames(this.props.icon, 'large icon', {red : this.props.red});
+    render: function() {
+        var iconClass = classnames(this.props.icon, 'large icon', {
+            red: this.props.red,
+        });
 
         return (
-            <div style={{
-                marginTop : 5
-            }}>
+            <div
+                style={{
+                    marginTop: 5,
+                }}
+            >
                 <i className={iconClass}></i>
                 <span
                     style={{
-                        float : 'right',
-                        color : this.props.red ? 'red' : 'white'
+                        float: 'right',
+                        color: this.props.red ? 'red' : 'white',
                     }}
                     title={this.props.title}
                 >
@@ -31,7 +34,7 @@ var ResourceLine = React.createClass({
                 </span>
             </div>
         );
-    }
+    },
 });
 
 module.exports = ResourceLine;

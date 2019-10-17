@@ -1,31 +1,29 @@
 'use strict';
 
-var React        = require('react');
-var Reflux       = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
 var BodyRPCStore = require('js/stores/rpc/body');
 var MapModeStore = require('js/stores/menu/mapMode');
-var PlanetStore  = require('js/stores/menu/planet');
-var MenuStore    = require('js/stores/menu');
+var PlanetStore = require('js/stores/menu/planet');
+var MenuStore = require('js/stores/menu');
 
 // TODO: factor out all this glue code
 
 var Map = React.createClass({
-    mixins : [
+    mixins: [
         Reflux.connect(MapModeStore, 'mapMode'),
         Reflux.connect(BodyRPCStore, 'bodyRPC'),
         Reflux.connect(PlanetStore, 'planet'),
-        Reflux.connect(MenuStore, 'menuVisible')
+        Reflux.connect(MenuStore, 'menuVisible'),
     ],
-    previousMapMode  : '',
-    previousPlanetId : '',
-    render           : function() {
-
+    previousMapMode: '',
+    previousPlanetId: '',
+    render: function() {
         // console.log(this.state);
 
         // Do nothing if the menu isn't shown.
         if (this.state.menuVisible.show === false) {
-
             // Reset these values because we're *probably* logged out.
             this.previousMapMode = MapModeStore.PLANET_MAP_MODE;
             this.previousPlanetId = '';
@@ -47,17 +45,23 @@ var Map = React.createClass({
         if (
             // Render if the planet id has changed... OR...
             this.previousPlanetId !== this.state.planet ||
-            (
-                // Render if we've changed from the starMap to the planetMap
-                this.previousMapMode !== this.state.mapMode &&
-                this.state.mapMode === MapModeStore.PLANET_MAP_MODE
-            )
+            // Render if we've changed from the starMap to the planetMap
+            (this.previousMapMode !== this.state.mapMode &&
+                this.state.mapMode === MapModeStore.PLANET_MAP_MODE)
         ) {
             // Now that we've made sure...
             // Render the planet view.
-            Lacuna.MapStar.MapVisible(this.state.mapMode === MapModeStore.STAR_MAP_MODE);
-            Lacuna.MapPlanet.MapVisible(this.state.mapMode === MapModeStore.PLANET_MAP_MODE);
-            Lacuna.MapPlanet.Load(this.state.planet, true, this.state.mapMode === MapModeStore.STAR_MAP_MODE);
+            Lacuna.MapStar.MapVisible(
+                this.state.mapMode === MapModeStore.STAR_MAP_MODE
+            );
+            Lacuna.MapPlanet.MapVisible(
+                this.state.mapMode === MapModeStore.PLANET_MAP_MODE
+            );
+            Lacuna.MapPlanet.Load(
+                this.state.planet,
+                true,
+                this.state.mapMode === MapModeStore.STAR_MAP_MODE
+            );
 
             // Sadly, we have to pull hacky tricks like this to avoid infinite loops.
             this.previousPlanetId = this.state.planet;
@@ -87,7 +91,7 @@ var Map = React.createClass({
 
         // We shouldn't end up here, but consiering how hacky all this is it *may* hapen. :(
         return <div></div>;
-    }
+    },
 });
 
 module.exports = Map;

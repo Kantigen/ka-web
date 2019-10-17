@@ -1,36 +1,34 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var CaptchaWindowActions    = require('js/actions/windows/captcha');
-var CaptchaRPCActions       = require('js/actions/rpc/captcha');
-var WindowActions           = require('js/actions/window');
+var CaptchaWindowActions = require('js/actions/windows/captcha');
+var CaptchaRPCActions = require('js/actions/rpc/captcha');
+var WindowActions = require('js/actions/window');
 
-var CaptchaRPCStore         = require('js/stores/rpc/captcha');
+var CaptchaRPCStore = require('js/stores/rpc/captcha');
 
 var Captcha = React.createClass({
-    statics : {
-        options : {
-            title  : 'Verify Your Humanity',
-            width  : 320,
-            height : 'auto'
-        }
+    statics: {
+        options: {
+            title: 'Verify Your Humanity',
+            width: 320,
+            height: 'auto',
+        },
     },
 
-    propTypes : {
-        options : React.PropTypes.object.isRequired
+    propTypes: {
+        options: React.PropTypes.object.isRequired,
     },
 
-    mixins : [
-        Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')
-    ],
+    mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         CaptchaRPCActions.requestCaptchaRPCFetch();
     },
 
-    componentWillUnmount : function() {
+    componentWillUnmount: function() {
         var success = this.props.options.success;
         if (typeof success === 'function') {
             if (this.state.captchaRPCStore.solved) {
@@ -39,87 +37,97 @@ var Captcha = React.createClass({
         }
     },
 
-    componentDidUpdate : function(prevProps, prevState) {
+    componentDidUpdate: function(prevProps, prevState) {
         if (prevState.captchaRPCStore.url !== this.state.captchaRPCStore.url) {
             this.clearSolutionField();
         }
     },
 
-    onWindowShow : function() {
+    onWindowShow: function() {
         this.clearSolutionField();
         CaptchaRPCActions.requestCaptchaRPCFetch();
     },
 
-    handleEnterKey : function(event) {
+    handleEnterKey: function(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             this.onClickSolve();
         }
     },
 
-    onClickSolve : function() {
+    onClickSolve: function() {
         var solution = this.refs.solution.value;
 
         CaptchaRPCActions.requestCaptchaRPCSolve({
-            guid     : this.state.captchaRPCStore.guid,
-            solution : solution
+            guid: this.state.captchaRPCStore.guid,
+            solution: solution,
         });
     },
 
-    onClickRefresh : function() {
+    onClickRefresh: function() {
         this.clearSolutionField();
         CaptchaWindowActions.captchaWindowRefresh();
     },
 
-    onClickClose : function() {
+    onClickClose: function() {
         this.clearSolutionField();
         WindowActions.windowCloseByType('captcha');
     },
 
-    clearSolutionField : function() {
+    clearSolutionField: function() {
         this.refs.solution.value = '';
     },
 
-    render : function() {
+    render: function() {
         return (
             <div>
                 <div
                     style={{
-                        backgroundImage : 'url(' + this.state.captchaRPCStore.url + ')',
-                        width           : 300,
-                        height          : 80
+                        backgroundImage:
+                            'url(' + this.state.captchaRPCStore.url + ')',
+                        width: 300,
+                        height: 80,
                     }}
                 />
 
                 <br />
 
-                <div className="ui action input">
+                <div className='ui action input'>
                     <input
-                        type="text"
-                        ref="solution"
+                        type='text'
+                        ref='solution'
                         onKeyDown={this.handleEnterKey}
-                        placeholder="Captcha Solution"
+                        placeholder='Captcha Solution'
                         style={{
                             // Magic number to make it the same width as the image.
-                            width : 140
+                            width: 140,
                         }}
                     />
 
-                    <div className="ui large icon buttons">
-                        <div className="ui green button" onClick={this.onClickSolve}>
-                            <i className="checkmark icon"></i>
+                    <div className='ui large icon buttons'>
+                        <div
+                            className='ui green button'
+                            onClick={this.onClickSolve}
+                        >
+                            <i className='checkmark icon'></i>
                         </div>
-                        <div className="ui blue button" onClick={this.onClickRefresh}>
-                            <i className="refresh icon"></i>
+                        <div
+                            className='ui blue button'
+                            onClick={this.onClickRefresh}
+                        >
+                            <i className='refresh icon'></i>
                         </div>
-                        <div className="ui red button" onClick={this.onClickClose}>
-                            <i className="remove icon"></i>
+                        <div
+                            className='ui red button'
+                            onClick={this.onClickClose}
+                        >
+                            <i className='remove icon'></i>
                         </div>
                     </div>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = Captcha;

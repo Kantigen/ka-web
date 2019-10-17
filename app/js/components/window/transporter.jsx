@@ -1,92 +1,86 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding');
+var GenericBuildingStore = require('js/stores/genericBuilding');
 
-var WindowActions           = require('js/actions/window');
-var BuildingWindowActions   = require('js/actions/windows/building');
-var TransporterRPCActions   = require('js/actions/rpc/transporter');
+var WindowActions = require('js/actions/window');
+var BuildingWindowActions = require('js/actions/windows/building');
+var TransporterRPCActions = require('js/actions/rpc/transporter');
 
-var StandardTabs            = require('js/components/window/building/standardTabs');
-var BuildingInformation     = require('js/components/window/building/information');
-var Tabber                  = require('js/components/tabber');
+var StandardTabs = require('js/components/window/building/standardTabs');
+var BuildingInformation = require('js/components/window/building/information');
+var Tabber = require('js/components/tabber');
 
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabs = Tabber.Tabs;
+var Tab = Tabber.Tab;
 
 var Transporter = React.createClass({
-    statics : {
-        options : {
-            title  : 'Transporter',
-            width  : 700,
-            height : 420
-        }
+    statics: {
+        options: {
+            title: 'Transporter',
+            width: 700,
+            height: 420,
+        },
     },
 
-    propTypes : {
-        options : React.PropTypes.object
+    propTypes: {
+        options: React.PropTypes.object,
     },
 
-    mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
-    ],
+    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
         TransporterRPCActions.requestTransporterRPCView(this.props.options.id);
     },
 
-    closeWindow : function() {
+    closeWindow: function() {
         WindowActions.windowCloseByType('building');
     },
 
-    render : function() {
+    render: function() {
         var building = this.state.genericBuildingStore;
         var tabs = StandardTabs.tabs(this.props.options, building);
 
         tabs.push(
-            <Tab title="One For One" key="One For One" >
+            <Tab title='One For One' key='One For One'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="Push" key="Push" >
+            <Tab title='Push' key='Push'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="Available Trades" key="Available Trades" >
-                <p>Not Yet Implemented</p>
-            </Tab>
-        );
-
-        tabs.push(
-            <Tab title="My Trades" key="My Trades" >
+            <Tab title='Available Trades' key='Available Trades'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
 
         tabs.push(
-            <Tab title="Add Trade" key="Add Trade" >
+            <Tab title='My Trades' key='My Trades'>
+                <p>Not Yet Implemented</p>
+            </Tab>
+        );
+
+        tabs.push(
+            <Tab title='Add Trade' key='Add Trade'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
 
         return (
             <div>
-                <BuildingInformation
-                    options={this.props.options}
-                />
+                <BuildingInformation options={this.props.options} />
                 <div>
-                    <Tabs>
-                        {tabs}
-                    </Tabs>
+                    <Tabs>{tabs}</Tabs>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = Transporter;

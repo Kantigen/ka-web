@@ -1,17 +1,16 @@
 'use strict';
 
-var React       = require('react');
+var React = require('react');
 
-var util        = require('js/util');
+var util = require('js/util');
 
 var ResourceAttribute = React.createClass({
-
-    propTypes : {
-        name : React.PropTypes.string.isRequired,
-        attr : React.PropTypes.number.isRequired
+    propTypes: {
+        name: React.PropTypes.string.isRequired,
+        attr: React.PropTypes.number.isRequired,
     },
 
-    render : function() {
+    render: function() {
         var title = this.props.attr;
 
         if (!window.isNaN(title)) {
@@ -19,13 +18,15 @@ var ResourceAttribute = React.createClass({
         }
 
         return (
-            <div style={{
-                marginTop : 5
-            }}>
+            <div
+                style={{
+                    marginTop: 5,
+                }}
+            >
                 <span>{this.props.name}</span>
                 <span
                     style={{
-                        float : 'right'
+                        float: 'right',
                     }}
                     title={title}
                 >
@@ -33,7 +34,7 @@ var ResourceAttribute = React.createClass({
                 </span>
             </div>
         );
-    }
+    },
 });
 
 module.exports = ResourceAttribute;

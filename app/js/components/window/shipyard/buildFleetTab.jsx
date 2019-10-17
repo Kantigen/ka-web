@@ -1,51 +1,50 @@
 'use strict';
 
-var React                           = require('react');
-var Reflux                          = require('reflux');
-var _                               = require('lodash');
+var React = require('react');
+var Reflux = require('reflux');
+var _ = require('lodash');
 
-var GetBuildableShipyardRPCStore    = require('js/stores/rpc/shipyard/getBuildable');
+var GetBuildableShipyardRPCStore = require('js/stores/rpc/shipyard/getBuildable');
 
-var BuildFleetItem                  = require('js/components/window/shipyard/buildFleet/item');
+var BuildFleetItem = require('js/components/window/shipyard/buildFleet/item');
 
 var BuildFleetTab = React.createClass({
-
-    propTypes : {
-        buildingId : React.PropTypes.number.isRequired
+    propTypes: {
+        buildingId: React.PropTypes.number.isRequired,
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         return {
-            show       : 'now',
-            filter     : 'all',
-            autoSelect : 'this'
+            show: 'now',
+            filter: 'all',
+            autoSelect: 'this',
         };
     },
 
-    mixins : [
-        Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')
-    ],
+    mixins: [Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')],
 
-    handleShowChange : function(e) {
+    handleShowChange: function(e) {
         this.setState({
-            show : e.target.value
+            show: e.target.value,
         });
     },
 
-    handleFilterChange : function(e) {
+    handleFilterChange: function(e) {
         this.setState({
-            filter : e.target.value
+            filter: e.target.value,
         });
     },
 
-    handleAutoSelectChange : function(e) {
+    handleAutoSelectChange: function(e) {
         this.setState({
-            autoSelect : e.target.value
+            autoSelect: e.target.value,
         });
     },
 
-    render : function() {
-        var buildQueueAvailable = this.state.getBuildableStore.build_queue_max - this.state.getBuildableStore.build_queue_used;
+    render: function() {
+        var buildQueueAvailable =
+            this.state.getBuildableStore.build_queue_max -
+            this.state.getBuildableStore.build_queue_used;
         var fleetItems = [];
         var buildable = this.state.getBuildableStore.buildable;
         var fleetTypes = Object.keys(buildable);
@@ -66,7 +65,7 @@ var BuildFleetTab = React.createClass({
             var filter = this.state.filter;
             fleetTypes = _.filter(fleetTypes, function(fleetType) {
                 return _.find(buildable[fleetType].tags, function(o) {
-                    return (o === filter);
+                    return o === filter;
                 });
             });
         }
@@ -89,50 +88,73 @@ var BuildFleetTab = React.createClass({
         return (
             <div>
                 <div>
-                    There are {this.state.getBuildableStore.docks_available} docks available for new ships. You can queue {buildQueueAvailable} ships.
+                    There are {this.state.getBuildableStore.docks_available}{' '}
+                    docks available for new ships. You can queue{' '}
+                    {buildQueueAvailable} ships.
                 </div>
 
-                <div className="ui grid">
-                    <div className="six wide column">
-                        Use <select className="ui dropdown" ref="autoSelect" onChange={this.handleAutoSelectChange}>
-                            <option value="this">This Only</option>
-                            <option value="all" selected>All</option>
-                            <option value="equal_or_higher">Same or Higher Level</option>
-                            <option value="equal">Same Level</option>
+                <div className='ui grid'>
+                    <div className='six wide column'>
+                        Use{' '}
+                        <select
+                            className='ui dropdown'
+                            ref='autoSelect'
+                            onChange={this.handleAutoSelectChange}
+                        >
+                            <option value='this'>This Only</option>
+                            <option value='all' selected>
+                                All
+                            </option>
+                            <option value='equal_or_higher'>
+                                Same or Higher Level
+                            </option>
+                            <option value='equal'>Same Level</option>
                         </select>
                     </div>
 
-                    <div className="five wide column">
-                        Filter <select className="ui dropdown" ref="filter" onChange={this.handleFilterChange}>
-                            <option value="all" selected>All</option>
-                            <option value="Trade">Trade</option>
-                            <option value="Mining">Mining</option>
-                            <option value="Intelligence">Intelligence</option>
-                            <option value="SupplyChain">Supply Chain</option>
-                            <option value="WasteChain">Waste Chain</option>
-                            <option value="War">War</option>
-                            <option value="Colonization">Colonization</option>
-                            <option value="Exploration">Exploration</option>
+                    <div className='five wide column'>
+                        Filter{' '}
+                        <select
+                            className='ui dropdown'
+                            ref='filter'
+                            onChange={this.handleFilterChange}
+                        >
+                            <option value='all' selected>
+                                All
+                            </option>
+                            <option value='Trade'>Trade</option>
+                            <option value='Mining'>Mining</option>
+                            <option value='Intelligence'>Intelligence</option>
+                            <option value='SupplyChain'>Supply Chain</option>
+                            <option value='WasteChain'>Waste Chain</option>
+                            <option value='War'>War</option>
+                            <option value='Colonization'>Colonization</option>
+                            <option value='Exploration'>Exploration</option>
                         </select>
                     </div>
 
-                    <div className="five wide column">
-                        Show <select className="ui dropdown" ref="show" onChange={this.handleShowChange}>
-                            <option value="all">All</option>
-                            <option value="now" selected>Can build now</option>
-                            <option value="later">Can build later</option>
+                    <div className='five wide column'>
+                        Show{' '}
+                        <select
+                            className='ui dropdown'
+                            ref='show'
+                            onChange={this.handleShowChange}
+                        >
+                            <option value='all'>All</option>
+                            <option value='now' selected>
+                                Can build now
+                            </option>
+                            <option value='later'>Can build later</option>
                         </select>
                     </div>
                 </div>
 
-                <div className="ui divider"></div>
+                <div className='ui divider'></div>
 
-                <div>
-                    {fleetItems}
-                </div>
+                <div>{fleetItems}</div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = BuildFleetTab;

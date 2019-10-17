@@ -1,19 +1,18 @@
 'use strict';
 
-var React        = require('react');
+var React = require('react');
 
 var ResourceLine = require('js/components/window/building/resourceLine');
 
-var util         = require('js/util');
+var util = require('js/util');
 
 var ResourceProduction = React.createClass({
-
-    propTypes : {
-        icon   : React.PropTypes.string.isRequired,
-        number : React.PropTypes.number.isRequired
+    propTypes: {
+        icon: React.PropTypes.string.isRequired,
+        number: React.PropTypes.number.isRequired,
     },
 
-    render : function() {
+    render: function() {
         return (
             <ResourceLine
                 icon={this.props.icon}
@@ -21,7 +20,7 @@ var ResourceProduction = React.createClass({
                 title={util.commify(this.props.number)}
             />
         );
-    }
+    },
 });
 
 module.exports = ResourceProduction;

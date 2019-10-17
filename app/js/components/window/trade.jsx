@@ -1,81 +1,79 @@
 'use strict';
 
-var React                   = require('react');
-var Reflux                  = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var GenericBuildingStore    = require('js/stores/genericBuilding');
+var GenericBuildingStore = require('js/stores/genericBuilding');
 
-var WindowActions           = require('js/actions/window');
-var BuildingWindowActions   = require('js/actions/windows/building');
-var TradeRPCActions         = require('js/actions/rpc/trade');
+var WindowActions = require('js/actions/window');
+var BuildingWindowActions = require('js/actions/windows/building');
+var TradeRPCActions = require('js/actions/rpc/trade');
 
-var StandardTabs            = require('js/components/window/building/standardTabs');
-var BuildingInformation     = require('js/components/window/building/information');
+var StandardTabs = require('js/components/window/building/standardTabs');
+var BuildingInformation = require('js/components/window/building/information');
 
-var Tabber                  = require('js/components/tabber');
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabber = require('js/components/tabber');
+var Tabs = Tabber.Tabs;
+var Tab = Tabber.Tab;
 
 var Trade = React.createClass({
-    statics : {
-        options : {
-            title  : 'Trade',
-            width  : 700,
-            height : 420
-        }
+    statics: {
+        options: {
+            title: 'Trade',
+            width: 700,
+            height: 420,
+        },
     },
 
-    propTypes : {
-        options : React.PropTypes.object
+    propTypes: {
+        options: React.PropTypes.object,
     },
 
-    mixins : [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore')
-    ],
+    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount : function() {
+    componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
         TradeRPCActions.requestTradeRPCView(this.props.options.id);
     },
 
-    closeWindow : function() {
+    closeWindow: function() {
         WindowActions.windowCloseByType('building');
     },
 
-    render : function() {
+    render: function() {
         var building = this.state.genericBuildingStore;
         var tabs = StandardTabs.tabs(this.props.options, building);
         tabs.push(
-            <Tab title="Push" key="Push" >
+            <Tab title='Push' key='Push'>
                 <p>Not Yet Implemented!</p>
             </Tab>
         );
 
         tabs.push(
-            <Tab title="Trades" key="Trades" >
+            <Tab title='Trades' key='Trades'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="My Trades" key="My Trades" >
+            <Tab title='My Trades' key='My Trades'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="Add Trade" key="Add Trade" >
+            <Tab title='Add Trade' key='Add Trade'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
 
         tabs.push(
-            <Tab title="Supply Chains" key="Supply Chains" >
+            <Tab title='Supply Chains' key='Supply Chains'>
                 <p>Not Yet Implemented</p>
                 <p>Will combine Supply Chains and Supply Ships</p>
             </Tab>
         );
 
         tabs.push(
-            <Tab title="Waste Chain" key="Waste Chain" >
+            <Tab title='Waste Chain' key='Waste Chain'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
@@ -85,13 +83,11 @@ var Trade = React.createClass({
                 <BuildingInformation options={this.props.options} />
 
                 <div>
-                    <Tabs>
-                        {tabs}
-                    </Tabs>
+                    <Tabs>{tabs}</Tabs>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = Trade;

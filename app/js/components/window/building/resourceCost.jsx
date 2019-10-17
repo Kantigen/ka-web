@@ -1,23 +1,25 @@
 'use strict';
 
-var React        = require('react');
+var React = require('react');
 
 var ResourceLine = require('js/components/window/building/resourceLine');
 
-var util         = require('js/util');
+var util = require('js/util');
 
 var ResourceCost = React.createClass({
-
-    propTypes : {
-        icon   : React.PropTypes.string.isRequired,
-        number : React.PropTypes.number.isRequired,
-        stored : React.PropTypes.number
+    propTypes: {
+        icon: React.PropTypes.string.isRequired,
+        number: React.PropTypes.number.isRequired,
+        stored: React.PropTypes.number,
     },
 
-    render : function() {
+    render: function() {
         var red = false;
 
-        if (typeof this.props.stored === 'number' && this.props.number > this.props.stored) {
+        if (
+            typeof this.props.stored === 'number' &&
+            this.props.number > this.props.stored
+        ) {
             red = true;
         }
 
@@ -29,7 +31,7 @@ var ResourceCost = React.createClass({
                 red={red}
             />
         );
-    }
+    },
 });
 
 module.exports = ResourceCost;

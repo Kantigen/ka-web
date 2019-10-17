@@ -3,41 +3,44 @@
 var React = require('react');
 
 var PanelContent = React.createClass({
-
-    propTypes : {
-        panelHeight : React.PropTypes.oneOfType([
+    propTypes: {
+        panelHeight: React.PropTypes.oneOfType([
             React.PropTypes.number,
-            React.PropTypes.string
+            React.PropTypes.string,
         ]),
-        panelWidth : React.PropTypes.oneOfType([
+        panelWidth: React.PropTypes.oneOfType([
             React.PropTypes.number,
-            React.PropTypes.string
+            React.PropTypes.string,
         ]),
-        children : React.PropTypes.element
+        children: React.PropTypes.element,
     },
 
-    render : function() {
+    render: function() {
         return (
-            <div style={{
-                overflow        : 'auto',
-                width           : this.props.panelWidth,
-                border          : '2px solid black',
-                backgroundColor : '#0268AC',
-                borderRadius    : '10px',
-                padding         : '10px'
-            }}>
-                <div style={{
-                    overflow  : 'auto',
-                    overflowX : 'hidden',
-                    height    : this.props.panelHeight,
-                    padding   : '5px',
-                    boxSizing : 'border-box'
-                }}>
+            <div
+                style={{
+                    overflow: 'auto',
+                    width: this.props.panelWidth,
+                    border: '2px solid black',
+                    backgroundColor: '#0268AC',
+                    borderRadius: '10px',
+                    padding: '10px',
+                }}
+            >
+                <div
+                    style={{
+                        overflow: 'auto',
+                        overflowX: 'hidden',
+                        height: this.props.panelHeight,
+                        padding: '5px',
+                        boxSizing: 'border-box',
+                    }}
+                >
                     {this.props.children}
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = PanelContent;

@@ -5,91 +5,88 @@ var React = require('react');
 var Boost = require('js/components/window/essentia/boost');
 
 var BoostsTab = React.createClass({
-    propTypes : {
-        exactEssentia : React.PropTypes.number.isRequired,
-        boosts        : React.PropTypes.object.isRequired,
-        essentia      : React.PropTypes.number.isRequired
+    propTypes: {
+        exactEssentia: React.PropTypes.number.isRequired,
+        boosts: React.PropTypes.object.isRequired,
+        essentia: React.PropTypes.number.isRequired,
     },
 
-    render : function() {
+    render: function() {
         return (
-            <div className="ui grid">
-
-                <div className="centered row">
-                    <div className="ui large green labels">
-                        <div className="ui label">
+            <div className='ui grid'>
+                <div className='centered row'>
+                    <div className='ui large green labels'>
+                        <div className='ui label'>
                             Essentia
-                            <div className="detail">
+                            <div className='detail'>
                                 {this.props.exactEssentia}
                             </div>
                         </div>
-                        <div className="ui label">
+                        <div className='ui label'>
                             Boost Cost
-                            <div className="detail">
-                                5 Essentia
-                            </div>
+                            <div className='detail'>5 Essentia</div>
                         </div>
                     </div>
                 </div>
 
-                <div className="ui centered row">
-                    <div className="eight wide column">
+                <div className='ui centered row'>
+                    <div className='eight wide column'>
                         <Boost
-                            type="food"
-                            description="+25% Food / hr"
-                            iconName="food"
+                            type='food'
+                            description='+25% Food / hr'
+                            iconName='food'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="water"
-                            description="+25% Water / hr"
-                            iconName="theme"
+                            type='water'
+                            description='+25% Water / hr'
+                            iconName='theme'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="happiness"
-                            description="+25% Happiness / hr"
-                            iconName="smile"
+                            type='happiness'
+                            description='+25% Happiness / hr'
+                            iconName='smile'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="building"
-                            description="+25% Building Construction Speed"
-                            iconName="building outline"
+                            type='building'
+                            description='+25% Building Construction Speed'
+                            iconName='building outline'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                     </div>
 
-                    <div className="eight wide column">
+                    <div className='eight wide column'>
                         <Boost
-                            type="ore"
-                            description="+25% Ore / hr"
-                            iconName="diamond"
+                            type='ore'
+                            description='+25% Ore / hr'
+                            iconName='diamond'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="energy"
-                            description="+25% Energy / hr"
-                            iconName="lightning"
+                            type='energy'
+                            description='+25% Energy / hr'
+                            iconName='lightning'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="storage"
-                            description="+25% Storage"
-                            iconName="archive"
+                            type='storage'
+                            description='+25% Storage'
+                            iconName='archive'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
                         <Boost
-                            type="spy_training"
-                            description="+50% Spy Training Speed"
-                            iconName="protect"
+                            type='spy_training'
+                            description='+50% Spy Training Speed'
+                            iconName='protect'
                             boosts={this.props.boosts}
                             essentia={this.props.essentia}
                         />
@@ -97,7 +94,7 @@ var BoostsTab = React.createClass({
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = BoostsTab;

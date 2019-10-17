@@ -1,59 +1,55 @@
 'use strict';
 
-var React                   = require('react');
+var React = require('react');
 
-var WindowActions           = require('js/actions/window');
+var WindowActions = require('js/actions/window');
 
-var Tabber                  = require('js/components/tabber');
+var Tabber = require('js/components/tabber');
 
-var Tabs                    = Tabber.Tabs;
-var Tab                     = Tabber.Tab;
+var Tabs = Tabber.Tabs;
+var Tab = Tabber.Tab;
 
 var StarPanel = React.createClass({
-    statics : {
-        options : {
-            title  : 'Star Details',
-            width  : 700,
-            height : 420
-        }
+    statics: {
+        options: {
+            title: 'Star Details',
+            width: 700,
+            height: 420,
+        },
     },
-    mixins : [
-    ],
-    componentWillMount : function() {
-    },
+    mixins: [],
+    componentWillMount: function() {},
 
-    closeWindow : function() {
+    closeWindow: function() {
         WindowActions.windowCloseByType('planetPanel');
     },
 
-    render : function() {
+    render: function() {
         var tabs = [];
         tabs.push(
-            <Tab title="Star Details" key="Star Details" >
+            <Tab title='Star Details' key='Star Details'>
                 <p>Not Yet Implemented!</p>
             </Tab>
         );
 
         tabs.push(
-            <Tab title="My Fleets" key="My Fleets" >
+            <Tab title='My Fleets' key='My Fleets'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         tabs.push(
-            <Tab title="Foreign Fleets" key="Foreign Fleets" >
+            <Tab title='Foreign Fleets' key='Foreign Fleets'>
                 <p>Not Yet Implemented</p>
             </Tab>
         );
         return (
             <div>
                 <div>
-                    <Tabs>
-                        {tabs}
-                    </Tabs>
+                    <Tabs>{tabs}</Tabs>
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = StarPanel;

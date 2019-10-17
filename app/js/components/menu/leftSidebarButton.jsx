@@ -1,35 +1,38 @@
 'use strict';
 
-var React               = require('react');
-var Reflux              = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var EmpireRPCStore      = require('js/stores/rpc/empire');
-var LeftSidebarActions  = require('js/actions/menu/leftSidebar');
+var EmpireRPCStore = require('js/stores/rpc/empire');
+var LeftSidebarActions = require('js/actions/menu/leftSidebar');
 
 var LeftSidebarButton = React.createClass({
-    mixins : [
-        Reflux.connect(EmpireRPCStore, 'empire')
-    ],
+    mixins: [Reflux.connect(EmpireRPCStore, 'empire')],
 
-    clickLeftSidebarButton : function() {
+    clickLeftSidebarButton: function() {
         LeftSidebarActions.show();
     },
 
-    render : function() {
+    render: function() {
         return (
-            <div style={{
-                position : 'absolute',
-                zIndex   : 2500,
-                left     : '15px',
-                top      : '15px'
-            }}>
-                <div className="ui left labeled icon blue button" onClick={this.clickLeftSidebarButton}>
-                    <i className="content icon" />
+            <div
+                style={{
+                    position: 'absolute',
+                    zIndex: 2500,
+                    left: '15px',
+                    top: '15px',
+                }}
+            >
+                <div
+                    className='ui left labeled icon blue button'
+                    onClick={this.clickLeftSidebarButton}
+                >
+                    <i className='content icon' />
                     {this.state.empire.name}
                 </div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = LeftSidebarButton;

@@ -1,21 +1,20 @@
 'use strict';
 
-var React                       = require('react');
-var Reflux                      = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var BodyRPCGetBodyStatusStore   = require('js/stores/rpc/body/getBodyStatus');
+var BodyRPCGetBodyStatusStore = require('js/stores/rpc/body/getBodyStatus');
 
-var PlanetDetailLine            = require('js/components/window/planetPanel/line');
+var PlanetDetailLine = require('js/components/window/planetPanel/line');
 
-var constants                   = require('js/constants');
+var constants = require('js/constants');
 
 var PlanetOre = React.createClass({
-
-    mixins : [
-        Reflux.connect(BodyRPCGetBodyStatusStore, 'bodyRPCGetBodyStatusStore')
+    mixins: [
+        Reflux.connect(BodyRPCGetBodyStatusStore, 'bodyRPCGetBodyStatusStore'),
     ],
 
-    render : function() {
+    render: function() {
         var ores = constants.ORES;
         var bodyOre = this.state.bodyRPCGetBodyStatusStore.ore;
 
@@ -23,19 +22,20 @@ var PlanetOre = React.createClass({
         for (var prop in ores) {
             if (ores.hasOwnProperty(prop)) {
                 renderOres.push(
-                    <PlanetDetailLine title={ores[prop]} value={bodyOre[prop]} />
+                    <PlanetDetailLine
+                        title={ores[prop]}
+                        value={bodyOre[prop]}
+                    />
                 );
             }
         }
 
         return (
-            <div className="ui grid">
-                <div className="sixteen wide column">
-                    {renderOres}
-                </div>
+            <div className='ui grid'>
+                <div className='sixteen wide column'>{renderOres}</div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = PlanetOre;

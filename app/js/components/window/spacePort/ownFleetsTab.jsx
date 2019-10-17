@@ -1,58 +1,57 @@
 'use strict';
 
-var React                          = require('react');
-var Reflux                         = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var constants                      = require('js/constants');
+var constants = require('js/constants');
 
 var ViewAllFleetsSpacePortRPCStore = require('js/stores/rpc/spacePort/viewAllFleets');
 
-var OwnFleetItem                   = require('js/components/window/spacePort/ownFleets/item');
+var OwnFleetItem = require('js/components/window/spacePort/ownFleets/item');
 
 var OwnFleetsTab = React.createClass({
-
-    propTypes : {
-        buildingId : React.PropTypes.number.isRequired
+    propTypes: {
+        buildingId: React.PropTypes.number.isRequired,
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         return {
-            task : 'all',
-            tag  : 'all',
-            type : 'all',
-            name : ''
+            task: 'all',
+            tag: 'all',
+            type: 'all',
+            name: '',
         };
     },
 
-    mixins : [
-        Reflux.connect(ViewAllFleetsSpacePortRPCStore, 'viewAllFleetsStore')
+    mixins: [
+        Reflux.connect(ViewAllFleetsSpacePortRPCStore, 'viewAllFleetsStore'),
     ],
 
-    handleTaskChange : function(e) {
+    handleTaskChange: function(e) {
         this.setState({
-            task : e.target.value
+            task: e.target.value,
         });
     },
 
-    handleTagChange : function(e) {
+    handleTagChange: function(e) {
         this.setState({
-            tag : e.target.value
+            tag: e.target.value,
         });
     },
 
-    handleTypeChange : function(e) {
+    handleTypeChange: function(e) {
         this.setState({
-            type : e.target.value
+            type: e.target.value,
         });
     },
 
-    handleNameChange : function(e) {
+    handleNameChange: function(e) {
         this.setState({
-            name : e.target.value
+            name: e.target.value,
         });
     },
 
-    render : function() {
+    render: function() {
         var fleetTypes = constants.FLEET_TYPES;
         var renderFleetTypes = [];
         for (var prop in fleetTypes) {
@@ -88,7 +87,7 @@ var OwnFleetsTab = React.createClass({
         // Filter based on Task
         if (this.state.task !== 'all') {
             fleetItems = $.grep(fleetItems, function(item, index) {
-                return (item.task === this.state.task);
+                return item.task === this.state.task;
             });
         }
 
@@ -118,47 +117,60 @@ var OwnFleetsTab = React.createClass({
         }
 
         return (
-            <div className="ui form">
-                <div className="equal width fields">
-
-                    <div className="field">
+            <div className='ui form'>
+                <div className='equal width fields'>
+                    <div className='field'>
                         <label>Task</label>
-                        <select className="ui small dropdown" ref="task" onChange={this.handleTaskChange}>
-                            <option value="All">All</option>
+                        <select
+                            className='ui small dropdown'
+                            ref='task'
+                            onChange={this.handleTaskChange}
+                        >
+                            <option value='All'>All</option>
                             {renderFleetTasks}
                         </select>
                     </div>
 
-                    <div className="field">
+                    <div className='field'>
                         <label>Tag</label>
-                        <select className="ui small dropdown" ref="tag" onChange={this.handleTagChange}>
-                            <option value="All">All</option>
+                        <select
+                            className='ui small dropdown'
+                            ref='tag'
+                            onChange={this.handleTagChange}
+                        >
+                            <option value='All'>All</option>
                             {renderFleetTags}
                         </select>
                     </div>
 
-                    <div className="field">
+                    <div className='field'>
                         <label>Type</label>
-                        <select className="ui small dropdown" ref="type" onChange={this.handleTypeChange}>
-                            <option value="all">All</option>
+                        <select
+                            className='ui small dropdown'
+                            ref='type'
+                            onChange={this.handleTypeChange}
+                        >
+                            <option value='all'>All</option>
                             {renderFleetTypes}
                         </select>
                     </div>
 
-                    <div className="field">
+                    <div className='field'>
                         <label>Name</label>
-                        <input type="text" ref="name" onChange={this.handleNameChange} />
+                        <input
+                            type='text'
+                            ref='name'
+                            onChange={this.handleNameChange}
+                        />
                     </div>
                 </div>
 
-                <div className="ui divider"></div>
+                <div className='ui divider'></div>
 
-                <div>
-                    {renderFleetItems}
-                </div>
+                <div>{renderFleetItems}</div>
             </div>
         );
-    }
+    },
 });
 
 module.exports = OwnFleetsTab;
