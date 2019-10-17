@@ -1,23 +1,21 @@
 'use strict';
 
-var React              = require('react');
-var Reflux             = require('reflux');
+var React = require('react');
+var Reflux = require('reflux');
 
-var TopBar             = require('js/components/menu/topBar');
-var BottomBar          = require('js/components/menu/bottomBar');
+var TopBar = require('js/components/menu/topBar');
+var BottomBar = require('js/components/menu/bottomBar');
 
-var LeftSidebarButton  = require('js/components/menu/leftSidebarButton');
+var LeftSidebarButton = require('js/components/menu/leftSidebarButton');
 var RightSidebarButton = require('js/components/menu/rightSidebarButton');
 
-var Loader             = require('js/components/menu/loader');
+var Loader = require('js/components/menu/loader');
 
-var MenuStore          = require('js/stores/menu');
+var MenuStore = require('js/stores/menu');
 
 var Menu = React.createClass({
-    mixins : [
-        Reflux.connect(MenuStore, 'menuStore')
-    ],
-    render : function() {
+    mixins: [Reflux.connect(MenuStore, 'menuStore')],
+    render: function() {
         if (this.state.menuStore.show) {
             return (
                 <div>
@@ -25,7 +23,7 @@ var Menu = React.createClass({
                     <RightSidebarButton />
                     <TopBar />
 
-                    <div id="oldYUIPanelContainer"></div>
+                    <div id='oldYUIPanelContainer'></div>
 
                     <Loader />
                     <BottomBar />
@@ -34,7 +32,7 @@ var Menu = React.createClass({
         } else {
             return <div></div>;
         }
-    }
+    },
 });
 
 module.exports = Menu;

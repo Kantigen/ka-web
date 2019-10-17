@@ -2,27 +2,26 @@
 
 YAHOO.namespace('lacuna');
 
-var React           = require('react');
-var ReactDom        = require('react-dom');
-var _               = require('lodash');
-var ReactTooltip    = require('react-tooltip');
+var React = require('react');
+var ReactDom = require('react-dom');
+var _ = require('lodash');
+var ReactTooltip = require('react-tooltip');
 
 var KeyboardActions = require('js/actions/keyboard');
-var MenuActions     = require('js/actions/menu');
-var SessionActions  = require('js/actions/session');
-var TickerActions   = require('js/actions/ticker');
-var UserActions     = require('js/actions/user');
-var WindowActions   = require('js/actions/window');
+var MenuActions = require('js/actions/menu');
+var SessionActions = require('js/actions/session');
+var TickerActions = require('js/actions/ticker');
+var UserActions = require('js/actions/user');
+var WindowActions = require('js/actions/window');
 
-var GameWindow      = require('js/components/gameWindow');
-var Captcha         = require('js/components/window/captcha');
+var GameWindow = require('js/components/gameWindow');
+var Captcha = require('js/components/window/captcha');
 
-var BodyRPCStore    = require('js/stores/rpc/body');
+var BodyRPCStore = require('js/stores/rpc/body');
 
-var constants       = require('js/constants');
+var constants = require('js/constants');
 
 if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
-
     (function() {
         var Util = YAHOO.util;
         var Lang = YAHOO.lang;
@@ -33,16 +32,16 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         var Lib = Lacuna.Library;
 
         var Game = {
-            EmpireData     : {},
-            Resources      : {},
-            ServerData     : {},
-            Services       : {},
-            Timeout        : 60000,
-            HourMS         : 3600000, // (60min * 60sec * 1000ms),
-            onTick         : new Util.CustomEvent('onTick'),
-            OverlayManager : new YAHOO.widget.OverlayManager(),
+            EmpireData: {},
+            Resources: {},
+            ServerData: {},
+            Services: {},
+            Timeout: 60000,
+            HourMS: 3600000, // (60min * 60sec * 1000ms),
+            onTick: new Util.CustomEvent('onTick'),
+            OverlayManager: new YAHOO.widget.OverlayManager(),
 
-            Start : function(query) {
+            Start: function(query) {
                 var l = window.location;
                 Game.domain = l.hostname || 'kenoantigen.com';
 
@@ -79,16 +78,20 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         }
                     }
                 };
-                Game.escListener = new Util.KeyListener(document, {
-                    keys : 27
-                }, {
-                    fn : function() {
-                        Game.OverlayManager.hideAll();
-                        KeyboardActions.escKey();
+                Game.escListener = new Util.KeyListener(
+                    document,
+                    {
+                        keys: 27,
                     },
-                    scope        : Game.OverlayManager,
-                    correctScope : true
-                });
+                    {
+                        fn: function() {
+                            Game.OverlayManager.hideAll();
+                            KeyboardActions.escKey();
+                        },
+                        scope: Game.OverlayManager,
+                        correctScope: true,
+                    }
+                );
 
                 // get resources right away since they don't depend on anything.
                 Game.Resources = require('js/resources');
@@ -113,8 +116,10 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     // if they came from somewhere else
                     var now = new Date();
                     Cookie.set('lacunaReferral', query.referral, {
-                        domain  : Game.domain,
-                        expires : new Date(now.setFullYear(now.getFullYear() + 1))
+                        domain: Game.domain,
+                        expires: new Date(
+                            now.setFullYear(now.getFullYear() + 1)
+                        ),
                     });
                 }
                 if (query.reset_password) {
@@ -125,7 +130,11 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 if (query.facebook_uid) {
                     Game.InitLogin();
                     Game.LoginDialog.initEmpireCreator();
-                    Game.EmpireCreator.facebookReturn(query.facebook_uid, query.facebook_token, query.facebook_name);
+                    Game.EmpireCreator.facebookReturn(
+                        query.facebook_uid,
+                        query.facebook_token,
+                        query.facebook_name
+                    );
                     return;
                 } else if (query.session_id) {
                     Game.SetSession(query.session_id);
@@ -141,97 +150,122 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 // Run rest of UI since we're logged in
                 Game.GetStatus({
-                    success : Game.Run,
-                    failure : function(o) {
+                    success: Game.Run,
+                    failure: function(o) {
                         Game.Reset();
                         Game.DoLogin(o.error);
                         return true;
-                    }
+                    },
                 });
             },
-            Failure : function(o, retry, fail) {
+            Failure: function(o, retry, fail) {
                 // session expired
                 if (o.error.code === 1006) {
                     Game.Reset();
                     Game.DoLogin(o.error);
-                } else if (o.error.code === 1200) { // Game over
+                } else if (o.error.code === 1200) {
+                    // Game over
                     window.alert(o.error.message);
                     Game.Reset();
                     window.location = o.error.data;
-                } else if (o.error.code === 1016) { // Captcha
+                } else if (o.error.code === 1016) {
+                    // Captcha
                     WindowActions.windowAdd(Captcha, 'captcha', {
-                        success : retry
+                        success: retry,
                     });
-                } else if (o.error.code === -32603) { // Internal error
-                    Game.QuickDialog({
-                        width : '500px',
-                        text  : [
-                            '<p>An internal error has occurred.  Please report this on <a target="_blank" href="https://github.com/kantigen/ka-server/issues">the support forums</a>, and include the data below.</p>',
-                            '<textarea style="width: 100%; height: 300px;" id="internalErrorMessageText" readonly="readonly" onclick="this.select()"></textarea>'
-                        ].join(''),
-                        buttons : [{
-                            text    : 'Close',
-                            handler : function() {
-                                this.hide();
-                            }
-                        }]
-                    }, function() {
-                        Dom.get('internalErrorMessageText').value = o.error.data;
-                    });
+                } else if (o.error.code === -32603) {
+                    // Internal error
+                    Game.QuickDialog(
+                        {
+                            width: '500px',
+                            text: [
+                                '<p>An internal error has occurred.  Please report this on <a target="_blank" href="https://github.com/kantigen/ka-server/issues">the support forums</a>, and include the data below.</p>',
+                                '<textarea style="width: 100%; height: 300px;" id="internalErrorMessageText" readonly="readonly" onclick="this.select()"></textarea>',
+                            ].join(''),
+                            buttons: [
+                                {
+                                    text: 'Close',
+                                    handler: function() {
+                                        this.hide();
+                                    },
+                                },
+                            ],
+                        },
+                        function() {
+                            Dom.get('internalErrorMessageText').value =
+                                o.error.data;
+                        }
+                    );
                 } else {
                     fail();
                 }
             },
-            InitLogin : function() {
+            InitLogin: function() {
                 if (!Lacuna.Game.LoginDialog) {
                     Lacuna.Game.LoginDialog = new Lacuna.Login();
-                    Lacuna.Game.LoginDialog.subscribe('onLoginSuccessful', function(oArgs) {
-                        var result = oArgs.result;
-                        // remember session
-                        Game.SetSession(result.session_id);
+                    Lacuna.Game.LoginDialog.subscribe(
+                        'onLoginSuccessful',
+                        function(oArgs) {
+                            var result = oArgs.result;
+                            // remember session
+                            Game.SetSession(result.session_id);
 
-                        Game.RemoveCookie('locationId');
-                        Game.RemoveCookie('locationView');
+                            Game.RemoveCookie('locationId');
+                            Game.RemoveCookie('locationView');
 
-                        // store empire data
-                        Lacuna.Game.ProcessStatus(result.status);
-                        // Run rest of UI now that we're logged in
+                            // store empire data
+                            Lacuna.Game.ProcessStatus(result.status);
+                            // Run rest of UI now that we're logged in
 
-                        Lacuna.Game.Run();
-                        if (result.welcome_message_id) {
-                            Game.QuickDialog({
-                                width : '400px',
-                                text  : ['Welcome to the Lacuna Expanse.  It is recommended that you play through the in game tutorial to familiarize yourself with the game, and to get some free resources to build up your empire.',
-                                    '<p>If you choose to skip the tutorial now you may find it by clicking <img src=",Lib.AssetUrl,"ui/s/inbox.png" title="Inbox" style="width:19px;height:22px;vertical-align:middle;margin:-5px 0 -4px -2px" /> at the top of the interface and find the message with the subject `Welcome`.</p>',
-                                    '<p>Thanks for playing!</p>'].join(''),
-                                buttons : [{
-                                    text    : 'View Tutorial',
-                                    handler : function() {
-                                        this.hide();
-                                        Lacuna.Messaging.showMessage(result.welcome_message_id);
-                                    },
-                                    isDefault : true
-                                }, {
-                                    text    : 'Skip Tutorial',
-                                    handler : function() {
-                                        this.hide();
-                                    }
-                                }]
-                            });
+                            Lacuna.Game.Run();
+                            if (result.welcome_message_id) {
+                                Game.QuickDialog({
+                                    width: '400px',
+                                    text: [
+                                        'Welcome to the Lacuna Expanse.  It is recommended that you play through the in game tutorial to familiarize yourself with the game, and to get some free resources to build up your empire.',
+                                        '<p>If you choose to skip the tutorial now you may find it by clicking <img src=",Lib.AssetUrl,"ui/s/inbox.png" title="Inbox" style="width:19px;height:22px;vertical-align:middle;margin:-5px 0 -4px -2px" /> at the top of the interface and find the message with the subject `Welcome`.</p>',
+                                        '<p>Thanks for playing!</p>',
+                                    ].join(''),
+                                    buttons: [
+                                        {
+                                            text: 'View Tutorial',
+                                            handler: function() {
+                                                this.hide();
+                                                Lacuna.Messaging.showMessage(
+                                                    result.welcome_message_id
+                                                );
+                                            },
+                                            isDefault: true,
+                                        },
+                                        {
+                                            text: 'Skip Tutorial',
+                                            handler: function() {
+                                                this.hide();
+                                            },
+                                        },
+                                    ],
+                                });
+                            }
                         }
-                    });
+                    );
                 }
             },
-            DoLogin : function(error) {
-                Dom.setStyle(document.body, 'background', 'url(' + Lib.AssetUrl + 'star_system/field.png) repeat scroll 0 0 black');
+            DoLogin: function(error) {
+                Dom.setStyle(
+                    document.body,
+                    'background',
+                    'url(' +
+                        Lib.AssetUrl +
+                        'star_system/field.png) repeat scroll 0 0 black'
+                );
                 this.InitLogin();
                 Lacuna.Game.LoginDialog.show(error);
                 MenuActions.menuHide();
                 require('js/actions/menu/loader').loaderMenuHide();
             },
-            Run : function() {
+            Run: function() {
                 // set our interval going for resource calcs since Logout clears it
-                Game.recTime = (new Date()).getTime();
+                Game.recTime = new Date().getTime();
                 Game.isRunning = 1;
 
                 /* possible new pattern for game loop*/
@@ -252,10 +286,9 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 SessionActions.sessionSet(Game.GetSession(''));
                 UserActions.userSignIn();
             },
-            InitEvents : function() {
+            InitEvents: function() {
                 // make sure we only subscribe once
                 if (!Lacuna.Game._hasRun) {
-
                     Game._hasRun = true;
 
                     Event.on(window, 'resize', function(e) {
@@ -276,13 +309,19 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     });
                 }
             },
-            InitServices : function(smd) {
+            InitServices: function(smd) {
                 var serviceOut = {};
                 var successFunc = function() {
                     for (var methodName in this) {
-                        if (this.hasOwnProperty(methodName) && Lang.isFunction(this[methodName])) {
+                        if (
+                            this.hasOwnProperty(methodName) &&
+                            Lang.isFunction(this[methodName])
+                        ) {
                             var method = this[methodName];
-                            this[methodName] = Game.WrappedService(method, sKey + '.' + methodName);
+                            this[methodName] = Game.WrappedService(
+                                method,
+                                sKey + '.' + methodName
+                            );
                         }
                     }
                 };
@@ -290,9 +329,13 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     if (smd.hasOwnProperty(sKey)) {
                         var oSmd = smd[sKey];
                         if (oSmd.services) {
-                            serviceOut[sKey] = new YAHOO.rpc.Service(oSmd, {
-                                success : successFunc
-                            }, constants.RPC_BASE);
+                            serviceOut[sKey] = new YAHOO.rpc.Service(
+                                oSmd,
+                                {
+                                    success: successFunc,
+                                },
+                                constants.RPC_BASE
+                            );
                         } else {
                             serviceOut[sKey] = Game.InitServices(oSmd);
                         }
@@ -300,17 +343,17 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 }
                 return serviceOut;
             },
-            WrappedService : function(method, name) {
+            WrappedService: function(method, name) {
                 var logNS = 'Game.RPC.' + name + '.failure';
                 var func = function(params, origOpts) {
                     var retry = function() {
-                        var opts = { retry : 0 };
+                        var opts = { retry: 0 };
                         YAHOO.lang.augmentObject(opts, origOpts, true);
                         opts.retry++;
                         func(params, opts);
                     };
                     var opts = {
-                        failure : function(o) {
+                        failure: function(o) {
                             var self = this;
                             var failure = function(silent) {
                                 if (Lang.isFunction(origOpts.failure)) {
@@ -325,7 +368,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                             YAHOO.log(o, 'error', logNS);
                             require('js/actions/menu/loader').loaderMenuHide();
                             Game.Failure(o, retry, failure);
-                        }
+                        },
                     };
                     YAHOO.lang.augmentObject(opts, origOpts);
                     if (!('timeout' in opts)) {
@@ -335,7 +378,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 };
                 return func;
             },
-            PreloadUI : function() {
+            PreloadUI: function() {
                 var images = Lib.UIImages;
                 for (var i = 0; i < images.length; i++) {
                     var url = Lib.AssetUrl + images[i];
@@ -343,30 +386,34 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     img.src = url;
                 }
             },
-            QuickDialog : function(config, afterRender, afterHide) {
+            QuickDialog: function(config, afterRender, afterHide) {
                 var container = document.createElement('div');
                 if (config.id) {
                     container.id = config.id;
                     delete config.id;
                 }
                 YAHOO.lang.augmentObject(config, {
-                    fixedcenter         : true,
-                    visible             : false,
-                    draggable           : false,
-                    constraintoviewport : true,
-                    modal               : true,
-                    close               : false,
-                    zindex              : 20000
+                    fixedcenter: true,
+                    visible: false,
+                    draggable: false,
+                    constraintoviewport: true,
+                    modal: true,
+                    close: false,
+                    zindex: 20000,
                 });
                 Dom.addClass(container, 'quick-dialog');
                 document.body.insertBefore(container, document.body.firstChild);
                 var dialog = new YAHOO.widget.SimpleDialog(container, config);
                 dialog.renderEvent.subscribe(function() {
-                    if (afterRender) { afterRender.call(this); }
+                    if (afterRender) {
+                        afterRender.call(this);
+                    }
                     this.show();
                 });
                 dialog.hideEvent.subscribe(function() {
-                    if (afterHide) { afterHide.call(this); }
+                    if (afterHide) {
+                        afterHide.call(this);
+                    }
                     // let the current process complete before destroying
                     setTimeout(function() {
                         dialog.destroy();
@@ -375,17 +422,22 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 dialog.render();
                 Game.OverlayManager.register(dialog);
             },
-            onRpc : function(oResult) {
+            onRpc: function(oResult) {
                 Lacuna.Game.ProcessStatus(oResult.status);
             },
 
-            ProcessStatus : function(status) {
+            ProcessStatus: function(status) {
                 if (status) {
-
                     if (status.server) {
                         // add everything from status empire to game empire
-                        Lang.augmentObject(Game.ServerData, status.server, true);
-                        Game.ServerData.time = Lib.parseServerDate(Game.ServerData.time);
+                        Lang.augmentObject(
+                            Game.ServerData,
+                            status.server,
+                            true
+                        );
+                        Game.ServerData.time = Lib.parseServerDate(
+                            Game.ServerData.time
+                        );
 
                         if (status.server.announcement) {
                             Lacuna.Announce.show();
@@ -412,48 +464,60 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                             Lacuna.Game.EmpireData.stationsByName = {};
                         }
                         for (var cKey in status.empire.colonies) {
-                            Lacuna.Game.EmpireData.coloniesByName[status.empire.colonies[cKey]] = cKey;
+                            Lacuna.Game.EmpireData.coloniesByName[
+                                status.empire.colonies[cKey]
+                            ] = cKey;
                         }
                         for (var sKey in status.empire.stations) {
-                            Lacuna.Game.EmpireData.stationsByName[status.empire.stations[sKey]] = sKey;
+                            Lacuna.Game.EmpireData.stationsByName[
+                                status.empire.stations[sKey]
+                            ] = sKey;
                         }
                         for (var pKey in status.empire.planets) {
                             if (status.empire.planets.hasOwnProperty(pKey)) {
-                                var ePlanet = Lacuna.Game.EmpireData.planets[pKey];
+                                var ePlanet =
+                                    Lacuna.Game.EmpireData.planets[pKey];
                                 if (!ePlanet) {
                                     Lacuna.Game.EmpireData.planets[pKey] = {
-                                        id              : pKey,
-                                        name            : status.empire.planets[pKey],
-                                        star_name       : '',
-                                        image           : undefined,
-                                        energy_capacity : 0,
-                                        energy_hour     : 0,
-                                        energy_stored   : 0,
-                                        food_capacity   : 0,
-                                        food_hour       : 0,
-                                        food_stored     : 0,
-                                        happiness       : 0,
-                                        happiness_hour  : 0,
-                                        ore_capacity    : 0,
-                                        ore_hour        : 0,
-                                        ore_stored      : 0,
-                                        waste_capacity  : 0,
-                                        waste_hour      : 0,
-                                        waste_stored    : 0,
-                                        water_capacity  : 0,
-                                        water_hour      : 0,
-                                        water_stored    : 0
+                                        id: pKey,
+                                        name: status.empire.planets[pKey],
+                                        star_name: '',
+                                        image: undefined,
+                                        energy_capacity: 0,
+                                        energy_hour: 0,
+                                        energy_stored: 0,
+                                        food_capacity: 0,
+                                        food_hour: 0,
+                                        food_stored: 0,
+                                        happiness: 0,
+                                        happiness_hour: 0,
+                                        ore_capacity: 0,
+                                        ore_hour: 0,
+                                        ore_stored: 0,
+                                        waste_capacity: 0,
+                                        waste_hour: 0,
+                                        waste_stored: 0,
+                                        water_capacity: 0,
+                                        water_hour: 0,
+                                        water_stored: 0,
                                     };
                                 } else {
-                                    Lacuna.Game.EmpireData.planets[pKey].name = status.empire.planets[pKey];
+                                    Lacuna.Game.EmpireData.planets[pKey].name =
+                                        status.empire.planets[pKey];
                                 }
-                                Lacuna.Game.EmpireData.planetsByName[status.empire.planets[pKey]] = Lacuna.Game.EmpireData.planets[pKey];
+                                Lacuna.Game.EmpireData.planetsByName[
+                                    status.empire.planets[pKey]
+                                ] = Lacuna.Game.EmpireData.planets[pKey];
                             }
                         }
                         delete status.empire.planets; // delete this so it doesn't overwrite the desired structure
 
                         // add everything from status empire to game empire
-                        Lang.augmentObject(Lacuna.Game.EmpireData, status.empire, true);
+                        Lang.augmentObject(
+                            Lacuna.Game.EmpireData,
+                            status.empire,
+                            true
+                        );
                     }
                     if (status.body) {
                         var planet = status.body;
@@ -483,35 +547,38 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     }
                 }
             },
-            GetStatus : function(callback) {
+            GetStatus: function(callback) {
                 var EmpireServ = Game.Services.Empire;
                 var session = Game.GetSession();
 
-                EmpireServ.get_status({
-                    session_id : session
-                }, {
-                    success : function(o) {
-                        YAHOO.log(o, 'info', 'Game.GetStatus.success');
-                        Lacuna.Game.ProcessStatus(o.result);
-                        if (callback && callback.success) {
-                            return callback.success.call(this);
-                        }
+                EmpireServ.get_status(
+                    {
+                        session_id: session,
                     },
-                    failure : function(o) {
-                        if (callback && callback.failure) {
-                            return callback.failure.call(this, o);
-                        }
-                    },
-                    scope : callback && callback.scope || this
-                });
+                    {
+                        success: function(o) {
+                            YAHOO.log(o, 'info', 'Game.GetStatus.success');
+                            Lacuna.Game.ProcessStatus(o.result);
+                            if (callback && callback.success) {
+                                return callback.success.call(this);
+                            }
+                        },
+                        failure: function(o) {
+                            if (callback && callback.failure) {
+                                return callback.failure.call(this, o);
+                            }
+                        },
+                        scope: (callback && callback.scope) || this,
+                    }
+                );
             },
-            GetSession : function(replace) {
+            GetSession: function(replace) {
                 if (!this._session) {
                     this._session = Game.GetCookie('session');
                 }
                 return this._session || replace;
             },
-            SetSession : function(session) {
+            SetSession: function(session) {
                 if (session) {
                     Game.SetCookie('session', session);
                     Game._session = session;
@@ -520,27 +587,27 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     delete Game._session;
                 }
             },
-            GetCurrentPlanet : function() {
+            GetCurrentPlanet: function() {
                 return BodyRPCStore.getData();
             },
-            GetSize : function() {
+            GetSize: function() {
                 var content = document.getElementById('content');
                 var width = content.offsetWidth;
                 var height = document.documentElement.clientHeight;
 
                 return {
-                    w : width,
-                    h : height
+                    w: width,
+                    h: height,
                 };
             },
-            Resize : function() {
+            Resize: function() {
                 if (Lacuna.MapStar.IsVisible()) {
                     Lacuna.MapStar.Resize();
                 } else if (Lacuna.MapPlanet.IsVisible()) {
                     Lacuna.MapPlanet.Resize();
                 }
             },
-            StarJump : function(star) {
+            StarJump: function(star) {
                 YAHOO.log(star, 'debug', 'StarJump');
                 Game.OverlayManager.hideAll();
                 require('js/stores/menu/mapMode').setMapMode('starMap');
@@ -548,37 +615,48 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 // Lacuna.MapStar.MapVisible(true);
                 Lacuna.MapStar.Jump(star.x * 1, star.y * 1);
             },
-            GetBuildingDesc : function(url) {
+            GetBuildingDesc: function(url) {
                 if (Game.Resources && Game.Resources.buildings) {
                     var desc = Game.Resources.buildings[url];
                     if (desc) {
-                        return [desc.description, ' <a href="', desc.wiki, '" target="_blank">More Information on Wiki</a>'].join('');
+                        return [
+                            desc.description,
+                            ' <a href="',
+                            desc.wiki,
+                            '" target="_blank">More Information on Wiki</a>',
+                        ].join('');
                     } else {
                         return '';
                     }
                 }
             },
-            GetShipDesc : function(type) {
+            GetShipDesc: function(type) {
                 if (Game.Resources && Game.Resources.ships) {
                     var desc = Game.Resources.ships[type];
                     if (desc) {
-                        return [desc.description, ' <a href="', desc.wiki, '" target="_blank">More Information on Wiki</a>'].join('');
+                        return [
+                            desc.description,
+                            ' <a href="',
+                            desc.wiki,
+                            '" target="_blank">More Information on Wiki</a>',
+                        ].join('');
                     }
                 }
             },
-            GetContainerEffect : function(effect) {
+            GetContainerEffect: function(effect) {
                 if (Game.GetCookieSettings('disableDialogAnim', '0') === '1') {
                     return;
                 } else {
-                    return effect || {
-                        effect   : YAHOO.widget.ContainerEffect.FADE,
-                        duration : 0.5
-                    };
+                    return (
+                        effect || {
+                            effect: YAHOO.widget.ContainerEffect.FADE,
+                            duration: 0.5,
+                        }
+                    );
                 }
             },
 
-            Reset : function() {
-
+            Reset: function() {
                 delete Game.isRunning;
 
                 // disable esc handler
@@ -598,13 +676,13 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             },
 
             // Cookie helpers functions
-            GetCookie : function(key, defaultValue) {
+            GetCookie: function(key, defaultValue) {
                 var chip = Cookie.getSub('lacuna', key);
                 return chip || defaultValue;
             },
-            SetCookie : function(key, value, expiresDate) {
+            SetCookie: function(key, value, expiresDate) {
                 var opts = {
-                    domain : Game.domain
+                    domain: Game.domain,
                 };
 
                 if (expiresDate) {
@@ -613,48 +691,48 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 Cookie.setSub('lacuna', key, value, opts);
             },
-            RemoveCookie : function(key) {
+            RemoveCookie: function(key) {
                 Cookie.removeSub('lacuna', key, {
-                    domain : Game.domain
+                    domain: Game.domain,
                 });
             },
-            RemoveAllCookies : function() {
+            RemoveAllCookies: function() {
                 Cookie.remove('lacuna', {
-                    domain : Game.domain
+                    domain: Game.domain,
                 });
             },
 
             // using a more permanent cookie
-            GetCookieSettings : function(key, defaultValue) {
+            GetCookieSettings: function(key, defaultValue) {
                 var chip = Cookie.getSub('lacunaSettings', key);
                 return chip || defaultValue;
             },
-            SetCookieSettings : function(key, value) {
+            SetCookieSettings: function(key, value) {
                 var now = new Date();
                 var opts = {
-                    domain  : Game.domain,
-                    expires : new Date(now.setFullYear(now.getFullYear() + 1))
+                    domain: Game.domain,
+                    expires: new Date(now.setFullYear(now.getFullYear() + 1)),
                 };
 
                 Cookie.setSub('lacunaSettings', key, value, opts);
             },
-            RemoveCookieSettings : function(key) {
+            RemoveCookieSettings: function(key) {
                 Cookie.removeSub('lacunaSettings', key, {
-                    domain : Game.domain
+                    domain: Game.domain,
                 });
             },
 
             // Tick related
-            Tick : function() {
+            Tick: function() {
                 var ED = Lacuna.Game.EmpireData;
                 var SD = Lacuna.Game.ServerData;
-                var dt = (new Date()).getTime();
+                var dt = new Date().getTime();
                 var diff = dt - Lacuna.Game.recTime;
 
                 Lacuna.Game.recTime = dt;
                 SD.time = new Date(Lib.getTime(SD.time) + diff);
 
-                var ratio = (diff / Lacuna.Game.HourMS);
+                var ratio = diff / Lacuna.Game.HourMS;
 
                 for (var pKey in ED.planets) {
                     if (ED.planets.hasOwnProperty(pKey)) {
@@ -718,7 +796,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                             planet.waste_stored += planet.waste_hour * ratio;
 
                             if (planet.waste_stored > planet.waste_capacity) {
-                                wasteOverage = planet.waste_stored - planet.waste_capacity;
+                                wasteOverage =
+                                    planet.waste_stored - planet.waste_capacity;
                                 planet.waste_stored = planet.waste_capacity;
                             } else if (planet.waste_stored < 0) {
                                 if (isNotStation) {
@@ -731,9 +810,13 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         }
 
                         if (isNotStation) {
-                            planet.happiness += (planet.happiness_hour * ratio) - wasteOverage;
+                            planet.happiness +=
+                                planet.happiness_hour * ratio - wasteOverage;
 
-                            if (planet.happiness < 0 && ED.is_isolationist === '1') {
+                            if (
+                                planet.happiness < 0 &&
+                                ED.is_isolationist === '1'
+                            ) {
                                 planet.happiness = 0;
                             }
                         }
@@ -742,7 +825,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 Game.onTick.fire(diff);
             },
-            QueueAdd : function(id, type, ms) {
+            QueueAdd: function(id, type, ms) {
                 if (!id || !type || !ms) {
                     return;
                 }
@@ -757,7 +840,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 Game.queue[type][id] = ms;
             },
-            QueueProcess : function(e, oArgs) {
+            QueueProcess: function(e, oArgs) {
                 // only do anything if the queue actually has data
                 if (Game.queue) {
                     var toFire = {};
@@ -789,7 +872,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     }
                 }
             },
-            QueueTick : function(type, id, ms) {
+            QueueTick: function(type, id, ms) {
                 switch (type) {
                     case Lib.QueueTypes.PLANET:
                         Lacuna.MapPlanet.QueueTick(id, ms);
@@ -802,7 +885,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         break;
                 }
             },
-            QueueFire : function(type, id) {
+            QueueFire: function(type, id) {
                 YAHOO.log(arguments, 'debug', 'Game.QueueFire');
 
                 switch (type) {
@@ -818,7 +901,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         break;
                 }
             },
-            QueueResetPlanet : function() {
+            QueueResetPlanet: function() {
                 if (Game.queue && Game.queue[Lib.QueueTypes.PLANET]) {
                     var queue = Game.queue[Lib.QueueTypes.PLANET];
 
@@ -830,28 +913,31 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 }
             },
 
-            onScroll : (function() {
+            onScroll: (function() {
                 var pixelsPerLine = 10;
                 var ua = navigator.userAgent;
-                var safari5 = ua.match(/\bSafari\//) && ua.match(/\bVersion\/5/);
+                var safari5 =
+                    ua.match(/\bSafari\//) && ua.match(/\bVersion\/5/);
                 var isEventSupported = (function() {
                     var TAGNAMES = {
-                        'select' : 'input',
-                        'change' : 'input',
-                        'submit' : 'form',
-                        'reset'  : 'form',
-                        'error'  : 'img',
-                        'load'   : 'img',
-                        'abort'  : 'img'
+                        select: 'input',
+                        change: 'input',
+                        submit: 'form',
+                        reset: 'form',
+                        error: 'img',
+                        load: 'img',
+                        abort: 'img',
                     };
                     var cache = {};
                     function isEventSupported(eventName) {
-                        var el = document.createElement(TAGNAMES[eventName] || 'div');
+                        var el = document.createElement(
+                            TAGNAMES[eventName] || 'div'
+                        );
                         eventName = 'on' + eventName;
                         if (eventName in cache) {
                             return cache[eventName];
                         }
-                        var isSupported = (eventName in el);
+                        var isSupported = eventName in el;
                         if (!isSupported) {
                             el.setAttribute(eventName, 'return;');
                             isSupported = typeof el[eventName] === 'function';
@@ -865,47 +951,77 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 if (isEventSupported('mousewheel')) {
                     return function(el, fn, obj, context) {
-                        Event.on(el, 'mousewheel', function(e, o) {
-                            var xDelta = 'wheelDeltaX' in e ? e.wheelDeltaX : 0;
-                            var yDelta = 'wheelDeltaY' in e ? e.wheelDeltaY : e.wheelDelta;
-                            // chrome/safari 4 give pixels
-                            // safari 5 gives pixels * 120
-                            if (safari5) {
-                                xDelta /= 120;
-                                yDelta /= 120;
-                            }
-                            fn.call(this, e, xDelta, yDelta, o);
-                        }, obj, context);
+                        Event.on(
+                            el,
+                            'mousewheel',
+                            function(e, o) {
+                                var xDelta =
+                                    'wheelDeltaX' in e ? e.wheelDeltaX : 0;
+                                var yDelta =
+                                    'wheelDeltaY' in e
+                                        ? e.wheelDeltaY
+                                        : e.wheelDelta;
+                                // chrome/safari 4 give pixels
+                                // safari 5 gives pixels * 120
+                                if (safari5) {
+                                    xDelta /= 120;
+                                    yDelta /= 120;
+                                }
+                                fn.call(this, e, xDelta, yDelta, o);
+                            },
+                            obj,
+                            context
+                        );
                     };
-                } else if (YAHOO.env.ua.gecko >= 1.9 && !ua.match(/\brv:1\.9\.0/)) {
+                } else if (
+                    YAHOO.env.ua.gecko >= 1.9 &&
+                    !ua.match(/\brv:1\.9\.0/)
+                ) {
                     // not possible to feature detect this, have to just use the version number
                     return function(el, fn, obj, context) {
-                        Event.on(el, 'MozMousePixelScroll', function(e, o) {
-                            var xAxis = e.axis === e.HORIZONTAL_AXIS;
-                            var xDelta = xAxis ? -e.detail : 0;
-                            var yDelta = xAxis ? 0 : -e.detail;
-                            fn.call(this, e, xDelta, yDelta, o);
-                        }, obj, context);
+                        Event.on(
+                            el,
+                            'MozMousePixelScroll',
+                            function(e, o) {
+                                var xAxis = e.axis === e.HORIZONTAL_AXIS;
+                                var xDelta = xAxis ? -e.detail : 0;
+                                var yDelta = xAxis ? 0 : -e.detail;
+                                fn.call(this, e, xDelta, yDelta, o);
+                            },
+                            obj,
+                            context
+                        );
                     };
                 } else {
                     return function(el, fn, obj, context) {
-                        Event.on(el, 'DOMMouseScroll', function(e, o) {
-                            var xAxis = 'axis' in e && e.axis === e.HORIZONTAL_AXIS;
-                            // this event gets 'lines'
-                            var xDelta = xAxis ? -e.detail * pixelsPerLine : 0;
-                            var yDelta = xAxis ? 0 : -e.detail * pixelsPerLine;
-                            fn.call(this, e, xDelta, yDelta, o);
-                        }, obj, context);
+                        Event.on(
+                            el,
+                            'DOMMouseScroll',
+                            function(e, o) {
+                                var xAxis =
+                                    'axis' in e && e.axis === e.HORIZONTAL_AXIS;
+                                // this event gets 'lines'
+                                var xDelta = xAxis
+                                    ? -e.detail * pixelsPerLine
+                                    : 0;
+                                var yDelta = xAxis
+                                    ? 0
+                                    : -e.detail * pixelsPerLine;
+                                fn.call(this, e, xDelta, yDelta, o);
+                            },
+                            obj,
+                            context
+                        );
                     };
                 }
-            })()
+            })(),
         };
 
         YAHOO.lacuna.Game = Game;
     })();
 
     YAHOO.register('game', YAHOO.lacuna.Game, {
-        version : '1',
-        build   : '0'
+        version: '1',
+        build: '0',
     });
 }
