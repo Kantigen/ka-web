@@ -37,14 +37,7 @@ module.exports = function(options) {
     });
 
     // This transforms all the .jsx files into JavaScript.
-    b.transform(
-        babelify.configure({
-            presets: ['react'],
-
-            // Only touch jsx files because we're not using ES6 features at the moment.
-            extensions: ['.jsx'],
-        })
-    );
+    b.transform('babelify');
 
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {
