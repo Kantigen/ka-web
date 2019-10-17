@@ -38,6 +38,9 @@ module.exports = function(options) {
 
     // This transforms all the .jsx files into JavaScript.
     b.transform('babelify');
+    b.transform('browserify-css', {
+        global: true,
+    });
 
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {
