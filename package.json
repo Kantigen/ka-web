@@ -15,9 +15,6 @@
   "bugs": {
     "url": "https://github.com/Kantigen/ka-web/issues"
   },
-  "scripts": {
-    "test": "gulp lint"
-  },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
     "classnames": "2.2.6",
@@ -39,14 +36,6 @@
     "babel-preset-react": "6.5.0",
     "babelify": "7.3.0",
     "browserify": "13.0.1",
-    "del": "2.2.0",
-    "eslint": "2.12.0",
-    "eslint-config-standard": "5.3.1",
-    "eslint-config-standard-jsx": "1.2.1",
-    "eslint-config-standard-react": "2.4.0",
-    "eslint-plugin-promise": "1.3.2",
-    "eslint-plugin-react": "5.1.1",
-    "eslint-plugin-standard": "1.3.2",
     "express": "4.13.4",
     "gulp": "4.x.x",
     "gulp-concat-css": "2.3.0",

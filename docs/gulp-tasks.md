@@ -30,12 +30,6 @@ This puts all the JavaScript and CSS together and watches for changes to the cod
 
 This puts all the JavaScript and CSS together and starts a web server to run the web client. It also watches for changes to the code and restarts when required.
 
-## lint
-
-> `gulp lint`
-
-Runs the linter on the code.
-
 ## serve
 
 > `gulp server`

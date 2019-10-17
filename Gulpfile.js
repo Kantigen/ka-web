@@ -25,16 +25,11 @@ function cssify() {
     return gulpTasks.cssify();
 }
 
-function lint() {
-    return gulpTasks.lint();
-}
-
 function server(done) {
     return gulpTasks.server(done);
 }
 
 module.exports.server = server;
-module.exports.lint = lint;
 module.exports.devWithServer = series(browserify, cssify, server);
 module.exports.dev = series(browserify, cssify);
 module.exports.cssify = cssify;
