@@ -18,8 +18,8 @@
     },
     "scripts": {
         "test": "npm run lint",
-        "lint": "eslint .",
-        "lint-fix": "eslint . --fix",
+        "lint": "eslint 'app/**/*.{js,jsx}'",
+        "lint-fix": "eslint 'app/**/*.{js,jsx}' --fix",
         "dev": "gulp devWithServer"
     },
     "homepage": "https://github.com/Kantigen/ka-web",
