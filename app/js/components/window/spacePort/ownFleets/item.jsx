@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var ResourceAttribute = require('js/components/window/shipyard/resourceAttribute');
@@ -8,8 +10,8 @@ var constants = require('js/constants');
 
 var BuildFleetItem = React.createClass({
     propTypes: {
-        obj: React.PropTypes.object.isRequired,
-        buildingId: React.PropTypes.number.isRequired,
+        obj: PropTypes.object.isRequired,
+        buildingId: PropTypes.number.isRequired,
     },
 
     render: function() {

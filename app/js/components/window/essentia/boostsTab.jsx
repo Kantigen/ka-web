@@ -1,14 +1,16 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var Boost = require('js/components/window/essentia/boost');
 
 var BoostsTab = React.createClass({
     propTypes: {
-        exactEssentia: React.PropTypes.number.isRequired,
-        boosts: React.PropTypes.object.isRequired,
-        essentia: React.PropTypes.number.isRequired,
+        exactEssentia: PropTypes.number.isRequired,
+        boosts: PropTypes.object.isRequired,
+        essentia: PropTypes.number.isRequired,
     },
 
     render: function() {

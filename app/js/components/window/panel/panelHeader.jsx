@@ -1,16 +1,18 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var PanelHeader = React.createClass({
     propTypes: {
-        panelWidth: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
+        panelWidth: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
         ]),
 
-        onClose: React.PropTypes.func.isRequired,
-        title: React.PropTypes.string.isRequired,
+        onClose: PropTypes.func.isRequired,
+        title: PropTypes.string.isRequired,
     },
 
     render: function() {

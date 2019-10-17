@@ -2,6 +2,8 @@
 
 var vex = require('js/vex');
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var classnames = require('classnames');
 var validator = require('validator');
@@ -12,11 +14,11 @@ var BoostCountdown = require('js/components/window/essentia/boostCountdown');
 
 var Boost = React.createClass({
     propTypes: {
-        type: React.PropTypes.string.isRequired,
-        iconName: React.PropTypes.string.isRequired,
-        description: React.PropTypes.string.isRequired,
-        essentia: React.PropTypes.number.isRequired,
-        boosts: React.PropTypes.object.isRequired,
+        type: PropTypes.string.isRequired,
+        iconName: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        essentia: PropTypes.number.isRequired,
+        boosts: PropTypes.object.isRequired,
     },
 
     getDefaultProps: function() {

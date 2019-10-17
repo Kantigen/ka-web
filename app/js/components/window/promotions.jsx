@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 var _ = require('lodash');
@@ -8,7 +10,7 @@ var ServerRPCStore = require('js/stores/rpc/server');
 
 var Promotion = React.createClass({
     propTypes: {
-        promotion: React.PropTypes.object.isRequired,
+        promotion: PropTypes.object.isRequired,
     },
 
     getDefaultProps: function() {

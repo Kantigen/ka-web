@@ -1,10 +1,12 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var RPCCountToolTip = React.createClass({
     propTypes: {
-        body: React.PropTypes.object.isRequired,
+        body: PropTypes.object.isRequired,
     },
 
     render: function() {

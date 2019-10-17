@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Reflux = require('reflux');
@@ -17,13 +19,13 @@ var RightSidebarStore = require('js/stores/menu/rightSidebar');
 
 var PlanetListItem = React.createClass({
     propTypes: {
-        name: React.PropTypes.string.isRequired,
-        id: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
+        name: PropTypes.string.isRequired,
+        id: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
         ]).isRequired,
-        currentBody: React.PropTypes.number.isRequired,
-        zone: React.PropTypes.string.isRequired,
+        currentBody: PropTypes.number.isRequired,
+        zone: PropTypes.string.isRequired,
     },
 
     getInitialProps: function() {
@@ -73,10 +75,10 @@ var PlanetListItem = React.createClass({
 
 var AccordionItem = React.createClass({
     propTypes: {
-        list: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-        currentBody: React.PropTypes.number.isRequired,
-        title: React.PropTypes.string.isRequired,
-        initiallyOpen: React.PropTypes.bool.isRequired,
+        list: PropTypes.arrayOf(PropTypes.object).isRequired,
+        currentBody: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        initiallyOpen: PropTypes.bool.isRequired,
     },
 
     getInitialProps: function() {
@@ -168,8 +170,8 @@ var AccordionItem = React.createClass({
 
 var BodiesAccordion = React.createClass({
     propTypes: {
-        bodies: React.PropTypes.object.isRequired,
-        currentBody: React.PropTypes.number.isRequired,
+        bodies: PropTypes.object.isRequired,
+        currentBody: PropTypes.number.isRequired,
     },
 
     render: function() {

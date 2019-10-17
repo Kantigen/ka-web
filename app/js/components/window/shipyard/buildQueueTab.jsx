@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 
@@ -10,7 +12,7 @@ var BuildQueueItem = require('js/components/window/shipyard/buildQueue/item');
 
 var BuildQueueTab = React.createClass({
     propTypes: {
-        buildingId: React.PropTypes.number.isRequired,
+        buildingId: PropTypes.number.isRequired,
     },
 
     componentWillMount: function() {

@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var classnames = require('classnames');
 
@@ -7,11 +9,11 @@ var ProgressBar = require('js/components/menu/bottomBar/progressBar');
 
 var BottomBarSection = React.createClass({
     propTypes: {
-        iconName: React.PropTypes.string.isRequired,
-        topText: React.PropTypes.string.isRequired,
-        bottomText: React.PropTypes.string.isRequired,
-        toolTipShow: React.PropTypes.func,
-        progressPercent: React.PropTypes.number,
+        iconName: PropTypes.string.isRequired,
+        topText: PropTypes.string.isRequired,
+        bottomText: PropTypes.string.isRequired,
+        toolTipShow: PropTypes.func,
+        progressPercent: PropTypes.number,
     },
 
     handleToolTip: function() {

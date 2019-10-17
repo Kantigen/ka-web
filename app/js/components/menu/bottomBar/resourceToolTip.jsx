@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var classnames = require('classnames');
 
@@ -7,11 +9,11 @@ var util = require('js/util');
 
 var ResourceToolTip = React.createClass({
     propTypes: {
-        body: React.PropTypes.object.isRequired,
-        type: React.PropTypes.string.isRequired,
-        title: React.PropTypes.string.isRequired,
-        icon: React.PropTypes.string.isRequired,
-        children: React.PropTypes.node,
+        body: PropTypes.object.isRequired,
+        type: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
+        children: PropTypes.node,
     },
 
     getResourceStatus: function(hour, stored, capicity, hasCapicity) {

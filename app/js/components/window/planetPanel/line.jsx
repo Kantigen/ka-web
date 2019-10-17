@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 
@@ -7,8 +9,8 @@ var BodyRPCGetBodyStatusStore = require('js/stores/rpc/body/getBodyStatus');
 
 var PlanetDetails = React.createClass({
     propTypes: {
-        title: React.PropTypes.string.isRequired,
-        value: React.PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
     },
 
     mixins: [

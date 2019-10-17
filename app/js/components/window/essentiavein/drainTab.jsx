@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var _ = require('lodash');
 
@@ -7,7 +9,7 @@ var EssentiaVeinRPCActions = require('js/actions/rpc/essentiaVein');
 
 var DrainTab = React.createClass({
     propTypes: {
-        building: React.PropTypes.object.isRequired,
+        building: PropTypes.object.isRequired,
     },
 
     componentDidMount: function() {

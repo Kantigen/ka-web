@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 
@@ -29,7 +31,7 @@ var EssentiaVein = React.createClass({
     },
 
     propTypes: {
-        options: React.PropTypes.object,
+        options: PropTypes.object,
     },
 
     mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],

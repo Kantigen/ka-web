@@ -1,10 +1,12 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var ProgressBar = React.createClass({
     propTypes: {
-        percent: React.PropTypes.number.isRequired,
+        percent: PropTypes.number.isRequired,
     },
 
     render: function() {

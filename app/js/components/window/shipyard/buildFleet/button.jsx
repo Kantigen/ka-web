@@ -1,16 +1,18 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var ShipyardRPCActions = require('js/actions/rpc/shipyard');
 
 var BuildButton = React.createClass({
     propTypes: {
-        canBuild: React.PropTypes.number.isRequired,
-        obj: React.PropTypes.object.isRequired,
-        buildingId: React.PropTypes.number.isRequired,
-        autoSelect: React.PropTypes.string.isRequired,
-        fleetType: React.PropTypes.string.isRequired,
+        canBuild: PropTypes.number.isRequired,
+        obj: PropTypes.object.isRequired,
+        buildingId: PropTypes.number.isRequired,
+        autoSelect: PropTypes.string.isRequired,
+        fleetType: PropTypes.string.isRequired,
     },
 
     handleQuantity: function(o) {

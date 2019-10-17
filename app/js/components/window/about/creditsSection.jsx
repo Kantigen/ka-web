@@ -1,12 +1,14 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var _ = require('lodash');
 
 var CreditsSection = React.createClass({
     propTypes: {
-        header: React.PropTypes.string.isRequired,
-        names: React.PropTypes.arrayOf(React.PropTypes.string),
+        header: PropTypes.string.isRequired,
+        names: PropTypes.arrayOf(PropTypes.string),
     },
 
     getDefaultProps: function() {

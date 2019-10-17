@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 var _ = require('lodash');
@@ -10,7 +12,7 @@ var BuildFleetItem = require('js/components/window/shipyard/buildFleet/item');
 
 var BuildFleetTab = React.createClass({
     propTypes: {
-        buildingId: React.PropTypes.number.isRequired,
+        buildingId: PropTypes.number.isRequired,
     },
 
     getInitialState: function() {

@@ -1,18 +1,20 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var PanelContent = React.createClass({
     propTypes: {
-        panelHeight: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
+        panelHeight: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
         ]),
-        panelWidth: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.string,
+        panelWidth: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
         ]),
-        children: React.PropTypes.element,
+        children: PropTypes.element,
     },
 
     render: function() {

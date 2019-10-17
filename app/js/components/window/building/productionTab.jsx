@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 var _ = require('lodash');
@@ -19,7 +21,7 @@ var ProductionTab = React.createClass({
     mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
 
     propTypes: {
-        building: React.PropTypes.object,
+        building: PropTypes.object,
     },
 
     onDemolishClick: function() {

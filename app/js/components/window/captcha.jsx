@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 
@@ -19,7 +21,7 @@ var Captcha = React.createClass({
     },
 
     propTypes: {
-        options: React.PropTypes.object.isRequired,
+        options: PropTypes.object.isRequired,
     },
 
     mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],

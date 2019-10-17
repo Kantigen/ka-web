@@ -1,13 +1,15 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var util = require('js/util');
 
 var ResourceAttribute = React.createClass({
     propTypes: {
-        name: React.PropTypes.string.isRequired,
-        attr: React.PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        attr: PropTypes.number.isRequired,
     },
 
     render: function() {

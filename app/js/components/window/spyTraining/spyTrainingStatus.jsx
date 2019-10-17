@@ -1,14 +1,16 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var util = require('js/util');
 
 var SpyTrainingStatus = React.createClass({
     propTypes: {
-        inTraining: React.PropTypes.number.isRequired,
-        pointsPerHour: React.PropTypes.number.isRequired,
-        maxPoints: React.PropTypes.number.isRequired,
+        inTraining: PropTypes.number.isRequired,
+        pointsPerHour: PropTypes.number.isRequired,
+        maxPoints: PropTypes.number.isRequired,
     },
 
     render: function() {

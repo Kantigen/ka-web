@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var constants = require('js/constants');
@@ -7,7 +9,7 @@ var resources = require('js/resources');
 
 var BuildingInformation = React.createClass({
     propTypes: {
-        options: React.PropTypes.object.isRequired,
+        options: PropTypes.object.isRequired,
     },
 
     getImageUrl: function() {

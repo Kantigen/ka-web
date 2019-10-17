@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var classnames = require('classnames');
 
@@ -7,9 +9,9 @@ var util = require('js/util');
 
 var ResourceLine = React.createClass({
     propTypes: {
-        icon: React.PropTypes.string.isRequired,
-        cost: React.PropTypes.number.isRequired,
-        red: React.PropTypes.bool,
+        icon: PropTypes.string.isRequired,
+        cost: PropTypes.number.isRequired,
+        red: PropTypes.bool,
     },
 
     render: function() {

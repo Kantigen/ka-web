@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Draggable = require('react-draggable');
 
@@ -10,10 +12,10 @@ var WindowActions = require('js/actions/window');
 
 var Panel = React.createClass({
     propTypes: {
-        type: React.PropTypes.string,
-        zIndex: React.PropTypes.number,
-        options: React.PropTypes.object,
-        window: React.PropTypes.func,
+        type: PropTypes.string,
+        zIndex: PropTypes.number,
+        options: PropTypes.object,
+        window: PropTypes.func,
     },
 
     onBringToTop: function() {

@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 
 var EmpireRPCActions = require('js/actions/rpc/empire');
@@ -12,7 +14,7 @@ var constants = require('js/constants');
 
 var GetEssentiaTab = React.createClass({
     propTypes: {
-        session: React.PropTypes.string.isRequired,
+        session: PropTypes.string.isRequired,
     },
 
     purchase: function() {

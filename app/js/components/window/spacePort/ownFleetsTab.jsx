@@ -1,5 +1,7 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var Reflux = require('reflux');
 
@@ -11,7 +13,7 @@ var OwnFleetItem = require('js/components/window/spacePort/ownFleets/item');
 
 var OwnFleetsTab = React.createClass({
     propTypes: {
-        buildingId: React.PropTypes.number.isRequired,
+        buildingId: PropTypes.number.isRequired,
     },
 
     getInitialState: function() {

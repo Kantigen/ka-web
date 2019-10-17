@@ -1,11 +1,13 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var classnames = require('classnames');
 
 var BoostCountdown = React.createClass({
     propTypes: {
-        boost: React.PropTypes.object.isRequired,
+        boost: PropTypes.object.isRequired,
     },
 
     getDefaultProps: function() {

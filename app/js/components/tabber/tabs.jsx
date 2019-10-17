@@ -1,14 +1,16 @@
 'use strict';
 
+var PropTypes = require('prop-types');
+
 var React = require('react');
 var _ = require('lodash');
 var ReactTabs = require('react-tabs');
 
 var Tabs = React.createClass({
     propTypes: {
-        initialTab: React.PropTypes.number,
-        onSelect: React.PropTypes.object,
-        children: React.PropTypes.node,
+        initialTab: PropTypes.number,
+        onSelect: PropTypes.object,
+        children: PropTypes.node,
     },
 
     getDefaultProps: function() {
