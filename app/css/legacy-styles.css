@@ -5,7 +5,7 @@ light blue: #52ACFF
 */
 
 html {
-	background: black url('/assets/star_system/field.png');
+	background: black url('/app/assets/star_system/field.png');
 	color:#fff;
 	overflow: hidden;
 	box-sizing: content-box;
@@ -46,7 +46,7 @@ button, input[type="submit"], input[type="button"], .button {
 	border-style: solid;
 	border-width: 1px;
 	border-color: #fefefe #dedede #dedede #fefefe;
-	background: #103070 url("/assets/ui/web/bar_bottom_back.png") 0 -10px;
+	background: #103070 url("/app/assets/ui/web/bar_bottom_back.png") 0 -10px;
 	color: #ffffff;
 }
 button:hover:active, input[type="submit"]:hover:active, input[type="button"]:hover:active, .button:hover:active {
@@ -96,12 +96,12 @@ button[disabled], input[type="submit"][disabled], input[type="button"][disabled]
 #header {
 	top: 0;
 	z-index:1000;
-	background-image:url("/assets/ui/web/bar_top_back.png");
+	background-image:url("/app/assets/ui/web/bar_top_back.png");
 }
 #footer {
 	bottom: 0;
 	z-index:1000;
-	background-image:url("/assets/ui/web/bar_bottom_back.png");
+	background-image:url("/app/assets/ui/web/bar_bottom_back.png");
 }
 
 .hidden {
@@ -124,7 +124,7 @@ body.yui-skin-sam .yui-panel {
 }
 body.yui-skin-sam .yui-panel .hd {
 	width:250px;
-	background:url("/assets/ui/tab.png") no-repeat scroll 0 0 transparent;
+	background:url("/app/assets/ui/tab.png") no-repeat scroll 0 0 transparent;
 	border-width:0;
 	margin-left:10px;
 	font-size:110%;
@@ -133,7 +133,7 @@ body.yui-skin-sam .yui-panel .hd {
 }
 
 .yui-skin-sam .yui-panel .bd, .yui-skin-sam .yui-panel .ft {
-	background-image:url("/assets/ui/bkg.png");
+	background-image:url("/app/assets/ui/bkg.png");
         background-color:#013e67
 }
 body.yui-skin-sam .yui-panel .bd {
@@ -163,7 +163,7 @@ body.yui-skin-sam .nofooter .bd {
 	border-color:#000;
 }
 body.yui-skin-sam .container-close {
-	background:url("/assets/ui/close.png") no-repeat scroll 0 0 transparent;
+	background:url("/app/assets/ui/close.png") no-repeat scroll 0 0 transparent;
 	cursor:pointer;
 	height:23px;
 	position:absolute;
@@ -537,7 +537,7 @@ body.yui-skin-sam .yui-pg-container .yui-pg-current-page {
     zoom:1; /*force ie layout so we can use the display:inline below*/
     *display:inline; /*ie hack to make it think this is an inline-block*/
 	position: relative;
-	background: url("/assets/ui/tickbar.png") -11px 5px no-repeat;
+	background: url("/app/assets/ui/tickbar.png") -11px 5px no-repeat;
 	height: 28px;
 	width: 198px;
 	top: 5px;
@@ -757,10 +757,10 @@ Info dialogs for Empire and Alliance
 	color:white;
 }
 .planetMapTileActionButton {
-	background: transparent url('/assets/ui/l/build.png');
+	background: transparent url('/app/assets/ui/l/build.png');
 }
 .plots-full .planetMapTileActionButton {
-	background: transparent url('/assets/ui/l/build-no.png');
+	background: transparent url('/app/assets/ui/l/build-no.png');
 }
 
 .tileContainer .tile50  div.planetMapTileCounter {
@@ -783,14 +783,14 @@ Info dialogs for Empire and Alliance
 	font-size:180%;
 }
 .tile50 .planetMapTileActionButton {
-	background: transparent url('/assets/ui/s/build.png');
+	background: transparent url('/app/assets/ui/s/build.png');
 }
 .plots-full .tile50 .planetMapTileActionButton {
-	background: transparent url('/assets/ui/s/build-no.png');
+	background: transparent url('/app/assets/ui/s/build-no.png');
 }
 
 .mapiator_zoom {
-	background: url(/assets/ui/zoom.png);
+	background: url(/app/assets/ui/zoom.png);
 	background-position: -20px -60px;
 	position:absolute;
 	z-index:30;
@@ -1275,7 +1275,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
 	position:relative;
 }
 .stashItem .stashDelete, .tradeItem .tradeDelete, .distribContainers .reserveDelete {
-	background:url("/assets/ui/close.png") no-repeat scroll center center transparent;
+	background:url("/app/assets/ui/close.png") no-repeat scroll center center transparent;
 	height:11px;
 	width:11px;
 	position: absolute;
@@ -1354,7 +1354,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
 	cursor:pointer;
 }
 .probeStar .probeDelete {
-	background:url("/assets/ui/close.png") no-repeat scroll center center transparent;
+	background:url("/app/assets/ui/close.png") no-repeat scroll center center transparent;
 	height:11px;
 	width:11px;
 	position: absolute;
@@ -1385,7 +1385,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
 	width:100px;
 	font-weight:bold;
 	font-size:100%;
-	cursor:url(/assets/ui/web/pen_m.cur), text;
+	cursor:url(/app/assets/ui/web/pen_m.cur), text;
 }
 .spyInfo .spyName input {
 	width:95px;
@@ -1879,7 +1879,7 @@ TextboxList
     padding:0 15px 0 2px;
 }
 .TextboxList .TextboxListBitBoxDelete {
-    background:transparent url(/assets/ui/crosssmall.gif) repeat scroll 0 0;
+    background:transparent url(/app/assets/ui/crosssmall.gif) repeat scroll 0 0;
     display:block;
     font-size:1px;
     height:7px;
@@ -1908,7 +1908,7 @@ TextboxList
     top:1px;
     #top:2px;
     position:absolute;
-    background:transparent url(/assets/ui/dropdown.gif) repeat scroll 0 0;
+    background:transparent url(/app/assets/ui/dropdown.gif) repeat scroll 0 0;
     z-index:2;
     display:-moz-inline-stack; /*mozilla 2.0*/
     display:inline-block; /*mozilla 3.0, ie 8*/

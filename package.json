@@ -20,10 +20,10 @@
   },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
-    "classnames": "2.2.5",
+    "classnames": "2.2.6",
     "fingerprintjs2": "1.4.0",
-    "lodash": "4.13.1",
-    "moment": "2.13.0",
+    "lodash": "4.17.15",
+    "moment": "2.24.0",
     "react": "0.14.7",
     "react-addons-css-transition-group": "0.14.7",
     "react-addons-pure-render-mixin": "0.14.7",
@@ -32,7 +32,7 @@
     "react-tabs": "0.5.3",
     "react-tooltip": "1.0.4",
     "reflux": "0.4.1",
-    "validator": "5.4.0"
+    "validator": "11.1.0"
   },
   "devDependencies": {
     "babel": "6.5.2",
