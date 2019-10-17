@@ -137,7 +137,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 require('js/actions/menu/loader').show();
                 this.setMessage('');
                 var EmpireServ = Game.Services.Empire;
-                new Fingerprint2().get(
+                Fingerprint2.get(
                     _.bind(function(result) {
                         console.log('browser: ' + result);
                         EmpireServ.login(

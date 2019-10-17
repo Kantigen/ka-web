@@ -25,7 +25,7 @@
     "homepage": "https://github.com/Kantigen/ka-web",
     "dependencies": {
         "classnames": "2.2.6",
-        "fingerprintjs2": "1.4.0",
+        "fingerprintjs2": "2.1.0",
         "lodash": "4.17.15",
         "moment": "2.24.0",
         "react": "0.14.7",
