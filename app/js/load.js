@@ -1,5 +1,7 @@
 'use strict';
 
+require('react-tabs/style/react-tabs.css');
+
 (function() {
     // TODO this code can be improved.
     var l = window.location;
