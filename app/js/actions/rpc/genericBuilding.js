@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var GenericBuildingRPCActions = Reflux.createActions([
     'requestGenericBuildingRPCView',
@@ -21,7 +21,7 @@ var GenericBuildingRPCActions = Reflux.createActions([
 
     'requestGenericBuildingRPCRepair',
     'successGenericBuildingRPCRepair',
-    'failureGenericBuildingRPCRepair'
+    'failureGenericBuildingRPCRepair',
 ]);
 
 module.exports = GenericBuildingRPCActions;

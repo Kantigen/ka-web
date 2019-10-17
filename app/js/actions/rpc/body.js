@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var BodyRPCActions = Reflux.createActions([
     'requestBodyRPCAbandon',
@@ -45,8 +45,7 @@ var BodyRPCActions = Reflux.createActions([
 
     'requestBodyRPCViewLaws',
     'successBodyRPCViewLaws',
-    'failureBodyRPCViewLaws'
-
+    'failureBodyRPCViewLaws',
 ]);
 
 module.exports = BodyRPCActions;

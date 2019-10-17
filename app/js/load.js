@@ -1,7 +1,6 @@
 'use strict';
 
 (function() {
-
     // TODO this code can be improved.
     var l = window.location;
     var query = {};
@@ -13,15 +12,19 @@
         }
     }
     if (window.history.replaceState) {
-        window.history.replaceState({}, document.title, l.protocol + '//' + l.host + l.pathname + l.search);
+        window.history.replaceState(
+            {},
+            document.title,
+            l.protocol + '//' + l.host + l.pathname + l.search
+        );
     } else if (l.hash !== '') {
         l.hash = '';
     }
 
     var loader = new YAHOO.util.YUILoader({
-        base        : '/app/vendor-js/yui2/build/',
-        allowRollup : true,
-        combine     : false
+        base: '/app/vendor-js/yui2/build/',
+        allowRollup: true,
+        combine: false,
     });
 
     // List of YUI2 components that need to be loaded.
@@ -45,11 +48,10 @@
         'selector',
         'slider',
         'tabview',
-        'yahoo'
+        'yahoo',
     ]);
 
     loader.onSuccess = function(o) {
-
         // /////////////////////////////////////////////////////////////////////////////
         // WARNING: IF YOU CHANGE THE ORDER OF THESE, THINGS WILL NOT LOAD PROPERLY! //
         // /////////////////////////////////////////////////////////////////////////////
@@ -127,5 +129,4 @@
 
     // Start the loading process.
     loader.insert();
-
 })();

@@ -1,131 +1,124 @@
 'use strict';
 
-var Reflux             = require('reflux');
-var StatefulStore      = require('js/stores/mixins/stateful');
-var _                  = require('lodash');
+var Reflux = require('reflux');
+var StatefulStore = require('js/stores/mixins/stateful');
+var _ = require('lodash');
 
-var BodyStatusActions  = require('js/actions/bodyStatus');
-var TickerActions      = require('js/actions/ticker');
-var UserActions        = require('js/actions/user');
+var BodyStatusActions = require('js/actions/bodyStatus');
+var TickerActions = require('js/actions/ticker');
+var UserActions = require('js/actions/user');
 
-var ServerRPCStore     = require('js/stores/rpc/server');
+var ServerRPCStore = require('js/stores/rpc/server');
 
-var util               = require('js/util');
-var int                = util.int;
-var clone              = util.clone;
+var util = require('js/util');
+var int = util.int;
+var clone = util.clone;
 
 var BodyRPCStore = Reflux.createStore({
-    listenables : [
-        BodyStatusActions,
-        TickerActions,
-        UserActions
-    ],
+    listenables: [BodyStatusActions, TickerActions, UserActions],
 
-    mixins : [
-        StatefulStore
-    ],
+    mixins: [StatefulStore],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            id        : 0,
-            x         : 0,
-            y         : 0,
-            star_id   : '',
-            star_name : '',
-            orbit     : 0,
-            type      : '',
-            name      : '',
-            image     : '',
-            size      : 0,
-            water     : 0,
-            ore       : {
-                anthracite   : 0,
-                bauxite      : 0,
-                beryl        : 0,
-                chromite     : 0,
-                chalcopyrite : 0,
-                fluorite     : 0,
-                galena       : 0,
-                goethite     : 0,
-                gold         : 0,
-                gypsum       : 0,
-                halite       : 0,
-                kerogen      : 0,
-                magnetite    : 0,
-                methane      : 0,
-                monazite     : 0,
-                rutile       : 0,
-                sulfur       : 0,
-                trona        : 0,
-                uraninite    : 0,
-                zircon       : 0
+            id: 0,
+            x: 0,
+            y: 0,
+            star_id: '',
+            star_name: '',
+            orbit: 0,
+            type: '',
+            name: '',
+            image: '',
+            size: 0,
+            water: 0,
+            ore: {
+                anthracite: 0,
+                bauxite: 0,
+                beryl: 0,
+                chromite: 0,
+                chalcopyrite: 0,
+                fluorite: 0,
+                galena: 0,
+                goethite: 0,
+                gold: 0,
+                gypsum: 0,
+                halite: 0,
+                kerogen: 0,
+                magnetite: 0,
+                methane: 0,
+                monazite: 0,
+                rutile: 0,
+                sulfur: 0,
+                trona: 0,
+                uraninite: 0,
+                zircon: 0,
             },
-            empire : {
-                id              : '',
-                name            : '',
-                alignment       : '',
-                is_isolationist : 0
+            empire: {
+                id: '',
+                name: '',
+                alignment: '',
+                is_isolationist: 0,
             },
-            station : {
-                id   : 0,
-                x    : 0,
-                y    : 0,
-                name : ''
+            station: {
+                id: 0,
+                x: 0,
+                y: 0,
+                name: '',
             },
-            needs_surface_refresh : 0,
-            building_count        : 0,
-            build_queue_size      : 0,
-            build_queue_len       : 0,
-            plots_available       : 0,
-            happiness             : 0,
-            happiness_hour        : 0,
-            unhappy_date          : '01 13 2014 16:11:21 +0600',
-            neutral_entry         : '01 13 2014 16:11:21 +0600',
-            propaganda_boost      : 0,
-            food_stored           : 0,
-            food_capacity         : 0,
-            food_hour             : 0,
-            energy_stored         : 0,
-            energy_capacity       : 0,
-            energy_hour           : 0,
-            ore_hour              : 0,
-            ore_capacity          : 0,
-            ore_stored            : 0,
-            waste_hour            : 0,
-            waste_stored          : 0,
-            waste_capacity        : 0,
-            water_stored          : 0,
-            water_hour            : 0,
-            water_capacity        : 0,
-            skip_incoming_ships   : 0,
-            num_incoming_enemy    : 0,
-            num_incoming_ally     : 0,
-            num_incoming_own      : 0,
-            incoming_enemy_ships  : [],
-            incoming_ally_ships   : [],
-            incoming_own_ships    : [],
-            food_percent_full     : 0,
-            ore_percent_full      : 0,
-            water_percent_full    : 0,
-            energy_percent_full   : 0,
-            waste_percent_full    : 0,
-            alliance              : {
-                id   : '',
-                name : ''
+            needs_surface_refresh: 0,
+            building_count: 0,
+            build_queue_size: 0,
+            build_queue_len: 0,
+            plots_available: 0,
+            happiness: 0,
+            happiness_hour: 0,
+            unhappy_date: '01 13 2014 16:11:21 +0600',
+            neutral_entry: '01 13 2014 16:11:21 +0600',
+            propaganda_boost: 0,
+            food_stored: 0,
+            food_capacity: 0,
+            food_hour: 0,
+            energy_stored: 0,
+            energy_capacity: 0,
+            energy_hour: 0,
+            ore_hour: 0,
+            ore_capacity: 0,
+            ore_stored: 0,
+            waste_hour: 0,
+            waste_stored: 0,
+            waste_capacity: 0,
+            water_stored: 0,
+            water_hour: 0,
+            water_capacity: 0,
+            skip_incoming_ships: 0,
+            num_incoming_enemy: 0,
+            num_incoming_ally: 0,
+            num_incoming_own: 0,
+            incoming_enemy_ships: [],
+            incoming_ally_ships: [],
+            incoming_own_ships: [],
+            food_percent_full: 0,
+            ore_percent_full: 0,
+            water_percent_full: 0,
+            energy_percent_full: 0,
+            waste_percent_full: 0,
+            alliance: {
+                id: '',
+                name: '',
             },
-            influence : {
-                total : 0,
-                spent : 0
-            }
+            influence: {
+                total: 0,
+                spent: 0,
+            },
         };
     },
 
-    onUserSignOut : function() {
+    onUserSignOut: function() {
         this.emit(this.getDefaultData());
     },
 
-    onBodyStatusUpdate : function(body) {
-
+    onBodyStatusUpdate: function(body) {
         // ////////////
         // CLEAN UP //
         // ////////////
@@ -133,35 +126,35 @@ var BodyRPCStore = Reflux.createStore({
         body.x = int(body.x);
         body.y = int(body.y);
 
-        body.num_incoming_own   = int(body.num_incoming_own);
-        body.num_incoming_ally  = int(body.num_incoming_ally);
+        body.num_incoming_own = int(body.num_incoming_own);
+        body.num_incoming_ally = int(body.num_incoming_ally);
         body.num_incoming_enemy = int(body.num_incoming_enemy);
-        body.plots_available    = int(body.plots_available);
-        body.building_count     = int(body.building_count);
+        body.plots_available = int(body.plots_available);
+        body.building_count = int(body.building_count);
 
         // no point recalcing for each ship.
         var serverTimeMs = ServerRPCStore.getData().serverMoment.valueOf();
 
         var updateShip = function(ship) {
-            ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - serverTimeMs;
+            ship.arrival_ms =
+                util.serverDateToMs(ship.date_arrives) - serverTimeMs;
             return ship;
         };
 
-        _.map(body.incoming_own_ships,      updateShip);
-        _.map(body.incoming_ally_ships,     updateShip);
-        _.map(body.incoming_enemy_ships,    updateShip);
+        _.map(body.incoming_own_ships, updateShip);
+        _.map(body.incoming_ally_ships, updateShip);
+        _.map(body.incoming_enemy_ships, updateShip);
 
         body = this.handleResourcesPercentages(body);
 
         this.emit(body);
     },
 
-    onBodyStatusClear : function() {
+    onBodyStatusClear: function() {
         this.emit(this.getDefaultData());
     },
 
-    onTickerTick : function() {
-
+    onTickerTick: function() {
         var body = clone(this.state);
 
         var tickIncoming = function(ship) {
@@ -186,27 +179,67 @@ var BodyRPCStore = Reflux.createStore({
             }
         };
 
-        body.food_stored    = tickResource(body.food_hour,      body.food_capacity,     body.food_stored,   1);
-        body.ore_stored     = tickResource(body.ore_hour,       body.ore_capacity,      body.ore_stored,    1);
-        body.water_stored   = tickResource(body.water_hour,     body.water_capacity,    body.water_stored,  1);
-        body.energy_stored  = tickResource(body.energy_hour,    body.energy_capacity,   body.energy_stored, 1);
-        body.waste_stored   = tickResource(body.waste_hour,     body.waste_capacity,    body.waste_stored,  1);
-        body.happiness      = tickResource(body.happiness_hour, undefined,              body.happiness,     undefined);
+        body.food_stored = tickResource(
+            body.food_hour,
+            body.food_capacity,
+            body.food_stored,
+            1
+        );
+        body.ore_stored = tickResource(
+            body.ore_hour,
+            body.ore_capacity,
+            body.ore_stored,
+            1
+        );
+        body.water_stored = tickResource(
+            body.water_hour,
+            body.water_capacity,
+            body.water_stored,
+            1
+        );
+        body.energy_stored = tickResource(
+            body.energy_hour,
+            body.energy_capacity,
+            body.energy_stored,
+            1
+        );
+        body.waste_stored = tickResource(
+            body.waste_hour,
+            body.waste_capacity,
+            body.waste_stored,
+            1
+        );
+        body.happiness = tickResource(
+            body.happiness_hour,
+            undefined,
+            body.happiness,
+            undefined
+        );
 
         body = this.handleResourcesPercentages(body);
 
         this.emit(body);
     },
 
-    handleResourcesPercentages : function(body) {
-        body.food_percent_full      = int((body.food_stored / body.food_capacity) * 100);
-        body.ore_percent_full       = int((body.ore_stored / body.ore_capacity) * 100);
-        body.water_percent_full     = int((body.water_stored / body.water_capacity) * 100);
-        body.energy_percent_full    = int((body.energy_stored / body.energy_capacity) * 100);
-        body.waste_percent_full     = int((body.waste_stored / body.waste_capacity) * 100);
+    handleResourcesPercentages: function(body) {
+        body.food_percent_full = int(
+            (body.food_stored / body.food_capacity) * 100
+        );
+        body.ore_percent_full = int(
+            (body.ore_stored / body.ore_capacity) * 100
+        );
+        body.water_percent_full = int(
+            (body.water_stored / body.water_capacity) * 100
+        );
+        body.energy_percent_full = int(
+            (body.energy_stored / body.energy_capacity) * 100
+        );
+        body.waste_percent_full = int(
+            (body.waste_stored / body.waste_capacity) * 100
+        );
 
         return body;
-    }
+    },
 });
 
 module.exports = BodyRPCStore;

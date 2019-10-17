@@ -9,8 +9,7 @@ var CaptchaRPCActions = Reflux.createActions([
 
     'requestCaptchaRPCSolve',
     'successCaptchaRPCSolve',
-    'failureCaptchaRPCSolve'
-
+    'failureCaptchaRPCSolve',
 ]);
 
 module.exports = CaptchaRPCActions;

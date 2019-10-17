@@ -7,7 +7,7 @@ var NotesWindowActions = Reflux.createActions([
     'notesWindowHide',
     'notesWindowLoad',
     'notesWindowClear',
-    'notesWindowSet'
+    'notesWindowSet',
 ]);
 
 module.exports = NotesWindowActions;

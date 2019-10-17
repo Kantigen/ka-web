@@ -1,9 +1,9 @@
 'use strict';
 
-var dao                         = require('js/dao');
+var dao = require('js/dao');
 
-var MayhemTrainingRPCActions    = require('js/actions/rpc/mayhemTraining');
-var BuildingWindowActions       = require('js/actions/windows/building');
+var MayhemTrainingRPCActions = require('js/actions/rpc/mayhemTraining');
+var BuildingWindowActions = require('js/actions/windows/building');
 
 function makeMayhemTrainingCall(options) {
     dao.makeServerCall('mayhemtraining', options, MayhemTrainingRPCActions);
@@ -11,10 +11,10 @@ function makeMayhemTrainingCall(options) {
 
 MayhemTrainingRPCActions.requestMayhemTrainingRPCView.listen(function(o) {
     makeMayhemTrainingCall({
-        method  : 'view',
-        params  : [o],
-        success : 'successMayhemTrainingRPCView',
-        error   : 'failureMayhemTrainingRPCView'
+        method: 'view',
+        params: [o],
+        success: 'successMayhemTrainingRPCView',
+        error: 'failureMayhemTrainingRPCView',
     });
 });
 MayhemTrainingRPCActions.successMayhemTrainingRPCView.listen(function(result) {

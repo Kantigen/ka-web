@@ -1,15 +1,15 @@
 'use strict';
 
 var StatefulStore = {
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {};
     },
 
-    getData : function() {
+    getData: function() {
         return this.state;
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         if (this.state) {
             return this.state;
         } else {
@@ -17,18 +17,18 @@ var StatefulStore = {
         }
     },
 
-    init : function() {
+    init: function() {
         this.state = this.getDefaultData();
     },
 
-    setState : function(newState) {
+    setState: function(newState) {
         this.state = newState;
     },
 
-    emit : function(newState) {
+    emit: function(newState) {
         this.setState(newState);
         this.trigger(this.state);
-    }
+    },
 };
 
 module.exports = StatefulStore;

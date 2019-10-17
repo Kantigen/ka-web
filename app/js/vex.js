@@ -13,28 +13,27 @@ var vexAlert = function(message) {
 
 var vexConfirm = function(message, yesCallback, noCallback) {
     vex.confirm({
-        message  : message,
-        callback : function(value) {
-
+        message: message,
+        callback: function(value) {
             if (value && typeof yesCallback === 'function') {
                 yesCallback();
             } else if (!value && typeof noCallback === 'function') {
                 noCallback();
             }
-        }
+        },
     });
 };
 
 var vexPrompt = function(message, placeholder, callback) {
     vex.prompt({
-        message     : message,
-        placeholder : placeholder,
-        callback    : callback
+        message: message,
+        placeholder: placeholder,
+        callback: callback,
     });
 };
 
 module.exports = {
-    alert   : vexAlert,
-    confirm : vexConfirm,
-    prompt  : vexPrompt
+    alert: vexAlert,
+    confirm: vexConfirm,
+    prompt: vexPrompt,
 };

@@ -9,7 +9,7 @@ var BuildingWindowActions = Reflux.createActions([
     'buildingWindowUpgrade',
     'buildingWindowDowngrade',
     'buildingWindowDemolish',
-    'buildingWindowRepair'
+    'buildingWindowRepair',
 ]);
 
 module.exports = BuildingWindowActions;

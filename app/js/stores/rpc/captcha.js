@@ -1,46 +1,41 @@
 'use strict';
 
-var Reflux                  = require('reflux');
-var StatefulMixinStore      = require('js/stores/mixins/stateful');
+var Reflux = require('reflux');
+var StatefulMixinStore = require('js/stores/mixins/stateful');
 
-var CaptchaWindowActions    = require('js/actions/windows/captcha');
-var CaptchaRPCActions       = require('js/actions/rpc/captcha');
-var WindowsActions          = require('js/actions/window');
+var CaptchaWindowActions = require('js/actions/windows/captcha');
+var CaptchaRPCActions = require('js/actions/rpc/captcha');
+var WindowsActions = require('js/actions/window');
 
-var clone                   = require('js/util').clone;
+var clone = require('js/util').clone;
 
 var CaptchaRPCStore = Reflux.createStore({
-    listenables : [
-        CaptchaWindowActions,
-        CaptchaRPCActions
-    ],
+    listenables: [CaptchaWindowActions, CaptchaRPCActions],
 
-    mixins : [
-        StatefulMixinStore
-    ],
+    mixins: [StatefulMixinStore],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            guid   : '',
-            url    : '',
-            solved : 0,
-            window : ''
+            guid: '',
+            url: '',
+            solved: 0,
+            window: '',
         };
     },
 
-    onCaptchaWindowClear : function() {
+    onCaptchaWindowClear: function() {
         this.emit(this.getDefaultData());
     },
 
-    onSuccessCaptchaRPCFetch : function(result) {
+    onSuccessCaptchaRPCFetch: function(result) {
         var update = clone(this.state);
         update.guid = result.guid;
-        update.url  = result.url;
+        update.url = result.url;
 
         this.emit(update);
     },
 
-    onSuccessCaptchaRPCSolve : function(result) {
+    onSuccessCaptchaRPCSolve: function(result) {
         var update = clone(this.state);
         update.solved = 1;
 
@@ -48,15 +43,15 @@ var CaptchaRPCStore = Reflux.createStore({
         WindowsActions.windowCloseByType('captcha');
     },
 
-    onCaptchaWindowShow : function(window) {
+    onCaptchaWindowShow: function(window) {
         var update = clone(this.state);
         update.window = window;
         this.emit(update);
     },
 
-    onCaptchaWindowRefresh : function() {
+    onCaptchaWindowRefresh: function() {
         this.onCaptchaWindowClear();
-    }
+    },
 });
 
 module.exports = CaptchaRPCStore;

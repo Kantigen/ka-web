@@ -1,23 +1,18 @@
 'use strict';
 
-var Reflux              = require('reflux');
-var _                   = require('lodash');
+var Reflux = require('reflux');
+var _ = require('lodash');
 
-var StatefulMixinStore  = require('js/stores/mixins/stateful');
+var StatefulMixinStore = require('js/stores/mixins/stateful');
 
-var StatsRPCActions     = require('js/actions/rpc/stats');
+var StatsRPCActions = require('js/actions/rpc/stats');
 
 var CreditsStatsRPCStore = Reflux.createStore({
+    listenables: [StatsRPCActions],
 
-    listenables : [
-        StatsRPCActions
-    ],
+    mixins: [StatefulMixinStore],
 
-    mixins : [
-        StatefulMixinStore
-    ],
-
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {};
     },
 
@@ -38,7 +33,7 @@ var CreditsStatsRPCStore = Reflux.createStore({
     //     'Play Testers' : ['John Ottinger', 'Jamie Vrbsky']
     // }
 
-    onSuccessStatsRPCGetCredits : function(result) {
+    onSuccessStatsRPCGetCredits: function(result) {
         var credits = {};
 
         _.each(result, function(foo) {
@@ -48,7 +43,7 @@ var CreditsStatsRPCStore = Reflux.createStore({
         });
 
         this.emit(credits);
-    }
+    },
 });
 
 module.exports = CreditsStatsRPCStore;

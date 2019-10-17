@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var ShipyardRPCActions = Reflux.createActions([
     'requestShipyardRPCView',
@@ -33,8 +33,7 @@ var ShipyardRPCActions = Reflux.createActions([
 
     'requestShipyardRPCRepairFleet',
     'successShipyardRPCRepairFleet',
-    'failureShipyardRPCRepairFleet'
-
+    'failureShipyardRPCRepairFleet',
 ]);
 
 module.exports = ShipyardRPCActions;

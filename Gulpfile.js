@@ -1,19 +1,19 @@
 'use strict';
 
 const { series } = require('gulp');
-const gulpTasks   = require('./gulp-tasks');
+const gulpTasks = require('./gulp-tasks');
 
 function browserify() {
     return gulpTasks.browserify({
-        rootDir : __dirname,
-        watch   : true
+        rootDir: __dirname,
+        watch: true,
     });
 }
 
 function browserifyWithoutWatch() {
     return gulpTasks.browserify({
-        rootDir : __dirname,
-        watch   : false
+        rootDir: __dirname,
+        watch: false,
     });
 }
 

@@ -6,7 +6,7 @@ var CaptchaActions = Reflux.createActions([
     'captchaWindowClear',
     'captchaWindowRefresh',
     'captchaWindowShow',
-    'captchaWindowHide'
+    'captchaWindowHide',
 ]);
 
 module.exports = CaptchaActions;

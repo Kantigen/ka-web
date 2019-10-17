@@ -1,9 +1,9 @@
 'use strict';
 
-var dao                     = require('js/dao');
+var dao = require('js/dao');
 
-var EssentiaVeinRPCActions  = require('js/actions/rpc/essentiaVein');
-var BuildingWindowActions   = require('js/actions/windows/building');
+var EssentiaVeinRPCActions = require('js/actions/rpc/essentiaVein');
+var BuildingWindowActions = require('js/actions/windows/building');
 
 function makeEssentiaVeinCall(options) {
     dao.makeServerCall('essentiavein', options, EssentiaVeinRPCActions);
@@ -11,10 +11,10 @@ function makeEssentiaVeinCall(options) {
 
 EssentiaVeinRPCActions.requestEssentiaVeinRPCView.listen(function(o) {
     makeEssentiaVeinCall({
-        method  : 'view',
-        params  : [o],
-        success : 'successEssentiaVeinRPCView',
-        error   : 'failureEssentiaVeinRPCView'
+        method: 'view',
+        params: [o],
+        success: 'successEssentiaVeinRPCView',
+        error: 'failureEssentiaVeinRPCView',
     });
 });
 EssentiaVeinRPCActions.successEssentiaVeinRPCView.listen(function(result) {
@@ -23,9 +23,9 @@ EssentiaVeinRPCActions.successEssentiaVeinRPCView.listen(function(result) {
 
 EssentiaVeinRPCActions.requestEssentiaVeinRPCDrain.listen(function(o) {
     makeEssentiaVeinCall({
-        method  : 'drain',
-        params  : [o.id, o.times],
-        success : 'successEssentiaVeinRPCDrain',
-        error   : 'failureEssentiaVeinRPCDrain'
+        method: 'drain',
+        params: [o.id, o.times],
+        success: 'successEssentiaVeinRPCDrain',
+        error: 'failureEssentiaVeinRPCDrain',
     });
 });

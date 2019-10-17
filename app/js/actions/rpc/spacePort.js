@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var SpacePortRPCActions = Reflux.createActions([
     'requestSpacePortRPCView',
@@ -73,8 +73,7 @@ var SpacePortRPCActions = Reflux.createActions([
 
     'requestSpacePortRPCViewBattleLog',
     'successSpacePortRPCViewBattleLog',
-    'failureSpacePortRPCViewBattleLog'
-
+    'failureSpacePortRPCViewBattleLog',
 ]);
 
 module.exports = SpacePortRPCActions;

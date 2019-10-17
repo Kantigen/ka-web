@@ -1,9 +1,9 @@
 'use strict';
 
-var dao                         = require('js/dao');
+var dao = require('js/dao');
 
-var PoliticsTrainingRPCActions  = require('js/actions/rpc/politicsTraining');
-var BuildingWindowActions       = require('js/actions/windows/building');
+var PoliticsTrainingRPCActions = require('js/actions/rpc/politicsTraining');
+var BuildingWindowActions = require('js/actions/windows/building');
 
 function makePoliticsTrainingCall(options) {
     dao.makeServerCall('politicstraining', options, PoliticsTrainingRPCActions);
@@ -11,12 +11,14 @@ function makePoliticsTrainingCall(options) {
 
 PoliticsTrainingRPCActions.requestPoliticsTrainingRPCView.listen(function(o) {
     makePoliticsTrainingCall({
-        method  : 'view',
-        params  : [o],
-        success : 'successPoliticsTrainingRPCView',
-        error   : 'failurePoliticsTrainingRPCView'
+        method: 'view',
+        params: [o],
+        success: 'successPoliticsTrainingRPCView',
+        error: 'failurePoliticsTrainingRPCView',
     });
 });
-PoliticsTrainingRPCActions.successPoliticsTrainingRPCView.listen(function(result) {
+PoliticsTrainingRPCActions.successPoliticsTrainingRPCView.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });

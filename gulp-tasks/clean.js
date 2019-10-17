@@ -3,10 +3,7 @@
 var del = require('del');
 
 module.exports = function() {
-    var files = [
-        'lacuna/*.js',
-        'lacuna/*.css'
-    ];
+    var files = ['lacuna/*.js', 'lacuna/*.css'];
 
     return del(files);
 };

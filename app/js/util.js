@@ -1,7 +1,7 @@
 'use strict';
 
-var moment    = require('moment');
-var _         = require('lodash');
+var moment = require('moment');
+var _ = require('lodash');
 
 var constants = require('js/constants');
 
@@ -21,25 +21,25 @@ module.exports.reduceNumber = function(number, always) {
         return Math.floor(number / 1000000000000000) + 'Q';
     } else if (number >= 1000000000000000 || number <= -1000000000000000) {
         // 75.3Q
-        return (Math.floor(number / 100000000000000) / 10) + 'Q';
+        return Math.floor(number / 100000000000000) / 10 + 'Q';
     } else if (number >= 100000000000000 || number <= -100000000000000) {
         // 101T
         return Math.floor(number / 1000000000000) + 'T';
     } else if (number >= 1000000000000 || number <= -1000000000000) {
         // 75.3T
-        return (Math.floor(number / 100000000000) / 10) + 'T';
+        return Math.floor(number / 100000000000) / 10 + 'T';
     } else if (number >= 100000000000 || number <= -100000000000) {
         // 101B
         return Math.floor(number / 1000000000) + 'B';
     } else if (number >= 1000000000 || number <= -1000000000) {
         // 75.3B
-        return (Math.floor(number / 100000000) / 10) + 'B';
+        return Math.floor(number / 100000000) / 10 + 'B';
     } else if (number >= 100000000 || number <= -100000000) {
         // 101M
         return Math.floor(number / 1000000) + 'M';
     } else if (number >= 1000000 || number <= -1000000) {
         // 75.3M
-        return (Math.floor(number / 100000) / 10) + 'M';
+        return Math.floor(number / 100000) / 10 + 'M';
     } else if (number >= 10000 || number <= -10000) {
         // 123k
         return Math.floor(number / 1000) + 'k';
@@ -59,7 +59,7 @@ module.exports.serverDateToDateObj = function(serverDate) {
     var dt = new Date();
 
     dt.setUTCFullYear(pieces[2] * 1);
-    dt.setUTCMonth((pieces[1] * 1 - 1), pieces[0] * 1);
+    dt.setUTCMonth(pieces[1] * 1 - 1, pieces[0] * 1);
     dt.setUTCHours(time[0] * 1);
     dt.setUTCMinutes(time[1] * 1);
     dt.setUTCSeconds(time[2] * 1);
@@ -90,7 +90,9 @@ module.exports.formatTime = function(totalSeconds) {
     var seconds = Math.floor(sleft % 60);
 
     if (day > 0) {
-        return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(':');
+        return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(
+            ':'
+        );
     } else if (hour > 0) {
         return [hour, xPad(min, '0'), xPad(seconds, '0')].join(':');
     } else {
@@ -145,7 +147,8 @@ var handleString = function(string) {
 var handleObj = function(obj) {
     if (_.isString(obj)) {
         return handleString(obj);
-    } else if (_.isObject(obj)) { // NOTE: isObject returns true for arrays.
+    } else if (_.isObject(obj)) {
+        // NOTE: isObject returns true for arrays.
         if (Array.isArray(obj)) {
             return _.forEach(obj, handleObj);
         } else {

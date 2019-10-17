@@ -1,21 +1,21 @@
 'use strict';
 
-var Reflux              = require('reflux');
-var ReactTooltip        = require('react-tooltip');
+var Reflux = require('reflux');
+var ReactTooltip = require('react-tooltip');
 
-var EmpireRPCActions    = require('js/actions/rpc/empire');
-var UserActions         = require('js/actions/user');
-var MenuActions         = require('js/actions/menu');
-var TickerActions       = require('js/actions/ticker');
-var MapActions          = require('js/actions/menu/map');
+var EmpireRPCActions = require('js/actions/rpc/empire');
+var UserActions = require('js/actions/user');
+var MenuActions = require('js/actions/menu');
+var TickerActions = require('js/actions/ticker');
+var MapActions = require('js/actions/menu/map');
 
 // TODO What is the purpose of this store? It does not store anything!
 // (it should disappear when the yui code is replaced totally)
 //
 var UserStore = Reflux.createStore({
-    listenables : [EmpireRPCActions, UserActions],
+    listenables: [EmpireRPCActions, UserActions],
 
-    onUserSignIn : function() {
+    onUserSignIn: function() {
         MenuActions.menuShow();
         TickerActions.tickerStart();
         // TODO This should be possible to be removed. BUT it is needed for
@@ -26,7 +26,7 @@ var UserStore = Reflux.createStore({
         MapActions.mapChangePlanet(YAHOO.lacuna.Game.EmpireData.home_planet_id);
     },
 
-    onSuccessEmpireRPCLogout : function(o) {
+    onSuccessEmpireRPCLogout: function(o) {
         // Here be the traditional code to reset the game...
         YAHOO.lacuna.Game.Reset();
         YAHOO.lacuna.MapPlanet.Reset();
@@ -34,8 +34,7 @@ var UserStore = Reflux.createStore({
 
         // Hide all our tooltips
         ReactTooltip.hide();
-    }
-
+    },
 });
 
 module.exports = UserStore;

@@ -5,39 +5,32 @@
 // server clock or menu bars that show resource changes.
 //
 
-var Reflux          = require('reflux');
-var _               = require('lodash');
+var Reflux = require('reflux');
+var _ = require('lodash');
 
-var TickerActions   = require('js/actions/ticker');
+var TickerActions = require('js/actions/ticker');
 var EmpireRPCActions = require('js/actions/rpc/empire');
-var UserActions     = require('js/actions/user');
+var UserActions = require('js/actions/user');
 
-var StatefulStore   = require('js/stores/mixins/stateful');
-var clone           = require('js/util').clone;
+var StatefulStore = require('js/stores/mixins/stateful');
+var clone = require('js/util').clone;
 
-var INTERVAL_TIME   = 1000;
+var INTERVAL_TIME = 1000;
 
 var TickerStore = Reflux.createStore({
+    listenables: [TickerActions, EmpireRPCActions, UserActions],
 
-    listenables : [
-        TickerActions,
-        EmpireRPCActions,
-        UserActions
-    ],
+    mixins: [StatefulStore],
 
-    mixins : [
-        StatefulStore
-    ],
-
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            ticking    : false,
-            interval   : _.noop,
-            clockTicks : 0
+            ticking: false,
+            interval: _.noop,
+            clockTicks: 0,
         };
     },
 
-    tick : function() {
+    tick: function() {
         TickerActions.tickerTick();
 
         var state = clone(this.state);
@@ -47,7 +40,7 @@ var TickerStore = Reflux.createStore({
         this.emit(state);
     },
 
-    onTickerStart : function() {
+    onTickerStart: function() {
         if (!this.state.ticking) {
             var state = clone(this.state);
 
@@ -58,16 +51,16 @@ var TickerStore = Reflux.createStore({
         }
     },
 
-    onSuccessEmpireRPCLogout : function() {
+    onSuccessEmpireRPCLogout: function() {
         this.onTickerStop();
     },
 
-    onTickerStop : function() {
+    onTickerStop: function() {
         if (this.ticking) {
             clearInterval(this.state.interval);
             this.emit(this.getDefaultData());
         }
-    }
+    },
 });
 
 module.exports = TickerStore;

@@ -1,28 +1,28 @@
 'use strict';
 
-var _                   = require('lodash');
-var util                = require('js/util');
+var _ = require('lodash');
+var util = require('js/util');
 
-var LoaderMenuActions   = require('js/actions/menu/loader');
-var SessionStore        = require('js/stores/session');
+var LoaderMenuActions = require('js/actions/menu/loader');
+var SessionStore = require('js/stores/session');
 var ServerStatusActions = require('js/actions/serverStatus');
-var BodyStatusActions   = require('js/actions/bodyStatus');
+var BodyStatusActions = require('js/actions/bodyStatus');
 var EmpireStatusActions = require('js/actions/empireStatus');
 
-var WindowActions       = require('js/actions/window');
+var WindowActions = require('js/actions/window');
 
-var Captcha             = require('js/components/window/captcha');
+var Captcha = require('js/components/window/captcha');
 
-var constants           = require('js/constants');
+var constants = require('js/constants');
 
 var defaults = {
-    module     : '',
-    method     : '',
-    params     : {},
-    addSession : true,
-    success    : _.noop,
-    error      : _.noop,
-    scope      : window
+    module: '',
+    method: '',
+    params: {},
+    addSession: true,
+    success: _.noop,
+    error: _.noop,
+    scope: window,
 };
 
 var handleDefaults = function(options) {
@@ -62,10 +62,10 @@ var handleConfig = function(options) {
 
 var createData = function(options) {
     return JSON.stringify({
-        jsonrpc : '2.0',
-        id      : 1,
-        method  : options.method,
-        params  : options.params
+        jsonrpc: '2.0',
+        id: 1,
+        method: options.method,
+        params: options.params,
     });
 };
 
@@ -80,7 +80,6 @@ var handleSuccess = function(options, result) {
 
             // Handle the legacy Status stuff...
             YAHOO.lacuna.Game.ProcessStatus(result.status);
-
         } else if (options.method === 'get_status') {
             splitStatus(result);
 
@@ -104,15 +103,19 @@ var handleError = function(options, error) {
 };
 
 var sendRequest = function(url, data, options, retry) {
-    console.log('Calling', options.module + '/' + options.method, options.params);
+    console.log(
+        'Calling',
+        options.module + '/' + options.method,
+        options.params
+    );
 
     $.ajax({
-        data     : data,
-        dataType : 'json',
-        type     : 'POST',
-        url      : url,
+        data: data,
+        dataType: 'json',
+        type: 'POST',
+        url: url,
 
-        success : function(data, textStatus, jqXHR) {
+        success: function(data, textStatus, jqXHR) {
             LoaderMenuActions.loaderMenuHide();
 
             var dataToEmit = util.fixNumbers(data.result);
@@ -122,14 +125,14 @@ var sendRequest = function(url, data, options, retry) {
             }
         },
 
-        error : function(jqXHR, textStatus, errorThrown) {
+        error: function(jqXHR, textStatus, errorThrown) {
             LoaderMenuActions.loaderMenuHide();
             var error = {};
 
             if (typeof jqXHR.responseJSON === 'undefined') {
                 error = {
-                    code    : -1,
-                    message : jqXHR.responseText
+                    code: -1,
+                    message: jqXHR.responseText,
                 };
             } else {
                 error = jqXHR.responseJSON.error;
@@ -141,17 +144,16 @@ var sendRequest = function(url, data, options, retry) {
 
             if (error.code === 1016) {
                 WindowActions.windowAdd(Captcha, 'captcha', {
-                    success : retry
+                    success: retry,
                 });
             } else {
                 fail();
             }
-        }
+        },
     });
 };
 
 var call = function(obj) {
-
     LoaderMenuActions.loaderMenuShow();
 
     var options = handleConfig(obj);
@@ -181,7 +183,6 @@ var splitStatus = function(status) {
         var bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
         BodyStatusActions.bodyStatusUpdate(bodyStatus);
     }
-
 };
 
 module.exports.call = call;

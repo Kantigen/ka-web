@@ -1,53 +1,53 @@
 'use strict';
 
-var Reflux      = require('reflux');
+var Reflux = require('reflux');
 
-var WindowMixinStore    = require('js/stores/mixins/window');
+var WindowMixinStore = require('js/stores/mixins/window');
 
 var MenuActions = require('js/actions/menu');
 var UserActions = require('js/actions/user');
 
 var MenuStore = Reflux.createStore({
-    mixins      : [WindowMixinStore],
-    listenables : [MenuActions, UserActions],
+    mixins: [WindowMixinStore],
+    listenables: [MenuActions, UserActions],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            show : false
+            show: false,
         };
     },
 
-    getData : function() {
+    getData: function() {
         return this.state;
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         if (!this.state) {
             this.state = this.getDefaultData();
         }
         return this.state;
     },
 
-    init : function() {
+    init: function() {
         this.state = this.getDefaultData();
     },
 
-    show : function(show) {
+    show: function(show) {
         this.state.show = show;
         this.trigger(this.state);
     },
 
-    onMenuShow : function() {
+    onMenuShow: function() {
         this.show(true);
     },
 
-    onMenuHide : function() {
+    onMenuHide: function() {
         this.show(false);
     },
 
-    onSuccessEmpireRPCLogout : function() {
+    onSuccessEmpireRPCLogout: function() {
         this.show(false);
-    }
+    },
 });
 
 module.exports = MenuStore;

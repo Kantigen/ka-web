@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var EmpireRPCActions = Reflux.createActions([
     'requestEmpireRPCLogin',
@@ -37,7 +37,7 @@ var EmpireRPCActions = Reflux.createActions([
 
     'requestEmpireRPCLogout',
     'successEmpireRPCLogout',
-    'failureEmpireRPCLogout'
+    'failureEmpireRPCLogout',
 ]);
 
 module.exports = EmpireRPCActions;

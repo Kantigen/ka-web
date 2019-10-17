@@ -1,76 +1,101 @@
 'use strict';
 
-var dao                         = require('js/dao');
+var dao = require('js/dao');
 
-var GenericBuildingRPCActions   = require('js/actions/rpc/genericBuilding');
-var BuildingWindowActions       = require('js/actions/windows/building');
+var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
+var BuildingWindowActions = require('js/actions/windows/building');
 
 function makeGenericBuildingCall(url, options) {
     url = url.replace(/^\//, '');
     dao.makeServerCall(url, options, GenericBuildingRPCActions);
 }
 
-GenericBuildingRPCActions.requestGenericBuildingRPCView.listen(function(url, o) {
+GenericBuildingRPCActions.requestGenericBuildingRPCView.listen(function(
+    url,
+    o
+) {
     makeGenericBuildingCall(url, {
-        method  : 'view',
-        params  : [o],
-        success : 'successGenericBuildingRPCView',
-        error   : 'failureGenericBuildingRPCView'
+        method: 'view',
+        params: [o],
+        success: 'successGenericBuildingRPCView',
+        error: 'failureGenericBuildingRPCView',
     });
 });
 
-GenericBuildingRPCActions.successGenericBuildingRPCView.listen(function(result) {
+GenericBuildingRPCActions.successGenericBuildingRPCView.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade.listen(function(url, o) {
+GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade.listen(function(
+    url,
+    o
+) {
     makeGenericBuildingCall(url, {
-        method  : 'upgrade',
-        params  : [o],
-        success : 'successGenericBuildingRPCUpgrade',
-        error   : 'failureGenericBuildingRPCUpgrade'
+        method: 'upgrade',
+        params: [o],
+        success: 'successGenericBuildingRPCUpgrade',
+        error: 'failureGenericBuildingRPCUpgrade',
     });
 });
 
-GenericBuildingRPCActions.successGenericBuildingRPCUpgrade.listen(function(result) {
+GenericBuildingRPCActions.successGenericBuildingRPCUpgrade.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade.listen(function(url, o) {
+GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade.listen(function(
+    url,
+    o
+) {
     makeGenericBuildingCall(url, {
-        method  : 'downgrade',
-        params  : [o],
-        success : 'successGenericBuildingRPCDowngrade',
-        error   : 'failureGenericBuildingRPCDowngrade'
+        method: 'downgrade',
+        params: [o],
+        success: 'successGenericBuildingRPCDowngrade',
+        error: 'failureGenericBuildingRPCDowngrade',
     });
 });
 
-GenericBuildingRPCActions.successGenericBuildingRPCDowngrade.listen(function(result) {
+GenericBuildingRPCActions.successGenericBuildingRPCDowngrade.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-GenericBuildingRPCActions.requestGenericBuildingRPCDemolish.listen(function(url, o) {
+GenericBuildingRPCActions.requestGenericBuildingRPCDemolish.listen(function(
+    url,
+    o
+) {
     makeGenericBuildingCall(url, {
-        method  : 'demolish',
-        params  : [o],
-        success : 'successGenericBuildingRPCDemolish',
-        error   : 'failureGenericBuildingRPCDemolish'
+        method: 'demolish',
+        params: [o],
+        success: 'successGenericBuildingRPCDemolish',
+        error: 'failureGenericBuildingRPCDemolish',
     });
 });
 
-GenericBuildingRPCActions.successGenericBuildingRPCDemolish.listen(function(result) {
+GenericBuildingRPCActions.successGenericBuildingRPCDemolish.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });
 
-GenericBuildingRPCActions.requestGenericBuildingRPCRepair.listen(function(url, o) {
+GenericBuildingRPCActions.requestGenericBuildingRPCRepair.listen(function(
+    url,
+    o
+) {
     makeGenericBuildingCall(url, {
-        method  : 'repair',
-        params  : [o],
-        success : 'successGenericBuildingRPCRepair',
-        error   : 'failureGenericBuildingRPCRepair'
+        method: 'repair',
+        params: [o],
+        success: 'successGenericBuildingRPCRepair',
+        error: 'failureGenericBuildingRPCRepair',
     });
 });
 
-GenericBuildingRPCActions.successGenericBuildingRPCRepair.listen(function(result) {
+GenericBuildingRPCActions.successGenericBuildingRPCRepair.listen(function(
+    result
+) {
     BuildingWindowActions.buildingWindowUpdate(result);
 });

@@ -1,33 +1,29 @@
 'use strict';
 
-var Reflux              = require('reflux');
+var Reflux = require('reflux');
 
 var RightSidebarActions = require('js/actions/menu/rightSidebar');
 
-var StatefulStore       = require('js/stores/mixins/stateful');
+var StatefulStore = require('js/stores/mixins/stateful');
 
 var RightSidebarStore = Reflux.createStore({
-    listenables : [
-        RightSidebarActions
-    ],
+    listenables: [RightSidebarActions],
 
-    mixins : [
-        StatefulStore
-    ],
+    mixins: [StatefulStore],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return false;
     },
 
-    onRightSidebarShow : function() {
+    onRightSidebarShow: function() {
         console.log('Showing right sidebar');
         this.emit(true);
     },
 
-    onRightSidebarHide : function() {
+    onRightSidebarHide: function() {
         console.log('Hiding right sidebar');
         this.emit(false);
-    }
+    },
 });
 
 module.exports = RightSidebarStore;

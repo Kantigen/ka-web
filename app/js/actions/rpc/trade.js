@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var TradeRPCActions = Reflux.createActions([
     'requestTradeRPCView',
@@ -109,7 +109,7 @@ var TradeRPCActions = Reflux.createActions([
 
     'requestTradeRPCGetGlyphSummary',
     'successTradeRPCGetGlyphSummary',
-    'failureTradeRPCGetGlyphSummary'
+    'failureTradeRPCGetGlyphSummary',
 ]);
 
 module.exports = TradeRPCActions;

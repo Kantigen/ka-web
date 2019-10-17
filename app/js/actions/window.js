@@ -7,7 +7,7 @@ var WindowActions = Reflux.createActions([
     'windowClose',
     'windowCloseByType',
     'windowCloseAll',
-    'windowBringToTop'
+    'windowBringToTop',
 ]);
 
 module.exports = WindowActions;

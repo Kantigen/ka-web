@@ -7,7 +7,7 @@ var LoaderMenuActions = Reflux.createActions([
     'loaderMenuHide',
     // The following are deprecated...
     'show',
-    'hide'
+    'hide',
 ]);
 
 module.exports = LoaderMenuActions;

@@ -3,7 +3,7 @@
 var _ = require('lodash');
 
 var linuxConfig = require('config/linux.json');
-var macConfig   = require('config/mac.json');
+var macConfig = require('config/mac.json');
 
 var userConfig = {};
 
@@ -14,10 +14,10 @@ try {
 }
 
 var config = {
-    hasLoaded    : false,
-    loadedConfig : {},
+    hasLoaded: false,
+    loadedConfig: {},
 
-    get : function(key) {
+    get: function(key) {
         if (!this.hasLoaded) {
             this.load();
         }
@@ -25,7 +25,7 @@ var config = {
         return this.loadedConfig[key] || undefined;
     },
 
-    load : function() {
+    load: function() {
         // Determine what platform so we know which config to load.
         var plat = window.navigator.platform.toLowerCase();
 
@@ -38,11 +38,15 @@ var config = {
             this.loadedConfig = _.merge({}, linuxConfig, userConfig);
             this.hasLoaded = true;
         } else {
-            console.log('Platform ("' + plat + '") not supported - loading user config anyway');
+            console.log(
+                'Platform ("' +
+                    plat +
+                    '") not supported - loading user config anyway'
+            );
             this.loadedConfig = _.merge({}, userConfig);
             this.hasLoaded = true;
         }
-    }
+    },
 };
 
 module.exports = config;

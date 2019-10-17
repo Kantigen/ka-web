@@ -1,7 +1,7 @@
 'use strict';
 
-var dao                 = require('js/dao');
-var BodyRPCActions      = require('js/actions/rpc/body');
+var dao = require('js/dao');
+var BodyRPCActions = require('js/actions/rpc/body');
 
 function makeBodyCall(options) {
     dao.makeServerCall('body', options, BodyRPCActions);
@@ -9,107 +9,107 @@ function makeBodyCall(options) {
 
 BodyRPCActions.requestBodyRPCAbandon.listen(function(o) {
     makeBodyCall({
-        method  : 'abandon',
-        params  : [],
-        success : 'successBodyRPCAbandon',
-        error   : 'failureBodyRPCAbandon'
+        method: 'abandon',
+        params: [],
+        success: 'successBodyRPCAbandon',
+        error: 'failureBodyRPCAbandon',
     });
 });
 
 BodyRPCActions.requestBodyRPCRename.listen(function(o) {
     makeBodyCall({
-        method  : 'rename',
-        params  : [],
-        success : 'successBodyRPCRename',
-        error   : 'failureBodyRPCRename'
+        method: 'rename',
+        params: [],
+        success: 'successBodyRPCRename',
+        error: 'failureBodyRPCRename',
     });
 });
 
 BodyRPCActions.requestBodyRPCGetBuildings.listen(function(o) {
     makeBodyCall({
-        method  : 'get_buildings',
-        params  : [o.bodyId],
-        success : 'successBodyRPCGetBuildings',
-        error   : 'failureBodyRPCGetBuildings'
+        method: 'get_buildings',
+        params: [o.bodyId],
+        success: 'successBodyRPCGetBuildings',
+        error: 'failureBodyRPCGetBuildings',
     });
 });
 
 BodyRPCActions.requestBodyRPCGetBuildable.listen(function(o) {
     makeBodyCall({
-        method  : 'get_buildable',
-        params  : [],
-        success : 'successBodyRPCGetBuildable',
-        error   : 'failureBodyRPCGetBuildable'
+        method: 'get_buildable',
+        params: [],
+        success: 'successBodyRPCGetBuildable',
+        error: 'failureBodyRPCGetBuildable',
     });
 });
 
 BodyRPCActions.requestBodyRPCGetBuildableLocations.listen(function(o) {
     makeBodyCall({
-        method  : 'get_buildable_locations',
-        params  : [],
-        success : 'successBodyRPCGetBuildableLocations',
-        error   : 'failureBodyRPCGetBuildableLocations'
+        method: 'get_buildable_locations',
+        params: [],
+        success: 'successBodyRPCGetBuildableLocations',
+        error: 'failureBodyRPCGetBuildableLocations',
     });
 });
 
 BodyRPCActions.requestBodyRPCGetStatus.listen(function(o) {
     makeBodyCall({
-        method  : 'get_status',
-        params  : [],
-        success : 'successBodyRPCGetStatus',
-        error   : 'failureBodyRPCGetStatus'
+        method: 'get_status',
+        params: [],
+        success: 'successBodyRPCGetStatus',
+        error: 'failureBodyRPCGetStatus',
     });
 });
 
 BodyRPCActions.requestBodyRPCGetBodyStatus.listen(function(o) {
     makeBodyCall({
-        method : 'get_body_status',
-        params : {
-            body_id : o.bodyId
+        method: 'get_body_status',
+        params: {
+            body_id: o.bodyId,
         },
-        success : 'successBodyRPCGetBodyStatus',
-        error   : 'failureBodyRPCGetBodyStatus'
+        success: 'successBodyRPCGetBodyStatus',
+        error: 'failureBodyRPCGetBodyStatus',
     });
 });
 
 BodyRPCActions.requestBodyRPCRepairList.listen(function(o) {
     makeBodyCall({
-        method  : 'repair_list',
-        params  : [],
-        success : 'successBodyRPCRepairList',
-        error   : 'failureBodyRPCRepairList'
+        method: 'repair_list',
+        params: [],
+        success: 'successBodyRPCRepairList',
+        error: 'failureBodyRPCRepairList',
     });
 });
 
 BodyRPCActions.requestBodyRPCRearrangeBuildings.listen(function(o) {
     makeBodyCall({
-        method  : 'rearrangeBuildings',
-        params  : [],
-        success : 'successBodyRPCRearrangeBuildings',
-        error   : 'failureBodyRPCRearrangeBuildings'
+        method: 'rearrangeBuildings',
+        params: [],
+        success: 'successBodyRPCRearrangeBuildings',
+        error: 'failureBodyRPCRearrangeBuildings',
     });
 });
 
 BodyRPCActions.requestBodyRPCSetColonyNotes.listen(function(o) {
     makeBodyCall({
-        method : 'set_colony_notes',
-        params : [
+        method: 'set_colony_notes',
+        params: [
             o.bodyId,
             {
-                notes : o.notes
-            }
+                notes: o.notes,
+            },
         ],
-        success : 'successBodyRPCSetColonyNotes',
-        error   : 'successBodyRPCSetColonyNotes'
+        success: 'successBodyRPCSetColonyNotes',
+        error: 'successBodyRPCSetColonyNotes',
     });
 });
 
 BodyRPCActions.requestBodyRPCViewLaws.listen(function(o) {
     makeBodyCall({
-        method  : 'view_laws',
-        params  : [],
-        success : 'successBodyRPCViewLaws',
-        error   : 'failureBodyRPCViewLaws'
+        method: 'view_laws',
+        params: [],
+        success: 'successBodyRPCViewLaws',
+        error: 'failureBodyRPCViewLaws',
     });
 });
 

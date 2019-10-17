@@ -1,40 +1,39 @@
 'use strict';
 
-var Reflux            = require('reflux');
+var Reflux = require('reflux');
 
 var LoaderMenuActions = require('js/actions/menu/loader');
 
 var LoaderMenuStore = Reflux.createStore({
-    listenables : LoaderMenuActions,
+    listenables: LoaderMenuActions,
 
-    init : function() {
+    init: function() {
         this.state = this.getInitialState();
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         return {
-            show : false
+            show: false,
         };
     },
     // Deprecated
-    onShow : function() {
+    onShow: function() {
         this.onLoaderMenuShow();
     },
     // Deprecated
-    onHide : function() {
+    onHide: function() {
         this.onLoaderMenuHide();
     },
 
-    onLoaderMenuShow : function() {
+    onLoaderMenuShow: function() {
         this.state.show = true;
         this.trigger(this.state);
     },
 
-    onLoaderMenuHide : function() {
+    onLoaderMenuHide: function() {
         this.state.show = false;
         this.trigger(this.state);
-    }
-
+    },
 });
 
 module.exports = LoaderMenuStore;

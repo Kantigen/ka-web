@@ -1,11 +1,11 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var MayhemTrainingRPCActions = Reflux.createActions([
     'requestMayhemTrainingRPCView',
     'successMayhemTrainingRPCView',
-    'failureMayhemTrainingRPCView'
+    'failureMayhemTrainingRPCView',
 ]);
 
 module.exports = MayhemTrainingRPCActions;

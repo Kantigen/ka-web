@@ -1,47 +1,46 @@
 'use strict';
 
-var Reflux              = require('reflux');
+var Reflux = require('reflux');
 
-var WindowMixinStore    = require('js/stores/mixins/window');
+var WindowMixinStore = require('js/stores/mixins/window');
 
-var StatsWindowActions  = require('js/actions/windows/stats');
-var KeyboardActions     = require('js/actions/keyboard');
+var StatsWindowActions = require('js/actions/windows/stats');
+var KeyboardActions = require('js/actions/keyboard');
 
 var StatsWindowStore = Reflux.createStore({
-    mixins      : [WindowMixinStore],
-    listenables : [StatsWindowActions, KeyboardActions],
+    mixins: [WindowMixinStore],
+    listenables: [StatsWindowActions, KeyboardActions],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            show : false
+            show: false,
         };
     },
 
-    getData : function() {
+    getData: function() {
         return this.state;
     },
 
-    getInitialState : function() {
+    getInitialState: function() {
         if (this.state) {
             this.state = this.getDefaultData();
         }
         return this.state;
     },
 
-    init : function() {
+    init: function() {
         this.state = this.getDefaultData();
     },
 
-    onStatsWindowShow : function() {
+    onStatsWindowShow: function() {
         this.state.show = true;
         this.trigger(this.state);
     },
 
-    onStatsWindowHide : function() {
+    onStatsWindowHide: function() {
         this.state.show = false;
         this.trigger(this.state);
-    }
-
+    },
 });
 
 module.exports = StatsWindowStore;

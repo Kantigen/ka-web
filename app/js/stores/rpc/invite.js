@@ -1,33 +1,28 @@
 'use strict';
 
-var Reflux              = require('reflux');
+var Reflux = require('reflux');
 
-var StatefulMixinStore  = require('js/stores/mixins/stateful');
+var StatefulMixinStore = require('js/stores/mixins/stateful');
 
-var EmpireRPCActions     = require('js/actions/rpc/empire');
+var EmpireRPCActions = require('js/actions/rpc/empire');
 
 var InviteRPCStore = Reflux.createStore({
+    listenables: [EmpireRPCActions],
 
-    listenables : [
-        EmpireRPCActions
-    ],
+    mixins: [StatefulMixinStore],
 
-    mixins : [
-        StatefulMixinStore
-    ],
-
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            referral_url : ''
+            referral_url: '',
         };
     },
 
-    onSuccessEmpireRPCGetInviteFriendUrl : function(result) {
+    onSuccessEmpireRPCGetInviteFriendUrl: function(result) {
         var state = this.getDefaultData();
 
         state.referral_url = result.referral_url;
         this.emit(state);
-    }
+    },
 });
 
 module.exports = InviteRPCStore;

@@ -1,47 +1,43 @@
 'use strict';
 
-var Reflux                  = require('reflux');
-var util                    = require('js/util');
+var Reflux = require('reflux');
+var util = require('js/util');
 
-var ShipyardRPCActions      = require('js/actions/rpc/shipyard');
+var ShipyardRPCActions = require('js/actions/rpc/shipyard');
 
-var StatefulMixinsStore     = require('js/stores/mixins/stateful');
+var StatefulMixinsStore = require('js/stores/mixins/stateful');
 
-var clone                   = util.clone;
+var clone = util.clone;
 
 var GetBuildableShipyardRPCStore = Reflux.createStore({
-    listenables : [
-        ShipyardRPCActions
-    ],
+    listenables: [ShipyardRPCActions],
 
-    mixins : [
-        StatefulMixinsStore
-    ],
+    mixins: [StatefulMixinsStore],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         var state = {
-            buildable        : {},
-            docks_available  : 0,
-            build_queue_max  : 0,
-            build_queue_used : 0
+            buildable: {},
+            docks_available: 0,
+            build_queue_max: 0,
+            build_queue_used: 0,
         };
         return state;
     },
 
-    handleNewData : function(result) {
+    handleNewData: function(result) {
         var state = clone(this.state);
 
-        state.buildable         = result.buildable;
-        state.docks_available   = result.docks_available + 0;
-        state.build_queue_max   = result.build_queue_max + 0;
-        state.build_queue_used  = result.build_queue_used + 0;
+        state.buildable = result.buildable;
+        state.docks_available = result.docks_available + 0;
+        state.build_queue_max = result.build_queue_max + 0;
+        state.build_queue_used = result.build_queue_used + 0;
 
         this.emit(state);
     },
 
-    onSuccessShipyardRPCGetBuildable : function(result) {
+    onSuccessShipyardRPCGetBuildable: function(result) {
         this.handleNewData(result);
-    }
+    },
 });
 
 module.exports = GetBuildableShipyardRPCStore;

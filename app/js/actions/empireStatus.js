@@ -4,7 +4,7 @@ var Reflux = require('reflux');
 
 var EmpireStatusActions = Reflux.createActions([
     'empireStatusUpdate',
-    'empireStatusClear'
+    'empireStatusClear',
 ]);
 
 module.exports = EmpireStatusActions;

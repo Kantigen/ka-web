@@ -1,18 +1,18 @@
 'use strict';
 
 module.exports = {
-    getData : function() {
+    getData: function() {
         return this.state;
     },
 
-    hideWindow : function() {
+    hideWindow: function() {
         this.state.show = false;
         this.trigger(this.state);
     },
 
-    onEscKey : function() {
+    onEscKey: function() {
         if (this.state.show === true) {
             this.hideWindow();
         }
-    }
+    },
 };

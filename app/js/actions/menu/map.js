@@ -6,7 +6,7 @@ var MapActions = Reflux.createActions([
     'mapShowPlanet',
     'mapShowStars',
     'mapToggleMode',
-    'mapChangePlanet'
+    'mapChangePlanet',
 ]);
 
 module.exports = MapActions;

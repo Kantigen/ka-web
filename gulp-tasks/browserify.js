@@ -1,16 +1,17 @@
 'use strict';
 
 var browserify = require('browserify');
-var babelify   = require('babelify');
-var watchify   = require('watchify');
+var babelify = require('babelify');
+var watchify = require('watchify');
 
-var gutil      = require('gulp-util');
+var gutil = require('gulp-util');
 
-var path       = require('path');
-var fs         = require('fs');
+var path = require('path');
+var fs = require('fs');
 
 function handleBundle(b, options) {
-    return b.bundle()
+    return b
+        .bundle()
         .on('error', function(err) {
             gutil.log(
                 gutil.colors.red('Browserify compile error:'),
@@ -18,36 +19,32 @@ function handleBundle(b, options) {
             );
             this.emit('end');
         })
-        .pipe(fs.createWriteStream(path.join(options.rootDir, 'build/bundle.js')));
-};
+        .pipe(
+            fs.createWriteStream(path.join(options.rootDir, 'build/bundle.js'))
+        );
+}
 
 module.exports = function(options) {
     var b = browserify(['./app/js/load.js'], {
-        extensions : [
-            '.jsx'
-        ],
-        paths : [
-            path.join(options.rootDir, 'app')
-        ],
-        ignoreMissing : true,
+        extensions: ['.jsx'],
+        paths: [path.join(options.rootDir, 'app')],
+        ignoreMissing: true,
 
         // watchify options
-        cache        : {},
-        packageCache : {},
-        plugin       : options.watch ? [watchify] : []
+        cache: {},
+        packageCache: {},
+        plugin: options.watch ? [watchify] : [],
     });
 
     // This transforms all the .jsx files into JavaScript.
-    b.transform(babelify.configure({
-        presets : [
-            'react'
-        ],
+    b.transform(
+        babelify.configure({
+            presets: ['react'],
 
-        // Only touch jsx files because we're not using ES6 features at the moment.
-        extensions : [
-            '.jsx'
-        ]
-    }));
+            // Only touch jsx files because we're not using ES6 features at the moment.
+            extensions: ['.jsx'],
+        })
+    );
 
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {

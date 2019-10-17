@@ -5,7 +5,7 @@ var Reflux = require('reflux');
 var StatsWindowActions = Reflux.createActions([
     'statsWindowLoad',
     'statsWindowShow',
-    'statsWindowHide'
+    'statsWindowHide',
 ]);
 
 module.exports = StatsWindowActions;

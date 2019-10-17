@@ -6,7 +6,7 @@ var RightSidebarActions = Reflux.createActions([
     'rightSidebarShow',
     'rightSidebarHide',
     'rightSidebarCollapse',
-    'rightSidebarExpand'
+    'rightSidebarExpand',
 ]);
 
 module.exports = RightSidebarActions;

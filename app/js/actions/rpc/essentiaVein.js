@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var EssentiaVeinRPCActions = Reflux.createActions([
     'requestEssentiaVeinRPCView',
@@ -8,7 +8,7 @@ var EssentiaVeinRPCActions = Reflux.createActions([
     'failureEssentiaVeinRPCView',
     'requestEssentiaVeinRPCDrain',
     'successEssentiaVeinRPCDrain',
-    'failureEssentiaVeinRPCDrain'
+    'failureEssentiaVeinRPCDrain',
 ]);
 
 module.exports = EssentiaVeinRPCActions;

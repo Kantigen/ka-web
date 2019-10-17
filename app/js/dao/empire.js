@@ -1,8 +1,8 @@
 'use strict';
 
-var dao                 = require('js/dao');
-var vex                 = require('js/vex');
-var EmpireRPCActions    = require('js/actions/rpc/empire');
+var dao = require('js/dao');
+var vex = require('js/vex');
+var EmpireRPCActions = require('js/actions/rpc/empire');
 
 function makeEmpireCall(options) {
     dao.makeServerCall('empire', options, EmpireRPCActions);
@@ -10,19 +10,19 @@ function makeEmpireCall(options) {
 
 EmpireRPCActions.requestEmpireRPCLogout.listen(function(o) {
     makeEmpireCall({
-        method  : 'logout',
-        params  : {},
-        success : 'successEmpireRPCLogout',
-        error   : 'failureEmpireRPCLogout'
+        method: 'logout',
+        params: {},
+        success: 'successEmpireRPCLogout',
+        error: 'failureEmpireRPCLogout',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCGetBoosts.listen(function(o) {
     makeEmpireCall({
-        method  : 'get_boosts',
-        params  : {},
-        success : 'successEmpireRPCGetBoosts',
-        error   : 'failureEmpireRPCGetBoosts'
+        method: 'get_boosts',
+        params: {},
+        success: 'successEmpireRPCGetBoosts',
+        error: 'failureEmpireRPCGetBoosts',
     });
 });
 
@@ -30,58 +30,58 @@ EmpireRPCActions.requestEmpireRPCBoost.listen(function(o) {
     var method = 'boost_' + o.type;
 
     makeEmpireCall({
-        method  : method,
-        params  : [o.weeks],
-        success : 'successEmpireRPCBoost',
-        error   : 'failureEmpireRPCBoost'
+        method: method,
+        params: [o.weeks],
+        success: 'successEmpireRPCBoost',
+        error: 'failureEmpireRPCBoost',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCGetInviteFriendUrl.listen(function(o) {
     makeEmpireCall({
-        method  : 'get_invite_friend_url',
-        params  : {},
-        success : 'successEmpireRPCGetInviteFriendUrl',
-        error   : 'failureEmpireRPCGetInviteFriendUrl'
+        method: 'get_invite_friend_url',
+        params: {},
+        success: 'successEmpireRPCGetInviteFriendUrl',
+        error: 'failureEmpireRPCGetInviteFriendUrl',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCInviteFriend.listen(function(o) {
     makeEmpireCall({
-        method : 'invite_friend',
-        params : {
-            email          : o.email,
-            custom_message : o.message
+        method: 'invite_friend',
+        params: {
+            email: o.email,
+            custom_message: o.message,
         },
-        success : 'successEmpireRPCInviteFriend',
-        error   : 'failureEmpireRPCInviteFriend'
+        success: 'successEmpireRPCInviteFriend',
+        error: 'failureEmpireRPCInviteFriend',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode.listen(function(o) {
     makeEmpireCall({
-        method  : 'redeem_essentia_code',
-        params  : [o.code],
-        success : 'successEmpireRPCRedeemEssentiaCode',
-        error   : 'failureEmpireRPCRedeemEssentiaCode'
+        method: 'redeem_essentia_code',
+        params: [o.code],
+        success: 'successEmpireRPCRedeemEssentiaCode',
+        error: 'failureEmpireRPCRedeemEssentiaCode',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCEnableSelfDestruct.listen(function(o) {
     makeEmpireCall({
-        method  : 'enable_self_destruct',
-        params  : [],
-        success : 'successEmpireRPCEnableSelfDestruct',
-        error   : 'failureEmpireRPCEnableSelfDestruct'
+        method: 'enable_self_destruct',
+        params: [],
+        success: 'successEmpireRPCEnableSelfDestruct',
+        error: 'failureEmpireRPCEnableSelfDestruct',
     });
 });
 
 EmpireRPCActions.requestEmpireRPCDisableSelfDestruct.listen(function(o) {
     makeEmpireCall({
-        method  : 'disable_self_destruct',
-        params  : [],
-        success : 'successEmpireRPCDisableSelfDestruct',
-        error   : 'failureEmpireRPCDisableSelfDestruct'
+        method: 'disable_self_destruct',
+        params: [],
+        success: 'successEmpireRPCDisableSelfDestruct',
+        error: 'failureEmpireRPCDisableSelfDestruct',
     });
 });
 

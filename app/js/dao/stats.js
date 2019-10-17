@@ -1,6 +1,6 @@
 'use strict';
 
-var dao             = require('js/dao');
+var dao = require('js/dao');
 
 var StatsRPCActions = require('js/actions/rpc/stats');
 
@@ -10,10 +10,10 @@ function makeStatsCall(options) {
 
 StatsRPCActions.requestStatsRPCGetCredits.listen(function(o) {
     makeStatsCall({
-        method  : 'credits',
-        params  : [],
-        success : 'successStatsRPCGetCredits',
-        error   : 'failureStatsRPCGetCredits'
+        method: 'credits',
+        params: [],
+        success: 'successStatsRPCGetCredits',
+        error: 'failureStatsRPCGetCredits',
     });
 });
 

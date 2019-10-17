@@ -1,6 +1,6 @@
 'use strict';
 
-var Reflux  = require('reflux');
+var Reflux = require('reflux');
 
 var TransporterRPCActions = Reflux.createActions([
     'requestTransporterRPCView',
@@ -61,8 +61,7 @@ var TransporterRPCActions = Reflux.createActions([
 
     'requestTransporterRPCGetGlyphSummary',
     'successTransporterRPCGetGlyphSummary',
-    'failureTransporterRPCGetGlyphSummary'
-
+    'failureTransporterRPCGetGlyphSummary',
 ]);
 
 module.exports = TransporterRPCActions;
