@@ -1,8 +1,5 @@
-'use strict';
-
 var React = require('react');
 var createReactClass = require('create-react-class');
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
@@ -15,13 +12,7 @@ var WindowManager = createReactClass({
 
     render: function() {
         return (
-            <ReactCSSTransitionGroup
-                transitionName='fade'
-                transitionAppearTimeout={200}
-                transitionEnterTimeout={200}
-                transitionLeaveTimeout={200}
-                transitionAppear
-            >
+            <React.Fragment>
                 {_.map(this.state.windows.windows, function(row, index) {
                     if (row && row.window) {
                         return (
@@ -35,7 +26,7 @@ var WindowManager = createReactClass({
                         );
                     }
                 })}
-            </ReactCSSTransitionGroup>
+            </React.Fragment>
         );
     },
 });
