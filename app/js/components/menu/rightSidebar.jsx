@@ -4,7 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
@@ -21,10 +20,8 @@ var RightSidebarStore = require('js/stores/menu/rightSidebar');
 class PlanetListItem extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
-        id: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.string,
-        ]).isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+            .isRequired,
         currentBody: PropTypes.number.isRequired,
         zone: PropTypes.string.isRequired,
     };
@@ -250,7 +247,6 @@ var RightSidebar = createReactClass({
         Reflux.connect(EmpireRPCStore, 'empire'),
         Reflux.connect(PlanetStore, 'planet'),
         Reflux.connect(RightSidebarStore, 'showSidebar'),
-        PureRenderMixin,
     ],
 
     componentDidMount: function() {
