@@ -5,21 +5,19 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var classnames = require('classnames');
 
-var BoostCountdown = React.createClass({
-    propTypes: {
+class BoostCountdown extends React.Component {
+    static propTypes = {
         boost: PropTypes.object.isRequired,
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            boost: {
-                ms: 0,
-                display: '',
-            },
-        };
-    },
+    static defaultProps = {
+        boost: {
+            ms: 0,
+            display: '',
+        },
+    };
 
-    render: function() {
+    render() {
         if (this.props.boost && this.props.boost.ms > 0) {
             var day = 1000 * 60 * 60 * 24; // Milliseconds per day
             var ms = this.props.boost.ms;
@@ -35,7 +33,7 @@ var BoostCountdown = React.createClass({
         } else {
             return <div></div>;
         }
-    },
-});
+    }
+}
 
 module.exports = BoostCountdown;

@@ -8,14 +8,14 @@ var ResourceLine = require('js/components/window/building/resourceLine');
 
 var util = require('js/util');
 
-var ResourceCost = React.createClass({
-    propTypes: {
+class ResourceCost extends React.Component {
+    static propTypes = {
         icon: PropTypes.string.isRequired,
         number: PropTypes.number.isRequired,
         stored: PropTypes.number,
-    },
+    };
 
-    render: function() {
+    render() {
         var red = false;
 
         if (
@@ -33,7 +33,7 @@ var ResourceCost = React.createClass({
                 red={red}
             />
         );
-    },
-});
+    }
+}
 
 module.exports = ResourceCost;

@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var WindowActions = require('js/actions/window');
@@ -17,7 +18,9 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var Essentia = React.createClass({
+var Essentia = createReactClass({
+    displayName: 'Essentia',
+
     mixins: [
         Reflux.connect(EmpireRPCStore, 'empireStore'),
         Reflux.connect(BoostsEmpireRPCStore, 'boostsStore'),

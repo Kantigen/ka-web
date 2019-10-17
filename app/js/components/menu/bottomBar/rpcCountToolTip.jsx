@@ -2,8 +2,8 @@
 
 var React = require('react');
 
-var RPCCountToolTip = React.createClass({
-    render: function() {
+class RPCCountToolTip extends React.Component {
+    render() {
         return (
             <div>
                 The{' '}
@@ -17,7 +17,7 @@ var RPCCountToolTip = React.createClass({
                 hour period.
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = RPCCountToolTip;

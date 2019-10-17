@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var EmpireRPCActions = require('js/actions/rpc/empire');
@@ -8,7 +9,9 @@ var WindowActions = require('js/actions/window');
 
 var InviteRPCStore = require('js/stores/rpc/invite');
 
-var InviteWindow = React.createClass({
+var InviteWindow = createReactClass({
+    displayName: 'InviteWindow',
+
     statics: {
         options: {
             title: 'Invite a Friend',

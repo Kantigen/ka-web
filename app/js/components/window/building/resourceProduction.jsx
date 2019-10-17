@@ -8,13 +8,13 @@ var ResourceLine = require('js/components/window/building/resourceLine');
 
 var util = require('js/util');
 
-var ResourceProduction = React.createClass({
-    propTypes: {
+class ResourceProduction extends React.Component {
+    static propTypes = {
         icon: PropTypes.string.isRequired,
         number: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <ResourceLine
                 icon={this.props.icon}
@@ -22,7 +22,7 @@ var ResourceProduction = React.createClass({
                 title={util.commify(this.props.number)}
             />
         );
-    },
-});
+    }
+}
 
 module.exports = ResourceProduction;

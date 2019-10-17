@@ -3,11 +3,14 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var TickerStore = require('js/stores/ticker');
 
-var CountdownTimer = React.createClass({
+var CountdownTimer = createReactClass({
+    displayName: 'CountdownTimer',
+
     propTypes: {
         endDate: PropTypes.string,
     },

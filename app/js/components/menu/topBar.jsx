@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 var classNames = require('classnames');
 
@@ -17,7 +18,9 @@ var StatsWindowActions = require('js/actions/windows/stats');
 var EssentiaWindow = require('js/components/window/essentia');
 var PromotionsWindow = require('js/components/window/promotions');
 
-var TopBar = React.createClass({
+var TopBar = createReactClass({
+    displayName: 'TopBar',
+
     mixins: [
         Reflux.connect(EmpireRPCStore, 'empire'),
         Reflux.connect(ServerRPCStore, 'server'),

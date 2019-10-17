@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
@@ -10,7 +11,9 @@ var GetBuildableShipyardRPCStore = require('js/stores/rpc/shipyard/getBuildable'
 
 var BuildFleetItem = require('js/components/window/shipyard/buildFleet/item');
 
-var BuildFleetTab = React.createClass({
+var BuildFleetTab = createReactClass({
+    displayName: 'BuildFleetTab',
+
     propTypes: {
         buildingId: PropTypes.number.isRequired,
     },

@@ -10,29 +10,29 @@ var PanelContent = require('js/components/window/panel/panelContent');
 
 var WindowActions = require('js/actions/window');
 
-var Panel = React.createClass({
-    propTypes: {
+class Panel extends React.Component {
+    static propTypes = {
         type: PropTypes.string,
         zIndex: PropTypes.number,
         options: PropTypes.object,
         window: PropTypes.func,
-    },
+    };
 
-    onBringToTop: function() {
+    onBringToTop = () => {
         WindowActions.windowBringToTop(this.props.type);
-    },
+    };
 
-    closeWindow: function() {
+    closeWindow = () => {
         WindowActions.windowCloseByType(this.props.type);
-    },
+    };
 
-    handleCentering: function() {
+    handleCentering = () => {
         return (
             ($(window.document).width() - this.props.window.options.width) / 2
         );
-    },
+    };
 
-    render: function() {
+    render() {
         var subPanel = React.createElement(this.props.window, {
             zIndex: this.props.zIndex,
             options: this.props.options,
@@ -64,7 +64,7 @@ var Panel = React.createClass({
                 </div>
             </Draggable>
         );
-    },
-});
+    }
+}
 
 module.exports = Panel;

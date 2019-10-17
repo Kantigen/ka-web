@@ -3,23 +3,22 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
 var ServerRPCStore = require('js/stores/rpc/server');
 
-var Promotion = React.createClass({
-    propTypes: {
+class Promotion extends React.Component {
+    static propTypes = {
         promotion: PropTypes.object.isRequired,
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            promotion: {},
-        };
-    },
+    static defaultProps = {
+        promotion: {},
+    };
 
-    render: function() {
+    render() {
         return (
             <div className='text item'>
                 <h2>{this.props.promotion.header}</h2>
@@ -38,10 +37,11 @@ var Promotion = React.createClass({
                 </span>
             </div>
         );
-    },
-});
+    }
+}
 
-var PromotionsWindow = React.createClass({
+var PromotionsWindow = createReactClass({
+    displayName: 'PromotionsWindow',
     mixins: [Reflux.connect(ServerRPCStore, 'server')],
 
     statics: {

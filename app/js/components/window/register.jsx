@@ -4,20 +4,18 @@ var React = require('react');
 
 var WindowActions = require('js/actions/window');
 
-var RegisterWindow = React.createClass({
-    statics: {
-        options: {
-            title: 'Register',
-            width: 500,
-            height: 200,
-        },
-    },
+class RegisterWindow extends React.Component {
+    static options = {
+        title: 'Register',
+        width: 500,
+        height: 200,
+    };
 
-    closeWindow: function() {
+    closeWindow = () => {
         WindowActions.windowCloseByType('register');
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -42,7 +40,7 @@ var RegisterWindow = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = RegisterWindow;

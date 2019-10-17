@@ -7,14 +7,14 @@ var classnames = require('classnames');
 
 var util = require('js/util');
 
-var ResourceLine = React.createClass({
-    propTypes: {
+class ResourceLine extends React.Component {
+    static propTypes = {
         icon: PropTypes.string.isRequired,
         cost: PropTypes.number.isRequired,
         red: PropTypes.bool,
-    },
+    };
 
-    render: function() {
+    render() {
         var iconClass = classnames(this.props.icon, 'large icon', {
             red: this.props.red,
         });
@@ -39,7 +39,7 @@ var ResourceLine = React.createClass({
                 </span>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = ResourceLine;

@@ -4,12 +4,12 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ProgressBar = React.createClass({
-    propTypes: {
+class ProgressBar extends React.Component {
+    static propTypes = {
         percent: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -26,7 +26,7 @@ var ProgressBar = React.createClass({
                 }}
             />
         );
-    },
-});
+    }
+}
 
 module.exports = ProgressBar;

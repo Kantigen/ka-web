@@ -6,16 +6,16 @@ var React = require('react');
 
 var ShipyardRPCActions = require('js/actions/rpc/shipyard');
 
-var BuildButton = React.createClass({
-    propTypes: {
+class BuildButton extends React.Component {
+    static propTypes = {
         canBuild: PropTypes.number.isRequired,
         obj: PropTypes.object.isRequired,
         buildingId: PropTypes.number.isRequired,
         autoSelect: PropTypes.string.isRequired,
         fleetType: PropTypes.string.isRequired,
-    },
+    };
 
-    handleQuantity: function(o) {
+    handleQuantity = (o) => {
         var quantity = this.refs.quantity.value;
 
         ShipyardRPCActions.requestShipyardRPCBuildFleet({
@@ -24,9 +24,9 @@ var BuildButton = React.createClass({
             quantity: quantity,
             autoselect: this.props.autoSelect,
         });
-    },
+    };
 
-    render: function() {
+    render() {
         if (!this.props.canBuild) {
             return <div />;
         }
@@ -39,7 +39,7 @@ var BuildButton = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildButton;

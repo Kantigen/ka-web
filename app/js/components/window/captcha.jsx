@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var CaptchaWindowActions = require('js/actions/windows/captcha');
@@ -11,7 +12,9 @@ var WindowActions = require('js/actions/window');
 
 var CaptchaRPCStore = require('js/stores/rpc/captcha');
 
-var Captcha = React.createClass({
+var Captcha = createReactClass({
+    displayName: 'Captcha',
+
     statics: {
         options: {
             title: 'Verify Your Humanity',

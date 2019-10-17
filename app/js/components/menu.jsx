@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var TopBar = require('js/components/menu/topBar');
@@ -13,8 +14,10 @@ var Loader = require('js/components/menu/loader');
 
 var MenuStore = require('js/stores/menu');
 
-var Menu = React.createClass({
+var Menu = createReactClass({
+    displayName: 'Menu',
     mixins: [Reflux.connect(MenuStore, 'menuStore')],
+
     render: function() {
         if (this.state.menuStore.show) {
             return (

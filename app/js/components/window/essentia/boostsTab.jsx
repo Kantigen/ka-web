@@ -6,14 +6,14 @@ var React = require('react');
 
 var Boost = require('js/components/window/essentia/boost');
 
-var BoostsTab = React.createClass({
-    propTypes: {
+class BoostsTab extends React.Component {
+    static propTypes = {
         exactEssentia: PropTypes.number.isRequired,
         boosts: PropTypes.object.isRequired,
         essentia: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div className='ui grid'>
                 <div className='centered row'>
@@ -96,7 +96,7 @@ var BoostsTab = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BoostsTab;

@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var BodyRPCStore = require('js/stores/rpc/body');
@@ -10,15 +11,19 @@ var MenuStore = require('js/stores/menu');
 
 // TODO: factor out all this glue code
 
-var Map = React.createClass({
+var Map = createReactClass({
+    displayName: 'Map',
+
     mixins: [
         Reflux.connect(MapModeStore, 'mapMode'),
         Reflux.connect(BodyRPCStore, 'bodyRPC'),
         Reflux.connect(PlanetStore, 'planet'),
         Reflux.connect(MenuStore, 'menuVisible'),
     ],
+
     previousMapMode: '',
     previousPlanetId: '',
+
     render: function() {
         // console.log(this.state);
 

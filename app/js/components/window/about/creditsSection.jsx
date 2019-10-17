@@ -5,20 +5,18 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var _ = require('lodash');
 
-var CreditsSection = React.createClass({
-    propTypes: {
+class CreditsSection extends React.Component {
+    static propTypes = {
         header: PropTypes.string.isRequired,
         names: PropTypes.arrayOf(PropTypes.string),
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            header: '',
-            names: [],
-        };
-    },
+    static defaultProps = {
+        header: '',
+        names: [],
+    };
 
-    render: function() {
+    render() {
         return (
             <div>
                 <strong>{this.props.header}</strong>
@@ -42,7 +40,7 @@ var CreditsSection = React.createClass({
                 <br />
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = CreditsSection;

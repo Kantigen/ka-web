@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
@@ -17,7 +18,8 @@ var ResourceLine = require('js/components/window/building/resourceLine');
 var util = require('js/util');
 var vex = require('js/vex');
 
-var ProductionTab = React.createClass({
+var ProductionTab = createReactClass({
+    displayName: 'ProductionTab',
     mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
 
     propTypes: {

@@ -6,13 +6,13 @@ var React = require('react');
 
 var util = require('js/util');
 
-var ResourceAttribute = React.createClass({
-    propTypes: {
+class ResourceAttribute extends React.Component {
+    static propTypes = {
         name: PropTypes.string.isRequired,
         attr: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         var title = this.props.attr;
 
         if (!window.isNaN(title)) {
@@ -36,7 +36,7 @@ var ResourceAttribute = React.createClass({
                 </span>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = ResourceAttribute;

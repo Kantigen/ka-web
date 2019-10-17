@@ -4,8 +4,8 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var PanelContent = React.createClass({
-    propTypes: {
+class PanelContent extends React.Component {
+    static propTypes = {
         panelHeight: PropTypes.oneOfType([
             PropTypes.number,
             PropTypes.string,
@@ -15,9 +15,9 @@ var PanelContent = React.createClass({
             PropTypes.string,
         ]),
         children: PropTypes.element,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -42,7 +42,7 @@ var PanelContent = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = PanelContent;

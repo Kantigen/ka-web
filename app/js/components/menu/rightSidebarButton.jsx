@@ -1,12 +1,14 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var BodyRPCStore = require('js/stores/rpc/body');
 var RightSidebarActions = require('js/actions/menu/rightSidebar');
 
-var RightSidebarButton = React.createClass({
+var RightSidebarButton = createReactClass({
+    displayName: 'RightSidebarButton',
     mixins: [Reflux.connect(BodyRPCStore, 'body')],
 
     click: function() {

@@ -2,8 +2,8 @@
 
 var React = require('react');
 
-var BuildingCountToolTip = React.createClass({
-    render: function() {
+class BuildingCountToolTip extends React.Component {
+    render() {
         return (
             <div>
                 Your current{' '}
@@ -23,7 +23,7 @@ var BuildingCountToolTip = React.createClass({
                 you have available.
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildingCountToolTip;

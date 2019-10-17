@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
@@ -10,7 +11,9 @@ var BodyRPCStore = require('js/stores/rpc/body');
 
 var ResourceCost = require('js/components/window/building/resourceCost');
 
-var RepairTab = React.createClass({
+var RepairTab = createReactClass({
+    displayName: 'RepairTab',
+
     mixins: [
         Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
         Reflux.connect(BodyRPCStore, 'body'),

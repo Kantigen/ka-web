@@ -4,8 +4,8 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var PanelHeader = React.createClass({
-    propTypes: {
+class PanelHeader extends React.Component {
+    static propTypes = {
         panelWidth: PropTypes.oneOfType([
             PropTypes.number,
             PropTypes.string,
@@ -13,9 +13,9 @@ var PanelHeader = React.createClass({
 
         onClose: PropTypes.func.isRequired,
         title: PropTypes.string.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 className='drag-handle'
@@ -55,7 +55,7 @@ var PanelHeader = React.createClass({
                 </span>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = PanelHeader;

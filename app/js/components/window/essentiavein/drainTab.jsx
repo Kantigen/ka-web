@@ -7,16 +7,16 @@ var _ = require('lodash');
 
 var EssentiaVeinRPCActions = require('js/actions/rpc/essentiaVein');
 
-var DrainTab = React.createClass({
-    propTypes: {
+class DrainTab extends React.Component {
+    static propTypes = {
         building: PropTypes.object.isRequired,
-    },
+    };
 
-    componentDidMount: function() {
+    componentDidMount() {
         $(this.refs.dropdown).dropdown();
-    },
+    }
 
-    handleDrain: function() {
+    handleDrain = () => {
         var times =
             parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
         var id = this.props.building.id;
@@ -25,9 +25,9 @@ var DrainTab = React.createClass({
             id: id,
             times: times,
         });
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div>
                 Drain{' '}
@@ -61,7 +61,7 @@ var DrainTab = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = DrainTab;

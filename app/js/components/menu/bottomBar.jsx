@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var ReactDOMServer = require('react-dom/server');
 var Reflux = require('reflux');
@@ -19,7 +20,9 @@ var RPCCountToolTip = require('js/components/menu/bottomBar/rpcCountToolTip');
 var util = require('js/util');
 var rn = util.reduceNumber;
 
-var BottomBar = React.createClass({
+var BottomBar = createReactClass({
+    displayName: 'BottomBar',
+
     mixins: [
         Reflux.connect(BodyRPCStore, 'body'),
         Reflux.connect(ServerRPCStore, 'server'),

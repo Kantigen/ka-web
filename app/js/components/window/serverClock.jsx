@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var WindowActions = require('js/actions/window');
@@ -8,7 +9,9 @@ var WindowActions = require('js/actions/window');
 var ServerRPCStore = require('js/stores/rpc/server');
 var TickerStore = require('js/stores/ticker');
 
-var ServerClock = React.createClass({
+var ServerClock = createReactClass({
+    displayName: 'ServerClock',
+
     statics: {
         options: {
             title: 'Server Clock',
@@ -16,6 +19,7 @@ var ServerClock = React.createClass({
             height: 'auto',
         },
     },
+
     mixins: [
         Reflux.connect(TickerStore, 'ticker'),
         Reflux.connect(ServerRPCStore, 'serverRPC'),

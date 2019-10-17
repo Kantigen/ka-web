@@ -10,17 +10,17 @@ var BuildButton = require('js/components/window/shipyard/buildFleet/button');
 
 var constants = require('js/constants');
 
-var BuildFleetItem = React.createClass({
-    propTypes: {
+class BuildFleetItem extends React.Component {
+    static propTypes = {
         fleetType: PropTypes.string.isRequired,
         obj: PropTypes.object.isRequired,
         buildingId: PropTypes.number.isRequired,
         autoSelect: PropTypes.string.isRequired,
-    },
+    };
 
-    handleQuantity: function(o) {},
+    handleQuantity = (o) => {};
 
-    render: function() {
+    render() {
         var starfieldStyle = {
             width: 100,
             height: 100,
@@ -121,7 +121,7 @@ var BuildFleetItem = React.createClass({
                 <div className='ui divider' />
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildFleetItem;

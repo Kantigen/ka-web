@@ -1,12 +1,14 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');
 var LeftSidebarActions = require('js/actions/menu/leftSidebar');
 
-var LeftSidebarButton = React.createClass({
+var LeftSidebarButton = createReactClass({
+    displayName: 'LeftSidebarButton',
     mixins: [Reflux.connect(EmpireRPCStore, 'empire')],
 
     clickLeftSidebarButton: function() {

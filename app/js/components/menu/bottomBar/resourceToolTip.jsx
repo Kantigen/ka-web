@@ -7,16 +7,16 @@ var classnames = require('classnames');
 
 var util = require('js/util');
 
-var ResourceToolTip = React.createClass({
-    propTypes: {
+class ResourceToolTip extends React.Component {
+    static propTypes = {
         body: PropTypes.object.isRequired,
         type: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         icon: PropTypes.string.isRequired,
         children: PropTypes.node,
-    },
+    };
 
-    getResourceStatus: function(hour, stored, capicity, hasCapicity) {
+    getResourceStatus = (hour, stored, capicity, hasCapicity) => {
         // Different players have differnet strategies regarding waste. Some would consider full
         // waste good. Some would consider empty waste good. Therefore, we shouldn't comment
         // on what a player does or does not do with their waste.
@@ -61,9 +61,9 @@ var ResourceToolTip = React.createClass({
                 </div>
             );
         }
-    },
+    };
 
-    render: function() {
+    render() {
         var body = this.props.body;
 
         var hour = body[this.props.type + '_hour'];
@@ -106,7 +106,7 @@ var ResourceToolTip = React.createClass({
                 {this.getResourceStatus(hour, stored, capicity, hasCapicity)}
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = ResourceToolTip;

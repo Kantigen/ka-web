@@ -6,37 +6,33 @@ var React = require('react');
 var _ = require('lodash');
 var ReactTabs = require('react-tabs');
 
-var Tabs = React.createClass({
-    propTypes: {
+class Tabs extends React.Component {
+    static propTypes = {
         initialTab: PropTypes.number,
         onSelect: PropTypes.object,
         children: PropTypes.node,
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            initialTab: 0,
-        };
-    },
+    static defaultProps = {
+        initialTab: 0,
+    };
 
-    getInitialState: function() {
-        return {
-            selectedTab: this.props.initialTab,
-        };
-    },
+    state = {
+        selectedTab: this.props.initialTab,
+    };
 
-    componentDidMount: function() {
+    componentDidMount() {
         this.handleCallbacks(this.state.selectedTab);
-    },
+    }
 
-    handleSelect: function(index) {
+    handleSelect = (index) => {
         this.handleCallbacks(index);
         this.setState({
             selectedTab: index,
         });
-    },
+    };
 
-    getCallbacks: function() {
+    getCallbacks = () => {
         var obj = {};
         var i = 0;
 
@@ -53,17 +49,17 @@ var Tabs = React.createClass({
         });
 
         return obj;
-    },
+    };
 
-    handleCallbacks: function(index) {
+    handleCallbacks = (index) => {
         var callbacks = this.getCallbacks();
 
         if (callbacks && typeof callbacks[index] === 'function') {
             callbacks[index]();
         }
-    },
+    };
 
-    render: function() {
+    render() {
         var tabTitles = [];
         var tabContents = [];
 
@@ -98,7 +94,7 @@ var Tabs = React.createClass({
                 })}
             </ReactTabs.Tabs>
         );
-    },
-});
+    }
+}
 
 module.exports = Tabs;

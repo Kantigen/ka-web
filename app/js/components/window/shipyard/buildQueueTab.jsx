@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var ShipyardRPCActions = require('js/actions/rpc/shipyard');
@@ -10,7 +11,9 @@ var BuildQueueShipyardRPCStore = require('js/stores/rpc/shipyard/buildQueue');
 
 var BuildQueueItem = require('js/components/window/shipyard/buildQueue/item');
 
-var BuildQueueTab = React.createClass({
+var BuildQueueTab = createReactClass({
+    displayName: 'BuildQueueTab',
+
     propTypes: {
         buildingId: PropTypes.number.isRequired,
     },

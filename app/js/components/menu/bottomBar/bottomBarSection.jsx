@@ -7,22 +7,22 @@ var classnames = require('classnames');
 
 var ProgressBar = require('js/components/menu/bottomBar/progressBar');
 
-var BottomBarSection = React.createClass({
-    propTypes: {
+class BottomBarSection extends React.Component {
+    static propTypes = {
         iconName: PropTypes.string.isRequired,
         topText: PropTypes.string.isRequired,
         bottomText: PropTypes.string.isRequired,
         toolTipShow: PropTypes.func,
         progressPercent: PropTypes.number,
-    },
+    };
 
-    handleToolTip: function() {
+    handleToolTip = () => {
         if (typeof this.props.toolTipShow === 'function') {
             this.props.toolTipShow();
         }
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div className='item' onMouseEnter={this.handleToolTip}>
                 {this.props.progressPercent ? (
@@ -46,7 +46,7 @@ var BottomBarSection = React.createClass({
                 {this.props.bottomText}
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BottomBarSection;

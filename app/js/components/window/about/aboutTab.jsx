@@ -1,11 +1,13 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var ServerRPCStore = require('js/stores/rpc/server');
 
-var AboutTab = React.createClass({
+var AboutTab = createReactClass({
+    displayName: 'AboutTab',
     mixins: [Reflux.connect(ServerRPCStore, 'serverRPC')],
 
     render: function() {

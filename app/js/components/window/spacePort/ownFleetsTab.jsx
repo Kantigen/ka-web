@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var constants = require('js/constants');
@@ -11,7 +12,9 @@ var ViewAllFleetsSpacePortRPCStore = require('js/stores/rpc/spacePort/viewAllFle
 
 var OwnFleetItem = require('js/components/window/spacePort/ownFleets/item');
 
-var OwnFleetsTab = React.createClass({
+var OwnFleetsTab = createReactClass({
+    displayName: 'OwnFleetsTab',
+
     propTypes: {
         buildingId: PropTypes.number.isRequired,
     },

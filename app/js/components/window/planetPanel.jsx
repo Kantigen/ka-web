@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var GetBodyStatusRPCStore = require('js/stores/rpc/body/getBodyStatus');
@@ -16,7 +17,9 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var PlanetPanel = React.createClass({
+var PlanetPanel = createReactClass({
+    displayName: 'PlanetPanel',
+
     statics: {
         options: {
             title: 'Planet Details',

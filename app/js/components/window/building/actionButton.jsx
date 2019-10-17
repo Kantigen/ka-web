@@ -5,21 +5,21 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var classnames = require('classnames');
 
-var ActionButton = React.createClass({
-    propTypes: {
+class ActionButton extends React.Component {
+    static propTypes = {
         actionName: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
         error: PropTypes.string,
         onClick: PropTypes.func.isRequired,
-    },
+    };
 
-    handleClick: function() {
+    handleClick = () => {
         if (!this.props.error) {
             this.props.onClick();
         }
-    },
+    };
 
-    render: function() {
+    render() {
         var hasError = !!this.props.error;
 
         var elementAttributes = {
@@ -44,7 +44,7 @@ var ActionButton = React.createClass({
             elementAttributes,
             <span>{this.props.actionName}</span>
         );
-    },
-});
+    }
+}
 
 module.exports = ActionButton;

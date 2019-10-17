@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 var Reflux = require('reflux');
 var _ = require('lodash');
@@ -8,7 +9,8 @@ var _ = require('lodash');
 var WindowsStore = require('js/stores/windows');
 var Panel = require('js/components/window/panel');
 
-var WindowManager = React.createClass({
+var WindowManager = createReactClass({
+    displayName: 'WindowManager',
     mixins: [Reflux.connect(WindowsStore, 'windows')],
 
     render: function() {

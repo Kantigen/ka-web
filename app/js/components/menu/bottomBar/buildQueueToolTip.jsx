@@ -4,12 +4,12 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var RPCCountToolTip = React.createClass({
-    propTypes: {
+class RPCCountToolTip extends React.Component {
+    static propTypes = {
         body: PropTypes.object.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         if (this.props.body.type === 'space station') {
             return (
                 <div>
@@ -31,7 +31,7 @@ var RPCCountToolTip = React.createClass({
                 </div>
             );
         }
-    },
-});
+    }
+}
 
 module.exports = RPCCountToolTip;

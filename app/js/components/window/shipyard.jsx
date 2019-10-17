@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 var _ = require('lodash');
 
@@ -21,7 +22,9 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var Shipyard = React.createClass({
+var Shipyard = createReactClass({
+    displayName: 'Shipyard',
+
     statics: {
         options: {
             title: 'Shipyard',

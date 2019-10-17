@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var BodyRPCGetBodyStatusStore = require('js/stores/rpc/body/getBodyStatus');
@@ -9,7 +10,9 @@ var PlanetPanelLine = require('js/components/window/planetPanel/line');
 
 var constants = require('js/constants');
 
-var PlanetDetails = React.createClass({
+var PlanetDetails = createReactClass({
+    displayName: 'PlanetDetails',
+
     mixins: [
         Reflux.connect(BodyRPCGetBodyStatusStore, 'bodyRPCGetBodyStatusStore'),
     ],

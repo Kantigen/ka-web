@@ -12,20 +12,18 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var AboutWindow = React.createClass({
-    statics: {
-        options: {
-            title: 'About',
-            width: 450,
-            height: 400,
-        },
-    },
+class AboutWindow extends React.Component {
+    static options = {
+        title: 'About',
+        width: 450,
+        height: 400,
+    };
 
-    closeWindow: function() {
+    closeWindow = () => {
         WindowActions.windowCloseByType('about');
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <Tabs>
                 <Tab title='About'>
@@ -40,7 +38,7 @@ var AboutWindow = React.createClass({
                 </Tab>
             </Tabs>
         );
-    },
-});
+    }
+}
 
 module.exports = AboutWindow;

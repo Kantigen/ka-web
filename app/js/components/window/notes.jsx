@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var NotesWindowActions = require('js/actions/windows/notes');
@@ -11,11 +12,14 @@ var NotesBodyRPCStore = require('js/stores/rpc/body/notes');
 
 var Panel = require('js/components/window/panel');
 
-var NotesWindow = React.createClass({
+var NotesWindow = createReactClass({
+    displayName: 'NotesWindow',
+
     mixins: [
         Reflux.connect(NotesWindowStore, 'notesWindowShow'),
         Reflux.connect(NotesBodyRPCStore, 'notes'),
     ],
+
     handleClose: function() {
         // TODO We need to get the body ID from the NotesWindowStore
         BodyRPCActions.requestBodyRPCSetColonyNotes({
@@ -24,9 +28,11 @@ var NotesWindow = React.createClass({
         });
         NotesWindowActions.notesHide();
     },
+
     handleChange: function(e) {
         NotesWindowActions.notesSet(e.target.value);
     },
+
     render: function() {
         return (
             <Panel

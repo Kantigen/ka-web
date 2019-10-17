@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var PureRenderMixin = require('react-addons-pure-render-mixin');
 var Reflux = require('reflux');
 var _ = require('lodash');
@@ -17,8 +18,8 @@ var MapActions = require('js/actions/menu/map');
 
 var RightSidebarStore = require('js/stores/menu/rightSidebar');
 
-var PlanetListItem = React.createClass({
-    propTypes: {
+class PlanetListItem extends React.Component {
+    static propTypes = {
         name: PropTypes.string.isRequired,
         id: PropTypes.oneOfType([
             PropTypes.number,
@@ -26,23 +27,23 @@ var PlanetListItem = React.createClass({
         ]).isRequired,
         currentBody: PropTypes.number.isRequired,
         zone: PropTypes.string.isRequired,
-    },
+    };
 
-    getInitialProps: function() {
+    getInitialProps = () => {
         return {
             name: '',
             id: 0,
             currentBody: 0,
             zone: '',
         };
-    },
+    };
 
     // Returns true if this list item is the the currently selected planet.
-    isCurrentWorld: function() {
+    isCurrentWorld = () => {
         return this.props.currentBody === this.props.id;
-    },
+    };
 
-    handleClick: function() {
+    handleClick = () => {
         RightSidebarActions.rightSidebarHide();
 
         if (this.isCurrentWorld()) {
@@ -50,9 +51,9 @@ var PlanetListItem = React.createClass({
         } else {
             MapActions.mapChangePlanet(this.props.id);
         }
-    },
+    };
 
-    render: function() {
+    render() {
         var classStr = classNames({
             'ui large teal label': this.isCurrentWorld(),
             item: !this.isCurrentWorld(),
@@ -70,56 +71,54 @@ var PlanetListItem = React.createClass({
                 {this.props.name} ({this.props.zone})
             </a>
         );
-    },
-});
+    }
+}
 
-var AccordionItem = React.createClass({
-    propTypes: {
+class AccordionItem extends React.Component {
+    static propTypes = {
         list: PropTypes.arrayOf(PropTypes.object).isRequired,
         currentBody: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         initiallyOpen: PropTypes.bool.isRequired,
-    },
+    };
 
-    getInitialProps: function() {
+    state = {
+        open: this.props.initiallyOpen,
+    };
+
+    getInitialProps = () => {
         return {
             list: [],
             currentBody: 0,
             title: '',
             initiallyOpen: false,
         };
-    },
+    };
 
-    getInitialState: function() {
-        return {
-            open: this.props.initiallyOpen,
-        };
-    },
-
-    componentDidMount: function() {
+    componentDidMount() {
         RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
         RightSidebarActions.rightSidebarExpand.listen(this.showList);
-    },
+    }
 
-    showList: function() {
+    showList = () => {
         this.setState({
             open: true,
         });
-    },
+    };
 
-    hideList: function() {
+    hideList = () => {
         this.setState({
             open: false,
         });
-    },
+    };
 
-    toggleList: function() {
+    toggleList = () => {
         this.setState({
             open: !this.state.open,
         });
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div>
                 <div
@@ -165,16 +164,16 @@ var AccordionItem = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-var BodiesAccordion = React.createClass({
-    propTypes: {
+class BodiesAccordion extends React.Component {
+    static propTypes = {
         bodies: PropTypes.object.isRequired,
         currentBody: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         var items = [
             {
                 title: 'My Colonies',
@@ -241,10 +240,12 @@ var BodiesAccordion = React.createClass({
                 )}
             </div>
         );
-    },
-});
+    }
+}
 
-var RightSidebar = React.createClass({
+var RightSidebar = createReactClass({
+    displayName: 'RightSidebar',
+
     mixins: [
         Reflux.connect(EmpireRPCStore, 'empire'),
         Reflux.connect(PlanetStore, 'planet'),

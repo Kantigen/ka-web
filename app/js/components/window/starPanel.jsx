@@ -2,6 +2,8 @@
 
 var React = require('react');
 
+var createReactClass = require('create-react-class');
+
 var WindowActions = require('js/actions/window');
 
 var Tabber = require('js/components/tabber');
@@ -9,7 +11,9 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var StarPanel = React.createClass({
+var StarPanel = createReactClass({
+    displayName: 'StarPanel',
+
     statics: {
         options: {
             title: 'Star Details',
@@ -17,6 +21,7 @@ var StarPanel = React.createClass({
             height: 420,
         },
     },
+
     mixins: [],
     componentWillMount: function() {},
 

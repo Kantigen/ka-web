@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var vex = require('js/vex');
@@ -20,7 +21,8 @@ var EmpireRPCStore = require('js/stores/rpc/empire');
 var LeftSidebarStore = require('js/stores/menu/leftSidebar');
 
 // Because there's a bit of special logic going on here, this is in a separate component.
-var SelfDestruct = React.createClass({
+var SelfDestruct = createReactClass({
+    displayName: 'SelfDestruct',
     mixins: [Reflux.connect(EmpireRPCStore, 'empireRPCStore')],
 
     handleDestructClick: function() {
@@ -86,7 +88,9 @@ var SelfDestruct = React.createClass({
     },
 });
 
-var LeftSidebar = React.createClass({
+var LeftSidebar = createReactClass({
+    displayName: 'LeftSidebar',
+
     mixins: [
         Reflux.connect(EmpireRPCStore, 'empire'),
         Reflux.connect(LeftSidebarStore, 'leftSidebar'),

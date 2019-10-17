@@ -3,6 +3,7 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
@@ -19,7 +20,9 @@ var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var TheftTraining = React.createClass({
+var TheftTraining = createReactClass({
+    displayName: 'TheftTraining',
+
     statics: {
         options: {
             title: 'Theft Training',

@@ -12,33 +12,33 @@ var InviteWindow = require('js/components/window/invite');
 
 var constants = require('js/constants');
 
-var GetEssentiaTab = React.createClass({
-    propTypes: {
+class GetEssentiaTab extends React.Component {
+    static propTypes = {
         session: PropTypes.string.isRequired,
-    },
+    };
 
-    purchase: function() {
+    purchase = () => {
         var url = constants.RPC_BASE + 'pay?session_id=' + this.props.session;
         window.open(
             url,
             'essentiaPayment',
             'status=0,toolbar=0,location=0,menubar=0,resizable=1,scrollbars=1,height=550,width=600,directories=0'
         );
-    },
+    };
 
-    redeem: function() {
+    redeem = () => {
         var node = this.refs.code;
         EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({
             code: node.value,
         });
         node.value = '';
-    },
+    };
 
-    invite: function() {
+    invite = () => {
         WindowActions.windowAdd(InviteWindow, 'invite');
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div style={{ textAlign: 'center' }}>
                 <div
@@ -80,7 +80,7 @@ var GetEssentiaTab = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = GetEssentiaTab;

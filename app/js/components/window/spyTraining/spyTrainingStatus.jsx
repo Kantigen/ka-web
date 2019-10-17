@@ -6,14 +6,14 @@ var React = require('react');
 
 var util = require('js/util');
 
-var SpyTrainingStatus = React.createClass({
-    propTypes: {
+class SpyTrainingStatus extends React.Component {
+    static propTypes = {
         inTraining: PropTypes.number.isRequired,
         pointsPerHour: PropTypes.number.isRequired,
         maxPoints: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div className='ui teal labels'>
                 <div className='ui label'>
@@ -44,7 +44,7 @@ var SpyTrainingStatus = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = SpyTrainingStatus;

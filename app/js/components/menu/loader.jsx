@@ -1,14 +1,17 @@
 'use strict';
 
 var React = require('react');
+var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
 
 var classNames = require('classnames');
 
 var LoaderMenuStore = require('js/stores/menu/loader');
 
-var Loader = React.createClass({
+var Loader = createReactClass({
+    displayName: 'Loader',
     mixins: [Reflux.connect(LoaderMenuStore, 'loaderMenu')],
+
     render: function() {
         return (
             <div

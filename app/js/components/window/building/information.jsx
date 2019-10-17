@@ -7,21 +7,21 @@ var React = require('react');
 var constants = require('js/constants');
 var resources = require('js/resources');
 
-var BuildingInformation = React.createClass({
-    propTypes: {
+class BuildingInformation extends React.Component {
+    static propTypes = {
         options: PropTypes.object.isRequired,
-    },
+    };
 
-    getImageUrl: function() {
+    getImageUrl = () => {
         return (
             constants.ASSETS_URL +
             'planet_side/100/' +
             this.props.options.image +
             '.png'
         );
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -69,7 +69,7 @@ var BuildingInformation = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildingInformation;

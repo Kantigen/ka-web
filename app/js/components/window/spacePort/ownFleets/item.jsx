@@ -8,13 +8,13 @@ var ResourceAttribute = require('js/components/window/shipyard/resourceAttribute
 
 var constants = require('js/constants');
 
-var BuildFleetItem = React.createClass({
-    propTypes: {
+class BuildFleetItem extends React.Component {
+    static propTypes = {
         obj: PropTypes.object.isRequired,
         buildingId: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         var starfieldStyle = {
             width: 100,
             height: 100,
@@ -91,7 +91,7 @@ var BuildFleetItem = React.createClass({
                 <div className='ui divider' />
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildFleetItem;

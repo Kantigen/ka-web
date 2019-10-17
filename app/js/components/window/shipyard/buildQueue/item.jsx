@@ -11,13 +11,13 @@ var CountdownTimer = require('js/components/countdownTimer');
 var util = require('js/util');
 var constants = require('js/constants');
 
-var BuildQueueItem = React.createClass({
-    propTypes: {
+class BuildQueueItem extends React.Component {
+    static propTypes = {
         obj: PropTypes.object.isRequired,
         buildingId: PropTypes.number.isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         var starfieldStyle = {
             width: 100,
             height: 100,
@@ -98,7 +98,7 @@ var BuildQueueItem = React.createClass({
                 <div className='ui divider' />
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = BuildQueueItem;

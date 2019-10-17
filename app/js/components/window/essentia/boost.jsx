@@ -12,24 +12,22 @@ var EmpireRPCActions = require('js/actions/rpc/empire');
 
 var BoostCountdown = require('js/components/window/essentia/boostCountdown');
 
-var Boost = React.createClass({
-    propTypes: {
+class Boost extends React.Component {
+    static propTypes = {
         type: PropTypes.string.isRequired,
         iconName: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         essentia: PropTypes.number.isRequired,
         boosts: PropTypes.object.isRequired,
-    },
+    };
 
-    getDefaultProps: function() {
-        return {
-            type: '',
-            iconName: '',
-            description: '',
-        };
-    },
+    static defaultProps = {
+        type: '',
+        iconName: '',
+        description: '',
+    };
 
-    handleBoost: function() {
+    handleBoost = () => {
         var type = this.props.type;
         var weeks = this.refs.weeks.value;
 
@@ -46,9 +44,9 @@ var Boost = React.createClass({
             return;
         }
         EmpireRPCActions.requestEmpireRPCBoost({ type: type, weeks: weeks });
-    },
+    };
 
-    renderButton: function() {
+    renderButton = () => {
         var iconClassName = classnames('icon', this.props.iconName);
 
         return (
@@ -62,9 +60,9 @@ var Boost = React.createClass({
                 Boost
             </div>
         );
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -88,7 +86,7 @@ var Boost = React.createClass({
                 <BoostCountdown boost={this.props.boosts[this.props.type]} />
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = Boost;

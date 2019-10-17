@@ -5,16 +5,14 @@ var React = require('react');
 var WindowActions = require('js/actions/window');
 var UserWSActions = require('js/actions/ws/user');
 
-var LoginWindow = React.createClass({
-    statics: {
-        options: {
-            title: 'Web Socket Login',
-            width: 500,
-            height: 200,
-        },
-    },
+class LoginWindow extends React.Component {
+    static options = {
+        title: 'Web Socket Login',
+        width: 500,
+        height: 200,
+    };
 
-    clickLogin: function() {
+    clickLogin = () => {
         var username = this.refs.username.value;
         var password = this.refs.password.value;
 
@@ -22,13 +20,13 @@ var LoginWindow = React.createClass({
             username: username,
             password: password,
         });
-    },
+    };
 
-    closeWindow: function() {
+    closeWindow = () => {
         WindowActions.windowCloseByType('login');
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -53,7 +51,7 @@ var LoginWindow = React.createClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = LoginWindow;
