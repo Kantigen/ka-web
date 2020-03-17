@@ -1,5 +1,5 @@
 {
-    "assets_url": "/assets/",
+    "assets_url": "/Lacuna-Assets/",
     "server_url": "http://localhost:5000",
     "ws_server_url": "ws://localhost:8090/ws/user"
 }
