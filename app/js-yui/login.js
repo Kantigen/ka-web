@@ -5,6 +5,7 @@ var Fingerprint2 = require('fingerprintjs2');
 
 var WindowActions = require('js/actions/window');
 var LoginWindow = require('js/components/window/login');
+var config = require('js/config');
 
 var _ = require('lodash');
 
@@ -25,7 +26,9 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
             this.id = 'login';
             this.createEvent('onLoginSuccessful');
 
-            WindowActions.windowAdd(LoginWindow, 'login');
+            if (config.get('test_web_sockets')) {
+                WindowActions.windowAdd(LoginWindow, 'login');
+            }
 
             var container = document.createElement('div');
             container.id = this.id;
@@ -149,28 +152,18 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'Login.handleLogin.success'
-                                    );
+                                    YAHOO.log(o, 'info', 'Login.handleLogin.success');
                                     //clear the session just in case
                                     Game.RemoveCookie('session');
 
                                     if (this.elRemember.checked) {
                                         var now = new Date();
-                                        Cookie.set(
-                                            'lacunaEmpireName',
-                                            this.elName.value,
-                                            {
-                                                domain: Game.domain,
-                                                expires: new Date(
-                                                    now.setFullYear(
-                                                        now.getFullYear() + 1
-                                                    )
-                                                ),
-                                            }
-                                        );
+                                        Cookie.set('lacunaEmpireName', this.elName.value, {
+                                            domain: Game.domain,
+                                            expires: new Date(
+                                                now.setFullYear(now.getFullYear() + 1)
+                                            ),
+                                        });
                                     } else {
                                         Cookie.remove('lacunaEmpireName');
                                     }
@@ -190,9 +183,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                                         this.hide();
                                         this.initEmpireCreator();
                                         Game.OverlayManager.hideAll();
-                                        Game.SpeciesCreator.show(
-                                            o.error.data.empire_id
-                                        );
+                                        Game.SpeciesCreator.show(o.error.data.empire_id);
                                     } else if (o.error.code == 1200) {
                                         alert(o.error.message);
                                         window.location = o.error.data;
@@ -230,11 +221,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
             },
             hide: function() {
                 if (this.elMessage) {
-                    Dom.replaceClass(
-                        this.elMessage,
-                        Lib.Styles.ALERT,
-                        Lib.Styles.HIDDEN
-                    );
+                    Dom.replaceClass(this.elMessage, Lib.Styles.ALERT, Lib.Styles.HIDDEN);
                 }
                 this.Dialog.hide();
             },
@@ -247,18 +234,10 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                     this.elMessage = d;
                 }
                 if (str && str.length > 0) {
-                    Dom.replaceClass(
-                        this.elMessage,
-                        Lib.Styles.HIDDEN,
-                        Lib.Styles.ALERT
-                    );
+                    Dom.replaceClass(this.elMessage, Lib.Styles.HIDDEN, Lib.Styles.ALERT);
                     this.elMessage.innerHTML = str;
                 } else {
-                    Dom.replaceClass(
-                        this.elMessage,
-                        Lib.Styles.ALERT,
-                        Lib.Styles.HIDDEN
-                    );
+                    Dom.replaceClass(this.elMessage, Lib.Styles.ALERT, Lib.Styles.HIDDEN);
                 }
             },
             initEmpireCreator: function() {
@@ -328,10 +307,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 '    </div>',
                 '    <div class="ft"></div>',
             ].join('');
-            document.body.insertBefore(
-                emailContainer,
-                document.body.firstChild
-            );
+            document.body.insertBefore(emailContainer, document.body.firstChild);
 
             this.EmailDialog = new YAHOO.widget.Dialog(this.emailId, {
                 constraintoviewport: true,
@@ -407,10 +383,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 '    </div>',
                 '    <div class="ft"></div>',
             ].join('');
-            document.body.insertBefore(
-                resetContainer,
-                document.body.firstChild
-            );
+            document.body.insertBefore(resetContainer, document.body.firstChild);
 
             this.ResetDialog = new YAHOO.widget.Dialog(this.resetId, {
                 constraintoviewport: true,
@@ -451,11 +424,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 this,
                 true
             );
-            this.ResetDialog.submitEvent.subscribe(
-                this.resetPassword,
-                this,
-                true
-            );
+            this.ResetDialog.submitEvent.subscribe(this.resetPassword, this, true);
             this.ResetDialog.cancelEvent.subscribe(this.hide, this, true);
             this.ResetDialog.render();
             Game.OverlayManager.register(this.ResetDialog);
@@ -524,11 +493,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'ResetPassword.resetPassword.success'
-                                );
+                                YAHOO.log(o, 'info', 'ResetPassword.resetPassword.success');
                                 require('js/actions/menu/loader').hide();
                                 this.fireEvent('onResetSuccessful', o);
                                 this.hide();

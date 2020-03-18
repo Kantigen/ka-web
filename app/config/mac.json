@@ -2,5 +2,6 @@
     "assets_url": "/Lacuna-Assets/",
     "server_url": "http://192.168.99.100:5000",
     "ws_server_url": "ws://192.168.99.100:8090/ws/user",
-    "mock_server": false
+    "mock_server": false,
+    "test_web_sockets": false
 }
