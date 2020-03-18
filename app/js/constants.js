@@ -1,13 +1,11 @@
 'use strict';
 
-var config = require('js/config');
-
 var constants = {
-    ASSETS_URL: config.get('assets_url'),
+    ASSETS_URL: process.env.KA_ASSETS_URL,
     NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
     RPC_BASE: (function() {
-        var url = config.get('server_url');
+        var url = process.env.KA_SERVER_URL;
         var lastChar = url.slice(-1);
 
         // Ensure the URL has a trailing '/' character.
@@ -17,7 +15,7 @@ var constants = {
             return url + '/';
         }
     })(),
-    WS_BASE: config.get('ws_server_url'),
+    WS_BASE: process.env.KA_WS_SERVER_URL,
 
     FLEET_TAGS: {
         trade: 'Trade',

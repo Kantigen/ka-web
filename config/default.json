@@ -1,0 +1,7 @@
+{
+    "KA_ASSETS_URL": "/Lacuna-Assets/",
+    "KA_SERVER_URL": "http://localhost:5000",
+    "KA_WS_SERVER_URL": "ws://localhost:8090/ws/user",
+    "KA_TEST_WS": false,
+    "KA_MOCK_SERVER": false
+}

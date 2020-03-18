@@ -6,8 +6,6 @@ d07c9bd4-fcb7-427f-9064-218064677fef
 */
 YAHOO.namespace('lacuna');
 
-var config = require('js/config');
-
 /*
 indexOf is a recent addition to the ECMA-262 standard; as such it may not be present in all browsers. You can work around this by inserting the
 following code at the beginning of your scripts, allowing use of indexOf in implementations which do not natively support it. This algorithm is
@@ -105,7 +103,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
             Lang = YAHOO.lang,
             Dom = Util.Dom,
             util = require('js/util'),
-            assetUrl = config.get('assets_url');
+            assetUrl = process.env.KA_ASSETS_URL;
 
         var Library = {
             ApiKey: '53137d8f-3544-4118-9001-b0acbec70b3d',

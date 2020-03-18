@@ -5,7 +5,6 @@ var Fingerprint2 = require('fingerprintjs2');
 
 var WindowActions = require('js/actions/window');
 var LoginWindow = require('js/components/window/login');
-var config = require('js/config');
 
 var _ = require('lodash');
 
@@ -26,7 +25,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
             this.id = 'login';
             this.createEvent('onLoginSuccessful');
 
-            if (config.get('test_web_sockets')) {
+            if (process.env.KA_TEST_WS) {
                 WindowActions.windowAdd(LoginWindow, 'login');
             }
 

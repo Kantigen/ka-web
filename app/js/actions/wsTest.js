@@ -2,7 +2,6 @@
 
 var Reflux = require('reflux');
 var constants = require('js/constants');
-var config = require('js/config');
 
 var WsTestActions = Reflux.createActions([
     'loginWithPassword',
@@ -93,7 +92,7 @@ var testWs = function() {
     });
 };
 
-if (config.get('test_web_sockets')) {
+if (process.env.KA_TEST_WS) {
     testWs();
 }
 
