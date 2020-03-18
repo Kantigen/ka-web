@@ -1,5 +1,6 @@
 {
     "assets_url": "/Lacuna-Assets/",
     "server_url": "http://localhost:5000",
-    "ws_server_url": "ws://localhost:8090/ws/user"
+    "ws_server_url": "ws://localhost:8090/ws/user",
+    "mock_server": false
 }

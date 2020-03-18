@@ -124,6 +124,13 @@ require('react-tabs/style/react-tabs.css');
         require('js-yui/notify');
         require('js/components/menu');
 
+        var config = require('js/config');
+        var mocker = require('js/mock');
+
+        if (config.get('mock_server')) {
+            mocker.setupMocking();
+        }
+
         // Start everything!
         YAHOO.widget.Logger.enableBrowserConsole();
         YAHOO.lacuna.Game.Start(query);
