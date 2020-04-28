@@ -21,20 +21,15 @@ function clean() {
     return gulpTasks.clean();
 }
 
-function cssify() {
-    return gulpTasks.cssify();
-}
-
 function server(done) {
     return gulpTasks.server(done);
 }
 
 module.exports.server = server;
-module.exports.devWithServer = series(browserify, cssify, server);
-module.exports.dev = series(browserify, cssify);
-module.exports.cssify = cssify;
+module.exports.devWithServer = series(browserify, server);
+module.exports.dev = series(browserify);
 module.exports.clean = clean;
-module.exports.build = series(browserifyWithoutWatch, cssify);
+module.exports.build = series(browserifyWithoutWatch);
 module.exports.browserify = browserify;
 module.exports.browserifyWithoutWatch = browserifyWithoutWatch;
 module.exports.default = module.exports.build;
