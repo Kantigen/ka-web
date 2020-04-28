@@ -4,11 +4,9 @@
 # Modules downloaded by npm.
 node_modules/
 
-# Built JS and CSS files.
-build/
-!app/vendor-js/yui2/build
-
 app/config/user.json
 
 package-lock.json
 yarn.lock
+
+/bundle.js

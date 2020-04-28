@@ -16,7 +16,7 @@ function handleBundle(b, options) {
             gutil.log(gutil.colors.red('Browserify compile error:'), err.message);
             this.emit('end');
         })
-        .pipe(fs.createWriteStream(path.join(options.rootDir, 'build/bundle.js')));
+        .pipe(fs.createWriteStream(path.join(options.rootDir, 'bundle.js')));
 }
 
 function getConfigJson(name) {
