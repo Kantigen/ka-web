@@ -186,12 +186,12 @@ module.exports = () => {
                 image: 'geothermalvent1',
             },
             '4968807': {
-                y: '2',
+                y: '3',
                 efficiency: '100',
                 level: '30',
                 name: 'Entertainment District',
                 url: '/entertainment',
-                x: '1',
+                x: '-1',
                 image: 'entertainment9',
             },
             '4975914': {
