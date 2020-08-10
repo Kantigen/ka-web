@@ -192,7 +192,7 @@ module.exports = () => {
                 name: 'Entertainment District',
                 url: '/entertainment',
                 x: '1',
-                image: 'entertainment1',
+                image: 'entertainment9',
             },
             '4975914': {
                 y: '-2',
