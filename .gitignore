@@ -6,7 +6,4 @@ node_modules/
 
 app/config/user.json
 
-package-lock.json
-yarn.lock
-
 /bundle.js
