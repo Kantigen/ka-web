@@ -45,10 +45,10 @@ module.exports.reduceNumber = function(number, always) {
         return Math.floor(number / 1000) + 'k';
     } else if (always) {
         // 8765
-        return Math.floor(number);
+        return Math.floor(number).toString();
     } else {
         // 8765
-        return Math.floor(number) || '0';
+        return Math.floor(number).toString() || '0';
     }
 };
 

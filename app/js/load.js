@@ -97,12 +97,8 @@ const init = () => {
         l.hash = '';
     }
 
-    var mocker = require('js/mock');
-    if (process.env.KA_MOCK_SERVER) {
-        mocker.setupMocking();
-    }
-
     // Start everything!
+    YAHOO.util.Event.throwErrors = true;
     YAHOO.widget.Logger.enableBrowserConsole();
     YAHOO.lacuna.Game.Start(query);
 };

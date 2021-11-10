@@ -211,6 +211,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         // Run rest of UI now that we're logged in
 
                         Lacuna.Game.Run();
+                        UserActions.userSignIn();
+
                         if (result.welcome_message_id) {
                             Game.QuickDialog({
                                 width: '400px',

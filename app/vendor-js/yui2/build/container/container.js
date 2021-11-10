@@ -6515,7 +6515,7 @@
         configUnderlay: function (type, args, obj) {
 
             var bMacGecko = (this.platform == "mac" && UA.gecko),
-                sUnderlay = args[0].toLowerCase(),
+                sUnderlay = (args[0] || '').toLowerCase(),
                 oUnderlay = this.underlay,
                 oElement = this.element;
 

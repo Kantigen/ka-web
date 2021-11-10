@@ -168,10 +168,6 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                                     }
 
                                     this.fireEvent('onLoginSuccessful', o);
-                                    UserActions.userSignIn({
-                                        name: this.elName.value,
-                                        password: this.elPass.value,
-                                    });
 
                                     this.elForm.reset();
                                     this.hide();
