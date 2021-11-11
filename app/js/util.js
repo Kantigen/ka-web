@@ -113,7 +113,7 @@ module.exports.serverDateToMoment = function(str) {
 
     if (usingNewFormat.isValid()) {
         return usingNewFormat;
-    } else if (usingOldFormat.isVaid()) {
+    } else if (usingOldFormat.isValid()) {
         return usingOldFormat;
     } else {
         console.error('Cannot parse server date: ' + str);
