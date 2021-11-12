@@ -7,3 +7,5 @@ node_modules/
 app/config/user.json
 
 /bundle.js
+
+.DS_Store
