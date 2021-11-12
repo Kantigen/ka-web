@@ -24,21 +24,17 @@ var Map = createReactClass({
     previousMapMode: '',
     previousPlanetId: '',
 
-    render: function() {
-        // console.log(this.state);
-
+    componentDidUpdate() {
         // Do nothing if the menu isn't shown.
         if (this.state.menuVisible.show === false) {
             // Reset these values because we're *probably* logged out.
             this.previousMapMode = MapModeStore.PLANET_MAP_MODE;
             this.previousPlanetId = '';
             this.state.planet = '';
-
-            return <div></div>;
         }
 
         if (!this.state.planet) {
-            return <div></div>;
+            return;
         }
 
         // console.log('Rendering map');
@@ -54,26 +50,18 @@ var Map = createReactClass({
             (this.previousMapMode !== this.state.mapMode &&
                 this.state.mapMode === MapModeStore.PLANET_MAP_MODE)
         ) {
-            // Now that we've made sure...
-            // Render the planet view.
-            Lacuna.MapStar.MapVisible(
-                this.state.mapMode === MapModeStore.STAR_MAP_MODE
-            );
-            Lacuna.MapPlanet.MapVisible(
-                this.state.mapMode === MapModeStore.PLANET_MAP_MODE
-            );
+            Lacuna.MapStar.MapVisible(false);
+            Lacuna.MapPlanet.MapVisible(true);
             Lacuna.MapPlanet.Load(
                 this.state.planet,
                 true,
                 this.state.mapMode === MapModeStore.STAR_MAP_MODE
             );
 
-            // Sadly, we have to pull hacky tricks like this to avoid infinite loops.
             this.previousPlanetId = this.state.planet;
             this.previousMapMode = this.state.mapMode;
 
-            // Return nothing because we're using the old (non-React) mapping system.
-            return <div></div>;
+            return;
         }
 
         if (
@@ -86,15 +74,14 @@ var Map = createReactClass({
             Lacuna.MapStar.Load();
             Lacuna.MapStar.Jump(this.state.bodyRPC.x, this.state.bodyRPC.y);
 
-            // Sadly, we have to pull hacky tricks like this to avoid infinite loops.
             this.previousPlanetId = this.state.planet;
             this.previousMapMode = this.state.mapMode;
 
-            // Return nothing because we're using the old (non-React) mapping system.
-            return <div></div>;
+            return;
         }
+    },
 
-        // We shouldn't end up here, but consiering how hacky all this is it *may* hapen. :(
+    render: function() {
         return <div></div>;
     },
 });
