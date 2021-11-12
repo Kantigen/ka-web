@@ -2,10 +2,7 @@ YAHOO.namespace('lacuna.modules');
 
 var constants = require('js/constants');
 
-if (
-    typeof YAHOO.lacuna.modules.Parliament == 'undefined' ||
-    !YAHOO.lacuna.modules.Parliament
-) {
+if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modules.Parliament) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -28,11 +25,7 @@ if (
         Lang.extend(Parliament, Lacuna.buildings.Building, {
             getChildTabs: function() {
                 if (this.building.level >= 4) {
-                    return [
-                        this._getCreateTab(),
-                        this._getLawsTab(),
-                        this._getPropsTab(),
-                    ];
+                    return [this._getCreateTab(), this._getLawsTab(), this._getPropsTab()];
                 } else {
                     return [this._getLawsTab(), this._getPropsTab()];
                 }
@@ -75,14 +68,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'lawsDetails',
-                    'click',
-                    this.LawClick,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('lawsDetails', 'click', this.LawClick, 'button', this, true);
                 Event.delegate(
                     'lawsDetails',
                     'click',
@@ -156,14 +142,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'propsDetails',
-                    'click',
-                    this.PropClick,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('propsDetails', 'click', this.PropClick, 'button', this, true);
                 Event.delegate(
                     'propsDetails',
                     'click',
@@ -202,9 +181,7 @@ if (
             _getCreateTab: function() {
                 this.createEvent('onAllianceMembers');
 
-                var opts = [
-                        '<option value="proposeWrit" selected>Writ</option>',
-                    ],
+                var opts = ['<option value="proposeWrit" selected>Writ</option>'],
                     dis = [],
                     getAllianceMembers;
                 if (this.building.level >= 6) {
@@ -225,11 +202,7 @@ if (
                                 function() {
                                     var sel = Dom.get('proposeTransferTo'),
                                         opts = [];
-                                    for (
-                                        var n = 0;
-                                        n < this.allianceMembers.length;
-                                        n++
-                                    ) {
+                                    for (var n = 0; n < this.allianceMembers.length; n++) {
                                         var member = this.allianceMembers[n];
                                         opts[opts.length] =
                                             '<option value="' +
@@ -257,8 +230,7 @@ if (
                     );
                 }
                 if (this.building.level >= 8) {
-                    opts[opts.length] =
-                        '<option value="proposeRenameStar">Rename Star</option>';
+                    opts[opts.length] = '<option value="proposeRenameStar">Rename Star</option>';
                     dis[dis.length] = [
                         '    <div id="proposeRenameStar" class="proposeOption" style="display:none;">',
                         '        <ul><li><label>Star:</label><select id="proposeRenameStarSelect"></select></li>',
@@ -276,17 +248,11 @@ if (
                                 },
                                 {
                                     success: function(o) {
-                                        var el = Dom.get(
-                                            'proposeRenameStarSelect'
-                                        );
+                                        var el = Dom.get('proposeRenameStarSelect');
                                         if (el) {
                                             var stars = o.result.stars;
                                             var opts = [];
-                                            for (
-                                                var m = 0;
-                                                m < stars.length;
-                                                m++
-                                            ) {
+                                            for (var m = 0; m < stars.length; m++) {
                                                 var obj = stars[m];
                                                 opts[opts.length] =
                                                     '<option value="' +
@@ -327,23 +293,15 @@ if (
                     this.subscribe(
                         'onLoad',
                         function() {
-                            Event.on(
-                                'proposeBroadcastSubmit',
-                                'click',
-                                this.Broadcast,
-                                this,
-                                true
-                            );
+                            Event.on('proposeBroadcastSubmit', 'click', this.Broadcast, this, true);
                         },
                         this,
                         true
                     );
                 }
                 if (this.building.level >= 10) {
-                    opts[opts.length] =
-                        '<option value="proposeInduct">Induct Member</option>';
-                    opts[opts.length] =
-                        '<option value="proposeExpel">Expel Member</option>';
+                    opts[opts.length] = '<option value="proposeInduct">Induct Member</option>';
+                    opts[opts.length] = '<option value="proposeExpel">Expel Member</option>';
                     dis[dis.length] = [
                         '    <div id="proposeInduct" class="proposeOption" style="display:none;">',
                         '        <ul><li><label>Empire:</label><input type="text" id="proposeInductMember" /></li>',
@@ -363,29 +321,16 @@ if (
                             this.inductMemberTextboxList = this.CreateEmpireSearch(
                                 'proposeInductMember'
                             );
-                            Event.on(
-                                'proposeInductSubmit',
-                                'click',
-                                this.MemberInduct,
-                                this,
-                                true
-                            );
+                            Event.on('proposeInductSubmit', 'click', this.MemberInduct, this, true);
 
                             this.subscribe(
                                 'onAllianceMembers',
                                 function() {
                                     var sel = Dom.get('proposeExpelMember'),
                                         opts = [];
-                                    for (
-                                        var n = 0;
-                                        n < this.allianceMembers.length;
-                                        n++
-                                    ) {
+                                    for (var n = 0; n < this.allianceMembers.length; n++) {
                                         var member = this.allianceMembers[n];
-                                        if (
-                                            !member.isLeader &&
-                                            member.id != Game.EmpireData.id
-                                        ) {
+                                        if (!member.isLeader && member.id != Game.EmpireData.id) {
                                             opts[opts.length] =
                                                 '<option value="' +
                                                 member.id +
@@ -400,13 +345,7 @@ if (
                                 this,
                                 true
                             );
-                            Event.on(
-                                'proposeExpelSubmit',
-                                'click',
-                                this.MemberExpel,
-                                this,
-                                true
-                            );
+                            Event.on('proposeExpelSubmit', 'click', this.MemberExpel, this, true);
                         },
                         this,
                         true
@@ -428,20 +367,11 @@ if (
                             this.subscribe(
                                 'onAllianceMembers',
                                 function() {
-                                    var sel = Dom.get(
-                                            'proposeElectLeaderMember'
-                                        ),
+                                    var sel = Dom.get('proposeElectLeaderMember'),
                                         opts = [];
-                                    for (
-                                        var n = 0;
-                                        n < this.allianceMembers.length;
-                                        n++
-                                    ) {
+                                    for (var n = 0; n < this.allianceMembers.length; n++) {
                                         var member = this.allianceMembers[n];
-                                        if (
-                                            !member.isLeader &&
-                                            member.id != Game.EmpireData.id
-                                        ) {
+                                        if (!member.isLeader && member.id != Game.EmpireData.id) {
                                             opts[opts.length] =
                                                 '<option value="' +
                                                 member.id +
@@ -490,17 +420,11 @@ if (
                                 },
                                 {
                                     success: function(o) {
-                                        var el = Dom.get(
-                                            'proposeRenameAsteroidStar'
-                                        );
+                                        var el = Dom.get('proposeRenameAsteroidStar');
                                         if (el) {
                                             var stars = o.result.stars;
                                             var opts = [];
-                                            for (
-                                                var m = 0;
-                                                m < stars.length;
-                                                m++
-                                            ) {
+                                            for (var m = 0; m < stars.length; m++) {
                                                 var obj = stars[m];
                                                 opts[opts.length] =
                                                     '<option value="' +
@@ -552,13 +476,7 @@ if (
                         '        <button type="button" id="proposeMembersMiningSubmit">Propose</button>',
                         '    </div>',
                     ].join('');
-                    Event.on(
-                        'proposeMembersMiningSubmit',
-                        'click',
-                        this.MiningOnly,
-                        this,
-                        true
-                    );
+                    Event.on('proposeMembersMiningSubmit', 'click', this.MiningOnly, this, true);
                 }
                 if (this.building.level >= 14) {
                     opts[opts.length] =
@@ -582,17 +500,11 @@ if (
                                 },
                                 {
                                     success: function(o) {
-                                        var el = Dom.get(
-                                            'proposeEvictMiningStar'
-                                        );
+                                        var el = Dom.get('proposeEvictMiningStar');
                                         if (el) {
                                             var stars = o.result.stars;
                                             var opts = [];
-                                            for (
-                                                var m = 0;
-                                                m < stars.length;
-                                                m++
-                                            ) {
+                                            for (var m = 0; m < stars.length; m++) {
                                                 var obj = stars[m];
                                                 opts[opts.length] =
                                                     '<option value="' +
@@ -626,20 +538,8 @@ if (
                         },
                         true
                     );
-                    Event.on(
-                        'proposeEvictMiningBody',
-                        'change',
-                        this.LoadMining,
-                        this,
-                        true
-                    );
-                    Event.on(
-                        'proposeEvictMiningSubmit',
-                        'click',
-                        this.EvictMining,
-                        this,
-                        true
-                    );
+                    Event.on('proposeEvictMiningBody', 'change', this.LoadMining, this, true);
+                    Event.on('proposeEvictMiningSubmit', 'click', this.EvictMining, this, true);
                 }
                 if (this.building.level >= 17) {
                     opts[opts.length] =
@@ -663,17 +563,11 @@ if (
                                 },
                                 {
                                     success: function(o) {
-                                        var el = Dom.get(
-                                            'proposeRenameUninhabitedStar'
-                                        );
+                                        var el = Dom.get('proposeRenameUninhabitedStar');
                                         if (el) {
                                             var stars = o.result.stars;
                                             var opts = [];
-                                            for (
-                                                var m = 0;
-                                                m < stars.length;
-                                                m++
-                                            ) {
+                                            for (var m = 0; m < stars.length; m++) {
                                                 var obj = stars[m];
                                                 opts[opts.length] =
                                                     '<option value="' +
@@ -819,17 +713,10 @@ if (
                         '        <button type="button" id="proposeNeutralizeBHGSubmit">Propose</button>',
                         '    </div>',
                     ].join('');
-                    Event.on(
-                        'proposeNeutralizeBHGSubmit',
-                        'click',
-                        this.NeutralizeBHG,
-                        this,
-                        true
-                    );
+                    Event.on('proposeNeutralizeBHGSubmit', 'click', this.NeutralizeBHG, this, true);
                 }
                 if (this.building.level >= 25) {
-                    opts[opts.length] =
-                        '<option value="proposeFireBfg">Fire BFG</option>';
+                    opts[opts.length] = '<option value="proposeFireBfg">Fire BFG</option>';
                     dis[dis.length] = [
                         '    <div id="proposeFireBfg" class="proposeOption" style="display:none;">',
                         '		<ul><li><label>Star:</label><select id="proposeFireBfgStars"></select></li>',
@@ -853,11 +740,7 @@ if (
                                         if (el) {
                                             var stars = o.result.stars;
                                             var opts = [];
-                                            for (
-                                                var m = 0;
-                                                m < stars.length;
-                                                m++
-                                            ) {
+                                            for (var m = 0; m < stars.length; m++) {
                                                 var obj = stars[m];
                                                 opts[opts.length] =
                                                     '<option value="' +
@@ -890,13 +773,7 @@ if (
                         },
                         true
                     );
-                    Event.on(
-                        'proposeFireBfgSubmit',
-                        'click',
-                        this.FireBFG,
-                        this,
-                        true
-                    );
+                    Event.on('proposeFireBfgSubmit', 'click', this.FireBFG, this, true);
                 }
 
                 if (getAllianceMembers) {
@@ -911,17 +788,10 @@ if (
                                 if (el) {
                                     var profile = o.result.profile;
                                     var memberArray = [];
-                                    for (
-                                        var m = 0;
-                                        m < profile.members.length;
-                                        m++
-                                    ) {
+                                    for (var m = 0; m < profile.members.length; m++) {
                                         var member = profile.members[m];
-                                        member.isLeader =
-                                            member.id == profile.leader_id;
-                                        memberArray[
-                                            memberArray.length
-                                        ] = member;
+                                        member.isLeader = member.id == profile.leader_id;
+                                        memberArray[memberArray.length] = member;
                                     }
                                     this.allianceMembers = memberArray;
                                     this.fireEvent('onAllianceMembers');
@@ -955,21 +825,14 @@ if (
                 this.subscribe(
                     'onLoad',
                     function() {
-                        this.proposeOptions = Sel.query(
-                            'div.proposeOption',
-                            'proposeContainer'
-                        );
+                        this.proposeOptions = Sel.query('div.proposeOption', 'proposeContainer');
                         this.proposeMessage = Dom.get('proposeMessage');
 
                         Event.on(
                             'proposeSelect',
                             'change',
                             function(e) {
-                                Dom.setStyle(
-                                    this.proposeOptions,
-                                    'display',
-                                    'none'
-                                );
+                                Dom.setStyle(this.proposeOptions, 'display', 'none');
                                 Dom.setStyle(
                                     Lib.getSelectedOptionValue('proposeSelect'),
                                     'display',
@@ -996,21 +859,9 @@ if (
                         Dom.get('proposeTitle').value = templates[0].title;
                         Dom.get('proposeDesc').value = templates[0].description;
 
-                        Event.on(
-                            t,
-                            'change',
-                            this.ProposeWritTemplateChange,
-                            this,
-                            true
-                        );
+                        Event.on(t, 'change', this.ProposeWritTemplateChange, this, true);
 
-                        Event.on(
-                            'proposeWritSubmit',
-                            'click',
-                            this.ProposeWrit,
-                            this,
-                            true
-                        );
+                        Event.on('proposeWritSubmit', 'click', this.ProposeWrit, this, true);
                     },
                     this,
                     true
@@ -1028,9 +879,7 @@ if (
                 Dom.get('proposeDesc').value = opt.description;
             },
             CreateStarSearch: function(id) {
-                var dataSource = new Util.XHRDataSource(
-                    constants.RPC_BASE + 'map'
-                );
+                var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
                 dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1039,23 +888,15 @@ if (
                     fields: ['name', 'id', 'zone', 'color', 'x', 'y'],
                 };
 
-                var oTextboxList = new YAHOO.lacuna.TextboxList(
-                    id,
-                    dataSource,
-                    {
-                        //config options
-                        maxResultsDisplayed: 25,
-                        minQueryLength: 3,
-                        multiSelect: false,
-                        forceSelection: false,
-                        useIndicator: true,
-                    }
-                );
-                oTextboxList.formatResult = function(
-                    oResultData,
-                    sQuery,
-                    sResultMatch
-                ) {
+                var oTextboxList = new YAHOO.lacuna.TextboxList(id, dataSource, {
+                    //config options
+                    maxResultsDisplayed: 25,
+                    minQueryLength: 3,
+                    multiSelect: false,
+                    forceSelection: false,
+                    useIndicator: true,
+                });
+                oTextboxList.formatResult = function(oResultData, sQuery, sResultMatch) {
                     return [
                         '<div class="yui-gf">',
                         '    <div class="yui-u first" style="background-color:black;">',
@@ -1086,10 +927,7 @@ if (
                         id: YAHOO.rpc.Service._requestId++,
                         method: 'search_stars',
                         jsonrpc: '2.0',
-                        params: [
-                            Game.GetSession(''),
-                            decodeURIComponent(sQuery),
-                        ],
+                        params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                     });
                     return s;
                 };
@@ -1097,9 +935,7 @@ if (
                 return oTextboxList;
             },
             CreateEmpireSearch: function(id) {
-                var dataSource = new Util.XHRDataSource(
-                    constants.RPC_BASE + 'empire'
-                );
+                var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
                 dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1108,29 +944,22 @@ if (
                     fields: ['name', 'id'],
                 };
 
-                var oTextboxList = new YAHOO.lacuna.TextboxList(
-                    id,
-                    dataSource,
-                    {
-                        //config options
-                        maxResultsDisplayed: 10,
-                        minQueryLength: 3,
-                        multiSelect: false,
-                        forceSelection: true,
-                        formatResultLabelKey: 'name',
-                        formatResultColumnKeys: ['name'],
-                        useIndicator: true,
-                    }
-                );
+                var oTextboxList = new YAHOO.lacuna.TextboxList(id, dataSource, {
+                    //config options
+                    maxResultsDisplayed: 10,
+                    minQueryLength: 3,
+                    multiSelect: false,
+                    forceSelection: true,
+                    formatResultLabelKey: 'name',
+                    formatResultColumnKeys: ['name'],
+                    useIndicator: true,
+                });
                 oTextboxList.generateRequest = function(sQuery) {
                     var s = Lang.JSON.stringify({
                         id: YAHOO.rpc.Service._requestId++,
                         method: 'find',
                         jsonrpc: '2.0',
-                        params: [
-                            Game.GetSession(''),
-                            decodeURIComponent(sQuery),
-                        ],
+                        params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                     });
                     return s;
                 };
@@ -1151,8 +980,7 @@ if (
                     {
                         success: function(o) {
                             this.rpcSuccess(o);
-                            this.proposeMessage.innerHTML =
-                                'Successfully proposed broadcast.';
+                            this.proposeMessage.innerHTML = 'Successfully proposed broadcast.';
                             Lib.fadeOutElm(this.proposeMessage);
                             Dom.get('proposeBroadcastMessage').value = '';
                             btn.disabled = false;
@@ -1214,9 +1042,7 @@ if (
             },
             EvictMining: function(e) {
                 var button = Event.getTarget(e),
-                    platform = Lib.getSelectedOptionValue(
-                        'proposeEvictMiningId'
-                    );
+                    platform = Lib.getSelectedOptionValue('proposeEvictMiningId');
 
                 button.disabled = true;
                 if (platform) {
@@ -1289,9 +1115,7 @@ if (
                 }
             },
             LoadMining: function(e) {
-                var bodyId = Lib.getSelectedOptionValue(
-                        'proposeEvictMiningBody'
-                    ),
+                var bodyId = Lib.getSelectedOptionValue('proposeEvictMiningBody'),
                     miningIdElem = Dom.get('proposeEvictMiningId');
 
                 if (bodyId) {
@@ -1390,9 +1214,7 @@ if (
                     {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        empire_id: Lib.getSelectedOptionValue(
-                            'proposeExpelMember'
-                        ),
+                        empire_id: Lib.getSelectedOptionValue('proposeExpelMember'),
                         message: Dom.get('proposeExpelReason').value,
                     },
                     {
@@ -1416,8 +1238,7 @@ if (
                 if (this.inductMemberTextboxList._oTblSingleSelection) {
                     var btn = Event.getTarget(e);
                     btn.disabled = true;
-                    var selObj = this.inductMemberTextboxList
-                        ._oTblSingleSelection.Object;
+                    var selObj = this.inductMemberTextboxList._oTblSingleSelection.Object;
 
                     this.service.propose_induct_member(
                         {
@@ -1452,9 +1273,7 @@ if (
                     {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        to_empire_id: Lib.getSelectedOptionValue(
-                            'proposeElectLeaderMember'
-                        ),
+                        to_empire_id: Lib.getSelectedOptionValue('proposeElectLeaderMember'),
                     },
                     {
                         success: function(o) {
@@ -1462,9 +1281,7 @@ if (
                             this.proposeMessage.innerHTML =
                                 'Successfully proposed to elect new leader.';
                             Lib.fadeOutElm(this.proposeMessage);
-                            Dom.get(
-                                'proposeElectLeaderMember'
-                            ).selectedIndex = -1;
+                            Dom.get('proposeElectLeaderMember').selectedIndex = -1;
                             btn.disabled = false;
                         },
                         failure: function(o) {
@@ -1586,8 +1403,7 @@ if (
                     {
                         success: function(o) {
                             this.rpcSuccess(o);
-                            this.proposeMessage.innerHTML =
-                                'Successfully proposed writ.';
+                            this.proposeMessage.innerHTML = 'Successfully proposed writ.';
                             Lib.fadeOutElm(this.proposeMessage);
                             this.ProposeWritTemplateChange();
                             btn.disabled = false;
@@ -1601,9 +1417,7 @@ if (
             },
             RenameAsteroid: function(e) {
                 var button = Event.getTarget(e),
-                    body = Lib.getSelectedOptionValue(
-                        'proposeRenameAsteroidName'
-                    ),
+                    body = Lib.getSelectedOptionValue('proposeRenameAsteroidName'),
                     newName = Dom.get('proposeRenameAsteroidNewName').value;
 
                 button.disabled = true;
@@ -1627,11 +1441,8 @@ if (
                                 Lib.fadeOutElm(this.proposeMessage);
 
                                 button.disabled = false;
-                                Dom.get('proposeRenameAsteroidNewName').value =
-                                    '';
-                                Dom.get(
-                                    'proposeRenameAsteroidName'
-                                ).selectedIndex = -1;
+                                Dom.get('proposeRenameAsteroidNewName').value = '';
+                                Dom.get('proposeRenameAsteroidName').selectedIndex = -1;
                             },
                             failure: function(o) {
                                 button.disabled = false;
@@ -1652,20 +1463,15 @@ if (
                     {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        star_id: Lib.getSelectedOptionValue(
-                            'proposeRenameStarSelect'
-                        ),
+                        star_id: Lib.getSelectedOptionValue('proposeRenameStarSelect'),
                         name: Dom.get('proposeRenameStarName').value,
                     },
                     {
                         success: function(o) {
                             this.rpcSuccess(o);
-                            this.proposeMessage.innerHTML =
-                                'Successfully proposed to rename star.';
+                            this.proposeMessage.innerHTML = 'Successfully proposed to rename star.';
                             Lib.fadeOutElm(this.proposeMessage);
-                            Dom.get(
-                                'proposeRenameStarSelect'
-                            ).selectedIndex = -1;
+                            Dom.get('proposeRenameStarSelect').selectedIndex = -1;
                             btn.disabled = false;
                         },
                         failure: function(o) {
@@ -1677,9 +1483,7 @@ if (
             },
             RenameUninhabited: function(e) {
                 var button = Event.getTarget(e),
-                    body = Lib.getSelectedOptionValue(
-                        'proposeRenameUninhabitedName'
-                    ),
+                    body = Lib.getSelectedOptionValue('proposeRenameUninhabitedName'),
                     newName = Dom.get('proposeRenameUninhabitedNewName').value;
 
                 button.disabled = true;
@@ -1703,12 +1507,8 @@ if (
                                 Lib.fadeOutElm(this.proposeMessage);
 
                                 button.disabled = false;
-                                Dom.get(
-                                    'proposeRenameUninhabitedNewName'
-                                ).value = '';
-                                Dom.get(
-                                    'proposeRenameUninhabitedName'
-                                ).selectedIndex = -1;
+                                Dom.get('proposeRenameUninhabitedNewName').value = '';
+                                Dom.get('proposeRenameUninhabitedName').selectedIndex = -1;
                             },
                             failure: function(o) {
                                 button.disabled = false;
@@ -1729,9 +1529,7 @@ if (
                     {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        to_empire_id: Lib.getSelectedOptionValue(
-                            'proposeTransferTo'
-                        ),
+                        to_empire_id: Lib.getSelectedOptionValue('proposeTransferTo'),
                     },
                     {
                         success: function(o) {
@@ -1774,9 +1572,7 @@ if (
                             law.name,
                             '</label></div>',
                             '    <div class="yui-u" >',
-                            this.canRepealLaw
-                                ? '<button type="button">Repeal</button>'
-                                : '&nbsp;',
+                            this.canRepealLaw ? '<button type="button">Repeal</button>' : '&nbsp;',
                             '</span></div>',
                             '    <div class="yui-u" style="text-align:right;">Enacted ',
                             Lib.formatServerDate(law.date_enacted),
@@ -1849,9 +1645,7 @@ if (
                     for (var i = 0; i < props.length; i++) {
                         var prop = props[i],
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(prop.date_ends) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(prop.date_ends) - serverTime) / 1000;
 
                         nLi.Prop = prop;
                         nLi.innerHTML = this.PropLineDetails(prop, sec);
@@ -1955,11 +1749,7 @@ if (
             },
             PropVoteDetails: function(prop) {
                 if (prop.my_vote !== undefined) {
-                    return (
-                        '<label>Voted ' +
-                        (prop.my_vote * 1 === 1 ? 'Yes' : 'No') +
-                        '</label>'
-                    );
+                    return '<label>Voted ' + (prop.my_vote * 1 === 1 ? 'Yes' : 'No') + '</label>';
                 } else {
                     return '<button type="button">Yes</button><button type="button">No</button>';
                 }
@@ -1967,8 +1757,7 @@ if (
             PropQueue: function(remaining, elLine) {
                 var arrTime;
                 if (remaining <= 0) {
-                    arrTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    arrTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     arrTime = Lib.formatTime(Math.round(remaining));
                 }
@@ -2039,10 +1828,7 @@ if (
                 body = body.replace(
                     /\{(food|water|ore|energy|waste|happiness|time|essentia|plots|build)\}/gi,
                     function(str, icon) {
-                        var cl =
-                            'small' +
-                            icon.substr(0, 1).toUpperCase() +
-                            icon.substr(1);
+                        var cl = 'small' + icon.substr(0, 1).toUpperCase() + icon.substr(1);
                         return (
                             '<img src="' +
                             Lib.AssetUrl +
@@ -2054,10 +1840,7 @@ if (
                         );
                     }
                 );
-                body = body.replace(
-                    /\[(https?:\/\/[a-z0-9_.\/\-]+)\]/gi,
-                    '<a href="$1">$1</a>'
-                );
+                body = body.replace(/\[(https?:\/\/[a-z0-9_.\/\-]+)\]/gi, '<a href="$1">$1</a>');
                 body = body.replace(
                     /\{Empire\s+(-?\d+)\s+([^\}]+)\}/gi,
                     '<a class="profile_link" href="#$1">$2</a>'
@@ -2104,7 +1887,7 @@ if (
                 this.hide();
                 var planet = Game.EmpireData.planets[res[1]];
                 //Game.PlanetJump(planet);
-                require('js/actions/menu/map').mapChangePlanet(res[1]);
+                require('js/stores/menu').changePlanet(res[1]);
             },
             handleAllianceLink: function(e, el) {
                 Event.stopEvent(e);

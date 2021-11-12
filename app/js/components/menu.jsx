@@ -1,8 +1,7 @@
 'use strict';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+const React = require('react');
+const { observer } = require('mobx-react');
 
 var TopBar = require('js/components/menu/topBar');
 var BottomBar = require('js/components/menu/bottomBar');
@@ -14,12 +13,9 @@ var Loader = require('js/components/menu/loader');
 
 var MenuStore = require('js/stores/menu');
 
-var Menu = createReactClass({
-    displayName: 'Menu',
-    mixins: [Reflux.connect(MenuStore, 'menuStore')],
-
-    render: function() {
-        if (this.state.menuStore.show) {
+class Menu extends React.Component {
+    render() {
+        if (MenuStore.show) {
             return (
                 <div>
                     <LeftSidebarButton />
@@ -35,7 +31,7 @@ var Menu = createReactClass({
         } else {
             return <div></div>;
         }
-    },
-});
+    }
+}
 
-module.exports = Menu;
+module.exports = observer(Menu);

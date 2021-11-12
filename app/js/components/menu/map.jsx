@@ -1,89 +1,85 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
 var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 
 var BodyRPCStore = require('js/stores/rpc/body');
-var MapModeStore = require('js/stores/menu/mapMode');
-var PlanetStore = require('js/stores/menu/planet');
 var MenuStore = require('js/stores/menu');
 
 // TODO: factor out all this glue code
 
-var Map = createReactClass({
-    displayName: 'Map',
-
-    mixins: [
-        Reflux.connect(MapModeStore, 'mapMode'),
-        Reflux.connect(BodyRPCStore, 'bodyRPC'),
-        Reflux.connect(PlanetStore, 'planet'),
-        Reflux.connect(MenuStore, 'menuVisible'),
-    ],
-
-    previousMapMode: '',
-    previousPlanetId: '',
+class Map extends React.Component {
+    previousMapMode = '';
+    previousPlanetId = '';
 
     componentDidUpdate() {
         // Do nothing if the menu isn't shown.
-        if (this.state.menuVisible.show === false) {
+        if (MenuStore.show === false) {
             // Reset these values because we're *probably* logged out.
-            this.previousMapMode = MapModeStore.PLANET_MAP_MODE;
+            this.previousMapMode = MenuStore.PLANET_MAP_MODE;
             this.previousPlanetId = '';
-            this.state.planet = '';
         }
 
-        if (!this.state.planet) {
+        if (!MenuStore.planetId) {
             return;
         }
 
         // console.log('Rendering map');
-        // console.log('mapMode = ' + this.state.mapMode + '(' + this.previousMapMode + ')');
-        // console.log('planet = ' + this.state.planet + '(' + this.previousPlanetId + ')');
+        // console.log('mapMode = ' + MenuStore.mapMode + '(' + this.previousMapMode + ')');
+        // console.log('planet = ' + MenuStore.planetId + '(' + this.previousPlanetId + ')');
 
         var Lacuna = YAHOO.lacuna;
 
         if (
             // Render if the planet id has changed... OR...
-            this.previousPlanetId !== this.state.planet ||
+            this.previousPlanetId !== MenuStore.planetId ||
             // Render if we've changed from the starMap to the planetMap
-            (this.previousMapMode !== this.state.mapMode &&
-                this.state.mapMode === MapModeStore.PLANET_MAP_MODE)
+            (this.previousMapMode !== MenuStore.mapMode &&
+                MenuStore.mapMode === MenuStore.PLANET_MAP_MODE)
         ) {
             Lacuna.MapStar.MapVisible(false);
             Lacuna.MapPlanet.MapVisible(true);
             Lacuna.MapPlanet.Load(
-                this.state.planet,
+                MenuStore.planetId,
                 true,
-                this.state.mapMode === MapModeStore.STAR_MAP_MODE
+                MenuStore.mapMode === MenuStore.STAR_MAP_MODE
             );
 
-            this.previousPlanetId = this.state.planet;
-            this.previousMapMode = this.state.mapMode;
+            this.previousPlanetId = MenuStore.planetId;
+            this.previousMapMode = MenuStore.mapMode;
 
             return;
         }
 
         if (
-            this.state.mapMode !== this.previousMapMode &&
-            this.state.mapMode === MapModeStore.STAR_MAP_MODE
+            MenuStore.mapMode !== this.previousMapMode &&
+            MenuStore.mapMode === MenuStore.STAR_MAP_MODE
         ) {
             // Render star map view.
             Lacuna.MapPlanet.MapVisible(false);
             Lacuna.MapStar.MapVisible(true);
             Lacuna.MapStar.Load();
-            Lacuna.MapStar.Jump(this.state.bodyRPC.x, this.state.bodyRPC.y);
+            // Lacuna.MapStar.Jump(this.state.bodyRPC.x, this.state.bodyRPC.y);
 
-            this.previousPlanetId = this.state.planet;
-            this.previousMapMode = this.state.mapMode;
+            this.previousPlanetId = MenuStore.planetId;
+            this.previousMapMode = MenuStore.mapMode;
 
             return;
         }
-    },
+    }
 
-    render: function() {
+    render() {
+        //
+        // We access these values so that MobX knows that we are interested in tracking them.
+        // This component doesn't render anything so we need to be explicit about the values
+        // we are using, allowing the framework to notify us appropriately.
+        //
+        const mapMode = MenuStore.mapMode;
+        const planetId = MenuStore.planetId;
+
         return <div></div>;
-    },
-});
+    }
+}
 
-module.exports = Map;
+module.exports = observer(Map);

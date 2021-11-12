@@ -102,9 +102,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                     '    </div>',
                     '</div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(panel);
+                document.getElementById('oldYUIPanelContainer').appendChild(panel);
                 Dom.addClass(panel, 'nofooter');
 
                 this.messagingPanel = new YAHOO.widget.Panel(panelId, {
@@ -124,42 +122,16 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         this.create = Dom.get('messagingCreate');
                         this.inbox = Dom.get('messagingInbox');
                         this.inboxTag = Dom.get('inboxTag');
-                        this.tag = this.inboxTag.options[
-                            this.inboxTag.selectedIndex
-                        ].value;
-                        Event.on(
-                            'inboxTag',
-                            'change',
-                            this.updateTag,
-                            this,
-                            true
-                        );
+                        this.tag = this.inboxTag.options[this.inboxTag.selectedIndex].value;
+                        Event.on('inboxTag', 'change', this.updateTag, this, true);
                         this.sent = Dom.get('messagingSent');
                         this.archive = Dom.get('messagingArchive');
                         this.trash = Dom.get('messagingTrash');
                         this.announce = Dom.get('messagingAnnounce');
                         //list and display view
-                        Event.on(
-                            'messagingReply',
-                            'click',
-                            this.replyMessage,
-                            this,
-                            true
-                        );
-                        Event.on(
-                            'messagingReplyAll',
-                            'click',
-                            this.replyAllMessage,
-                            this,
-                            true
-                        );
-                        Event.on(
-                            'messagingForward',
-                            'click',
-                            this.forwardMessage,
-                            this,
-                            true
-                        );
+                        Event.on('messagingReply', 'click', this.replyMessage, this, true);
+                        Event.on('messagingReplyAll', 'click', this.replyAllMessage, this, true);
+                        Event.on('messagingForward', 'click', this.forwardMessage, this, true);
                         Event.on(
                             'messagingArchiveDisplayed',
                             'click',
@@ -167,13 +139,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             this,
                             true
                         );
-                        Event.on(
-                            'messagingTrashDisplayed',
-                            'click',
-                            this.trashMessage,
-                            this,
-                            true
-                        );
+                        Event.on('messagingTrashDisplayed', 'click', this.trashMessage, this, true);
                         this.list = Dom.get('messagingList');
                         this.timestamp = Dom.get('messagingTimestamp');
                         this.from = Dom.get('messagingFrom');
@@ -231,47 +197,19 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         );
                         //archiving setup
                         this.archiver = Dom.get('messagingArchiver');
-                        this.archiveButton = Dom.get(
-                            'messagingArchiveSelected'
-                        );
-                        Event.on(
-                            this.archiveButton,
-                            'click',
-                            this.archiveMessages,
-                            this,
-                            true
-                        );
+                        this.archiveButton = Dom.get('messagingArchiveSelected');
+                        Event.on(this.archiveButton, 'click', this.archiveMessages, this, true);
                         this.trashButton = Dom.get('messagingTrashSelected');
-                        Event.on(
-                            this.trashButton,
-                            'click',
-                            this.trashMessages,
-                            this,
-                            true
-                        );
+                        Event.on(this.trashButton, 'click', this.trashMessages, this, true);
                         this.select = Dom.get('messagingSelectAll');
-                        Event.on(
-                            this.select,
-                            'click',
-                            this.selectAllMessages,
-                            this,
-                            true
-                        );
+                        Event.on(this.select, 'click', this.selectAllMessages, this, true);
                         //create
                         this._createToSelect();
                         //this.createTo = Dom.get("messagingCreateTo");
                         this.createSubject = Dom.get('messagingCreateSubject');
                         this.createText = Dom.get('messagingCreateText');
-                        this.createResponse = Dom.get(
-                            'messagingCreateResponse'
-                        );
-                        Event.on(
-                            'messagingCreateSend',
-                            'click',
-                            this.sendMessage,
-                            this,
-                            true
-                        );
+                        this.createResponse = Dom.get('messagingCreateResponse');
+                        Event.on('messagingCreateSend', 'click', this.sendMessage, this, true);
                         //set start display
                         Dom.setStyle(this.display, 'visibility', 'hidden');
                         Event.delegate(
@@ -312,9 +250,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                     '    </div>',
                     '</div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(panel);
+                document.getElementById('oldYUIPanelContainer').appendChild(panel);
                 Dom.addClass(panel, 'nofooter');
 
                 this.attachmentPanel = new YAHOO.widget.Panel(panelId, {
@@ -390,9 +326,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 Game.OverlayManager.register(this.attachmentPanel);
             }),
             _createToSelect: function() {
-                var dataSource = new Util.XHRDataSource(
-                    constants.RPC_BASE + 'empire'
-                );
+                var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
                 dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -401,37 +335,26 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                     fields: ['name', 'id'],
                 };
 
-                var oTextboxList = new YAHOO.lacuna.TextboxList(
-                    'messagingCreateTo',
-                    dataSource,
-                    {
-                        //config options
-                        maxResultsDisplayed: 10,
-                        minQueryLength: 3,
-                        multiSelect: true,
-                        forceSelection: true,
-                        formatResultLabelKey: 'name',
-                        formatResultColumnKeys: ['name'],
-                        useIndicator: true,
-                    }
-                );
+                var oTextboxList = new YAHOO.lacuna.TextboxList('messagingCreateTo', dataSource, {
+                    //config options
+                    maxResultsDisplayed: 10,
+                    minQueryLength: 3,
+                    multiSelect: true,
+                    forceSelection: true,
+                    formatResultLabelKey: 'name',
+                    formatResultColumnKeys: ['name'],
+                    useIndicator: true,
+                });
                 oTextboxList.generateRequest = function(sQuery) {
                     var s = Lang.JSON.stringify({
                         id: YAHOO.rpc.Service._requestId++,
                         method: 'find',
                         jsonrpc: '2.0',
-                        params: [
-                            Game.GetSession(''),
-                            decodeURIComponent(sQuery),
-                        ],
+                        params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                     });
                     return s;
                 };
-                oTextboxList.doBeforeLoadData = function(
-                    sQuery,
-                    oResponse,
-                    oPayload
-                ) {
+                oTextboxList.doBeforeLoadData = function(sQuery, oResponse, oPayload) {
                     var tq = decodeURIComponent(sQuery);
                     if (tq[0] == '@') {
                         if (tq[1].toLowerCase() == 'a') {
@@ -467,11 +390,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                     case this.create.id:
                         Dom.setStyle('messagingCreator', 'display', '');
                         Dom.setStyle('messagingReader', 'display', 'none');
-                        Dom.setStyle(
-                            'messagingAnnouncement',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('messagingAnnouncement', 'display', 'none');
                         break;
                     case this.announce.id:
                         Dom.setStyle('messagingCreator', 'display', 'none');
@@ -484,11 +403,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         this.viewingMessage = null;
                         Dom.setStyle('messagingCreator', 'display', 'none');
                         Dom.setStyle('messagingReader', 'display', '');
-                        Dom.setStyle(
-                            'messagingAnnouncement',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('messagingAnnouncement', 'display', 'none');
                         break;
                 }
                 Dom.setStyle(this.display, 'visibility', 'hidden');
@@ -546,11 +461,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 if (this.viewingMessage) {
                     if (isAll) {
                         var to = [{ name: this.viewingMessage.from }];
-                        for (
-                            var i = 0;
-                            i < this.viewingMessage.recipients.length;
-                            i++
-                        ) {
+                        for (var i = 0; i < this.viewingMessage.recipients.length; i++) {
                             var nm = this.viewingMessage.recipients[i];
                             if (nm != Game.EmpireData.name) {
                                 to.push({ name: nm });
@@ -558,9 +469,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
                         this.createTo.SelectItems(to);
                     } else {
-                        this.createTo.SelectItems([
-                            { name: this.viewingMessage.from },
-                        ]);
+                        this.createTo.SelectItems([{ name: this.viewingMessage.from }]);
                     }
                     this.createSubject.value =
                         (this.viewingMessage.forwarding ? 'Fwd: ' : 'Re: ') +
@@ -580,9 +489,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 this._setTab(this.create);
             },
             updateTag: function() {
-                this.tag = this.inboxTag.options[
-                    this.inboxTag.selectedIndex
-                ].value;
+                this.tag = this.inboxTag.options[this.inboxTag.selectedIndex].value;
                 this.loadInboxMessages();
             },
             loadInboxMessages: function() {
@@ -599,8 +506,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         success: function(o) {
                             this.fireEvent('onRpc', o.result);
                             if (o.result.message_count > 25) {
-                                var template =
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}';
+                                var template = '{PreviousPageLink} {PageLinks} {NextPageLink}';
                                 if (o.result.message_count > 149) {
                                     template =
                                         '{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}';
@@ -661,8 +567,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                                 rowsPerPage: 25,
                                 totalRecords: o.result.message_count,
                                 containers: 'messagingPaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.pager.subscribe(
@@ -702,8 +607,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                                 rowsPerPage: 25,
                                 totalRecords: o.result.message_count,
                                 containers: 'messagingPaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.pager.subscribe(
@@ -743,8 +647,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                                 rowsPerPage: 25,
                                 totalRecords: o.result.message_count,
                                 containers: 'messagingPaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.pager.subscribe(
@@ -969,11 +872,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             var message = matchedEl.parentNode;
                             var messageSelect = message.childNodes[1];
                             var img = messageSelect.childNodes[0];
-                            Dom.setAttribute(
-                                img,
-                                'src',
-                                Lib.AssetUrl + 'ui/mail-read.png'
-                            );
+                            Dom.setAttribute(img, 'src', Lib.AssetUrl + 'ui/mail-read.png');
                             Dom.removeClass(matchedEl.parentNode, 'unread');
                             this.fireEvent('onRpc', o.result);
                             this.displayMessage(o.result.message);
@@ -1020,16 +919,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                     this.to.innerHTML = msg.recipients.join(', ');
                     this.subject.innerHTML = msg.subject;
                     this.body.parentNode.scrollTop = 0;
-                    this.body.innerHTML = msg.body
-                        ? this.formatBody(msg.body)
-                        : '';
+                    this.body.innerHTML = msg.body ? this.formatBody(msg.body) : '';
                     if (msg.attachments) {
                         this.body.appendChild(document.createElement('hr'));
                         if (msg.attachments.image) {
                             var img = msg.attachments.image,
-                                imgDiv = this.body.appendChild(
-                                    document.createElement('div')
-                                );
+                                imgDiv = this.body.appendChild(document.createElement('div'));
                             imgDiv.id = 'attachmentImage';
                             if (img.link) {
                                 imgDiv.innerHTML = [
@@ -1059,9 +954,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
                         if (msg.attachments.link) {
                             var lnk = msg.attachments.link,
-                                lnkDiv = this.body.appendChild(
-                                    document.createElement('div')
-                                );
+                                lnkDiv = this.body.appendChild(document.createElement('div'));
                             lnkDiv.id = 'attachmentLink';
                             lnkDiv.innerHTML = [
                                 '<a href="',
@@ -1075,9 +968,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
                         if (msg.attachments.table) {
                             var tbl = msg.attachments.table,
-                                tblDiv = this.body.appendChild(
-                                    document.createElement('div')
-                                ),
+                                tblDiv = this.body.appendChild(document.createElement('div')),
                                 tblOut = ['<table>'],
                                 hdRow = tbl[0];
                             tblDiv.id = 'attachmentTable';
@@ -1110,13 +1001,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             va.setAttribute('type', 'button');
                             va.innerHTML = 'Open Map';
                             va = this.body.appendChild(va);
-                            Event.on(
-                                va,
-                                'click',
-                                this.displayAttachment,
-                                this,
-                                true
-                            );
+                            Event.on(va, 'click', this.displayAttachment, this, true);
                         }
                     }
                 }
@@ -1127,8 +1012,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
             sendMessage: function() {
                 var to = this.createTo.Selections();
                 if (to.length == 0) {
-                    this.createResponse.innerHTML =
-                        'Must send a message To someone.';
+                    this.createResponse.innerHTML = 'Must send a message To someone.';
                 } else {
                     var InboxServ = Game.Services.Inbox,
                         data = {
@@ -1191,9 +1075,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
             },
             archiveMessage: function(e) {
                 if (!this.toArchive[this.viewingMessage.id]) {
-                    this.toArchive[
-                        this.viewingMessage.id
-                    ] = this.viewingMessage;
+                    this.toArchive[this.viewingMessage.id] = this.viewingMessage;
                     this.toArchiveCount++;
                 }
 
@@ -1264,9 +1146,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
             },
             trashMessage: function(e) {
                 if (!this.toArchive[this.viewingMessage.id]) {
-                    this.toArchive[
-                        this.viewingMessage.id
-                    ] = this.viewingMessage;
+                    this.toArchive[this.viewingMessage.id] = this.viewingMessage;
                     this.toArchiveCount++;
                 }
 
@@ -1364,10 +1244,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 body = body.replace(
                     /\{(food|water|ore|energy|waste|happiness|time|essentia|plots|build)\}/gi,
                     function(str, icon) {
-                        var cl =
-                            'small' +
-                            icon.substr(0, 1).toUpperCase() +
-                            icon.substr(1);
+                        var cl = 'small' + icon.substr(0, 1).toUpperCase() + icon.substr(1);
                         return (
                             '<img src="' +
                             Lib.AssetUrl +
@@ -1379,10 +1256,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         );
                     }
                 );
-                body = body.replace(
-                    /\[(https?:\/\/[a-z0-9_.\/\-]+)\]/gi,
-                    '<a href="$1">$1</a>'
-                );
+                body = body.replace(/\[(https?:\/\/[a-z0-9_.\/\-]+)\]/gi, '<a href="$1">$1</a>');
                 body = body.replace(
                     /\{Empire\s+(-?\d+)\s+([^\}]+)\}/gi,
                     '<a class="profile_link" href="#$1">$2</a>'
@@ -1428,7 +1302,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 var res = el.href.match(/\#(-?\d+)$/);
                 this.hide();
                 var planet = Game.EmpireData.planets[res[1]];
-                require('js/actions/menu/map').mapChangePlanet(res[1]);
+                require('js/stores/menu').changePlanet(res[1]);
                 //Game.PlanetJump(planet);
             },
             handleAllianceLink: function(e, el) {

@@ -56,13 +56,6 @@ var NotesBodyRPCStore = Reflux.createStore({
         this.data = value;
         this.trigger(this.data);
     },
-
-    onMapChangePlanet: function() {
-        // Only do this while the window is open.
-        if (NotesWindowStore.getData()) {
-            this.onNotesClear();
-        }
-    },
 });
 
 module.exports = NotesBodyRPCStore;

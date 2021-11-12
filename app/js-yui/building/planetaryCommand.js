@@ -38,11 +38,7 @@ if (
                 return tabs;
             },
             getChildTabs: function() {
-                return [
-                    this._getPlanTab(),
-                    this._getResourcesTab(),
-                    this._getNotesTab(),
-                ];
+                return [this._getPlanTab(), this._getResourcesTab(), this._getNotesTab()];
             },
             _getPlanetTab: function() {
                 var planet = this.result.planet;
@@ -133,13 +129,9 @@ if (
                         this.result.next_station_cost
                             ? [
                                   '<li title="',
-                                  Lib.formatNumber(
-                                      this.result.next_station_cost
-                                  ),
+                                  Lib.formatNumber(this.result.next_station_cost),
                                   '"><label>Next Station Cost:</label>',
-                                  Lib.convertNumDisplay(
-                                      this.result.next_station_cost
-                                  ),
+                                  Lib.convertNumDisplay(this.result.next_station_cost),
                                   '<span class="smallImg"><img src="',
                                   Lib.AssetUrl,
                                   'ui/s/happiness.png" /></span></li>',
@@ -272,9 +264,7 @@ if (
                         '</label><span class="pcStored" title="',
                         Lib.formatNumber(this.result.food[food + '_stored']),
                         '">',
-                        Lib.convertNumDisplay(
-                            this.result.food[food + '_stored']
-                        ),
+                        Lib.convertNumDisplay(this.result.food[food + '_stored']),
                         '</span> @ <span class="pcPerHour" title="',
                         Lib.formatNumber(this.result.food[food + '_hour']),
                         '">',
@@ -362,27 +352,13 @@ if (
                     ].join(''),
                 });
 
-                Event.on(
-                    'saveColonyNotes',
-                    'click',
-                    this.SaveColonyNotes,
-                    this,
-                    true
-                );
+                Event.on('saveColonyNotes', 'click', this.SaveColonyNotes, this, true);
 
                 return this.notesTab;
             },
             Abandon: function() {
                 var cp = Game.GetCurrentPlanet();
-                if (
-                    confirm(
-                        [
-                            'Are you sure you want to abandon ',
-                            cp.name,
-                            '?',
-                        ].join('')
-                    )
-                ) {
+                if (confirm(['Are you sure you want to abandon ', cp.name, '?'].join(''))) {
                     require('js/actions/menu/loader').show();
                     Game.Services.Body.abandon(
                         {
@@ -391,11 +367,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'PlanetaryCommand.abandon.success'
-                                );
+                                YAHOO.log(o, 'info', 'PlanetaryCommand.abandon.success');
                                 this.rpcSuccess(o);
 
                                 delete Game.EmpireData.planets[cp.id]; // Remove the abandoned planet
@@ -404,15 +376,10 @@ if (
                                 if (Lacuna.MapStar._map) {
                                     if (cp.x && cp.y) {
                                         if (
-                                            Lacuna.MapStar._map.tileCache[
-                                                cp.x
-                                            ] &&
-                                            Lacuna.MapStar._map.tileCache[cp.x][
-                                                cp.y
-                                            ]
+                                            Lacuna.MapStar._map.tileCache[cp.x] &&
+                                            Lacuna.MapStar._map.tileCache[cp.x][cp.y]
                                         ) {
-                                            delete Lacuna.MapStar._map
-                                                .tileCache[cp.x][cp.y]; // Remove the planet from the cache
+                                            delete Lacuna.MapStar._map.tileCache[cp.x][cp.y]; // Remove the planet from the cache
                                         }
                                         var tileId = [
                                             'tile',
@@ -420,14 +387,11 @@ if (
                                             cp.y,
                                             Lacuna.MapStar._map.zoom,
                                         ].join('_');
-                                        var tile =
-                                            Lacuna.MapStar._map.tileLayer
-                                                .tileCache[tileId];
+                                        var tile = Lacuna.MapStar._map.tileLayer.tileCache[tileId];
                                         if (tile) {
                                             if (tile.domElement) {
                                                 var domEl = tile.domElement; // get the element
-                                                var childEl =
-                                                    domEl.childNodes[1]; // find the alignment child
+                                                var childEl = domEl.childNodes[1]; // find the alignment child
                                                 if (childEl) {
                                                     domEl.removeChild(childEl); // remove it
                                                 }
@@ -442,9 +406,8 @@ if (
                                 this.fireEvent('onHide');
 
                                 // Go to home planet.
-                                var home = EmpireRPCStore.getData()
-                                    .home_planet_id;
-                                MapActions.mapChangePlanet(home);
+                                var home = EmpireRPCStore.getData().home_planet_id;
+                                MenuStore.changePlanet(home);
 
                                 require('js/actions/menu/loader').hide();
                             },
@@ -465,15 +428,9 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'PlanetaryCommand.Rename.success'
-                            );
+                            YAHOO.log(o, 'info', 'PlanetaryCommand.Rename.success');
                             if (o.result && planetId) {
-                                Dom.get(
-                                    'commandPlanetRenameMessage'
-                                ).innerHTML = [
+                                Dom.get('commandPlanetRenameMessage').innerHTML = [
                                     'Successfully renamed your planet from ',
                                     Game.EmpireData.planets[planetId].name,
                                     ' to ',
@@ -482,30 +439,21 @@ if (
                                 ].join('');
                                 Lib.fadeOutElm('commandPlanetRenameMessage');
                                 Dom.get('commandPlanetNewName').value = '';
-                                Dom.get(
-                                    'commandPlanetCurrentName'
-                                ).innerHTML = newName;
-                                Game.EmpireData.planets[
-                                    planetId
-                                ].name = newName;
+                                Dom.get('commandPlanetCurrentName').innerHTML = newName;
+                                Game.EmpireData.planets[planetId].name = newName;
                                 var data = BodyRPCStore.getData();
                                 data.name = newName;
                                 BodyRPCStore.setState(data);
 
                                 if (Lacuna.MapStar._map) {
-                                    Lacuna.MapStar._map.tileCache[cp.x][
-                                        cp.y
-                                    ].name = newName; // Change the name in the cache
+                                    Lacuna.MapStar._map.tileCache[cp.x][cp.y].name = newName; // Change the name in the cache
                                     var tileId = [
                                         'tile',
                                         cp.x,
                                         cp.y,
                                         Lacuna.MapStar._map.zoom,
                                     ].join('_');
-                                    var tile =
-                                        Lacuna.MapStar._map.tileLayer.tileCache[
-                                            tileId
-                                        ];
+                                    var tile = Lacuna.MapStar._map.tileLayer.tileCache[tileId];
                                     if (tile) {
                                         tile.blank = true; // Force the planet to redraw
                                     }
@@ -513,8 +461,7 @@ if (
                             }
                         },
                         failure: function(o) {
-                            Dom.get('commandPlanetRenameMessage').innerHTML =
-                                o.error.message;
+                            Dom.get('commandPlanetRenameMessage').innerHTML = o.error.message;
                             Lib.fadeOutElm('commandPlanetRenameMessage');
                             return true;
                         },
@@ -581,8 +528,7 @@ if (
                             div.appendChild(nUl);
                         }
                     } else {
-                        div.innerHTML =
-                            'No Plans currently available on this planet.';
+                        div.innerHTML = 'No Plans currently available on this planet.';
                     }
 
                     //add child back in
@@ -603,9 +549,8 @@ if (
 
         Lacuna.buildings.PlanetaryCommand = PlanetaryCommand;
     })();
-    YAHOO.register(
-        'planetarycommand',
-        YAHOO.lacuna.buildings.PlanetaryCommand,
-        { version: '1', build: '0' }
-    );
+    YAHOO.register('planetarycommand', YAHOO.lacuna.buildings.PlanetaryCommand, {
+        version: '1',
+        build: '0',
+    });
 }

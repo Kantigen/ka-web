@@ -1,53 +1,42 @@
 'use strict';
 
-var Reflux = require('reflux');
+const { makeAutoObservable } = require('mobx');
 
-var WindowMixinStore = require('js/stores/mixins/window');
+var PLANET_MAP_MODE = 'planetMap';
+var STAR_MAP_MODE = 'starMap';
 
-var MenuActions = require('js/actions/menu');
-var UserActions = require('js/actions/user');
+class MenuStore {
+    show = false;
+    mapMode = PLANET_MAP_MODE;
+    planetId = 0;
 
-var MenuStore = Reflux.createStore({
-    mixins: [WindowMixinStore],
-    listenables: [MenuActions, UserActions],
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-    getDefaultData: function() {
-        return {
-            show: false,
-        };
-    },
+    showMenu() {
+        this.show = true;
+    }
 
-    getData: function() {
-        return this.state;
-    },
+    hideMenu() {
+        this.show = false;
+    }
 
-    getInitialState: function() {
-        if (!this.state) {
-            this.state = this.getDefaultData();
-        }
-        return this.state;
-    },
+    showPlanetMap() {
+        this.mapMode = PLANET_MAP_MODE;
+    }
 
-    init: function() {
-        this.state = this.getDefaultData();
-    },
+    showStarMap() {
+        this.mapMode = STAR_MAP_MODE;
+    }
 
-    show: function(show) {
-        this.state.show = show;
-        this.trigger(this.state);
-    },
+    changePlanet(id) {
+        console.log('Changing to planet (#' + id + ').');
+        this.mapMode = PLANET_MAP_MODE;
+        this.planetId = id;
+    }
+}
 
-    onMenuShow: function() {
-        this.show(true);
-    },
-
-    onMenuHide: function() {
-        this.show(false);
-    },
-
-    onSuccessEmpireRPCLogout: function() {
-        this.show(false);
-    },
-});
-
-module.exports = MenuStore;
+module.exports = new MenuStore();
+module.exports.PLANET_MAP_MODE = PLANET_MAP_MODE;
+module.exports.STAR_MAP_MODE = STAR_MAP_MODE;

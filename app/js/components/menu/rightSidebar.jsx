@@ -10,18 +10,17 @@ var _ = require('lodash');
 var classNames = require('classnames');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');
-var PlanetStore = require('js/stores/menu/planet');
 
 var RightSidebarActions = require('js/actions/menu/rightSidebar');
 var MapActions = require('js/actions/menu/map');
 
 var RightSidebarStore = require('js/stores/menu/rightSidebar');
+var MenuStore = require('js/stores/menu');
 
 class PlanetListItem extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-            .isRequired,
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         currentBody: PropTypes.number.isRequired,
         zone: PropTypes.string.isRequired,
     };
@@ -46,7 +45,7 @@ class PlanetListItem extends React.Component {
         if (this.isCurrentWorld()) {
             YAHOO.lacuna.MapPlanet.Refresh();
         } else {
-            MapActions.mapChangePlanet(this.props.id);
+            MenuStore.changePlanet(this.props.id);
         }
     };
 
@@ -214,10 +213,7 @@ class BodiesAccordion extends React.Component {
                         var list = [];
 
                         if (item.isBaby) {
-                            list =
-                                _.values(
-                                    this.props.bodies.babies[item.key].planets
-                                ) || [];
+                            list = _.values(this.props.bodies.babies[item.key].planets) || [];
                         } else {
                             list = _.values(this.props.bodies[item.key]) || [];
                         }
@@ -245,7 +241,7 @@ var RightSidebar = createReactClass({
 
     mixins: [
         Reflux.connect(EmpireRPCStore, 'empire'),
-        Reflux.connect(PlanetStore, 'planet'),
+        // Reflux.connect(PlanetStore, 'planet'),
         Reflux.connect(RightSidebarStore, 'showSidebar'),
     ],
 
@@ -282,7 +278,7 @@ var RightSidebar = createReactClass({
 
     homePlanet: function() {
         RightSidebarActions.rightSidebarHide();
-        MapActions.mapChangePlanet(this.state.empire.home_planet_id);
+        MenuStore.changePlanet(this.state.empire.home_planet_id);
     },
 
     expand: function() {
@@ -294,11 +290,9 @@ var RightSidebar = createReactClass({
     },
 
     render: function() {
+        this.state.planet = 1; // TODO
         return (
-            <div
-                className='ui right vertical inverted sidebar menu'
-                ref='sidebar'
-            >
+            <div className='ui right vertical inverted sidebar menu' ref='sidebar'>
                 <div ref='header' style={{ paddingTop: 7 }}>
                     <a
                         title='Go to home planet'
