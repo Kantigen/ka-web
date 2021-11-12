@@ -15,7 +15,7 @@ var l = YAHOO.lang,
     _toStr     = Object.prototype.toString,
                  // 'this' is the global object.  window in browser env.  Keep
                  // the code env agnostic.  Caja requies window, unfortunately.
-    Native     = (YAHOO.env.ua.caja ? window : this).JSON,
+    Native     = window.JSON,
 
 /* Variables used by parse */
 

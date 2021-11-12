@@ -47,8 +47,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                     var smd = self._smd;
                     var baseUrl = self._baseUrl;
 
-                    var envelope =
-                        YAHOO.rpc.Envelope[method.envelope || smd.envelope];
+                    var envelope = YAHOO.rpc.Envelope[method.envelope || smd.envelope];
 
                     var callback = {
                         success: function(o) {
@@ -56,9 +55,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
 
                             // Send the status block off to relevant stores to update UI.
                             if (results.result && results.result.status) {
-                                YAHOO.lacuna.Game.ProcessStatus(
-                                    results.result.status
-                                );
+                                YAHOO.lacuna.Game.ProcessStatus(results.result.status);
                                 server.splitStatus(results.result.status);
                             }
 
@@ -86,10 +83,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                         p;
 
                     // Handle any SMD parameters.
-                    if (
-                        smd.additionalParameters &&
-                        Lang.isArray(smd.parameters)
-                    ) {
+                    if (smd.additionalParameters && Lang.isArray(smd.parameters)) {
                         for (var i = 0; i < smd.parameters.length; i++) {
                             p = smd.parameters[i];
                             params.push(p['default']);
@@ -114,17 +108,13 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                     var url = opts.target || method.target || smd.target;
                     var urlRegexp = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/i;
 
-                    if (
-                        smd.target &&
-                        !url.match(urlRegexp) &&
-                        url != smd.target
-                    ) {
+                    if (smd.target && !url.match(urlRegexp) && url != smd.target) {
                         url = smd.target + url;
                     }
 
-                    if (!!this.smdUrl && !url.match(urlRegexp)) {
+                    if (!!self.smdUrl && !url.match(urlRegexp)) {
                         // URL is still relative !
-                        var a = this.smdUrl.split('/');
+                        var a = self.smdUrl.split('/');
                         a[a.length - 1] = '';
                         url = a.join('/') + url;
                     } else if (baseUrl) {
@@ -138,8 +128,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                         data: params,
                         origData: oParams,
                         opts: opts,
-                        callbackParamName:
-                            method.callbackParamName || smd.callbackParamName,
+                        callbackParamName: method.callbackParamName || smd.callbackParamName,
                         transport: method.transport || smd.transport,
                     };
 
@@ -151,7 +140,6 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                     return YAHOO.rpc.Transport[r.transport].call(self, r);
                 };
 
-                func.name = serviceName;
                 func.description = method.description;
                 func._parameters = method.parameters;
 
@@ -173,13 +161,10 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                         var current = this;
                         var pieces = serviceName.split('.');
                         for (var i = 0; i < pieces.length - 1; i++) {
-                            current =
-                                current[pieces[i]] || (current[pieces[i]] = {});
+                            current = current[pieces[i]] || (current[pieces[i]] = {});
                         }
 
-                        current[
-                            pieces[pieces.length - 1]
-                        ] = this._generateService(
+                        current[pieces[pieces.length - 1]] = this._generateService(
                             serviceName,
                             serviceDefs[serviceName]
                         );
@@ -187,10 +172,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                 }
 
                 // call the success handler
-                if (
-                    Lang.isObject(callback) &&
-                    Lang.isFunction(callback.success)
-                ) {
+                if (Lang.isObject(callback) && Lang.isFunction(callback.success)) {
                     callback.success.call(callback.scope || this);
                 }
             },
@@ -215,10 +197,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                             } catch (ex) {
                                 //YAHOO.log(ex);
                                 if (Lang.isFunction(callback.failure)) {
-                                    callback.failure.call(
-                                        callback.scope || this,
-                                        { error: ex }
-                                    );
+                                    callback.failure.call(callback.scope || this, { error: ex });
                                 }
                             }
                         },
@@ -250,12 +229,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
              * @param {Object} r Object specifying target, callback and data attributes
              */
             POST: function(r) {
-                return Util.Connect.asyncRequest(
-                    'POST',
-                    r.target,
-                    r.callback,
-                    r.data
-                );
+                return Util.Connect.asyncRequest('POST', r.target, r.callback, r.data);
             },
 
             /**
@@ -281,20 +255,13 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
             JSONP: function(r) {
                 r.callbackParamName = r.callbackParamName || 'callback';
                 var fctName = encodeURIComponent(
-                    'YAHOO.rpc.Transport.JSONP.jsonpCallback' +
-                        YAHOO.rpc.Transport.jsonp_id
+                    'YAHOO.rpc.Transport.JSONP.jsonpCallback' + YAHOO.rpc.Transport.jsonp_id
                 );
                 YAHOO.rpc.Transport.JSONP[
                     'jsonpCallback' + YAHOO.rpc.Transport.jsonp_id
                 ] = function(results) {
-                    if (
-                        Lang.isObject(r.callback) &&
-                        Lang.isFunction(r.callback.success)
-                    ) {
-                        r.callback.success.call(
-                            r.callback.scope || this,
-                            results
-                        );
+                    if (Lang.isObject(r.callback) && Lang.isFunction(r.callback.success)) {
+                        r.callback.success.call(r.callback.scope || this, results);
                     }
                 };
                 YAHOO.rpc.Transport.jsonp_id += 1;
@@ -341,10 +308,8 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                 deserialize: function(results) {
                     if (
                         results.getResponseHeader &&
-                        (results.getResponseHeader['Content-Type'] ==
-                            'application/json-rpc' ||
-                            results.getResponseHeader['Content-Type'] ==
-                                'application/json')
+                        (results.getResponseHeader['Content-Type'] == 'application/json-rpc' ||
+                            results.getResponseHeader['Content-Type'] == 'application/json')
                     ) {
                         return Lang.JSON.parse(results.responseText);
                     } else {
@@ -369,8 +334,7 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
                             } catch (e) {
                                 return {
                                     error: {
-                                        message:
-                                            'Response Content-Type is not JSON',
+                                        message: 'Response Content-Type is not JSON',
                                     },
                                 };
                             }
