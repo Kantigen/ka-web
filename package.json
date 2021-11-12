@@ -28,7 +28,7 @@
         "create-react-class": "^15.6.3",
         "fingerprintjs2": "2.1.0",
         "jquery": "3.5.0",
-        "lodash": "4.17.15",
+        "lodash": "4.17.21",
         "mobx": "^6.3.7",
         "mobx-react": "^7.2.1",
         "moment": "2.24.0",
