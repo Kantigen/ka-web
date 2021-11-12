@@ -19,11 +19,6 @@ var PlanetStore = Reflux.createStore({
         console.log('Changing to planet (#' + id + ').');
         this.emit(id);
     },
-
-    onUserSignIn: function() {
-        console.log('Firing up the planet view');
-        this.onMapChangePlanet(YAHOO.lacuna.Game.EmpireData.home_planet_id);
-    },
 });
 
 module.exports = PlanetStore;
