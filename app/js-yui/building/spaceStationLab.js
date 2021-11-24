@@ -22,22 +22,14 @@ if (
 
         Lang.extend(SpaceStationLab, Lacuna.buildings.Building, {
             getChildTabs: function() {
-                if (
-                    this.result.make_plan &&
-                    this.result.make_plan.level_costs.length > 0
-                ) {
+                if (this.result.make_plan && this.result.make_plan.level_costs.length > 0) {
                     return [this._getPlanTab()];
                 } else {
                     return;
                 }
             },
             _getPlanTab: function() {
-                Event.onContentReady(
-                    'stationLabLevelsContainer',
-                    this.PlanPopulate,
-                    this,
-                    true
-                );
+                Event.onContentReady('stationLabLevelsContainer', this.PlanPopulate, this, true);
 
                 Event.on(
                     'stationLabGoToPlan',
@@ -46,23 +38,13 @@ if (
                         delete this.selectedType;
                         Dom.get('stationLabPlanSelected').innerHTML = '';
                         Dom.setStyle('stationLabPlansContainer', 'display', '');
-                        Dom.setStyle(
-                            'stationLabLevelsContainer',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('stationLabLevelsContainer', 'display', 'none');
                     },
                     this,
                     true
                 );
 
-                Event.on(
-                    'stationLabMakingSubsidize',
-                    'click',
-                    this.PlanSubsidize,
-                    this,
-                    true
-                );
+                Event.on('stationLabMakingSubsidize', 'click', this.PlanSubsidize, this, true);
 
                 Event.delegate(
                     'stationLabPlans',
@@ -74,30 +56,15 @@ if (
                             matchedEl.parentNode.parentNode,
                             true
                         ).innerHTML;
-                        Dom.setStyle(
-                            'stationLabPlansContainer',
-                            'display',
-                            'none'
-                        );
-                        Dom.setStyle(
-                            'stationLabLevelsContainer',
-                            'display',
-                            ''
-                        );
+                        Dom.setStyle('stationLabPlansContainer', 'display', 'none');
+                        Dom.setStyle('stationLabLevelsContainer', 'display', '');
                     },
                     'button',
                     this,
                     true
                 );
 
-                Event.delegate(
-                    'stationLabLevels',
-                    'click',
-                    this.PlanMake,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('stationLabLevels', 'click', this.PlanMake, 'button', this, true);
 
                 return new YAHOO.widget.Tab({
                     label: 'Make Plan',
@@ -191,9 +158,7 @@ if (
                 var buildfield = function(costs, type, low) {
                     return [
                         '<td class="',
-                        low && costs[type] > planet[type + '_stored']
-                            ? 'low-resource'
-                            : '',
+                        low && costs[type] > planet[type + '_stored'] ? 'low-resource' : '',
                         '" title="',
                         Lib.formatNumber(costs[type]),
                         '">',
@@ -238,11 +203,7 @@ if (
 
                 if (makePlan.making) {
                     Dom.setStyle('stationLabPlansContainer', 'display', 'none');
-                    Dom.setStyle(
-                        'stationLabLevelsContainer',
-                        'display',
-                        'none'
-                    );
+                    Dom.setStyle('stationLabLevelsContainer', 'display', 'none');
                     Dom.setStyle('stationLabMakingContainer', 'display', '');
 
                     Dom.get('stationLabMakingName').innerHTML = makePlan.making;
@@ -253,23 +214,13 @@ if (
                     );
                 } else {
                     Dom.setStyle('stationLabPlansContainer', 'display', '');
-                    Dom.setStyle(
-                        'stationLabLevelsContainer',
-                        'display',
-                        'none'
-                    );
-                    Dom.setStyle(
-                        'stationLabMakingContainer',
-                        'display',
-                        'none'
-                    );
+                    Dom.setStyle('stationLabLevelsContainer', 'display', 'none');
+                    Dom.setStyle('stationLabMakingContainer', 'display', 'none');
 
-                    Dom.get('stationLabPlans').innerHTML = this.buildPlans(
-                        makePlan.types
+                    Dom.get('stationLabPlans').innerHTML = this.buildPlans(makePlan.types);
+                    Dom.get('stationLabLevelsList').innerHTML = this.buildLevels(
+                        makePlan.level_costs
                     );
-                    Dom.get(
-                        'stationLabLevelsList'
-                    ).innerHTML = this.buildLevels(makePlan.level_costs);
 
                     //wait for tab to display first
                     setTimeout(function() {
@@ -278,11 +229,7 @@ if (
                             Ht = 250;
                         }
 
-                        Dom.setStyle(
-                            Dom.get('stationLabPlans').parentNode,
-                            'height',
-                            Ht + 'px'
-                        );
+                        Dom.setStyle(Dom.get('stationLabPlans').parentNode, 'height', Ht + 'px');
 
                         Dom.setStyle(
                             Dom.get('stationLabLevels').parentNode,
@@ -299,7 +246,7 @@ if (
                 if (type && level) {
                     matchedEl.disabled = true;
 
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.make_plan(
                         {
                             session_id: Game.GetSession(),
@@ -309,7 +256,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.result = o.result;
                                 matchedEl.disabled = false;
@@ -327,7 +274,7 @@ if (
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.subsidize_plan(
                     {
                         session_id: Game.GetSession(),
@@ -335,7 +282,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.result = o.result;
                             btn.disabled = false;

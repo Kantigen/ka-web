@@ -1,10 +1,6 @@
 'use strict';
 
-var UserActions = require('js/actions/user');
 var Fingerprint2 = require('fingerprintjs2');
-
-var WindowActions = require('js/actions/window');
-var LoginWindow = require('js/components/window/login');
 
 var _ = require('lodash');
 
@@ -24,10 +20,6 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
         var Login = function() {
             this.id = 'login';
             this.createEvent('onLoginSuccessful');
-
-            if (process.env.KA_TEST_WS) {
-                WindowActions.windowAdd(LoginWindow, 'login');
-            }
 
             var container = document.createElement('div');
             container.id = this.id;
@@ -136,7 +128,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
         };
         Login.prototype = {
             handleLogin: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.setMessage('');
                 var EmpireServ = Game.Services.Empire;
                 Fingerprint2.get(
@@ -447,11 +439,11 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                     data.email = email;
                 }
                 this.EmailDialog.getButtons()[0].disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Empire.send_password_reset_message(data, {
                     success: function(o) {
                         YAHOO.log(o, 'info', 'ResetPassword.sendEmail.success');
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                         this.showReset();
                     },
                     failure: function(o) {
@@ -478,7 +470,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 if (password1 != password2) {
                     alert('Passwords do not match!');
                 } else {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     Game.Services.Empire.reset_password(
                         {
                             reset_key: reset_key,
@@ -489,7 +481,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                         {
                             success: function(o) {
                                 YAHOO.log(o, 'info', 'ResetPassword.resetPassword.success');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.fireEvent('onResetSuccessful', o);
                                 this.hide();
                             },

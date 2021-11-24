@@ -1,10 +1,9 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var ReactDOMServer = require('react-dom/server');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 
 var BodyRPCStore = require('js/stores/rpc/body');
 var ServerRPCStore = require('js/stores/rpc/server');
@@ -20,111 +19,97 @@ var RPCCountToolTip = require('js/components/menu/bottomBar/rpcCountToolTip');
 var util = require('js/util');
 var rn = util.reduceNumber;
 
-var BottomBar = createReactClass({
-    displayName: 'BottomBar',
+class BottomBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.bottomBar = React.createRef();
+        this.foodSection = React.createRef();
+        this.oreSection = React.createRef();
+        this.waterSection = React.createRef();
+        this.energySection = React.createRef();
+        this.wasteSection = React.createRef();
+        this.happinessSection = React.createRef();
+        this.buildingCountSection = React.createRef();
+        this.buildQueueSection = React.createRef();
+        this.rpcCountSection = React.createRef();
+    }
 
-    mixins: [
-        Reflux.connect(BodyRPCStore, 'body'),
-        Reflux.connect(ServerRPCStore, 'server'),
-        Reflux.connect(EmpireRPCStore, 'empire'),
-    ],
-
-    componentWillUnmount: function() {
+    componentWillUnmount() {
         // Destroy!
-        $('div', this.refs.bottombar).popup('destroy');
-    },
+        $('div', this.bottomBar).popup('destroy');
+    }
 
-    showFoodToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.foodSection)).popup({
+    showFoodToolTip() {
+        $(ReactDOM.findDOMNode(this.foodSection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
-                <ResourceToolTip
-                    body={this.state.body}
-                    icon='food'
-                    type='food'
-                    title='Food'
-                />
+                <ResourceToolTip body={BodyRPCStore} icon='food' type='food' title='Food' />
             ),
         });
-    },
+    }
 
-    showOreToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.oreSection)).popup({
+    showOreToolTip() {
+        $(ReactDOM.findDOMNode(this.oreSection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
-                <ResourceToolTip
-                    body={this.state.body}
-                    icon='diamond'
-                    type='ore'
-                    title='Ore'
-                />
+                <ResourceToolTip body={BodyRPCStore} icon='diamond' type='ore' title='Ore' />
             ),
         });
-    },
+    }
 
-    showWaterToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.waterSection)).popup({
+    showWaterToolTip() {
+        $(ReactDOM.findDOMNode(this.waterSection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
-                <ResourceToolTip
-                    body={this.state.body}
-                    icon='theme'
-                    type='water'
-                    title='Water'
-                />
+                <ResourceToolTip body={BodyRPCStore} icon='theme' type='water' title='Water' />
             ),
         });
-    },
+    }
 
-    showEnergyToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.energySection)).popup({
+    showEnergyToolTip() {
+        $(ReactDOM.findDOMNode(this.energySection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
                 <ResourceToolTip
-                    body={this.state.body}
+                    body={BodyRPCStore}
                     icon='lightning'
                     type='energy'
                     title='Energy'
                 />
             ),
         });
-    },
+    }
 
-    showWasteToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.wasteSection)).popup({
+    showWasteToolTip() {
+        $(ReactDOM.findDOMNode(this.wasteSection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
-                <ResourceToolTip
-                    body={this.state.body}
-                    icon='trash'
-                    type='waste'
-                    title='Waste'
-                />
+                <ResourceToolTip body={BodyRPCStore} icon='trash' type='waste' title='Waste' />
             ),
         });
-    },
+    }
 
-    showHappinessToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.happinessSection)).popup({
+    showHappinessToolTip() {
+        $(ReactDOM.findDOMNode(this.happinessSection.current)).popup({
             position: 'top center',
             html: ReactDOMServer.renderToStaticMarkup(
                 <ResourceToolTip
-                    body={this.state.body}
+                    body={BodyRPCStore}
                     icon='smile'
                     type='happiness'
                     title='Happiness'
                 >
                     <div>
                         <i className='large spy icon'></i>
-                        {this.state.body.propaganda_boost}
+                        {BodyRPCStore.propaganda_boost}
                     </div>
                 </ResourceToolTip>
             ),
         });
-    },
+    }
 
-    showBuildingCountToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.buildingCountSection)).popup({
+    showBuildingCountToolTip() {
+        $(ReactDOM.findDOMNode(this.buildingCountSection.current)).popup({
             html: ReactDOMServer.renderToStaticMarkup(<BuildingCountToolTip />),
             hoverable: true,
             position: 'top center',
@@ -132,25 +117,23 @@ var BottomBar = createReactClass({
                 hide: 800,
             },
         });
-    },
+    }
 
-    showBuildQueueToolTip: function() {
-        var body = this.state.body;
+    showBuildQueueToolTip() {
+        var body = BodyRPCStore;
 
-        $(ReactDOM.findDOMNode(this.refs.buildQueueSection)).popup({
-            html: ReactDOMServer.renderToStaticMarkup(
-                <BuildQueueToolTip body={body} />
-            ),
+        $(ReactDOM.findDOMNode(this.buildQueueSection.current)).popup({
+            html: ReactDOMServer.renderToStaticMarkup(<BuildQueueToolTip body={body} />),
             hoverable: true,
             position: 'top center',
             delay: {
                 hide: 800,
             },
         });
-    },
+    }
 
-    showRPCCountToolTip: function() {
-        $(ReactDOM.findDOMNode(this.refs.rpcCountSection)).popup({
+    showRPCCountToolTip() {
+        $(ReactDOM.findDOMNode(this.rpcCountSection.current)).popup({
             html: ReactDOMServer.renderToStaticMarkup(<RPCCountToolTip />),
             hoverable: true,
             position: 'top center',
@@ -158,13 +141,9 @@ var BottomBar = createReactClass({
                 hide: 800,
             },
         });
-    },
+    }
 
-    render: function() {
-        var body = this.state.body;
-        var empire = this.state.empire;
-        var server = this.state.server;
-
+    render() {
         return (
             <div
                 className='ui centered grid'
@@ -177,128 +156,126 @@ var BottomBar = createReactClass({
                 <div className='center aligned column'>
                     <div
                         className='ui blue inverted compact labeled icon menu small'
-                        ref='bottombar'
+                        ref={this.bottomBar}
                     >
                         <BottomBarSection
-                            ref='foodSection'
-                            progressPercent={body.food_percent_full}
+                            ref={this.foodSection}
+                            progressPercent={BodyRPCStore.food_percent_full}
                             iconName='food'
                             topText={
-                                rn(body.food_stored) +
+                                rn(BodyRPCStore.food_stored) +
                                 ' / ' +
-                                rn(body.food_capacity)
+                                rn(BodyRPCStore.food_capacity)
                             }
-                            bottomText={rn(body.food_hour) + ' / hr'}
-                            toolTipShow={this.showFoodToolTip}
+                            bottomText={rn(BodyRPCStore.food_hour) + ' / hr'}
+                            toolTipShow={() => this.showFoodToolTip()}
                         />
 
                         <BottomBarSection
-                            ref='oreSection'
-                            progressPercent={body.ore_percent_full}
+                            ref={this.oreSection}
+                            progressPercent={BodyRPCStore.ore_percent_full}
                             iconName='diamond'
                             topText={
-                                rn(body.ore_stored) +
-                                ' / ' +
-                                rn(body.ore_capacity)
+                                rn(BodyRPCStore.ore_stored) + ' / ' + rn(BodyRPCStore.ore_capacity)
                             }
-                            bottomText={rn(body.ore_hour) + ' / hr'}
-                            toolTipShow={this.showOreToolTip}
+                            bottomText={rn(BodyRPCStore.ore_hour) + ' / hr'}
+                            toolTipShow={() => this.showOreToolTip()}
                         />
 
                         <BottomBarSection
-                            ref='waterSection'
-                            progressPercent={body.water_percent_full}
+                            ref={this.waterSection}
+                            progressPercent={BodyRPCStore.water_percent_full}
                             iconName='theme'
                             topText={
-                                rn(body.water_stored) +
+                                rn(BodyRPCStore.water_stored) +
                                 ' / ' +
-                                rn(body.water_capacity)
+                                rn(BodyRPCStore.water_capacity)
                             }
-                            bottomText={rn(body.water_hour) + ' / hr'}
-                            toolTipShow={this.showWaterToolTip}
+                            bottomText={rn(BodyRPCStore.water_hour) + ' / hr'}
+                            toolTipShow={() => this.showWaterToolTip()}
                         />
 
                         <BottomBarSection
-                            ref='energySection'
-                            progressPercent={body.energy_percent_full}
+                            ref={this.energySection}
+                            progressPercent={BodyRPCStore.energy_percent_full}
                             iconName='lightning'
                             topText={
-                                rn(body.energy_stored) +
+                                rn(BodyRPCStore.energy_stored) +
                                 ' / ' +
-                                rn(body.energy_capacity)
+                                rn(BodyRPCStore.energy_capacity)
                             }
-                            bottomText={rn(body.energy_hour) + ' / hr'}
-                            toolTipShow={this.showEnergyToolTip}
+                            bottomText={rn(BodyRPCStore.energy_hour) + ' / hr'}
+                            toolTipShow={() => this.showEnergyToolTip()}
                         />
 
-                        {this.state.body.type !== 'space station' ? (
+                        {BodyRPCStore.type !== 'space station' ? (
                             <BottomBarSection
-                                ref='wasteSection'
-                                progressPercent={body.waste_percent_full}
+                                ref={this.wasteSection}
+                                progressPercent={BodyRPCStore.waste_percent_full}
                                 iconName='trash'
                                 topText={
-                                    rn(body.waste_stored) +
+                                    rn(BodyRPCStore.waste_stored) +
                                     ' / ' +
-                                    rn(body.waste_capacity)
+                                    rn(BodyRPCStore.waste_capacity)
                                 }
-                                bottomText={rn(body.waste_hour) + ' / hr'}
-                                toolTipShow={this.showWasteToolTip}
+                                bottomText={rn(BodyRPCStore.waste_hour) + ' / hr'}
+                                toolTipShow={() => this.showWasteToolTip()}
                             />
                         ) : (
                             ''
                         )}
 
-                        {this.state.body.type !== 'space station' ? (
+                        {BodyRPCStore.type !== 'space station' ? (
                             <BottomBarSection
-                                ref='happinessSection'
+                                ref={this.happinessSection}
                                 iconName='smile'
-                                topText={rn(body.happiness)}
-                                bottomText={rn(body.happiness_hour) + ' / hr'}
-                                toolTipShow={this.showHappinessToolTip}
+                                topText={rn(BodyRPCStore.happiness)}
+                                bottomText={rn(BodyRPCStore.happiness_hour) + ' / hr'}
+                                toolTipShow={() => this.showHappinessToolTip()}
                             />
                         ) : (
                             ''
                         )}
 
                         <BottomBarSection
-                            ref='buildingCountSection'
+                            ref={this.buildingCountSection}
                             iconName='block layout'
                             topText={
-                                body.building_count +
+                                BodyRPCStore.building_count +
                                 ' / ' +
-                                (body.building_count + body.plots_available)
+                                (BodyRPCStore.building_count + BodyRPCStore.plots_available)
                             }
-                            bottomText={body.plots_available + ' Available'}
-                            toolTipShow={this.showBuildingCountToolTip}
+                            bottomText={BodyRPCStore.plots_available + ' Available'}
+                            toolTipShow={() => this.showBuildingCountToolTip()}
                         />
 
                         <BottomBarSection
-                            ref='buildQueueSection'
+                            ref={this.buildQueueSection}
                             iconName='list'
                             topText={
-                                body.build_queue_len +
-                                (body.type !== 'space station'
-                                    ? ' / ' + body.build_queue_size
+                                BodyRPCStore.build_queue_len +
+                                (BodyRPCStore.type !== 'space station'
+                                    ? ' / ' + BodyRPCStore.build_queue_size
                                     : '')
                             }
                             bottomText='Build Q'
-                            toolTipShow={this.showBuildQueueToolTip}
+                            toolTipShow={() => this.showBuildQueueToolTip()}
                         />
 
                         <BottomBarSection
-                            ref='rpcCountSection'
+                            ref={this.rpcCountSection}
                             iconName='exchange'
                             topText={
-                                empire.rpc_count + ' / ' + rn(server.rpc_limit)
+                                EmpireRPCStore.rpc_count + ' / ' + rn(ServerRPCStore.rpc_limit)
                             }
                             bottomText='Actions'
-                            toolTipShow={this.showRPCCountToolTip}
+                            toolTipShow={() => this.showRPCCountToolTip()}
                         />
                     </div>
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = BottomBar;
+module.exports = observer(BottomBar);

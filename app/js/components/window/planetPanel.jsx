@@ -4,12 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var GetBodyStatusRPCStore = require('js/stores/rpc/body/getBodyStatus');
-
-var WindowActions = require('js/actions/window');
-var BodyRPCActions = require('js/actions/rpc/body');
 
 var PlanetDetailsTab = require('js/components/window/planetPanel/planetDetailsTab');
 var Tabber = require('js/components/tabber');
@@ -31,8 +25,6 @@ var PlanetPanel = createReactClass({
     propTypes: {
         options: PropTypes.object,
     },
-
-    mixins: [Reflux.connect(GetBodyStatusRPCStore, 'getBodyStatusStore')],
 
     componentWillMount: function() {
         BodyRPCActions.requestBodyRPCGetBodyStatus({

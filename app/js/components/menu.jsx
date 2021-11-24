@@ -15,7 +15,7 @@ var MenuStore = require('js/stores/menu');
 
 class Menu extends React.Component {
     render() {
-        if (MenuStore.show) {
+        if (MenuStore.menuShown) {
             return (
                 <div>
                     <LeftSidebarButton />

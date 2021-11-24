@@ -29,12 +29,7 @@ if (
                 var zoneOptions = '';
                 var zones = this.result.task_options.zones;
                 for (var i = 0; i < zones.length; i++) {
-                    zoneOptions +=
-                        '<option value="' +
-                        zones[i] +
-                        '">' +
-                        zones[i] +
-                        '</option>';
+                    zoneOptions += '<option value="' + zones[i] + '">' + zones[i] + '</option>';
                 }
                 var orbits = [];
                 for (var i = 1; i <= 8; ++i) {
@@ -120,33 +115,17 @@ if (
                         if (selected == 'star_name' || selected == 'star_id') {
                             Dom.setStyle('bhgTargetSelectOrbit', 'display', '');
                         } else {
-                            Dom.setStyle(
-                                'bhgTargetSelectOrbit',
-                                'display',
-                                'none'
-                            );
+                            Dom.setStyle('bhgTargetSelectOrbit', 'display', 'none');
                         }
                     }
                 });
-                Event.on(
-                    'bhgGetActions',
-                    'click',
-                    this.bhgGetActions,
-                    this,
-                    true
-                );
-                Event.on(
-                    'bhgCooldownSubsidize',
-                    'click',
-                    this.cooldownSubsidize,
-                    this,
-                    true
-                );
+                Event.on('bhgGetActions', 'click', this.bhgGetActions, this, true);
+                Event.on('bhgCooldownSubsidize', 'click', this.cooldownSubsidize, this, true);
 
                 return this.tab;
             },
             bhgGetActions: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 Dom.setStyle('bhgActions', 'display', 'none');
 
@@ -156,18 +135,12 @@ if (
                 if (type == 'xy') {
                     target.x = Dom.get('bhgTargetX').value;
                     target.y = Dom.get('bhgTargetY').value;
-                    Dom.get('bhgTargetNote').innerHTML = [
-                        'X: ',
-                        target.x,
-                        ', Y: ',
-                        target.y,
-                    ].join('');
+                    Dom.get('bhgTargetNote').innerHTML = ['X: ', target.x, ', Y: ', target.y].join(
+                        ''
+                    );
                 } else if (type == 'zone') {
                     target.zone = Dom.get('bhgTargetZone').value;
-                    Dom.get('bhgTargetNote').innerHTML = [
-                        'Zone: ',
-                        target.zone,
-                    ].join('');
+                    Dom.get('bhgTargetNote').innerHTML = ['Zone: ', target.zone].join('');
                 } else {
                     target[type] = Dom.get('bhgTargetText').value;
                     target.orbit = Dom.get('bhgTargetOrbit').value;
@@ -182,7 +155,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.PopulateBHGTab(target, o.result.tasks);
                         },
@@ -201,11 +174,7 @@ if (
 
                 Dom.setStyle('bhgActions', 'display', '');
                 Dom.setStyle(detailsParent, 'display', '');
-                Dom.setStyle(
-                    Dom.get('bhgResult').parentNode,
-                    'display',
-                    'none'
-                );
+                Dom.setStyle(Dom.get('bhgResult').parentNode, 'display', 'none');
 
                 if (actions.length === 0) {
                     details.innerHTML = 'No available actions for singularity.';
@@ -215,15 +184,11 @@ if (
                             nLi = li.cloneNode(false);
                         var waste_out;
                         if (task.waste_cost < 1000000000) {
-                            waste_out = [
-                                Lib.formatNumber(task.waste_cost / 1000000),
-                                'M',
-                            ].join('');
+                            waste_out = [Lib.formatNumber(task.waste_cost / 1000000), 'M'].join('');
                         } else {
-                            waste_out = [
-                                Lib.formatNumber(task.waste_cost / 1000000000),
-                                'B',
-                            ].join('');
+                            waste_out = [Lib.formatNumber(task.waste_cost / 1000000000), 'B'].join(
+                                ''
+                            );
                         }
 
                         var canGenerate = 1;
@@ -233,10 +198,7 @@ if (
 
                         var typeSelector = '';
                         if (task.name === 'Change Type') {
-                            var label =
-                                task.body_type == 'asteroid'
-                                    ? 'Asteroid'
-                                    : 'Planet';
+                            var label = task.body_type == 'asteroid' ? 'Asteroid' : 'Planet';
 
                             typeSelector =
                                 '<select id="bhgChangeTypeSelect"><option value="">New ' +
@@ -367,9 +329,7 @@ if (
                     }
 
                     if (task.name === 'Change Type') {
-                        var selectValue = Lib.getSelectedOptionValue(
-                            'bhgChangeTypeSelect'
-                        );
+                        var selectValue = Lib.getSelectedOptionValue('bhgChangeTypeSelect');
 
                         if (selectValue == '') {
                             alert('Please select Type');
@@ -385,12 +345,9 @@ if (
                         { params: rpcParams },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
-                                this.Self.PopulateBHGResult(
-                                    target,
-                                    o.result.effect
-                                );
+                                this.Self.PopulateBHGResult(target, o.result.effect);
                             },
                             scope: this,
                         }
@@ -406,11 +363,7 @@ if (
                 details = detailsParent.removeChild(details); //remove from DOM to make this faster
                 details.innerHTML = '';
 
-                Dom.setStyle(
-                    Dom.get('bhgActionsAvail').parentNode,
-                    'display',
-                    'none'
-                );
+                Dom.setStyle(Dom.get('bhgActionsAvail').parentNode, 'display', 'none');
 
                 Dom.setStyle(detailsParent, 'display', '');
                 detailsParent.appendChild(details); //add back as child
@@ -433,18 +386,12 @@ if (
                     // success
                     if (effect.target) {
                         var nLi = li.cloneNode(false);
-                        nLi.innerHTML = this.bhgParseResult(
-                            effect.target,
-                            'Success'
-                        );
+                        nLi.innerHTML = this.bhgParseResult(effect.target, 'Success');
                         details.appendChild(nLi);
                     }
                     if (effect.side) {
                         var nLi = li.cloneNode(false);
-                        nLi.innerHTML = this.bhgParseResult(
-                            effect.side,
-                            'Side-Effect'
-                        );
+                        nLi.innerHTML = this.bhgParseResult(effect.side, 'Side-Effect');
                         details.appendChild(nLi);
                     }
                 }
@@ -490,23 +437,10 @@ if (
                             result.size,
                         ].join('');
                 } else if (result.message === 'Changed Type') {
-                    var newtype = result['class'].replace(
-                        new RegExp('.*::', 'g'),
-                        ''
-                    );
-                    out =
-                        out +
-                        [
-                            result.name,
-                            ' changed to type ',
-                            newtype,
-                            ' planet',
-                        ].join('');
+                    var newtype = result['class'].replace(new RegExp('.*::', 'g'), '');
+                    out = out + [result.name, ' changed to type ', newtype, ' planet'].join('');
                 } else if (result.message === 'Made Asteroid') {
-                    var newtype = result['class'].replace(
-                        new RegExp('.*::', 'g'),
-                        ''
-                    );
+                    var newtype = result['class'].replace(new RegExp('.*::', 'g'), '');
                     out =
                         out +
                         [
@@ -517,10 +451,7 @@ if (
                             result.size,
                         ].join('');
                 } else if (result.message === 'Made Planet') {
-                    var newtype = result['class'].replace(
-                        new RegExp('.*::', 'g'),
-                        ''
-                    );
+                    var newtype = result['class'].replace(new RegExp('.*::', 'g'), '');
                     out =
                         out +
                         [
@@ -549,11 +480,7 @@ if (
                 }
             },
             populateCooldownTimer: function(seconds_remaining) {
-                this.addQueue(
-                    seconds_remaining,
-                    this.cooldownQueue,
-                    'bhgCooldownTime'
-                );
+                this.addQueue(seconds_remaining, this.cooldownQueue, 'bhgCooldownTime');
             },
             cooldownQueue: function(remaining, el) {
                 if (remaining <= 0) {
@@ -562,13 +489,11 @@ if (
                     p.removeChild(span);
                     p.innerHTML = 'Cool-down Complete';
                 } else {
-                    Dom.get(el).innerHTML = Lib.formatTime(
-                        Math.round(remaining)
-                    );
+                    Dom.get(el).innerHTML = Lib.formatTime(Math.round(remaining));
                 }
             },
             cooldownSubsidize: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.subsidize_cooldown(
                     {
@@ -577,7 +502,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete this.work;
@@ -594,9 +519,8 @@ if (
 
         YAHOO.lacuna.buildings.BlackHoleGenerator = BlackHoleGenerator;
     })();
-    YAHOO.register(
-        'blackholegenerator',
-        YAHOO.lacuna.buildings.BlackHoleGenerator,
-        { version: '1', build: '0' }
-    );
+    YAHOO.register('blackholegenerator', YAHOO.lacuna.buildings.BlackHoleGenerator, {
+        version: '1',
+        build: '0',
+    });
 }

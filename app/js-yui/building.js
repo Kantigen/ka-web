@@ -2,10 +2,7 @@ YAHOO.namespace('lacuna.buildings');
 
 var BodyRPCStore = require('js/stores/rpc/body');
 
-if (
-    typeof YAHOO.lacuna.buildings.Building == 'undefined' ||
-    !YAHOO.lacuna.buildings.Building
-) {
+if (typeof YAHOO.lacuna.buildings.Building == 'undefined' || !YAHOO.lacuna.buildings.Building) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -48,17 +45,11 @@ if (
                 this.fireEvent('onLoad');
             },
             getTabs: function() {
-                if (
-                    this.building.efficiency * 1 < 100 &&
-                    this.building.repair_costs
-                ) {
+                if (this.building.efficiency * 1 < 100 && this.building.repair_costs) {
                     return [this._getRepairTab(), this._getProductionTab()];
                 } else {
                     var tabs = [this._getProductionTab()],
-                        childTabs =
-                            this.building.level > 0
-                                ? this.getChildTabs()
-                                : null;
+                        childTabs = this.building.level > 0 ? this.getChildTabs() : null;
 
                     if (childTabs && Lang.isArray(childTabs)) {
                         tabs = tabs.concat(childTabs);
@@ -105,8 +96,7 @@ if (
                         (!this.building.work && o.result.building.work) ||
                         (this.building.work &&
                             o.result.building.work &&
-                            this.building.work.end !=
-                                o.result.building.work.end);
+                            this.building.work.end != o.result.building.work.end);
                     if (workChanged) {
                         this.building.work = o.result.building.work;
                         this.work = this.building.work;
@@ -142,9 +132,7 @@ if (
             },
 
             _details: function(info) {
-                var title = info.title
-                    ? info.title
-                    : Lib.capitalizeFirstLetter(info.type);
+                var title = info.title ? info.title : Lib.capitalizeFirstLetter(info.type);
                 var suffix = info.suffix ? info.suffix : '';
                 var id = info.id ? ['id="', info.id, '" '].join('') : '';
                 var numclass = ['buildingDetailsNum'];
@@ -214,7 +202,7 @@ if (
             Repair: function(e) {
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Buildings.Generic.repair(
                     {
                         session_id: Game.GetSession(),
@@ -222,12 +210,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Building.Repair.repair.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Building.Repair.repair.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             if (this.repairTab) {
                                 Event.removeListener('repair', 'click');
@@ -257,7 +241,7 @@ if (
                 var up = this.building.upgrade,
                     down = this.building.downgrade,
                     currentLevel = this.building.level * 1,
-                    planet = BodyRPCStore.getData();
+                    planet = BodyRPCStore;
                 this.productionTab = new YAHOO.widget.Tab({
                     label: 'Production',
                     content: [
@@ -309,8 +293,7 @@ if (
                                       amount: up.production.food_hour,
                                       suffix: '/hr',
                                       numclass:
-                                          this.building.food_hour -
-                                              up.production.food_hour >
+                                          this.building.food_hour - up.production.food_hour >
                                           planet.food_hour
                                               ? 'low-resource'
                                               : null,
@@ -320,8 +303,7 @@ if (
                                       amount: up.production.ore_hour,
                                       suffix: '/hr',
                                       numclass:
-                                          this.building.ore_hour -
-                                              up.production.ore_hour >
+                                          this.building.ore_hour - up.production.ore_hour >
                                           planet.ore_hour
                                               ? 'low-resource'
                                               : null,
@@ -331,8 +313,7 @@ if (
                                       amount: up.production.water_hour,
                                       suffix: '/hr',
                                       numclass:
-                                          this.building.water_hour -
-                                              up.production.water_hour >
+                                          this.building.water_hour - up.production.water_hour >
                                           planet.water_hour
                                               ? 'low-resource'
                                               : null,
@@ -342,8 +323,7 @@ if (
                                       amount: up.production.energy_hour,
                                       suffix: '/hr',
                                       numclass:
-                                          this.building.energy_hour -
-                                              up.production.energy_hour >
+                                          this.building.energy_hour - up.production.energy_hour >
                                           planet.energy_hour
                                               ? 'low-resource'
                                               : null,
@@ -378,17 +358,13 @@ if (
                                       type: 'food',
                                       amount: up.cost.food || 0,
                                       numclass:
-                                          up.cost.food > planet.food_stored
-                                              ? 'low-resource'
-                                              : null,
+                                          up.cost.food > planet.food_stored ? 'low-resource' : null,
                                   }),
                                   this._details({
                                       type: 'ore',
                                       amount: up.cost.ore || 0,
                                       numclass:
-                                          up.cost.ore > planet.ore_stored
-                                              ? 'low-resource'
-                                              : null,
+                                          up.cost.ore > planet.ore_stored ? 'low-resource' : null,
                                   }),
                                   this._details({
                                       type: 'water',
@@ -436,10 +412,7 @@ if (
                 Event.onAvailable(
                     'extraBuildingDetails',
                     function(o) {
-                        if (
-                            o.building.upgrade.cost.halls &&
-                            parseInt(o.building.level) < 30
-                        ) {
+                        if (o.building.upgrade.cost.halls && parseInt(o.building.level) < 30) {
                             Dom.get('extraBuildingDetails').innerHTML =
                                 'Upgrade to level ' +
                                 (parseInt(o.building.level) + 1) +
@@ -451,30 +424,12 @@ if (
                     this
                 );
 
-                Event.on(
-                    'buildingDetailsDemolish',
-                    'click',
-                    this.Demolish,
-                    this,
-                    true
-                );
+                Event.on('buildingDetailsDemolish', 'click', this.Demolish, this, true);
                 if (up.can) {
-                    Event.on(
-                        'buildingDetailsUpgrade',
-                        'click',
-                        this.Upgrade,
-                        this,
-                        true
-                    );
+                    Event.on('buildingDetailsUpgrade', 'click', this.Upgrade, this, true);
                 }
                 if (currentLevel > 1) {
-                    Event.on(
-                        'buildingDetailsDowngrade',
-                        'click',
-                        this.Downgrade,
-                        this,
-                        true
-                    );
+                    Event.on('buildingDetailsDowngrade', 'click', this.Downgrade, this, true);
                 }
 
                 return this.productionTab;
@@ -492,7 +447,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     Game.Services.Buildings.Generic.demolish(
                         {
                             session_id: Game.GetSession(),
@@ -500,12 +455,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Building.Demolish.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Building.Demolish.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.removeBuildingTile(building);
                                 this.fireEvent('onHide');
@@ -529,7 +480,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     Game.Services.Buildings.Generic.downgrade(
                         {
                             session_id: Game.GetSession(),
@@ -537,24 +488,15 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Building.Downgrade.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Building.Downgrade.success');
+                                require('js/stores/menu').hideLoader();
                                 this.fireEvent('onMapRpc', o.result);
 
                                 var b = building; //originally passed in building data from currentBuilding
                                 b.id = o.result.building.id;
                                 b.level = o.result.building.level;
-                                b.pending_build =
-                                    o.result.building.pending_build;
-                                YAHOO.log(
-                                    b,
-                                    'info',
-                                    'Building.Upgrade.success.building'
-                                );
+                                b.pending_build = o.result.building.pending_build;
+                                YAHOO.log(b, 'info', 'Building.Upgrade.success.building');
 
                                 this.updateBuildingTile(b);
 
@@ -569,7 +511,7 @@ if (
             Upgrade: function() {
                 var building = this.building;
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var BuildingServ = Game.Services.Buildings.Generic,
                     data = {
                         session_id: Game.GetSession(''),
@@ -579,18 +521,14 @@ if (
                 BuildingServ.upgrade(data, {
                     success: function(o) {
                         YAHOO.log(o, 'info', 'Building.Upgrade.success');
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                         this.fireEvent('onMapRpc', o.result);
 
                         var b = building; //originally passed in building data from currentBuilding
                         b.id = o.result.building.id;
                         b.level = o.result.building.level;
                         b.pending_build = o.result.building.pending_build;
-                        YAHOO.log(
-                            b,
-                            'info',
-                            'Building.Upgrade.success.building'
-                        );
+                        YAHOO.log(b, 'info', 'Building.Upgrade.success.building');
                         this.updateBuildingTile(b);
                         this.fireEvent('onHide');
                     },
@@ -633,7 +571,7 @@ if (
                 Dom.setStyle('incomingSupplyChainListNone', 'display', 'none');
 
                 if (!this.incoming_supply_chains) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_incoming_supply_chains(
                         {
                             session_id: Game.GetSession(),
@@ -646,10 +584,9 @@ if (
                                     'info',
                                     'building.viewIncomingSupplyChainInfo.success'
                                 );
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
-                                this.incoming_supply_chains =
-                                    o.result.supply_chains;
+                                this.incoming_supply_chains = o.result.supply_chains;
 
                                 this.incomingSupplyChainList();
                             },
@@ -669,11 +606,7 @@ if (
                     return;
                 } else {
                     Dom.setStyle('incomingSupplyChainList', 'display', '');
-                    Dom.setStyle(
-                        'incomingSupplyChainListNone',
-                        'display',
-                        'none'
-                    );
+                    Dom.setStyle('incomingSupplyChainListNone', 'display', 'none');
                 }
 
                 var details = Dom.get('incomingSupplyChainListDetails'),

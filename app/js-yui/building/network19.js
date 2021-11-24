@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.Network19 == 'undefined' ||
-    !YAHOO.lacuna.buildings.Network19
-) {
+if (typeof YAHOO.lacuna.buildings.Network19 == 'undefined' || !YAHOO.lacuna.buildings.Network19) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -50,20 +47,9 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.coverageTab.subscribe(
-                    'activeChange',
-                    this.NewsGet,
-                    this,
-                    true
-                );
+                this.coverageTab.subscribe('activeChange', this.NewsGet, this, true);
 
-                Event.on(
-                    'newsCoverage',
-                    'click',
-                    this.NewsCoverage,
-                    this,
-                    true
-                );
+                Event.on('newsCoverage', 'click', this.NewsCoverage, this, true);
 
                 return this.coverageTab;
             },
@@ -76,7 +62,7 @@ if (
                     isRestrict = 0;
                 }
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.restrict_coverage(
                     {
                         session_id: Game.GetSession(),
@@ -90,15 +76,13 @@ if (
                                 'info',
                                 'Network19.NewsCoverage.restrict_coverage.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             Dom.get('newsCoverageText').innerHTML = isRestrict
                                 ? 'Coverage is currently restricted'
                                 : 'News is flowing freely';
-                            target.innerHTML = isRestrict
-                                ? 'Open Coverage'
-                                : 'Restrict Coverage';
+                            target.innerHTML = isRestrict ? 'Open Coverage' : 'Restrict Coverage';
                             target.disabled = false;
                         },
                         failure: function(o) {
@@ -109,7 +93,7 @@ if (
                 );
             },
             NewsGet: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_news(
                     {
                         session_id: Game.GetSession(),
@@ -118,7 +102,7 @@ if (
                     {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'Network19.NewsGet.success');
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             var news = o.result.news,

@@ -3,21 +3,17 @@
 YAHOO.namespace('lacuna');
 
 var React = require('react');
-var ReactDom = require('react-dom');
+var ReactDOM = require('react-dom');
 var _ = require('lodash');
 var ReactTooltip = require('react-tooltip');
-
-var KeyboardActions = require('js/actions/keyboard');
-var MenuActions = require('js/actions/menu');
-var SessionActions = require('js/actions/session');
-var TickerActions = require('js/actions/ticker');
-var UserActions = require('js/actions/user');
-var WindowActions = require('js/actions/window');
 
 var GameWindow = require('js/components/gameWindow');
 var Captcha = require('js/components/window/captcha');
 
 var BodyRPCStore = require('js/stores/rpc/body');
+var MenuStore = require('js/stores/menu');
+var SessionStore = require('js/stores/session');
+var TickerStore = require('js/stores/ticker');
 
 var constants = require('js/constants');
 
@@ -45,13 +41,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 var l = window.location;
                 Game.domain = l.hostname || 'kenoantigen.com';
 
-                // This is some glue code to make the server, body and empire stores listen for changes.
-                // Normally, React Components should do this automatically, but since we need these
-                // stores operating immeadiatly we do it here.
-                // TODO: remove this!
-                require('js/stores/user').listen(_.noop);
-                require('js/stores/ticker').listen(_.noop);
-
                 var body = document.getElementById('body');
 
                 // Give the React stuff somewhere to go.
@@ -59,9 +48,9 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 container.id = 'mainGameContainer';
                 body.appendChild(container);
 
-                ReactDom.render(<GameWindow />, document.getElementById('mainGameContainer'));
+                ReactDOM.render(<GameWindow />, document.getElementById('mainGameContainer'));
 
-                require('js/actions/menu/loader').loaderMenuShow();
+                require('js/stores/menu').showLoader();
 
                 // add overlay manager functionality
                 Game.OverlayManager.hideAllBut = function(id) {
@@ -100,9 +89,12 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 // DOM and then replaced later. For example, switching between tabs that each have
                 // tooltips in them. Calling this every tick ensures that the tooltips are rebuilt if
                 // they disappear.
-                TickerActions.tickerTick.listen(function() {
-                    ReactTooltip.rebuild();
-                });
+                //
+                // TODO fix this
+                //
+                // TickerActions.tickerTick.listen(function() {
+                //     ReactTooltip.rebuild();
+                // });
 
                 if (!query) {
                     query = {};
@@ -249,8 +241,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 );
                 this.InitLogin();
                 Lacuna.Game.LoginDialog.show(error);
-                MenuActions.menuHide();
-                require('js/actions/menu/loader').loaderMenuHide();
+                MenuStore.hideMenu();
+                require('js/stores/menu').hideLoader();
             },
             Run: function() {
                 // set our interval going for resource calcs since Logout clears it
@@ -272,8 +264,15 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 document.title = 'KA - ' + Game.EmpireData.name;
 
-                SessionActions.sessionSet(Game.GetSession(''));
-                UserActions.userSignIn();
+                SessionStore.update(Game.GetSession(''));
+                MenuStore.showMenu();
+                TickerStore.start();
+                // TODO This should be possible to be removed. BUT it is needed for
+                // now. It is called in the map store by attaching tothe onUserSignin
+                // event (as it does here) but perhaps it requires the other stores
+                // to complete first before it works?
+                console.log('Firing up the planet view');
+                MenuStore.changePlanet(YAHOO.lacuna.Game.EmpireData.home_planet_id);
             },
             InitEvents: function() {
                 // make sure we only subscribe once
@@ -349,7 +348,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                                 }
                             };
                             YAHOO.log(o, 'error', logNS);
-                            require('js/actions/menu/loader').loaderMenuHide();
+                            require('js/stores/menu').hideLoader();
                             Game.Failure(o, retry, failure);
                         },
                     };
@@ -559,7 +558,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 }
             },
             GetCurrentPlanet: function() {
-                return BodyRPCStore.getData();
+                return BodyRPCStore;
             },
             GetSize: function() {
                 var content = document.getElementById('content');

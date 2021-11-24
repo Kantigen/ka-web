@@ -1,26 +1,55 @@
 'use strict';
 
-var Reflux = require('reflux');
-var StatefulMixinStore = require('js/stores/mixins/stateful');
+const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
 
-var BuildingWindowActions = require('js/actions/windows/building');
-var WindowActions = require('js/actions/window');
-var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
+class GenericBuildingRPCStore {
+    id = '';
+    name = '';
+    image = '';
+    level = 0;
+    x = 0;
+    y = 0;
+    food_hour = 0;
+    food_capacity = 0;
+    energy_hour = 0;
+    energy_capacity = 0;
+    ore_hour = 0;
+    ore_capacity = 0;
+    water_hour = 0;
+    water_capacity = 0;
+    waste_hour = 0;
+    waste_capacity = 0;
+    happiness_hour = 0;
+    efficiency = 0;
+    extraViewData = {};
 
-var GenericBuildingRPCStore = Reflux.createStore({
-    listenables: [BuildingWindowActions, GenericBuildingRPCActions],
+    repair_costs = {
+        food: 0,
+        water: 0,
+        energy: 0,
+        ore: 0,
+    };
 
-    mixins: [StatefulMixinStore],
+    downgrade = {
+        can: 1,
+        reason: '',
+        image: '',
+    };
 
-    getDefaultData: function() {
-        return {
-            id: '',
-            name: '',
-            image: '',
-            level: 0,
-            x: 0,
-            y: 0,
+    upgrade = {
+        can: 1,
+        reason: '',
+
+        cost: {
+            food: 0,
+            water: 0,
+            energy: 0,
+            waste: 0,
+            ore: 0,
+            time: 0,
+        },
+        production: {
             food_hour: 0,
             food_capacity: 0,
             energy_hour: 0,
@@ -32,51 +61,11 @@ var GenericBuildingRPCStore = Reflux.createStore({
             waste_hour: 0,
             waste_capacity: 0,
             happiness_hour: 0,
-            efficiency: 0,
-            extraViewData: {},
+        },
+        image: '',
+    };
 
-            repair_costs: {
-                food: 0,
-                water: 0,
-                energy: 0,
-                ore: 0,
-            },
-            downgrade: {
-                can: 1,
-                reason: '',
-                image: '',
-            },
-            upgrade: {
-                can: 1,
-                reason: '',
-
-                cost: {
-                    food: 0,
-                    water: 0,
-                    energy: 0,
-                    waste: 0,
-                    ore: 0,
-                    time: 0,
-                },
-                production: {
-                    food_hour: 0,
-                    food_capacity: 0,
-                    energy_hour: 0,
-                    energy_capacity: 0,
-                    ore_hour: 0,
-                    ore_capacity: 0,
-                    water_hour: 0,
-                    water_capacity: 0,
-                    waste_hour: 0,
-                    waste_capacity: 0,
-                    happiness_hour: 0,
-                },
-                image: '',
-            },
-        };
-    },
-
-    handleNewData: function(result) {
+    update(result) {
         var building = _.assign(this.getDefaultData(), result.building);
 
         building.efficiency = building.efficiency * 1;
@@ -108,41 +97,16 @@ var GenericBuildingRPCStore = Reflux.createStore({
 
         // Manually update the old planet map with the new data we got.
         YAHOO.lacuna.MapPlanet.ReloadBuilding(_.cloneDeep(building));
+    }
 
-        this.emit(building);
-    },
+    clear() {}
 
-    onBuildingWindowClear: function() {
-        this.emit(this.getDefaultData());
-    },
-
-    onBuildingWindowUpdate: function(o) {
-        this.handleNewData(o);
-        YAHOO.lacuna.MapPlanet.RefreshWithData({
-            result: o,
-        });
-    },
-
-    onSuccessBuildingWindowView: function(result) {
-        this.handleNewData(result);
-    },
-
-    onSuccessBuildingWindowRepair: function(result) {
-        this.handleNewData(result);
-        WindowActions.windowCloseByType('building');
-    },
-
-    onSuccessGenericBuildingRPCDowngrade: function(result) {
-        WindowActions.windowCloseByType('building');
-    },
-
-    onSuccessGenericBuildingRPCUpgrade: function(result) {
-        WindowActions.windowCloseByType('building');
-    },
-
-    onSuccessGenericBuildingRPCDemolish: function(result) {
-        WindowActions.windowCloseByType('building');
-    },
-});
+    // onBuildingWindowUpdate: function(o) {
+    //     this.handleNewData(o);
+    //     YAHOO.lacuna.MapPlanet.RefreshWithData({
+    //         result: o,
+    //     });
+    // },
+}
 
 module.exports = GenericBuildingRPCStore;

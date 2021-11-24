@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna');
 
-if (
-    typeof YAHOO.lacuna.CreateSpecies == 'undefined' ||
-    !YAHOO.lacuna.CreateSpecies
-) {
+if (typeof YAHOO.lacuna.CreateSpecies == 'undefined' || !YAHOO.lacuna.CreateSpecies) {
     (function() {
         var Util = YAHOO.util,
             Dom = Util.Dom,
@@ -94,18 +91,14 @@ if (
             },
 
             _found: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var EmpireServ = Game.Services.Empire;
                 EmpireServ.found(
                     { empire_id: this.empireId, api_key: Lib.ApiKey },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'CreateSpecies._found.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'CreateSpecies._found.success');
+                            require('js/stores/menu').hideLoader();
                             this.hide(); //hide species
                             this.fireEvent('onCreateSuccessful', o);
                         },
@@ -130,11 +123,7 @@ if (
                 ].join('');
             },
             setMessage: function(str) {
-                Dom.replaceClass(
-                    this.elMessage,
-                    Lib.Styles.HIDDEN,
-                    Lib.Styles.ALERT
-                );
+                Dom.replaceClass(this.elMessage, Lib.Styles.HIDDEN, Lib.Styles.ALERT);
                 this.elMessage.innerHTML = str;
             },
             show: function(empire_id) {
@@ -144,11 +133,7 @@ if (
                 this.Dialog.center();
             },
             hide: function() {
-                Dom.replaceClass(
-                    this.elMessage,
-                    Lib.Styles.ALERT,
-                    Lib.Styles.HIDDEN
-                );
+                Dom.replaceClass(this.elMessage, Lib.Styles.ALERT, Lib.Styles.HIDDEN);
                 this.Dialog.hide();
             },
         };

@@ -65,13 +65,10 @@ if (
 
             CreateFind: function() {
                 if (!this.findStar) {
-                    var dataSource = new Util.XHRDataSource(
-                        constants.RPC_BASE + 'map'
-                    );
+                    var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
                     dataSource.connMethodPost = 'POST';
                     dataSource.maxCacheEntries = 2;
-                    dataSource.responseType =
-                        YAHOO.util.XHRDataSource.TYPE_JSON;
+                    dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
                     dataSource.responseSchema = {
                         resultsList: 'result.stars',
                         fields: ['name', 'color', 'x', 'y', 'id'],
@@ -89,11 +86,7 @@ if (
                             useIndicator: true,
                         }
                     );
-                    oTextboxList.formatResult = function(
-                        oResultData,
-                        sQuery,
-                        sResultMatch
-                    ) {
+                    oTextboxList.formatResult = function(oResultData, sQuery, sResultMatch) {
                         return [
                             '<div class="yui-gf">',
                             '    <div class="yui-u first" style="background-color:black;">',
@@ -124,23 +117,15 @@ if (
                             id: YAHOO.rpc.Service._requestId++,
                             method: 'search_stars',
                             jsonrpc: '2.0',
-                            params: [
-                                Game.GetSession(''),
-                                decodeURIComponent(sQuery),
-                            ],
+                            params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                         });
                         return s;
                     };
-                    oTextboxList.dirtyEvent.subscribe(function(
-                        event,
-                        isDirty,
-                        oSelf
-                    ) {
+                    oTextboxList.dirtyEvent.subscribe(function(event, isDirty, oSelf) {
                         var star = this._oTblSingleSelection.Object;
 
                         oSelf.GetPlanets(star.id);
-                    },
-                    this);
+                    }, this);
                     this.findStar = oTextboxList;
                 }
             },
@@ -149,7 +134,7 @@ if (
             },
 
             GetPlanets: function(starId) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.list_planets(
                     {
                         session_id: Game.GetSession(),
@@ -158,7 +143,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.planets = o.result.planets;
                             this.PlanetsDisplay();
@@ -204,7 +189,7 @@ if (
                 var nLi = Event.getTarget(e);
                 if (nLi.Planet) {
                     if (!this.maps[nLi.Planet.id]) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_planet(
                             {
                                 session_id: Game.GetSession(),
@@ -213,21 +198,17 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.maps[nLi.Planet.id] = o.result.map;
                                     Lacuna.Messaging._load();
-                                    Lacuna.Messaging.attachmentPanel.load(
-                                        o.result.map
-                                    );
+                                    Lacuna.Messaging.attachmentPanel.load(o.result.map);
                                 },
                                 scope: this,
                             }
                         );
                     } else {
-                        Lacuna.Messaging.attachmentPanel.load(
-                            this.maps[nLi.Planet.id]
-                        );
+                        Lacuna.Messaging.attachmentPanel.load(this.maps[nLi.Planet.id]);
                     }
                 }
             },
@@ -235,9 +216,8 @@ if (
 
         YAHOO.lacuna.buildings.TempleOfTheDrajilites = TempleOfTheDrajilites;
     })();
-    YAHOO.register(
-        'templeofthedrajilites',
-        YAHOO.lacuna.buildings.TempleOfTheDrajilites,
-        { version: '1', build: '0' }
-    );
+    YAHOO.register('templeofthedrajilites', YAHOO.lacuna.buildings.TempleOfTheDrajilites, {
+        version: '1',
+        build: '0',
+    });
 }

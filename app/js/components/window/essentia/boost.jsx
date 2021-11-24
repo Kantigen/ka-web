@@ -5,26 +5,25 @@ var vex = require('js/vex');
 var PropTypes = require('prop-types');
 
 var React = require('react');
+var { observer } = require('mobx-react');
 var classnames = require('classnames');
 var validator = require('validator');
-
-var EmpireRPCActions = require('js/actions/rpc/empire');
-
-var BoostCountdown = require('js/components/window/essentia/boostCountdown');
+var EmpireRPCStore = require('js/stores/rpc/empire');
+var util = require('js/util');
 
 class Boost extends React.Component {
     static propTypes = {
         type: PropTypes.string.isRequired,
         iconName: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
-        essentia: PropTypes.number.isRequired,
-        boosts: PropTypes.object.isRequired,
+        ms: PropTypes.number.isRequired,
     };
 
     static defaultProps = {
         type: '',
         iconName: '',
         description: '',
+        ms: 0,
     };
 
     handleBoost = () => {
@@ -39,7 +38,7 @@ class Boost extends React.Component {
         ) {
             vex.alert('Number of weeks must be an integer between 1 and 100.');
             return;
-        } else if (weeks * 5 > this.props.essentia) {
+        } else if (weeks * 5 > EmpireRPCStore.essentia) {
             vex.alert('Insufficient Essentia.');
             return;
         }
@@ -62,6 +61,19 @@ class Boost extends React.Component {
         );
     };
 
+    tagClassNames() {
+        if (this.props.ms > 0) {
+            var day = 1000 * 60 * 60 * 24; // Milliseconds per day
+
+            // Change the color of the tags as the countdown gets closer to zero.
+            return classnames('ui left pointing label', {
+                green: this.props.ms > 3 * day, // More than three days
+                yellow: 3 * day > this.props.ms && this.props.ms > day, // Less than three days and more than one day
+                red: day > this.props.ms, // Less than one day
+            });
+        }
+    }
+
     render() {
         return (
             <div
@@ -75,7 +87,7 @@ class Boost extends React.Component {
                         defaultValue='1'
                         ref='weeks'
                         title='Weeks to boost for'
-                        disabled={this.props.essentia < 35}
+                        disabled={EmpireRPCStore.essentia < 35}
                         style={{
                             width: 45,
                         }}
@@ -83,10 +95,16 @@ class Boost extends React.Component {
 
                     {this.renderButton()}
                 </div>
-                <BoostCountdown boost={this.props.boosts[this.props.type]} />
+                {this.props.ms > 0 ? (
+                    <div className={this.tagClassNames()}>
+                        {util.formatMillisecondTime(this.props.ms)}
+                    </div>
+                ) : (
+                    <div></div>
+                )}
             </div>
         );
     }
 }
 
-module.exports = Boost;
+module.exports = observer(Boost);

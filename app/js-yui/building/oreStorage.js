@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.OreStorage == 'undefined' ||
-    !YAHOO.lacuna.buildings.OreStorage
-) {
+if (typeof YAHOO.lacuna.buildings.OreStorage == 'undefined' || !YAHOO.lacuna.buildings.OreStorage) {
     (function() {
         var Util = YAHOO.util,
             Dom = Util.Dom,
@@ -78,12 +75,7 @@ if (
                     label: 'Dump',
                     contentEl: this.DumpGetDisplay(this.result.dump),
                 });
-                this.dumpTab.subscribe(
-                    'activeChange',
-                    this.DumpGetDisplay,
-                    this,
-                    true
-                );
+                this.dumpTab.subscribe('activeChange', this.DumpGetDisplay, this, true);
                 return this.dumpTab;
             },
             DumpGetDisplay: function() {
@@ -113,18 +105,10 @@ if (
                         opt = document.createElement('option');
                     for (var i = 0; i < resources.length; i++) {
                         rKey = resources[i];
-                        if (
-                            this.resources.hasOwnProperty(rKey) &&
-                            this.resources[rKey] > 0
-                        ) {
+                        if (this.resources.hasOwnProperty(rKey) && this.resources[rKey] > 0) {
                             var nOpt = opt.cloneNode(false);
                             nOpt.value = rKey;
-                            nOpt.innerHTML = [
-                                rKey,
-                                ' (',
-                                this.resources[rKey],
-                                ')',
-                            ].join('');
+                            nOpt.innerHTML = [rKey, ' (', this.resources[rKey], ')'].join('');
                             sel.appendChild(nOpt);
                         }
                     }
@@ -178,7 +162,7 @@ if (
                             'You must specify an amount greater than zero.';
                         Lib.fadeOutElm('dumpMessage');
                     } else {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.dump(
                             {
                                 session_id: Game.GetSession(),
@@ -188,11 +172,7 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'OreStorage.Dump.success'
-                                    );
+                                    YAHOO.log(o, 'info', 'OreStorage.Dump.success');
                                     this.rpcSuccess(o);
 
                                     if (this.dumpTab) {
@@ -200,9 +180,7 @@ if (
                                         Event.purgeElement(ce);
                                         ce.innerHTML = '';
                                         this.resources[type] -= amount;
-                                        ce.appendChild(
-                                            this.DumpGetDisplay(o.result.dump)
-                                        );
+                                        ce.appendChild(this.DumpGetDisplay(o.result.dump));
                                         Dom.get('dumpMessage').innerHTML =
                                             'Successfully converted ' +
                                             amount +
@@ -211,7 +189,7 @@ if (
                                             ' to waste.';
                                         Lib.fadeOutElm('dumpMessage');
                                     }
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                 },
                                 scope: this,
                             }

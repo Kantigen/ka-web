@@ -1,24 +1,19 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
+var { observer } = require('mobx-react');
 var OptionsWindowStore = require('js/stores/windows/options');
 
-var OptionsWindow = createReactClass({
-    displayName: 'OptionsWindow',
-    mixins: [Reflux.connect(OptionsWindowStore, 'optionsWindow')],
-
-    render: function() {
-        if (this.state.optionsWindow.show) {
+class OptionsWindow extends React.Component {
+    render() {
+        if (OptionsWindowStore.shown) {
             YAHOO.lacuna.Profile.show();
         }
 
         // TODO: make this into a React component!!
 
         return <div></div>;
-    },
-});
+    }
+}
 
-module.exports = OptionsWindow;
+module.exports = observer(OptionsWindow);

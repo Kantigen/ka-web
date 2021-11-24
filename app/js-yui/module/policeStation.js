@@ -26,11 +26,7 @@ if (
 
         Lang.extend(PoliceStation, Lacuna.buildings.Security, {
             getChildTabs: function() {
-                return [
-                    this._getPrisonersTab(),
-                    this._getSpiesTab(),
-                    this._getForeignTab(),
-                ];
+                return [this._getPrisonersTab(), this._getSpiesTab(), this._getForeignTab()];
             },
             _getForeignTab: function() {
                 this.foreignShipsTab = new YAHOO.widget.Tab({
@@ -49,19 +45,14 @@ if (
                     ].join(''),
                 });
                 //subscribe after adding so active doesn't fire
-                this.foreignShipsTab.subscribe(
-                    'activeChange',
-                    this.getForeign,
-                    this,
-                    true
-                );
+                this.foreignShipsTab.subscribe('activeChange', this.getForeign, this, true);
 
                 return this.foreignShipsTab;
             },
             getForeign: function(e) {
                 if (e.newValue) {
                     if (!this.shipsForeign) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_foreign_ships(
                             {
                                 session_id: Game.GetSession(),
@@ -70,16 +61,11 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'SpacePort.view_foreign_ships.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'SpacePort.view_foreign_ships.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.shipsForeign = {
-                                        number_of_ships:
-                                            o.result.number_of_ships,
+                                        number_of_ships: o.result.number_of_ships,
                                         ships: o.result.ships,
                                     };
                                     this.foreignPager = new Pager({
@@ -136,9 +122,7 @@ if (
                         var ship = ships[i],
                             nUl = ul.cloneNode(false),
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(ship.date_arrives) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
                         nUl.Ship = ship;
                         Dom.addClass(nUl, 'shipInfo');
@@ -185,12 +169,7 @@ if (
                                     ' <span style="cursor:pointer;">[' +
                                     ship.from.empire.name +
                                     ']</span>';
-                                Event.on(
-                                    nLi,
-                                    'click',
-                                    this.EmpireProfile,
-                                    ship.from.empire
-                                );
+                                Event.on(nLi, 'click', this.EmpireProfile, ship.from.empire);
                             } else {
                                 nLi.innerHTML = ship.from.name;
                             }
@@ -217,7 +196,7 @@ if (
                 }
             },
             ForeignHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_foreign_ships(
                     {
                         session_id: Game.GetSession(),
@@ -226,12 +205,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'SpacePort.view_foreign_ships.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'SpacePort.view_foreign_ships.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.shipsForeign = {
                                 number_of_ships: o.result.number_of_ships,
@@ -249,8 +224,7 @@ if (
             ForeignQueue: function(remaining, elLine) {
                 var arrTime;
                 if (remaining <= 0) {
-                    arrTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    arrTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     arrTime = Lib.formatTime(Math.round(remaining));
                 }

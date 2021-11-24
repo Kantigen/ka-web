@@ -4,11 +4,9 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var _ = require('lodash');
 
 var BodyRPCStore = require('js/stores/rpc/body');
-var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
 
 var ActionButton = require('js/components/window/building/actionButton');
 var ResourceProduction = require('js/components/window/building/resourceProduction');
@@ -20,7 +18,7 @@ var vex = require('js/vex');
 
 var ProductionTab = createReactClass({
     displayName: 'ProductionTab',
-    mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
+    // mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
 
     propTypes: {
         building: PropTypes.object,
@@ -63,16 +61,12 @@ var ProductionTab = createReactClass({
 
     render: function() {
         var b = this.props.building;
-        var body = this.state.bodyRPCStore;
+        var body = BodyRPCStore;
 
         // Don't let the user downgrade a level 1 building. They shoulod demolish it instead.
         if (b.level === 1) {
             b.downgrade.can = 0;
-            b.downgrade.reason = [
-                1009,
-                'You cannot downgrade a level 1 building.',
-                undefined,
-            ];
+            b.downgrade.reason = [1009, 'You cannot downgrade a level 1 building.', undefined];
         }
 
         return (
@@ -113,56 +107,29 @@ var ProductionTab = createReactClass({
                 <div className='ui centered row'>
                     <div className='five wide column'>
                         <ResourceProduction icon='food' number={b.food_hour} />
-                        <ResourceProduction
-                            icon='diamond'
-                            number={b.ore_hour}
-                        />
+                        <ResourceProduction icon='diamond' number={b.ore_hour} />
 
-                        <ResourceProduction
-                            icon='theme'
-                            number={b.water_hour}
-                        />
+                        <ResourceProduction icon='theme' number={b.water_hour} />
 
-                        <ResourceProduction
-                            icon='lightning'
-                            number={b.energy_hour}
-                        />
+                        <ResourceProduction icon='lightning' number={b.energy_hour} />
 
-                        <ResourceProduction
-                            icon='trash'
-                            number={b.waste_hour}
-                        />
+                        <ResourceProduction icon='trash' number={b.waste_hour} />
 
-                        <ResourceProduction
-                            icon='smile'
-                            number={b.happiness_hour}
-                        />
+                        <ResourceProduction icon='smile' number={b.happiness_hour} />
                     </div>
 
                     <div className='five wide column'>
-                        <ResourceProduction
-                            icon='food'
-                            number={b.upgrade.production.food_hour}
-                        />
-                        <ResourceProduction
-                            icon='diamond'
-                            number={b.upgrade.production.ore_hour}
-                        />
+                        <ResourceProduction icon='food' number={b.upgrade.production.food_hour} />
+                        <ResourceProduction icon='diamond' number={b.upgrade.production.ore_hour} />
 
-                        <ResourceProduction
-                            icon='theme'
-                            number={b.upgrade.production.water_hour}
-                        />
+                        <ResourceProduction icon='theme' number={b.upgrade.production.water_hour} />
 
                         <ResourceProduction
                             icon='lightning'
                             number={b.upgrade.production.energy_hour}
                         />
 
-                        <ResourceProduction
-                            icon='trash'
-                            number={b.upgrade.production.waste_hour}
-                        />
+                        <ResourceProduction icon='trash' number={b.upgrade.production.waste_hour} />
 
                         <ResourceProduction
                             icon='smile'
@@ -194,10 +161,7 @@ var ProductionTab = createReactClass({
                             stored={body.energy_stored}
                         />
 
-                        <ResourceCost
-                            icon='trash'
-                            number={b.upgrade.cost.waste}
-                        />
+                        <ResourceCost icon='trash' number={b.upgrade.cost.waste} />
 
                         <ResourceLine
                             icon='wait'
@@ -226,9 +190,7 @@ var ProductionTab = createReactClass({
                             <ActionButton
                                 color='blue'
                                 actionName='Downgrade'
-                                error={
-                                    b.downgrade.can ? '' : b.downgrade.reason[1]
-                                }
+                                error={b.downgrade.can ? '' : b.downgrade.reason[1]}
                                 onClick={this.onDowngradeClick}
                             />
                         </div>

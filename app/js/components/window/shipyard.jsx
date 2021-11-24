@@ -4,14 +4,9 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var _ = require('lodash');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
-
-var WindowActions = require('js/actions/window');
-var BuildingWindowActions = require('js/actions/windows/building');
-var ShipyardRPCActions = require('js/actions/rpc/shipyard');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
@@ -37,7 +32,7 @@ var Shipyard = createReactClass({
         options: PropTypes.object,
     },
 
-    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
+    // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
     componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
@@ -61,10 +56,7 @@ var Shipyard = createReactClass({
             <Tab
                 title='Build Ships'
                 key='Build Ships'
-                onSelect={_.partial(
-                    ShipyardRPCActions.requestShipyardRPCGetBuildable,
-                    building.id
-                )}
+                onSelect={_.partial(ShipyardRPCActions.requestShipyardRPCGetBuildable, building.id)}
             >
                 <BuildFleetTab buildingId={building.id} />
             </Tab>
@@ -74,8 +66,8 @@ var Shipyard = createReactClass({
             <Tab title='Repair Ships' key='Repair Ships'>
                 <p>Not Yet Implemented</p>
                 <p>
-                    Fleets of ships damaged in an attack can be repaired (at
-                    less cost than building from scratch
+                    Fleets of ships damaged in an attack can be repaired (at less cost than building
+                    from scratch
                 </p>
             </Tab>
         );
@@ -83,10 +75,7 @@ var Shipyard = createReactClass({
         tabs.push(
             <Tab title='Refit Ships' key='Refit Ships'>
                 <p>Not Yet Implemented</p>
-                <p>
-                    Fleets of ships will be able to be upgraded to the empires
-                    current spec.
-                </p>
+                <p>Fleets of ships will be able to be upgraded to the empires current spec.</p>
             </Tab>
         );
 

@@ -4,15 +4,10 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var _ = require('lodash');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
 var BodyRPCStore = require('js/stores/rpc/body');
-
-var WindowActions = require('js/actions/window');
-var BuildingWindowActions = require('js/actions/windows/building');
-var SpacePortRPCActions = require('js/actions/rpc/spacePort');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
@@ -39,8 +34,8 @@ var SpacePort = createReactClass({
     },
 
     mixins: [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
-        Reflux.connect(BodyRPCStore, 'bodyStore'),
+        // Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
+        // Reflux.connect(BodyRPCStore, 'bodyStore'),
     ],
 
     componentWillMount: function() {

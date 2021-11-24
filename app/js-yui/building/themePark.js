@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.ThemePark == 'undefined' ||
-    !YAHOO.lacuna.buildings.ThemePark
-) {
+if (typeof YAHOO.lacuna.buildings.ThemePark == 'undefined' || !YAHOO.lacuna.buildings.ThemePark) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -52,7 +49,7 @@ if (
             },
 
             operate: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.operate(
                     {
@@ -61,7 +58,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             this.updateDisplay(o.result);
@@ -71,9 +68,7 @@ if (
                 );
             },
             updateDisplay: function(result) {
-                var isWorking =
-                    result.building.work &&
-                    result.building.work.seconds_remaining > 0;
+                var isWorking = result.building.work && result.building.work.seconds_remaining > 0;
                 if (isWorking) {
                     Dom.setStyle('ThemeParkWorking', 'display', '');
                     this.resetQueue();
@@ -89,15 +84,13 @@ if (
                 if (result.themepark.can_operate) {
                     Dom.setStyle('ThemeParkDisplay', 'display', '');
                     if (isWorking) {
-                        Dom.get('Operate').innerHTML =
-                            'Extend Theme Park Operations';
+                        Dom.get('Operate').innerHTML = 'Extend Theme Park Operations';
                     } else {
                         Dom.get('Operate').innerHTML = 'Open Theme Park';
                     }
                 } else {
                     Dom.setStyle('ThemeParkDisplay', 'display', 'none');
-                    Dom.get('ThemeParkMessage').innerHTML =
-                        result.themepark.reason[1];
+                    Dom.get('ThemeParkMessage').innerHTML = result.themepark.reason[1];
                 }
             },
             parkQueue: function(remaining, el) {
@@ -107,9 +100,7 @@ if (
                     p.removeChild(span);
                     p.innerHTML = 'Park is closed.';
                 } else {
-                    Dom.get(el).innerHTML = Lib.formatTime(
-                        Math.round(remaining)
-                    );
+                    Dom.get(el).innerHTML = Lib.formatTime(Math.round(remaining));
                 }
             },
         });

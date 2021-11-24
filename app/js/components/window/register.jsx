@@ -2,8 +2,6 @@
 
 var React = require('react');
 
-var WindowActions = require('js/actions/window');
-
 class RegisterWindow extends React.Component {
     static options = {
         title: 'Register',
@@ -26,16 +24,9 @@ class RegisterWindow extends React.Component {
                     <input type='text' placeholder='Username' ref='username' />
                 </div>
                 <div className='ui large fluid action input'>
-                    <input
-                        type='text'
-                        placeholder='Email Address'
-                        ref='email'
-                    />
+                    <input type='text' placeholder='Email Address' ref='email' />
                 </div>
-                <div
-                    className='ui green large labeled icon button'
-                    onClick={this.authorizeAllies}
-                >
+                <div className='ui green large labeled icon button' onClick={this.authorizeAllies}>
                     Register
                 </div>
             </div>

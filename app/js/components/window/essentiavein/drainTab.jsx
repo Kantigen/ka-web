@@ -5,8 +5,6 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var _ = require('lodash');
 
-var EssentiaVeinRPCActions = require('js/actions/rpc/essentiaVein');
-
 class DrainTab extends React.Component {
     static propTypes = {
         building: PropTypes.object.isRequired,
@@ -17,8 +15,7 @@ class DrainTab extends React.Component {
     }
 
     handleDrain = () => {
-        var times =
-            parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
+        var times = parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
         var id = this.props.building.id;
 
         EssentiaVeinRPCActions.requestEssentiaVeinRPCDrain({
@@ -35,9 +32,7 @@ class DrainTab extends React.Component {
                     <div className='text'>30 days</div>
                     <i className='dropdown icon'></i>
                     <div className='menu'>
-                        {_.times(this.props.building.drain_capable, function(
-                            num
-                        ) {
+                        {_.times(this.props.building.drain_capable, function(num) {
                             // Num starts on 0.
                             num += 1;
 
@@ -45,11 +40,7 @@ class DrainTab extends React.Component {
                             var str = days + ' days';
 
                             return (
-                                <div
-                                    className='item'
-                                    data-text={str}
-                                    key={days}
-                                >
+                                <div className='item' data-text={str} key={days}>
                                     {days}
                                 </div>
                             );

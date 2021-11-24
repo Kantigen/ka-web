@@ -1,39 +1,36 @@
 'use strict';
 
-var Reflux = require('reflux');
-var util = require('js/util');
+// var util = require('js/util');
 
-var SpacePortRPCActions = require('js/actions/rpc/spacePort');
+// var StatefulMixinsStore = require('js/stores/mixins/stateful');
 
-var StatefulMixinsStore = require('js/stores/mixins/stateful');
+// var clone = util.clone;
 
-var clone = util.clone;
+// var ViewAllFleetsSpacePortRPCStore = Reflux.createStore({
+//     listenables: [SpacePortRPCActions],
 
-var ViewAllFleetsSpacePortRPCStore = Reflux.createStore({
-    listenables: [SpacePortRPCActions],
+//     mixins: [StatefulMixinsStore],
 
-    mixins: [StatefulMixinsStore],
+//     getDefaultData: function() {
+//         var state = {
+//             fleets: [],
+//             number_of_fleets: 0,
+//         };
+//         return state;
+//     },
 
-    getDefaultData: function() {
-        var state = {
-            fleets: [],
-            number_of_fleets: 0,
-        };
-        return state;
-    },
+//     handleNewData: function(result) {
+//         var state = clone(this.state);
 
-    handleNewData: function(result) {
-        var state = clone(this.state);
+//         state.fleets = result.fleets;
+//         state.number_of_fleets = result.number_of_fleets * 1;
 
-        state.fleets = result.fleets;
-        state.number_of_fleets = result.number_of_fleets * 1;
+//         this.emit(state);
+//     },
 
-        this.emit(state);
-    },
+//     onSuccessSpacePortRPCViewAllFleets: function(result) {
+//         this.handleNewData(result);
+//     },
+// });
 
-    onSuccessSpacePortRPCViewAllFleets: function(result) {
-        this.handleNewData(result);
-    },
-});
-
-module.exports = ViewAllFleetsSpacePortRPCStore;
+// module.exports = ViewAllFleetsSpacePortRPCStore;

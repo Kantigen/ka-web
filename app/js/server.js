@@ -3,14 +3,11 @@
 var _ = require('lodash');
 var util = require('js/util');
 
-var LoaderMenuActions = require('js/actions/menu/loader');
+var ServerRPCStore = require('js/stores/rpc/server');
+var EmpireRPCStore = require('js/stores/rpc/empire');
+var BodyRPCStore = require('js/stores/rpc/body');
+var MenuStore = require('js/stores/menu');
 var SessionStore = require('js/stores/session');
-var ServerStatusActions = require('js/actions/serverStatus');
-var BodyStatusActions = require('js/actions/bodyStatus');
-var EmpireStatusActions = require('js/actions/empireStatus');
-
-var WindowActions = require('js/actions/window');
-
 var Captcha = require('js/components/window/captcha');
 
 var constants = require('js/constants');
@@ -32,7 +29,7 @@ var handleDefaults = function(options) {
 };
 
 var addSession = function(options) {
-    var sessionId = SessionStore.getData();
+    var sessionId = SessionStore.session;
 
     if (options.addSession === true && sessionId) {
         if (_.isArray(options.params)) {
@@ -103,20 +100,17 @@ var handleError = function(options, error) {
 };
 
 var sendRequest = function(url, data, options, retry) {
-    console.log(
-        'Calling',
-        options.module + '/' + options.method,
-        options.params
-    );
+    console.log('Calling', options.module + '/' + options.method, options.params);
 
     $.ajax({
         data: data,
         dataType: 'json',
         type: 'POST',
+        contentType: 'application/json',
         url: url,
 
         success: function(data, textStatus, jqXHR) {
-            LoaderMenuActions.loaderMenuHide();
+            MenuStore.showLoader();
 
             var dataToEmit = util.fixNumbers(data.result);
 
@@ -126,7 +120,7 @@ var sendRequest = function(url, data, options, retry) {
         },
 
         error: function(jqXHR, textStatus, errorThrown) {
-            LoaderMenuActions.loaderMenuHide();
+            MenuStore.hideLoader();
             var error = {};
 
             if (typeof jqXHR.responseJSON === 'undefined') {
@@ -154,7 +148,7 @@ var sendRequest = function(url, data, options, retry) {
 };
 
 var call = function(obj) {
-    LoaderMenuActions.loaderMenuShow();
+    MenuStore.showLoader();
 
     var options = handleConfig(obj);
     var data = createData(options);
@@ -173,15 +167,15 @@ var call = function(obj) {
 var splitStatus = function(status) {
     if (status.server) {
         var serverStatus = util.fixNumbers(_.cloneDeep(status.server));
-        ServerStatusActions.serverStatusUpdate(serverStatus);
+        ServerRPCStore.update(serverStatus);
     }
     if (status.empire) {
         var empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
-        EmpireStatusActions.empireStatusUpdate(empireStatus);
+        EmpireRPCStore.update(empireStatus);
     }
     if (status.body) {
         var bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
-        BodyStatusActions.bodyStatusUpdate(bodyStatus);
+        BodyRPCStore.update(bodyStatus);
     }
 };
 

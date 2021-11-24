@@ -43,12 +43,7 @@ if (
                     ].join(''),
                 });
 
-                this.splitTab.subscribe(
-                    'activeChange',
-                    this.viewForgeTab,
-                    this,
-                    true
-                );
+                this.splitTab.subscribe('activeChange', this.viewForgeTab, this, true);
 
                 return this.splitTab;
             },
@@ -83,8 +78,7 @@ if (
 
                 var emptyFirst = option.cloneNode(false);
                 emptyFirst.setAttribute('value', '');
-                emptyFirst.innerHTML =
-                    'Select plan (maximum level) &#91;time to make&#93;';
+                emptyFirst.innerHTML = 'Select plan (maximum level) &#91;time to make&#93;';
                 select.appendChild(emptyFirst);
                 make_plan.sort(function(a, b) {
                     if (a['class'] > b['class']) {
@@ -104,9 +98,7 @@ if (
                             } else {
                                 if (a.extra_build_level > b.extra_build_level) {
                                     return 1;
-                                } else if (
-                                    a.extra_build_level < b.extra_build_level
-                                ) {
+                                } else if (a.extra_build_level < b.extra_build_level) {
                                     return -1;
                                 } else {
                                     return 0;
@@ -148,9 +140,7 @@ if (
                 Event.on(button, 'click', this.MakePlan, { Self: this }, true);
             },
             MakePlan: function() {
-                var plan_class = Lib.getSelectedOptionValue(
-                        'forgeMakePlanSelect'
-                    ),
+                var plan_class = Lib.getSelectedOptionValue('forgeMakePlanSelect'),
                     level = Dom.get('forgeMakePlanLevel').value;
 
                 if (plan_class == '') {
@@ -163,7 +153,7 @@ if (
                     return;
                 }
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.make_plan(
                     {
                         session_id: Game.GetSession(),
@@ -173,12 +163,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'TheDillonForge.MakePlan.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'TheDillonForge.MakePlan.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             this.Self.result = o.result;
                             this.Self.viewForgeTab();
@@ -204,8 +190,7 @@ if (
 
                 var emptyFirst = option.cloneNode(false);
                 emptyFirst.setAttribute('value', '');
-                emptyFirst.innerHTML =
-                    'Select plan (levels) &#91;time to split&#93;';
+                emptyFirst.innerHTML = 'Select plan (levels) &#91;time to split&#93;';
                 select.appendChild(emptyFirst);
 
                 split_plan.sort(function(a, b) {
@@ -221,9 +206,7 @@ if (
                         } else {
                             if (a.extra_build_level > b.extra_build_level) {
                                 return 1;
-                            } else if (
-                                a.extra_build_level < b.extra_build_level
-                            ) {
+                            } else if (a.extra_build_level < b.extra_build_level) {
                                 return -1;
                             } else {
                                 return 0;
@@ -275,9 +258,7 @@ if (
                 Event.on(button, 'click', this.SplitPlan, { Self: this }, true);
             },
             SplitPlan: function() {
-                var selected = Lib.getSelectedOptionValue(
-                        'forgeSplitPlanSelect'
-                    ),
+                var selected = Lib.getSelectedOptionValue('forgeSplitPlanSelect'),
                     quantity = Dom.get('forgeSplitPlanQuantity').value;
 
                 if (selected == '') {
@@ -291,7 +272,7 @@ if (
                 selected = selected.split(';');
 
                 if (selected.length == 3) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.Self.service.split_plan(
                         {
                             session_id: Game.GetSession(),
@@ -303,12 +284,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'TheDillonForge.SplitPlan.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'TheDillonForge.SplitPlan.success');
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
                                 this.Self.result = o.result;
                                 this.Self.viewForgeTab();
@@ -324,13 +301,9 @@ if (
                     work = this.result.tasks.working,
                     seconds = this.result.tasks.seconds_remaining;
 
-                form.innerHTML = [
-                    '<div>',
-                    work,
-                    ' for ',
-                    Lib.formatTime(seconds),
-                    '</div>',
-                ].join('');
+                form.innerHTML = ['<div>', work, ' for ', Lib.formatTime(seconds), '</div>'].join(
+                    ''
+                );
 
                 var button = document.createElement('button');
                 button.innerHTML = 'Subsidize for ' + cost + 'E';
@@ -339,7 +312,7 @@ if (
                 Event.on(button, 'click', this.Subsidize, { Self: this }, true);
             },
             Subsidize: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.subsidize(
                     {
                         session_id: Game.GetSession(),
@@ -347,12 +320,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'TheDillonForge.Subsidize.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'TheDillonForge.Subsidize.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             this.Self.result = o.result;
                             this.Self.viewForgeTab();

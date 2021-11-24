@@ -8,8 +8,6 @@ var Draggable = require('react-draggable');
 var PanelHeader = require('js/components/window/panel/panelHeader');
 var PanelContent = require('js/components/window/panel/panelContent');
 
-var WindowActions = require('js/actions/window');
-
 class Panel extends React.Component {
     static propTypes = {
         type: PropTypes.string,
@@ -27,9 +25,7 @@ class Panel extends React.Component {
     };
 
     handleCentering = () => {
-        return (
-            ($(window.document).width() - this.props.window.options.width) / 2
-        );
+        return ($(window.document).width() - this.props.window.options.width) / 2;
     };
 
     render() {

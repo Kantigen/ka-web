@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react');
-var Reflux = require('reflux');
 var { observer } = require('mobx-react');
 
 var BodyRPCStore = require('js/stores/rpc/body');
@@ -15,7 +14,7 @@ class Map extends React.Component {
 
     componentDidUpdate() {
         // Do nothing if the menu isn't shown.
-        if (MenuStore.show === false) {
+        if (MenuStore.menuShown === false) {
             // Reset these values because we're *probably* logged out.
             this.previousMapMode = MenuStore.PLANET_MAP_MODE;
             this.previousPlanetId = '';
@@ -60,7 +59,7 @@ class Map extends React.Component {
             Lacuna.MapPlanet.MapVisible(false);
             Lacuna.MapStar.MapVisible(true);
             Lacuna.MapStar.Load();
-            // Lacuna.MapStar.Jump(this.state.bodyRPC.x, this.state.bodyRPC.y);
+            // Lacuna.MapStar.Jump(BodyRPCStoreRPC.x, BodyRPCStoreRPC.y);
 
             this.previousPlanetId = MenuStore.planetId;
             this.previousMapMode = MenuStore.mapMode;

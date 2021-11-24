@@ -4,21 +4,13 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
-
-var WindowActions = require('js/actions/window');
-var BuildingWindowActions = require('js/actions/windows/building');
-var IntelTrainingRPCActions = require('js/actions/rpc/intelTraining');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
 var SpyTrainingStatus = require('js/components/window/spyTraining/spyTrainingStatus');
-var Tabber = require('js/components/tabber');
-
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+var { Tabs, Tab } = require('js/components/tabber');
 
 var IntelTraining = createReactClass({
     displayName: 'IntelTraining',
@@ -35,13 +27,11 @@ var IntelTraining = createReactClass({
         options: PropTypes.object,
     },
 
-    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
+    // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
     componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
-        IntelTrainingRPCActions.requestIntelTrainingRPCView(
-            this.props.options.id
-        );
+        IntelTrainingRPCActions.requestIntelTrainingRPCView(this.props.options.id);
     },
 
     closeWindow: function() {

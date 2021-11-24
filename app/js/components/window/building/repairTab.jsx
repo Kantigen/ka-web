@@ -2,9 +2,6 @@
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
 var BodyRPCStore = require('js/stores/rpc/body');
@@ -15,8 +12,8 @@ var RepairTab = createReactClass({
     displayName: 'RepairTab',
 
     mixins: [
-        Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
-        Reflux.connect(BodyRPCStore, 'body'),
+        // Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
+        // Reflux.connect(BodyRPCStore, 'body'),
     ],
 
     handleClick: function() {
@@ -28,7 +25,7 @@ var RepairTab = createReactClass({
 
     render: function() {
         var building = this.state.genericBuildingStore;
-        var body = this.state.body;
+        var body = BodyRPCStore;
 
         return (
             <div className='ui grid'>
@@ -75,10 +72,7 @@ var RepairTab = createReactClass({
 
                 <div className='ui row'>
                     <div className='five wide column'>
-                        <div
-                            className='ui medium fluid green button'
-                            onClick={this.handleClick}
-                        >
+                        <div className='ui medium fluid green button' onClick={this.handleClick}>
                             Repair
                         </div>
                     </div>

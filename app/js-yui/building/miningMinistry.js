@@ -38,12 +38,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.platformTab.subscribe(
-                    'activeChange',
-                    this.viewPlatforms,
-                    this,
-                    true
-                );
+                this.platformTab.subscribe('activeChange', this.viewPlatforms, this, true);
 
                 return this.platformTab;
             },
@@ -63,12 +58,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.shipsTab.subscribe(
-                    'activeChange',
-                    this.viewShips,
-                    this,
-                    true
-                );
+                this.shipsTab.subscribe('activeChange', this.viewShips, this, true);
 
                 return this.shipsTab;
             },
@@ -96,7 +86,7 @@ if (
             viewPlatforms: function(e) {
                 if (e.newValue) {
                     if (!this.platforms) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_platforms(
                             {
                                 session_id: Game.GetSession(),
@@ -104,12 +94,8 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'MiningMinistry.view_platforms.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'MiningMinistry.view_platforms.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.platforms = {
                                         max_platforms: o.result.max_platforms,
@@ -137,11 +123,7 @@ if (
             },
 
             CapacityDescription: function(capacity) {
-                var output = [
-                    'Current production to shipping metric is ',
-                    capacity,
-                    '. ',
-                ];
+                var output = ['Current production to shipping metric is ', capacity, '. '];
                 if (capacity == -1) {
                     output.push('You have no ships servicing your platforms.');
                 } else if (capacity == 0) {
@@ -182,9 +164,7 @@ if (
                             ' platforms deployed.  This ministry can control a maximum of ',
                             this.platforms.max_platforms,
                             ' platforms. ',
-                            this.CapacityDescription(
-                                platforms[0].shipping_capacity
-                            ),
+                            this.CapacityDescription(platforms[0].shipping_capacity),
                         ].join('');
                     }
 
@@ -215,13 +195,7 @@ if (
                                 '.png" />',
                                 obj.asteroid.name,
                             ].join('');
-                            Event.on(
-                                nLi,
-                                'click',
-                                this.platformClick,
-                                obj,
-                                true
-                            );
+                            Event.on(nLi, 'click', this.platformClick, obj, true);
                             nUl.appendChild(nLi);
 
                             nLi = li.cloneNode(false);
@@ -234,9 +208,7 @@ if (
 
                             nLi = li.cloneNode(false);
                             Dom.addClass(nLi, 'platformOre');
-                            var outOre = [
-                                '<ul><li><label>Ore Per Hour:</label></li>',
-                            ];
+                            var outOre = ['<ul><li><label>Ore Per Hour:</label></li>'];
                             var total = 0;
                             for (var ore_i in ores) {
                                 var ore = ores[ore_i];
@@ -250,18 +222,12 @@ if (
                                     );
                                     outOre.push(obj[ore + '_hour']);
                                     outOre.push('</li>');
-                                    totals[ore_i] += parseInt(
-                                        obj[ore + '_hour']
-                                    );
+                                    totals[ore_i] += parseInt(obj[ore + '_hour']);
                                     total += parseInt(obj[ore + '_hour']);
                                 }
                             }
                             if (total > 0) {
-                                outOre.splice(
-                                    1,
-                                    0,
-                                    '<li><label>Total:</label> '
-                                );
+                                outOre.splice(1, 0, '<li><label>Total:</label> ');
                                 outOre.splice(2, 0, parseInt(total));
                                 outOre.splice(3, 0, '</li>');
                                 grand_total += total;
@@ -293,9 +259,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'platformOre');
-                        var outOre = [
-                            '<ul><li><label>Ore Per Hour:</label></li>',
-                        ];
+                        var outOre = ['<ul><li><label>Ore Per Hour:</label></li>'];
                         outOre.push('<li><label>Grand Total:</label> ');
                         outOre.push(parseInt(grand_total));
                         outOre.push('</li>');
@@ -340,7 +304,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     this.Self.service.abandon_platform(
                         {
@@ -355,7 +319,7 @@ if (
                                     'info',
                                     'MiningMinistry.MiningMinistryPlatformAbandon.success'
                                 );
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
                                 var platforms = this.Self.platforms.platforms;
                                 for (var i = 0; i < platforms.length; i++) {
@@ -372,7 +336,7 @@ if (
                 }
             },
             MiningMinistryShipsView: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_ships(
                     {
                         session_id: Game.GetSession(),
@@ -380,12 +344,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'MiningMinistry.MiningMinistryShipsView.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'MiningMinistry.MiningMinistryShipsView.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.ships = o.result.ships;
 
@@ -447,10 +407,7 @@ if (
                         Dom.addClass(nLi, 'shipAction');
                         var bbtn = document.createElement('button');
                         bbtn.setAttribute('type', 'button');
-                        bbtn.innerHTML =
-                            ship.task == 'Docked'
-                                ? 'Start Mining'
-                                : 'Stop Mining';
+                        bbtn.innerHTML = ship.task == 'Docked' ? 'Start Mining' : 'Stop Mining';
                         bbtn = nLi.appendChild(bbtn);
                         nUl.appendChild(nLi);
 
@@ -487,7 +444,7 @@ if (
                 }
             },
             MiningMinistryShipsAdd: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.add_cargo_ship_to_fleet(
                     {
@@ -497,12 +454,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'MiningMinistry.MiningMinistryShipsAdd.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'MiningMinistry.MiningMinistryShipsAdd.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.MiningMinistryShipsView();
                             delete this.platforms; //reset platforms so we geto the new correct info
@@ -512,7 +465,7 @@ if (
                 );
             },
             MiningMinistryShipsRemove: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.remove_cargo_ship_from_fleet(
                     {
@@ -527,7 +480,7 @@ if (
                                 'info',
                                 'MiningMinistry.MiningMinistryShipsRemove.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.MiningMinistryShipsView();
                             delete this.platforms; //reset platforms so we go get the new correct info
@@ -542,7 +495,7 @@ if (
                         'Are you sure you want to abandon all platforms controlled by this Mining Ministry?'
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.mass_abandon_platform(
                         {
                             session_id: Game.GetSession(),
@@ -555,7 +508,7 @@ if (
                                     'info',
                                     'Observatory.AbandonAllPlatforms.mass_abandon_platform.success'
                                 );
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.probes = null;
 

@@ -85,7 +85,7 @@ if (
                             'You must specify an amount greater than zero.';
                         Lib.fadeOutElm('dumpMessage');
                     } else {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.dump(
                             {
                                 session_id: Game.GetSession(),
@@ -94,20 +94,14 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'WaterStorage.Dump.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'WaterStorage.Dump.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     if (this.dumpTab) {
                                         var ce = this.dumpTab.get('contentEl');
                                         Event.purgeElement(ce);
                                         ce.innerHTML = '';
-                                        ce.appendChild(
-                                            this.DumpGetDisplay(o.result.dump)
-                                        );
+                                        ce.appendChild(this.DumpGetDisplay(o.result.dump));
                                         Dom.get('dumpMessage').innerHTML =
                                             'Successfully converted ' +
                                             Lib.formatNumber(amount) +

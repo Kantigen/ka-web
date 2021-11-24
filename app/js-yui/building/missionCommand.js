@@ -46,11 +46,7 @@ if (
                             if (mHt > 300) {
                                 mHt = 300;
                             }
-                            Dom.setStyle(
-                                Dom.get('missionsHt'),
-                                'height',
-                                mHt + 'px'
-                            );
+                            Dom.setStyle(Dom.get('missionsHt'), 'height', mHt + 'px');
                         }
                     },
                     this,
@@ -60,7 +56,7 @@ if (
             },
             getMissions: function() {
                 if (!this.missions) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_missions(
                         {
                             session_id: Game.GetSession(),
@@ -68,7 +64,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.missions = o.result.missions;
                                 this.displayMissions();
@@ -196,7 +192,7 @@ if (
             completeMission: function() {
                 var btn = Dom.get('complete' + this.Mission.id);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.complete_mission(
                     {
                         session_id: Game.GetSession(),
@@ -205,7 +201,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             this.Self.missions = undefined;
@@ -221,7 +217,7 @@ if (
             skipMission: function() {
                 var btn = Dom.get('skip' + this.Mission.id);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.skip_mission(
                     {
                         session_id: Game.GetSession(),
@@ -230,7 +226,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             this.Self.missions = undefined;

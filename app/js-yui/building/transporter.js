@@ -58,18 +58,8 @@ if (
                     'onLoad',
                     function() {
                         this.getStoredResources();
-                        this.mine.subscribe(
-                            'activeChange',
-                            this.getMine,
-                            this,
-                            true
-                        );
-                        this.avail.subscribe(
-                            'activeChange',
-                            this.getAvailable,
-                            this,
-                            true
-                        );
+                        this.mine.subscribe('activeChange', this.getMine, this, true);
+                        this.avail.subscribe('activeChange', this.getAvailable, this, true);
                         this.push.subscribe(
                             'activeChange',
                             function(e) {
@@ -107,10 +97,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradePushGlyphName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradePushGlyphName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradePushGlyphName',
@@ -134,10 +122,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradePushPlanName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradePushPlanName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradePushPlanName',
@@ -161,10 +147,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradePushShipName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradePushShipName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradePushShipName',
@@ -255,10 +239,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradeAddGlyphName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradeAddGlyphName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradeAddGlyphName',
@@ -282,10 +264,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradeAddPlanName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradeAddPlanName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradeAddPlanName',
@@ -309,10 +289,8 @@ if (
                                             'click',
                                             function() {
                                                 if (
-                                                    Dom.getStyle(
-                                                        'tradeAddShipName',
-                                                        'display'
-                                                    ) == 'none'
+                                                    Dom.getStyle('tradeAddShipName', 'display') ==
+                                                    'none'
                                                 ) {
                                                     Dom.setStyle(
                                                         'tradeAddShipName',
@@ -412,12 +390,7 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadResources',
-                    this.populateOneForOneHave,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadResources', this.populateOneForOneHave, this, true);
 
                 Event.onAvailable(
                     'transporterOneForOneWant',
@@ -430,17 +403,13 @@ if (
                             if (Lib.ResourceTypes.hasOwnProperty(r)) {
                                 var resource = Lib.ResourceTypes[r];
                                 if (Lang.isArray(resource)) {
-                                    optGroup = document.createElement(
-                                        'optgroup'
-                                    );
+                                    optGroup = document.createElement('optgroup');
                                     optGroup.label = r.titleCaps();
 
                                     for (var x = 0; x < resource.length; x++) {
                                         nOpt = opt.cloneNode(false);
                                         nOpt.value = resource[x];
-                                        nOpt.innerHTML = resource[
-                                            x
-                                        ].titleCaps();
+                                        nOpt.innerHTML = resource[x].titleCaps();
                                         optGroup.appendChild(nOpt);
                                     }
 
@@ -457,13 +426,7 @@ if (
                     this,
                     true
                 );
-                Event.on(
-                    'transporterOneForOneTrade',
-                    'click',
-                    this.Trade,
-                    this,
-                    true
-                );
+                Event.on('transporterOneForOneTrade', 'click', this.Trade, this, true);
 
                 return this.oneForOne;
             },
@@ -497,36 +460,11 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadResources',
-                    this.populatePushResourceName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadGlyphs',
-                    this.populatePushGlyphName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPlans',
-                    this.populatePushPlanName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadShips',
-                    this.populatePushShipName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPrisoners',
-                    this.populatePushPrisonerName,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadResources', this.populatePushResourceName, this, true);
+                this.subscribe('onLoadGlyphs', this.populatePushGlyphName, this, true);
+                this.subscribe('onLoadPlans', this.populatePushPlanName, this, true);
+                this.subscribe('onLoadShips', this.populatePushShipName, this, true);
+                this.subscribe('onLoadPrisoners', this.populatePushPrisonerName, this, true);
                 var This = this;
 
                 Event.onAvailable('tradePushColony', function() {
@@ -537,8 +475,7 @@ if (
                         var nOpt = opt.cloneNode(false);
                         var b = planets[p];
                         nOpt.value = b.id;
-                        nOpt.innerHTML =
-                            b.name + ' (' + b.x + ',' + b.y + '): ' + b.zone;
+                        nOpt.innerHTML = b.name + ' (' + b.x + ',' + b.y + '): ' + b.zone;
                         this.appendChild(nOpt);
                     }
                 });
@@ -584,14 +521,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'tradePushItems',
-                    'click',
-                    this.PushRemove,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('tradePushItems', 'click', this.PushRemove, 'button', this, true);
 
                 Event.on('tradePushSend', 'click', this.Push, this, true);
 
@@ -680,36 +610,11 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadResources',
-                    this.populateAddResourceName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadGlyphs',
-                    this.populateAddGlyphName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPlans',
-                    this.populateAddPlanName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPrisoners',
-                    this.populateAddPrisonerName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadShips',
-                    this.populateAddShipName,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadResources', this.populateAddResourceName, this, true);
+                this.subscribe('onLoadGlyphs', this.populateAddGlyphName, this, true);
+                this.subscribe('onLoadPlans', this.populateAddPlanName, this, true);
+                this.subscribe('onLoadPrisoners', this.populateAddPrisonerName, this, true);
+                this.subscribe('onLoadShips', this.populateAddShipName, this, true);
 
                 Event.delegate(
                     'tradeAddResourceName',
@@ -719,30 +624,9 @@ if (
                     this,
                     true
                 );
-                Event.delegate(
-                    'tradeAddGlyphName',
-                    'click',
-                    this.AddGlyph,
-                    'button',
-                    this,
-                    true
-                );
-                Event.delegate(
-                    'tradeAddPlanName',
-                    'click',
-                    this.AddPlan,
-                    'button',
-                    this,
-                    true
-                );
-                Event.delegate(
-                    'tradeAddShipName',
-                    'click',
-                    this.AddShip,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('tradeAddGlyphName', 'click', this.AddGlyph, 'button', this, true);
+                Event.delegate('tradeAddPlanName', 'click', this.AddPlan, 'button', this, true);
+                Event.delegate('tradeAddShipName', 'click', this.AddShip, 'button', this, true);
                 Event.delegate(
                     'tradeAddPrisonerName',
                     'click',
@@ -752,14 +636,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'tradeAddItems',
-                    'click',
-                    this.AddRemove,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('tradeAddItems', 'click', this.AddRemove, 'button', this, true);
 
                 Event.on('tradeAdd', 'click', this.AddTrade, this, true);
                 return this.add;
@@ -799,12 +676,9 @@ if (
                             } else if (this.resources[r] && resource) {
                                 nOpt = opt.cloneNode(false);
                                 nOpt.value = r;
-                                nOpt.innerHTML = [
-                                    r.titleCaps(),
-                                    ' (',
-                                    this.resources[r],
-                                    ')',
-                                ].join('');
+                                nOpt.innerHTML = [r.titleCaps(), ' (', this.resources[r], ')'].join(
+                                    ''
+                                );
                                 elm.appendChild(nOpt);
                             }
                         }
@@ -815,12 +689,8 @@ if (
                 var data = {
                     session_id: Game.GetSession(''),
                     building_id: this.building.id,
-                    have: Lib.getSelectedOptionValue(
-                        Dom.get('transporterOneForOneHave')
-                    ),
-                    want: Lib.getSelectedOptionValue(
-                        Dom.get('transporterOneForOneWant')
-                    ),
+                    have: Lib.getSelectedOptionValue(Dom.get('transporterOneForOneHave')),
+                    want: Lib.getSelectedOptionValue(Dom.get('transporterOneForOneWant')),
                     quantity: Dom.get('transporterOneForOneQuantity').value * 1,
                 };
 
@@ -831,10 +701,7 @@ if (
                         ', which is the maximum for this level transporter.',
                     ].join('');
                     Lib.fadeOutElm('transporterOneForOneMessage');
-                } else if (
-                    data.quantity < 0 ||
-                    data.quantity > this.resources[data.have] * 1
-                ) {
+                } else if (data.quantity < 0 || data.quantity > this.resources[data.have] * 1) {
                     Dom.get('transporterOneForOneMessage').innerHTML =
                         'Quantity must be greater than 0 and less than or equal to the resources you have on hand.';
                     Lib.fadeOutElm('transporterOneForOneMessage');
@@ -843,15 +710,11 @@ if (
                         success: function(o) {
                             YAHOO.log(o, 'info', 'Transporter.Trade.success');
                             this.rpcSuccess(o);
-                            Dom.get(
-                                'transporterOneForOneHave'
-                            ).selectedIndex = -1;
-                            Dom.get(
-                                'transporterOneForOneWant'
-                            ).selectedIndex = -1;
+                            Dom.get('transporterOneForOneHave').selectedIndex = -1;
+                            Dom.get('transporterOneForOneWant').selectedIndex = -1;
                             Dom.get('transporterOneForOneQuantity').value = '';
                             this.getStoredResources(true);
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     });
@@ -860,7 +723,7 @@ if (
 
             getGlyphs: function(force) {
                 if (force || !this.glyphs) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_glyph_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -872,7 +735,7 @@ if (
                                 this.glyphs = o.result.glyphs;
                                 this.glyphSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadGlyphs');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -881,7 +744,7 @@ if (
             },
             getPlans: function(force) {
                 if (force || !this.plans) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_plan_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -893,7 +756,7 @@ if (
                                 this.plans = o.result.plans;
                                 this.planSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadPlans');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -902,7 +765,7 @@ if (
             },
             getPrisoners: function(force) {
                 if (force || !this.prisoners) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_prisoners(
                         {
                             session_id: Game.GetSession(''),
@@ -914,7 +777,7 @@ if (
                                 this.prisoners = o.result.prisoners;
                                 this.spySize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadPrisoners');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -923,7 +786,7 @@ if (
             },
             getShips: function(force) {
                 if (force || !this.ships) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_ship_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -935,7 +798,7 @@ if (
                                 this.ships = o.result.ships;
                                 this.shipSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadShips');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -944,7 +807,7 @@ if (
             },
             getStoredResources: function(force) {
                 if (force || !this.resources) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_stored_resources(
                         {
                             session_id: Game.GetSession(''),
@@ -955,7 +818,7 @@ if (
                                 this.rpcSuccess(o);
                                 this.resources = o.result.resources;
                                 this.fireEvent('onLoadResources');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -965,7 +828,7 @@ if (
 
             getAvailable: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     var data = {
                             session_id: Game.GetSession(),
                             building_id: this.building.id,
@@ -977,12 +840,8 @@ if (
                     }
                     this.service.view_market(data, {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.view_available_trades.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -992,8 +851,7 @@ if (
                                 rowsPerPage: 25,
                                 totalRecords: o.result.trade_count,
                                 containers: 'tradeAvailablePaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.availablePager.subscribe(
@@ -1034,19 +892,12 @@ if (
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeEmpire');
                         nLi.innerHTML = trade.empire.name;
-                        Event.on(
-                            nLi,
-                            'click',
-                            this.EmpireProfile,
-                            trade.empire
-                        );
+                        Event.on(nLi, 'click', this.EmpireProfile, trade.empire);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatServerDateTimeShort(
-                            trade.date_offered
-                        );
+                        nLi.innerHTML = Lib.formatServerDateTimeShort(trade.date_offered);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1116,7 +967,7 @@ if (
                 }
             },
             AvailableHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var data = {
                         session_id: Game.GetSession(),
                         building_id: this.building.id,
@@ -1128,12 +979,8 @@ if (
                 }
                 this.service.view_market(data, {
                     success: function(o) {
-                        YAHOO.log(
-                            o,
-                            'info',
-                            'Trade.view_available_trades.success'
-                        );
-                        require('js/actions/menu/loader').hide();
+                        YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                        require('js/stores/menu').hideLoader();
                         this.rpcSuccess(o);
 
                         delete o.result.status; //get rid of status after we process it, since it's big
@@ -1148,7 +995,7 @@ if (
                 this.availablePager.setState(newState);
             },
             AvailableAccept: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.accept_from_market(
                     {
                         session_id: Game.GetSession(''),
@@ -1161,14 +1008,14 @@ if (
                             this.Self.rpcSuccess(o);
                             //force get the new availabe list after accepting so we get a new captcha
                             this.Self.getAvailable({ newValue: true });
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     }
                 );
             },
             AvailableReport: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.report_abuse(
                     {
                         session_id: Game.GetSession(''),
@@ -1177,17 +1024,13 @@ if (
                     },
                     {
                         success: function(o) {
-                            var btn = Sel.query(
-                                '.reportAbuse',
-                                this.Line,
-                                true
-                            );
+                            var btn = Sel.query('.reportAbuse', this.Line, true);
                             if (btn) {
                                 Event.purgeElement(btn);
                                 btn.parentNode.removeChild(btn);
                             }
                             this.Self.rpcSuccess(o);
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     }
@@ -1200,7 +1043,7 @@ if (
             //View Mine
             getMine: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_my_market(
                         {
                             session_id: Game.GetSession(),
@@ -1209,12 +1052,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.view_my_trades.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Trade.view_my_trades.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
                                 delete o.result.status; //get rid of status after we process it, since it's big
@@ -1224,8 +1063,7 @@ if (
                                     rowsPerPage: 25,
                                     totalRecords: o.result.trade_count,
                                     containers: 'tradeMinePaginator',
-                                    template:
-                                        '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                    template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                     alwaysVisible: false,
                                 });
                                 this.minePage.subscribe(
@@ -1265,9 +1103,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatServerDateTimeShort(
-                            trade.date_offered
-                        );
+                        nLi.innerHTML = Lib.formatServerDateTimeShort(trade.date_offered);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1317,7 +1153,7 @@ if (
                 }
             },
             MineHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_my_market(
                     {
                         session_id: Game.GetSession(),
@@ -1326,12 +1162,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.view_available_trades.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -1358,7 +1190,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.Self.service.withdraw_from_market(
                         {
                             session_id: Game.GetSession(''),
@@ -1367,11 +1199,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.withdraw_trade.success'
-                                );
+                                YAHOO.log(o, 'info', 'Trade.withdraw_trade.success');
                                 this.Self.rpcSuccess(o);
                                 var trades = this.Self.mineTrades.trades;
                                 for (var i = 0; i < trades.length; i++) {
@@ -1381,7 +1209,7 @@ if (
                                     }
                                 }
                                 this.Line.parentNode.removeChild(this.Line);
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
 
                                 this.Self.getStoredResources(true);
                                 this.Self.getPlans(true);
@@ -1608,12 +1436,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         if (quantity > li.Resource.quantity) {
                             quantity = li.Resource.quantity;
@@ -1685,12 +1509,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1700,9 +1520,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.glyphSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.glyphSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1760,12 +1578,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1775,9 +1589,7 @@ if (
                             function() {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.planSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.planSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1857,12 +1669,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1872,9 +1680,7 @@ if (
                             function() {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.shipSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.shipSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1939,12 +1745,8 @@ if (
                         id = 'addPrisoner-' + gId;
                     if (Sel.query('#' + id, c).length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1979,9 +1781,7 @@ if (
                     }
 
                     if (newTotal == 0) {
-                        this.updateAddCargo(
-                            li.Object.quantity * -1 * li.Object.size
-                        );
+                        this.updateAddCargo(li.Object.quantity * -1 * li.Object.size);
                         Event.purgeElement(li);
                         li.parentNode.removeChild(li);
                     } else {
@@ -2044,7 +1844,7 @@ if (
                     }
                 }
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.add_to_market(data, {
                     success: function(o) {
                         this.rpcSuccess(o);
@@ -2072,7 +1872,7 @@ if (
                         Dom.get('tradeAddAskingQuantity').value = '';
                         Dom.get('tradeAddCargo').innerHTML = '0';
                         this.fireEvent('onSelectTab', this.mineTabIndex);
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -2292,12 +2092,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         if (quantity > li.Resource.quantity) {
                             quantity = li.Resource.quantity;
@@ -2368,12 +2164,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2383,9 +2175,7 @@ if (
                             function() {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.glyphSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.glyphSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2444,12 +2234,8 @@ if (
 
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2459,9 +2245,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.planSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.planSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2541,12 +2325,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2556,9 +2336,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.shipSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.shipSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2622,12 +2400,8 @@ if (
                         id = 'pushPrisoner-' + gId;
                     if (Sel.query('#' + id, c).length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2682,9 +2456,7 @@ if (
                 var data = {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        target_id: Lib.getSelectedOptionValue(
-                            Dom.get('tradePushColony')
-                        ),
+                        target_id: Lib.getSelectedOptionValue(Dom.get('tradePushColony')),
                     },
                     lis = Sel.query('li', 'tradePushItems'),
                     items = [],
@@ -2719,11 +2491,10 @@ if (
                 data.items = items;
 
                 if (data.items.length == 0) {
-                    Dom.get('tradePushMessage').innerHTML =
-                        'Must add items to send to colony.';
+                    Dom.get('tradePushMessage').innerHTML = 'Must add items to send to colony.';
                 } else {
                     Dom.get('tradePushMessage').innerHTML = '';
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.push_items(data, {
                         success: function(o) {
                             this.rpcSuccess(o);
@@ -2756,13 +2527,11 @@ if (
                             var msg = Dom.get('tradePushMessage');
                             msg.innerHTML = [
                                 'Successfully pushed to ',
-                                Lib.getSelectedOption(
-                                    Dom.get('tradePushColony')
-                                ).innerHTML,
+                                Lib.getSelectedOption(Dom.get('tradePushColony')).innerHTML,
                                 '.',
                             ].join('');
                             Lib.fadeOutElm('tradePushMessage');
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     });

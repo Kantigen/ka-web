@@ -21,9 +21,7 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
                     Dom.addClass(container, Lib.Styles.HIDDEN);
                     Dom.addClass(container, 'nofooter');
                     container.innerHTML = this._getHtml();
-                    document
-                        .getElementById('oldYUIPanelContainer')
-                        .appendChild(container);
+                    document.getElementById('oldYUIPanelContainer').appendChild(container);
 
                     this.Display = new YAHOO.widget.Panel('notify', {
                         constraintoviewport: true,
@@ -36,13 +34,13 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
                         width: '180px',
                         zIndex: 20000,
                     });
-                    var self = this; // Please, no... :'(
                     this.Display.renderEvent.subscribe(function() {
                         this.notifyList = Dom.get('notifyList');
                         this.notify = Dom.get('notify');
 
                         // Listen for new data.
-                        BodyRPCStore.listen(self.update, self);
+                        // TODO: figure out how to do this
+                        // BodyRPCStore.listen(self.update, self);
 
                         Dom.removeClass(this.notify, Lib.Styles.HIDDEN);
                     });
@@ -97,8 +95,7 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
                         if (ms > 0) {
                             arrTime = Lib.formatMillisecondTime(ms);
                         } else {
-                            arrTime =
-                                'Overdue ' + Lib.formatMillisecondTime(-ms);
+                            arrTime = 'Overdue ' + Lib.formatMillisecondTime(-ms);
                         }
                         arr = arr.concat([
                             '<li><span style="color:#fff;">',
@@ -121,8 +118,7 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
                         if (ms > 0) {
                             arrTime = Lib.formatMillisecondTime(ms);
                         } else {
-                            arrTime =
-                                'Overdue ' + Lib.formatMillisecondTime(-ms);
+                            arrTime = 'Overdue ' + Lib.formatMillisecondTime(-ms);
                         }
                         arr = arr.concat([
                             '<li><span style="color:#b0b;">',
@@ -145,8 +141,7 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
                         if (ms > 0) {
                             arrTime = Lib.formatMillisecondTime(ms);
                         } else {
-                            arrTime =
-                                'Overdue ' + Lib.formatMillisecondTime(-ms);
+                            arrTime = 'Overdue ' + Lib.formatMillisecondTime(-ms);
                         }
                         arr = arr.concat([
                             '<li><span style="color:#0f0;">',
@@ -158,12 +153,7 @@ if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
 
                 list.innerHTML = arr.join('');
 
-                if (
-                    num_incoming_own +
-                        num_incoming_ally +
-                        num_incoming_enemy ===
-                    0
-                ) {
+                if (num_incoming_own + num_incoming_ally + num_incoming_enemy === 0) {
                     this.Display.hide();
                 } else {
                     this.Display.show();

@@ -22,10 +22,7 @@ if (
 
         Lang.extend(Development, Lacuna.buildings.Building, {
             getChildTabs: function() {
-                if (
-                    this.result.build_queue &&
-                    this.result.build_queue.length > 0
-                ) {
+                if (this.result.build_queue && this.result.build_queue.length > 0) {
                     return [this._getQueueTab()];
                 }
             },
@@ -127,11 +124,7 @@ if (
 
                     div.appendChild(nUl);
 
-                    this.addQueue(
-                        bqo.seconds_remaining,
-                        this.DevMinistryQueue,
-                        tLi
-                    );
+                    this.addQueue(bqo.seconds_remaining, this.DevMinistryQueue, tLi);
                 }
 
                 var tab = new YAHOO.widget.Tab({
@@ -155,7 +148,7 @@ if (
             },
 
             DevCancelAll: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.cancel_build(
                     {
                         args: {
@@ -166,17 +159,11 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Development.DevCancelAll.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Development.DevCancelAll.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             if (this.queueTab) {
-                                Event.purgeElement(
-                                    this.queueTab.get('contentEl')
-                                );
+                                Event.purgeElement(this.queueTab.get('contentEl'));
                                 this.removeTab(this.queueTab);
                             }
                             this.fireEvent('onHide');
@@ -188,7 +175,7 @@ if (
             },
 
             DevCancelOneBuild: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.cancel_build(
                     {
@@ -200,17 +187,11 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Development.DevCancelOneBuild.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Development.DevCancelOneBuild.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             if (this.Self.queueTab) {
-                                Event.purgeElement(
-                                    this.Self.queueTab.get('contentEl')
-                                );
+                                Event.purgeElement(this.Self.queueTab.get('contentEl'));
                                 this.Self.removeTab(this.Self.queueTab);
                             }
                             this.Self.fireEvent('onHide');
@@ -222,7 +203,7 @@ if (
             },
 
             DevSubsidizeOneBuild: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.subsidize_one_build(
                     {
@@ -234,20 +215,13 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Development.DevSubsidizeOneBuild.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Development.DevSubsidizeOneBuild.success');
+                            require('js/stores/menu').hideLoader();
                             var e = Game.EmpireData.essentia * 1;
-                            Game.EmpireData.essentia =
-                                e - o.result.essentia_spent * 1;
+                            Game.EmpireData.essentia = e - o.result.essentia_spent * 1;
                             this.Self.rpcSuccess(o);
                             if (this.Self.queueTab) {
-                                Event.purgeElement(
-                                    this.Self.queueTab.get('contentEl')
-                                );
+                                Event.purgeElement(this.Self.queueTab.get('contentEl'));
                                 this.Self.removeTab(this.Self.queueTab);
                             }
                             this.Self.fireEvent('onHide');
@@ -259,7 +233,7 @@ if (
             },
 
             DevSubsidize: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.subsidize_build_queue(
                     {
@@ -268,21 +242,14 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Development.DevSubsidize.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Development.DevSubsidize.success');
+                            require('js/stores/menu').hideLoader();
                             var e = Game.EmpireData.essentia * 1;
-                            Game.EmpireData.essentia =
-                                e - o.result.essentia_spent * 1;
+                            Game.EmpireData.essentia = e - o.result.essentia_spent * 1;
                             this.rpcSuccess(o);
 
                             if (this.queueTab) {
-                                Event.purgeElement(
-                                    this.queueTab.get('contentEl')
-                                );
+                                Event.purgeElement(this.queueTab.get('contentEl'));
                                 this.removeTab(this.queueTab);
                             }
 

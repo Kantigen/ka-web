@@ -2,9 +2,6 @@
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var WindowActions = require('js/actions/window');
 
 var ServerRPCStore = require('js/stores/rpc/server');
 var TickerStore = require('js/stores/ticker');
@@ -20,10 +17,7 @@ var ServerClock = createReactClass({
         },
     },
 
-    mixins: [
-        Reflux.connect(TickerStore, 'ticker'),
-        Reflux.connect(ServerRPCStore, 'serverRPC'),
-    ],
+    // mixins: [Reflux.connect(TickerStore, 'ticker'), Reflux.connect(ServerRPCStore, 'serverRPC')],
 
     closeWindow: function() {
         WindowActions.windowCloseByType('serverclock');
@@ -38,13 +32,13 @@ var ServerClock = createReactClass({
                             <td>
                                 <strong>Server</strong>
                             </td>
-                            <td>{this.state.serverRPC.serverFormattedTime}</td>
+                            <td>{ServerRPCStoreRPC.serverFormattedTime}</td>
                         </tr>
                         <tr>
                             <td>
                                 <strong>Client</strong>
                             </td>
-                            <td>{this.state.serverRPC.clientFormattedTime}</td>
+                            <td>{ServerRPCStoreRPC.clientFormattedTime}</td>
                         </tr>
                         <tr>
                             <td>

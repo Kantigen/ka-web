@@ -1,7 +1,5 @@
 YAHOO.namespace('lacuna.buildings');
 
-var MapActions = require('js/actions/menu/map');
-
 var EmpireRPCStore = require('js/stores/rpc/empire');
 var BodyRPCStore = require('js/stores/rpc/body');
 
@@ -41,7 +39,7 @@ if (
                 return [this._getPlanTab(), this._getResourcesTab(), this._getNotesTab()];
             },
             _getPlanetTab: function() {
-                var planet = this.result.planet;
+                var planet = BodyRPCStore;
                 var details = function(type, imgclass) {
                     var Type = Lib.capitalizeFirstLetter(type);
                     var stored = planet[type + '_stored'] || planet[type];
@@ -113,34 +111,34 @@ if (
                         Lib.formatNumber(planet.population),
                         '</li>',
                         '            <li title="',
-                        Lib.formatNumber(this.result.next_colony_cost),
+                        Lib.formatNumber(BodyRPCStore.next_colony_cost),
                         '"><label>Next Colony Cost:</label>',
-                        Lib.convertNumDisplay(this.result.next_colony_cost),
+                        Lib.convertNumDisplay(BodyRPCStore.next_colony_cost),
                         '<span class="smallImg"><img src="',
                         Lib.AssetUrl,
                         'ui/s/happiness.png" /></span></li>',
                         '            <li title="',
-                        Lib.formatNumber(this.result.next_colony_srcs),
+                        Lib.formatNumber(BodyRPCStore.next_colony_srcs),
                         '"><label>Next <span title="Short Range Colony Ship">SRCS</span> Cost:</label>',
-                        Lib.convertNumDisplay(this.result.next_colony_srcs),
+                        Lib.convertNumDisplay(BodyRPCStore.next_colony_srcs),
                         '<span class="smallImg"><img src="',
                         Lib.AssetUrl,
                         'ui/s/happiness.png" /></span></li>',
-                        this.result.next_station_cost
+                        BodyRPCStore.next_station_cost
                             ? [
                                   '<li title="',
-                                  Lib.formatNumber(this.result.next_station_cost),
+                                  Lib.formatNumber(BodyRPCStore.next_station_cost),
                                   '"><label>Next Station Cost:</label>',
-                                  Lib.convertNumDisplay(this.result.next_station_cost),
+                                  Lib.convertNumDisplay(BodyRPCStore.next_station_cost),
                                   '<span class="smallImg"><img src="',
                                   Lib.AssetUrl,
                                   'ui/s/happiness.png" /></span></li>',
                               ].join('')
                             : '',
                         '            <li title="',
-                        Lib.formatNumber(this.result.insurrect_value),
+                        Lib.formatNumber(BodyRPCStore.insurrect_value),
                         '"><label>Insurrect Value:</label>',
-                        Lib.convertNumDisplay(this.result.insurrect_value),
+                        Lib.convertNumDisplay(BodyRPCStore.insurrect_value),
                         '<span class="smallImg"><img src="',
                         Lib.AssetUrl,
                         'ui/s/happiness.png" /></span></li>',
@@ -223,7 +221,7 @@ if (
                     function(e) {
                         if (e.newValue) {
                             if (!this.plans) {
-                                require('js/actions/menu/loader').show();
+                                require('js/stores/menu').showLoader();
                                 this.service.view_plans(
                                     {
                                         session_id: Game.GetSession(),
@@ -231,7 +229,7 @@ if (
                                     },
                                     {
                                         success: function(o) {
-                                            require('js/actions/menu/loader').hide();
+                                            require('js/stores/menu').hideLoader();
                                             this.rpcSuccess(o);
                                             this.plans = o.result.plans;
 
@@ -255,20 +253,20 @@ if (
                 var food_items = '',
                     foods = Lib.ResourceTypes.food;
 
-                for (x = 0; x < foods.length; x++) {
-                    food = foods[x];
+                for (var x = 0; x < foods.length; x++) {
+                    var food = foods[x];
 
                     food_items += [
                         '<li><label>',
                         food.titleCaps(),
                         '</label><span class="pcStored" title="',
-                        Lib.formatNumber(this.result.food[food + '_stored']),
+                        Lib.formatNumber(BodyRPCStore[food + '_stored']),
                         '">',
-                        Lib.convertNumDisplay(this.result.food[food + '_stored']),
+                        Lib.convertNumDisplay(BodyRPCStore[food + '_stored']),
                         '</span> @ <span class="pcPerHour" title="',
-                        Lib.formatNumber(this.result.food[food + '_hour']),
+                        Lib.formatNumber(BodyRPCStore[food + '_hour']),
                         '">',
-                        Lib.convertNumDisplay(this.result.food[food + '_hour']),
+                        Lib.convertNumDisplay(BodyRPCStore[food + '_hour']),
                         '</span>/hr</li>',
                     ].join('');
                 }
@@ -276,43 +274,43 @@ if (
                 var ore_items = '',
                     ores = Lib.ResourceTypes.ore;
 
-                for (x = 0; x < ores.length; x++) {
-                    ore = ores[x];
+                for (var x = 0; x < ores.length; x++) {
+                    var ore = ores[x];
 
                     ore_items += [
                         '<li><label>',
                         ore.titleCaps(),
                         '</label><span class="pcStored" title="',
-                        Lib.formatNumber(this.result.ore[ore + '_stored']),
+                        Lib.formatNumber(BodyRPCStore[ore + '_stored']),
                         '">',
-                        Lib.convertNumDisplay(this.result.ore[ore + '_stored']),
+                        Lib.convertNumDisplay(BodyRPCStore[ore + '_stored']),
                         '</span> @ <span class="pcPerHour" title="',
-                        Lib.formatNumber(this.result.ore[ore + '_hour']),
+                        Lib.formatNumber(BodyRPCStore[ore + '_hour']),
                         '">',
-                        Lib.convertNumDisplay(this.result.ore[ore + '_hour']),
+                        Lib.convertNumDisplay(BodyRPCStore[ore + '_hour']),
                         '</span>/hr</li>',
                     ].join('');
                 }
                 ore_items += [
                     '<li><label>Water</label><span class="pcStored" title="',
-                    Lib.formatNumber(this.result.planet.water_stored),
+                    Lib.formatNumber(BodyRPCStore.water_stored),
                     '">',
-                    Lib.convertNumDisplay(this.result.planet.water_stored),
+                    Lib.convertNumDisplay(BodyRPCStore.water_stored),
                     '</span> @ <span class="pcPerHour" title="',
-                    Lib.formatNumber(this.result.planet.water_hour),
+                    Lib.formatNumber(BodyRPCStore.water_hour),
                     '">',
-                    Lib.convertNumDisplay(this.result.planet.water_hour),
+                    Lib.convertNumDisplay(BodyRPCStore.water_hour),
                     '</span>/hr</li>',
                 ].join('');
                 ore_items += [
                     '<li><label>Energy</label><span class="pcStored" title="',
-                    Lib.formatNumber(this.result.planet.energy_stored),
+                    Lib.formatNumber(BodyRPCStore.energy_stored),
                     '">',
-                    Lib.convertNumDisplay(this.result.planet.energy_stored),
+                    Lib.convertNumDisplay(BodyRPCStore.energy_stored),
                     '</span> @ <span class="pcPerHour" title="',
-                    Lib.formatNumber(this.result.planet.energy_hour),
+                    Lib.formatNumber(BodyRPCStore.energy_hour),
                     '">',
-                    Lib.convertNumDisplay(this.result.planet.energy_hour),
+                    Lib.convertNumDisplay(BodyRPCStore.energy_hour),
                     '</span>/hr</li>',
                 ].join('');
 
@@ -359,7 +357,7 @@ if (
             Abandon: function() {
                 var cp = Game.GetCurrentPlanet();
                 if (confirm(['Are you sure you want to abandon ', cp.name, '?'].join(''))) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     Game.Services.Body.abandon(
                         {
                             session_id: Game.GetSession(''),
@@ -406,10 +404,10 @@ if (
                                 this.fireEvent('onHide');
 
                                 // Go to home planet.
-                                var home = EmpireRPCStore.getData().home_planet_id;
+                                var home = EmpireRPCStore.home_planet_id;
                                 MenuStore.changePlanet(home);
 
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -441,9 +439,7 @@ if (
                                 Dom.get('commandPlanetNewName').value = '';
                                 Dom.get('commandPlanetCurrentName').innerHTML = newName;
                                 Game.EmpireData.planets[planetId].name = newName;
-                                var data = BodyRPCStore.getData();
-                                data.name = newName;
-                                BodyRPCStore.setState(data);
+                                BodyRPCStore.name = newName;
 
                                 if (Lacuna.MapStar._map) {
                                     Lacuna.MapStar._map.tileCache[cp.x][cp.y].name = newName; // Change the name in the cache
@@ -472,7 +468,7 @@ if (
             SaveColonyNotes: function() {
                 var cp = Game.GetCurrentPlanet();
                 var notes = Dom.get('pccNotesText').value;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Body.set_colony_notes(
                     {
                         session_id: Game.GetSession(''),
@@ -481,7 +477,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                     }
                 );

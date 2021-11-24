@@ -4,7 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 
 var constants = require('js/constants');
 
@@ -28,9 +27,7 @@ var OwnFleetsTab = createReactClass({
         };
     },
 
-    mixins: [
-        Reflux.connect(ViewAllFleetsSpacePortRPCStore, 'viewAllFleetsStore'),
-    ],
+    // mixins: [Reflux.connect(ViewAllFleetsSpacePortRPCStore, 'viewAllFleetsStore')],
 
     handleTaskChange: function(e) {
         this.setState({
@@ -61,9 +58,7 @@ var OwnFleetsTab = createReactClass({
         var renderFleetTypes = [];
         for (var prop in fleetTypes) {
             if (fleetTypes.hasOwnProperty(prop)) {
-                renderFleetTypes.push(
-                    <option value={prop}>{fleetTypes[prop]}</option>
-                );
+                renderFleetTypes.push(<option value={prop}>{fleetTypes[prop]}</option>);
             }
         }
 
@@ -71,9 +66,7 @@ var OwnFleetsTab = createReactClass({
         var renderFleetTags = [];
         for (var prop2 in fleetTags) {
             if (fleetTags.hasOwnProperty(prop2)) {
-                renderFleetTags.push(
-                    <option value={prop2}>{fleetTags[prop2]}</option>
-                );
+                renderFleetTags.push(<option value={prop2}>{fleetTags[prop2]}</option>);
             }
         }
 
@@ -81,9 +74,7 @@ var OwnFleetsTab = createReactClass({
         var renderFleetTasks = [];
         for (var prop3 in fleetTasks) {
             if (fleetTasks.hasOwnProperty(prop3)) {
-                renderFleetTasks.push(
-                    <option value={prop3}>{fleetTasks[prop3]}</option>
-                );
+                renderFleetTasks.push(<option value={prop3}>{fleetTasks[prop3]}</option>);
             }
         }
 
@@ -114,10 +105,7 @@ var OwnFleetsTab = createReactClass({
 
         for (var i = 0; i < fleetItems.length; i++) {
             renderFleetItems.push(
-                <OwnFleetItem
-                    obj={fleetItems[i]}
-                    buildingId={this.props.buildingId}
-                />
+                <OwnFleetItem obj={fleetItems[i]} buildingId={this.props.buildingId} />
             );
         }
 
@@ -162,11 +150,7 @@ var OwnFleetsTab = createReactClass({
 
                     <div className='field'>
                         <label>Name</label>
-                        <input
-                            type='text'
-                            ref='name'
-                            onChange={this.handleNameChange}
-                        />
+                        <input type='text' ref='name' onChange={this.handleNameChange} />
                     </div>
                 </div>
 

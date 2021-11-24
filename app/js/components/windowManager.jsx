@@ -1,34 +1,32 @@
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 var _ = require('lodash');
 
 var WindowsStore = require('js/stores/windows');
 var Panel = require('js/components/window/panel');
 
-var WindowManager = createReactClass({
-    displayName: 'WindowManager',
-    mixins: [Reflux.connect(WindowsStore, 'windows')],
+const WINDOW_MAP = {
+    essentia: require('js/components/window/essentia'),
+};
 
-    render: function() {
+class WindowManager extends React.Component {
+    render() {
         return (
             <React.Fragment>
-                {_.map(this.state.windows.windows, function(row, index) {
-                    if (row && row.window) {
-                        return (
-                            <Panel
-                                window={row.window}
-                                type={row.type}
-                                options={row.options}
-                                zIndex={row.zIndex}
-                                key={index}
-                            />
-                        );
-                    }
+                {_.map(WindowsStore.windows, function(row, index) {
+                    return (
+                        <Panel
+                            window={WINDOW_MAP[row.type]}
+                            type={row.type}
+                            options={row.options}
+                            zIndex={row.zIndex}
+                            key={index}
+                        />
+                    );
                 })}
             </React.Fragment>
         );
-    },
-});
+    }
+}
 
-module.exports = WindowManager;
+module.exports = observer(WindowManager);

@@ -4,13 +4,8 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
-
-var WindowActions = require('js/actions/window');
-var BuildingWindowActions = require('js/actions/windows/building');
-var PoliticsTrainingRPCActions = require('js/actions/rpc/politicsTraining');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
@@ -35,13 +30,11 @@ var PoliticsTraining = createReactClass({
         options: PropTypes.object,
     },
 
-    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
+    // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
     componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();
-        PoliticsTrainingRPCActions.requestPoliticsTrainingRPCView(
-            this.props.options.id
-        );
+        PoliticsTrainingRPCActions.requestPoliticsTrainingRPCView(this.props.options.id);
     },
 
     closeWindow: function() {

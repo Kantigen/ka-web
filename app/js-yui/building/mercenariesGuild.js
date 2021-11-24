@@ -47,32 +47,13 @@ if (
             },
             getChildTabs: function() {
                 this.mineTabIndex = 2; //array location plus 1 since Production tab is always first
-                var tabs = [
-                    this._getAvailTab(),
-                    this._getMineTab(),
-                    this._getAddTab(),
-                ];
+                var tabs = [this._getAvailTab(), this._getMineTab(), this._getAddTab()];
 
                 if (this.building.level > 0) {
                     this.getSpies();
-                    this.mine.subscribe(
-                        'activeChange',
-                        this.getMine,
-                        this,
-                        true
-                    );
-                    this.avail.subscribe(
-                        'activeChange',
-                        this.getAvailable,
-                        this,
-                        true
-                    );
-                    this.add.subscribe(
-                        'activeChange',
-                        this.getAddShips,
-                        this,
-                        true
-                    );
+                    this.mine.subscribe('activeChange', this.getMine, this, true);
+                    this.avail.subscribe('activeChange', this.getAvailable, this, true);
+                    this.add.subscribe('activeChange', this.getAddShips, this, true);
                 }
 
                 return tabs;
@@ -133,12 +114,7 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadSpies',
-                    this.populateAddSpyName,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadSpies', this.populateAddSpyName, this, true);
 
                 Event.on('tradeAdd', 'click', this.AddMerc, this, true);
                 return this.add;
@@ -146,7 +122,7 @@ if (
 
             getSpies: function(force) {
                 if (force || !this.spies) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_spies(
                         {
                             session_id: Game.GetSession(''),
@@ -156,11 +132,9 @@ if (
                             success: function(o) {
                                 this.rpcSuccess(o);
                                 this.spies = o.result.spies;
-                                this.spySize =
-                                    o.result.cargo_space_used_each ||
-                                    this.spySize;
+                                this.spySize = o.result.cargo_space_used_each || this.spySize;
                                 this.fireEvent('onLoadSpies');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -171,7 +145,7 @@ if (
             //View Available
             getAvailable: function(e) {
                 if (e.newValue && !this.availableMercs) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     var data = {
                         session_id: Game.GetSession(),
                         building_id: this.building.id,
@@ -180,7 +154,7 @@ if (
 
                     this.service.view_market(data, {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -190,8 +164,7 @@ if (
                                 rowsPerPage: 25,
                                 totalRecords: o.result.trade_count,
                                 containers: 'tradeAvailablePaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.availablePager.subscribe(
@@ -232,19 +205,12 @@ if (
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeEmpire');
                         nLi.innerHTML = trade.empire.name;
-                        Event.on(
-                            nLi,
-                            'click',
-                            this.EmpireProfile,
-                            trade.empire
-                        );
+                        Event.on(nLi, 'click', this.EmpireProfile, trade.empire);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatServerDateTimeShort(
-                            trade.date_offered
-                        );
+                        nLi.innerHTML = Lib.formatServerDateTimeShort(trade.date_offered);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -308,7 +274,7 @@ if (
                 }
             },
             AvailableHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var data = {
                     session_id: Game.GetSession(),
                     building_id: this.building.id,
@@ -317,7 +283,7 @@ if (
 
                 this.service.view_market(data, {
                     success: function(o) {
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                         this.rpcSuccess(o);
 
                         delete o.result.status; //get rid of status after we process it, since it's big
@@ -334,7 +300,7 @@ if (
             AvailableAccept: function(e) {
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.accept_from_market(
                     {
                         session_id: Game.GetSession(''),
@@ -343,16 +309,12 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'MercenariesGuild.accept_trade.success'
-                            );
+                            YAHOO.log(o, 'info', 'MercenariesGuild.accept_trade.success');
                             this.Self.rpcSuccess(o);
                             //force get the new availabe list after accepting so we get a new captcha
                             delete this.Self.availableMercs;
                             this.Self.getAvailable({ newValue: true });
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         failure: function() {
                             btn.disabled = false;
@@ -364,7 +326,7 @@ if (
             AvailableReport: function(e) {
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.report_abuse(
                     {
                         session_id: Game.GetSession(''),
@@ -377,7 +339,7 @@ if (
                             btn.parentNode.removeChild(btn);
 
                             this.Self.rpcSuccess(o);
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         failure: function() {
                             btn.disabled = false;
@@ -393,7 +355,7 @@ if (
             //View Mine
             getMine: function(e) {
                 if (e.newValue && !this.mineMercs) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_my_market(
                         {
                             session_id: Game.GetSession(),
@@ -402,7 +364,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
                                 delete o.result.status; //get rid of status after we process it, since it's big
@@ -412,8 +374,7 @@ if (
                                     rowsPerPage: 25,
                                     totalRecords: o.result.trade_count,
                                     containers: 'tradeMinePaginator',
-                                    template:
-                                        '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                    template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                     alwaysVisible: false,
                                 });
                                 this.minePage.subscribe(
@@ -453,9 +414,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatServerDateTimeShort(
-                            trade.date_offered
-                        );
+                        nLi.innerHTML = Lib.formatServerDateTimeShort(trade.date_offered);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -505,7 +464,7 @@ if (
                 }
             },
             MineHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_my_market(
                     {
                         session_id: Game.GetSession(),
@@ -514,12 +473,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'MercenariesGuild.view_available_trades.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'MercenariesGuild.view_available_trades.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -548,7 +503,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.Self.service.withdraw_from_market(
                         {
                             session_id: Game.GetSession(''),
@@ -568,7 +523,7 @@ if (
                                 }
                                 this.Line.parentNode.removeChild(this.Line);
 
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 //delete ships since we'll get one back on withdraw
                                 delete this.Self.tradeShips;
                                 this.Self.getSpies(true);
@@ -603,7 +558,7 @@ if (
             },
             getAddShips: function(e) {
                 if (e.newValue && !this.tradeShips) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     this.service.get_trade_ships(
                         {
@@ -622,9 +577,7 @@ if (
                                 if (elm && ships) {
                                     this.tradeShips = ships;
 
-                                    var selectedVal = Lib.getSelectedOptionValue(
-                                        elm
-                                    );
+                                    var selectedVal = Lib.getSelectedOptionValue(elm);
                                     elm.options.length = 0;
                                     for (var x = 0; x < ships.length; x++) {
                                         var obj = ships[x];
@@ -645,7 +598,7 @@ if (
                                     }
                                 }
 
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -678,7 +631,7 @@ if (
                     ship_id: Lib.getSelectedOptionValue('tradeAddShip'),
                 };
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.add_to_market(data, {
                     success: function(o) {
                         this.rpcSuccess(o);
@@ -688,7 +641,7 @@ if (
                         delete this.mineMercs;
                         this.fireEvent('onSelectTab', this.mineTabIndex);
                         btn.disabled = false;
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                     },
                     failure: function() {
                         btn.disabled = false;

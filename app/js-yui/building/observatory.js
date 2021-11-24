@@ -45,12 +45,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.probesTab.subscribe(
-                    'activeChange',
-                    this.GetProbes,
-                    this,
-                    true
-                );
+                this.probesTab.subscribe('activeChange', this.GetProbes, this, true);
 
                 return this.probesTab;
             },
@@ -64,13 +59,7 @@ if (
                     ].join(''),
                 });
 
-                Event.on(
-                    'observatoryBigRedButton',
-                    'click',
-                    this.AbandonAllProbes,
-                    this,
-                    true
-                );
+                Event.on('observatoryBigRedButton', 'click', this.AbandonAllProbes, this, true);
 
                 return this.probesTab;
             },
@@ -78,7 +67,7 @@ if (
             GetProbes: function(e) {
                 if (e.newValue) {
                     if (!this.probes) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.get_probed_stars(
                             {
                                 session_id: Game.GetSession(),
@@ -87,12 +76,8 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'Observatory.get_probed_stars.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'Observatory.get_probed_stars.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.ProbeInfoDisplay(o.result);
                                     this.probes = o.result.stars;
@@ -100,8 +85,7 @@ if (
                                         rowsPerPage: 30,
                                         totalRecords: o.result.star_count * 1,
                                         containers: 'probePaginator',
-                                        template:
-                                            '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                        template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                         alwaysVisible: false,
                                     });
                                     this.pager.subscribe(
@@ -129,9 +113,7 @@ if (
                         'Total of ',
                         data.star_count,
                         ' probes in use.  ',
-                        'travelling' in data
-                            ? data.travelling + ' en route.  '
-                            : '',
+                        'travelling' in data ? data.travelling + ' en route.  ' : '',
                         'This observatory can control a maximum of ',
                         data.max_probes,
                         ' probes.',
@@ -181,14 +163,7 @@ if (
                         ].join('');
 
                         nLi = probeDetails.appendChild(nLi);
-                        Event.delegate(
-                            nLi,
-                            'click',
-                            this.ProbeJump,
-                            'div.probeAction',
-                            this,
-                            true
-                        );
+                        Event.delegate(nLi, 'click', this.ProbeJump, 'div.probeAction', this, true);
                         Event.delegate(
                             nLi,
                             'click',
@@ -205,21 +180,13 @@ if (
                         if (Ht > 290) {
                             Ht = 290;
                         }
-                        Dom.setStyle(
-                            probeDetails.parentNode,
-                            'height',
-                            Ht + 'px'
-                        );
-                        Dom.setStyle(
-                            probeDetails.parentNode,
-                            'overflow-y',
-                            'auto'
-                        );
+                        Dom.setStyle(probeDetails.parentNode, 'height', Ht + 'px');
+                        Dom.setStyle(probeDetails.parentNode, 'overflow-y', 'auto');
                     }, 10);
                 }
             },
             ProbesHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.get_probed_stars(
                     {
                         session_id: Game.GetSession(),
@@ -233,7 +200,7 @@ if (
                                 'info',
                                 'Observatory.ProbesHandlePagination.get_probed_stars.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.probes = o.result.stars;
                             // Update the Paginator's state
@@ -255,7 +222,7 @@ if (
                             ].join('')
                         )
                     ) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.abandon_probe(
                             {
                                 session_id: Game.GetSession(),
@@ -269,7 +236,7 @@ if (
                                         'info',
                                         'Observatory.ProbeAction.abandon_probe.success'
                                     );
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     Event.purgeElement(container);
                                     container.parentNode.removeChild(container);
@@ -292,7 +259,7 @@ if (
                         'Are you sure you want to abandon all probes controlled by this Observatory?'
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.abandon_all_probes(
                         {
                             session_id: Game.GetSession(),
@@ -305,7 +272,7 @@ if (
                                     'info',
                                     'Observatory.AbandonAllProbes.abandon_all_probes.success'
                                 );
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.probes = null;
 

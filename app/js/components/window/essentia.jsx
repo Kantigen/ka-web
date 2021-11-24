@@ -1,64 +1,42 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 
-var WindowActions = require('js/actions/window');
-var EmpireRPCActions = require('js/actions/rpc/empire');
-
-var SessionStore = require('js/stores/session');
 var EmpireRPCStore = require('js/stores/rpc/empire');
-var BoostsEmpireRPCStore = require('js/stores/rpc/empire/boosts');
-
+var BoostsRPCStore = require('js/stores/rpc/empire/boosts');
 var BoostsTab = require('js/components/window/essentia/boostsTab');
 var GetEssentiaTab = require('js/components/window/essentia/getEssentiaTab');
 
-var Tabber = require('js/components/tabber');
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+var { Tabs, Tab } = require('js/components/tabber');
 
-var Essentia = createReactClass({
-    displayName: 'Essentia',
+class Essentia extends React.Component {
+    static options = {
+        title: 'Essentia',
+        width: 600,
+        height: 350,
+    };
 
-    mixins: [
-        Reflux.connect(EmpireRPCStore, 'empireStore'),
-        Reflux.connect(BoostsEmpireRPCStore, 'boostsStore'),
-        Reflux.connect(SessionStore, 'session'),
-    ],
+    closeWindow() {
+        WindowsStore.close('essentia');
+    }
 
-    statics: {
-        options: {
-            title: 'Essentia',
-            width: 600,
-            height: 350,
-        },
-    },
-
-    closeWindow: function() {
-        WindowActions.windowCloseByType('essentia');
-    },
-
-    render: function() {
+    render() {
         return (
             <Tabs>
-                <Tab
-                    title='Boosts'
-                    onSelect={EmpireRPCActions.requestEmpireRPCGetBoosts}
-                >
+                <Tab title='Boosts'>
                     <BoostsTab
-                        essentia={this.state.empireStore.essentia}
-                        exactEssentia={this.state.empireStore.exactEssentia}
-                        boosts={this.state.boostsStore}
+                        essentia={EmpireRPCStore.essentia}
+                        exactEssentia={EmpireRPCStore.exactEssentia}
                     />
                 </Tab>
 
                 <Tab title='Get More Essentia'>
-                    <GetEssentiaTab session={this.state.session} />
+                    <GetEssentiaTab />
                 </Tab>
             </Tabs>
         );
-    },
-});
+    }
+}
 
-module.exports = Essentia;
+module.exports = observer(Essentia);

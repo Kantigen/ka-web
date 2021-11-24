@@ -3,18 +3,12 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var _ = require('lodash');
+const { observer } = require('mobx-react');
 
 var classNames = require('classnames');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');
-
-var RightSidebarActions = require('js/actions/menu/rightSidebar');
-var MapActions = require('js/actions/menu/map');
-
-var RightSidebarStore = require('js/stores/menu/rightSidebar');
 var MenuStore = require('js/stores/menu');
 
 class PlanetListItem extends React.Component {
@@ -40,7 +34,7 @@ class PlanetListItem extends React.Component {
     };
 
     handleClick = () => {
-        RightSidebarActions.rightSidebarHide();
+        MenuStore.hideRightSidebar();
 
         if (this.isCurrentWorld()) {
             YAHOO.lacuna.MapPlanet.Refresh();
@@ -92,8 +86,8 @@ class AccordionItem extends React.Component {
     };
 
     componentDidMount() {
-        RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
-        RightSidebarActions.rightSidebarExpand.listen(this.showList);
+        // RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
+        // RightSidebarActions.rightSidebarExpand.listen(this.showList);
     }
 
     showList = () => {
@@ -236,64 +230,40 @@ class BodiesAccordion extends React.Component {
     }
 }
 
-var RightSidebar = createReactClass({
-    displayName: 'RightSidebar',
-
-    mixins: [
-        Reflux.connect(EmpireRPCStore, 'empire'),
-        // Reflux.connect(PlanetStore, 'planet'),
-        Reflux.connect(RightSidebarStore, 'showSidebar'),
-    ],
-
-    componentDidMount: function() {
-        var el = this.refs.sidebar;
-
-        $(el).sidebar({
+class RightSidebar extends React.Component {
+    componentDidMount() {
+        $('#right-sidebar').sidebar({
             context: $('#sidebarContainer'),
             duration: 300,
             transition: 'overlay',
-            onHidden: RightSidebarActions.rightSidebarHide,
-            onVisible: RightSidebarActions.rightSidebarShow,
+            onHidden: () => {
+                MenuStore.hideRightSidebar();
+            },
         });
-    },
+    }
 
-    componentDidUpdate: function(prevProps, prevState) {
-        if (prevState.showSidebar !== this.state.showSidebar) {
-            this.handleSidebarShowing();
-        }
+    componentDidUpdate() {
+        $('#right-sidebar').sidebar(MenuStore.rightSidebarShown ? 'show' : 'hide');
+    }
 
-        var $header = $(this.refs.header);
-        var $content = $(this.refs.content);
+    homePlanet() {
+        MenuStore.hideRightSidebar();
+        MenuStore.changePlanet(EmpireRPCStore.home_planet_id);
+    }
 
-        $content.css({
-            height: window.innerHeight - $header.outerHeight(),
-        });
-    },
+    expand() {
+        // RightSidebarActions.rightSidebarExpand();
+    }
 
-    handleSidebarShowing: function() {
-        var el = this.refs.sidebar;
+    collapse() {
+        // RightSidebarActions.rightSidebarCollapse();
+    }
 
-        $(el).sidebar(this.state.showSidebar ? 'show' : 'hide');
-    },
-
-    homePlanet: function() {
-        RightSidebarActions.rightSidebarHide();
-        MenuStore.changePlanet(this.state.empire.home_planet_id);
-    },
-
-    expand: function() {
-        RightSidebarActions.rightSidebarExpand();
-    },
-
-    collapse: function() {
-        RightSidebarActions.rightSidebarCollapse();
-    },
-
-    render: function() {
-        this.state.planet = 1; // TODO
+    render() {
+        const shown = MenuStore.rightSidebarShown;
         return (
-            <div className='ui right vertical inverted sidebar menu' ref='sidebar'>
-                <div ref='header' style={{ paddingTop: 7 }}>
+            <div className='ui right vertical inverted sidebar menu' id='right-sidebar'>
+                <div style={{ paddingTop: 7 }}>
                     <a
                         title='Go to home planet'
                         className='item'
@@ -331,20 +301,19 @@ var RightSidebar = createReactClass({
                 </div>
 
                 <div
-                    ref='content'
                     style={{
                         overflow: 'auto',
                         overflowX: 'hidden',
                     }}
                 >
                     <BodiesAccordion
-                        bodies={this.state.empire.bodies}
-                        currentBody={this.state.planet}
+                        bodies={EmpireRPCStore.bodies}
+                        currentBody={MenuStore.planetId}
                     />
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = RightSidebar;
+module.exports = observer(RightSidebar);

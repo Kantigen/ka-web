@@ -52,7 +52,7 @@ if (
             },
             LotteryView: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_lottery_voting_options(
                         {
                             session_id: Game.GetSession(),
@@ -60,7 +60,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
                                 this.LotteryPopulate(o.result.options);
@@ -103,16 +103,8 @@ if (
                             if (Ht > 300) {
                                 Ht = 300;
                             }
-                            Dom.setStyle(
-                                details.parentNode,
-                                'height',
-                                Ht + 'px'
-                            );
-                            Dom.setStyle(
-                                details.parentNode,
-                                'overflow-y',
-                                'auto'
-                            );
+                            Dom.setStyle(details.parentNode, 'height', Ht + 'px');
+                            Dom.setStyle(details.parentNode, 'overflow-y', 'auto');
                         }, 10);
                     }
                 }
@@ -125,11 +117,7 @@ if (
                     ul.removeChild(li);
 
                     if (ul.children && ul.children.length == 0) {
-                        ul.innerHTML = [
-                            '<li>',
-                            this.lotteryAllVotedMessage,
-                            '</li>',
-                        ].join('');
+                        ul.innerHTML = ['<li>', this.lotteryAllVotedMessage, '</li>'].join('');
                     }
                 }
             },
@@ -142,7 +130,7 @@ if (
                 ].join('');
             },
             Quack: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.duck_quack(
                     {
                         session_id: Game.GetSession(),
@@ -150,12 +138,11 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.result.ducks_quacked++;
                             this.SetQuacks();
-                            Dom.get('entertainmentDuckMessage').innerHTML =
-                                o.result.quack;
+                            Dom.get('entertainmentDuckMessage').innerHTML = o.result.quack;
                         },
                         scope: this,
                     }

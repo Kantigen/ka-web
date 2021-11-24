@@ -4,9 +4,7 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 
-var ShipyardRPCActions = require('js/actions/rpc/shipyard');
 var BuildQueueShipyardRPCStore = require('js/stores/rpc/shipyard/buildQueue');
 
 var BuildQueueItem = require('js/components/window/shipyard/buildQueue/item');
@@ -24,7 +22,7 @@ var BuildQueueTab = createReactClass({
         });
     },
 
-    mixins: [Reflux.connect(BuildQueueShipyardRPCStore, 'buildQueueStore')],
+    // mixins: [Reflux.connect(BuildQueueShipyardRPCStore, 'buildQueueStore')],
 
     render: function() {
         var fleetsBuilding = this.state.buildQueueStore.fleets_building;
@@ -34,10 +32,7 @@ var BuildQueueTab = createReactClass({
 
         for (var i = 0; i < buildQueueLen; i++) {
             fleetItems.push(
-                <BuildQueueItem
-                    obj={fleetsBuilding[i]}
-                    buildingId={this.props.buildingId}
-                />
+                <BuildQueueItem obj={fleetsBuilding[i]} buildingId={this.props.buildingId} />
             );
         }
 

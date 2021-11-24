@@ -37,9 +37,7 @@ if (
                 } else if (this.result.recycle.seconds_remaining) {
                     this.recycleTab = new YAHOO.widget.Tab({
                         label: 'Recycle',
-                        contentEl: this.RecycleGetTimeDisplay(
-                            this.result.recycle
-                        ),
+                        contentEl: this.RecycleGetTimeDisplay(this.result.recycle),
                     });
                     this.addQueue(
                         this.result.recycle.seconds_remaining,
@@ -61,10 +59,9 @@ if (
                         total = ore + water + energy,
                         useE = options ? options.instant : 0;
                     if (total > planet.waste_stored) {
-                        this.recycleMessageEl.innerHTML =
-                            'Can only recycle waste you have stored.';
+                        this.recycleMessageEl.innerHTML = 'Can only recycle waste you have stored.';
                     } else {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
 
                         this.service.recycle(
                             {
@@ -77,19 +74,13 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'WasteRecycling.Recycle.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'WasteRecycling.Recycle.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.work = o.result.building.work;
                                     //this.updateBuildingTile(o.result.building);
                                     if (this.recycleTab) {
-                                        var ce = this.recycleTab.get(
-                                            'contentEl'
-                                        );
+                                        var ce = this.recycleTab.get('contentEl');
                                         Event.purgeElement(ce);
                                         ce.innerHTML = '';
                                         if (
@@ -113,9 +104,7 @@ if (
                                             );
                                         } else {
                                             ce.appendChild(
-                                                this.RecycleGetDisplay(
-                                                    o.result.recycle
-                                                )
+                                                this.RecycleGetDisplay(o.result.recycle)
                                             );
                                             this.recycleMessageEl.innerHTML =
                                                 'Successfully recycled ' +
@@ -147,9 +136,7 @@ if (
                         'Can recycle a maximum of ',
                         Lib.formatNumber(this.recycle.max_recycle),
                         ' waste at ',
-                        Lib.formatNumber(
-                            Math.floor(3600 / this.recycle.seconds_per_resource)
-                        ),
+                        Lib.formatNumber(Math.floor(3600 / this.recycle.seconds_per_resource)),
                         '/hour.',
                     ].join('');
                     ul.appendChild(nLi);
@@ -242,9 +229,7 @@ if (
                 var form = document.createElement('form');
                 fieldset = document.createElement('fieldset');
                 fieldset.innerHTML = '<legend>Recycle</legend>';
-                var label = fieldset.appendChild(
-                    document.createElement('label')
-                );
+                var label = fieldset.appendChild(document.createElement('label'));
                 label.innerHTML =
                     'Time to Recycle:<span class="smallImg"><img src="' +
                     Lib.AssetUrl +
@@ -269,22 +254,13 @@ if (
                     btn.setAttribute('type', 'button');
                     btn.innerHTML = 'Recycle Instantly';
                     btn = fieldset.appendChild(btn);
-                    Event.on(
-                        btn,
-                        'click',
-                        this.Recycle,
-                        { instant: true },
-                        this,
-                        true
-                    );
+                    Event.on(btn, 'click', this.Recycle, { instant: true }, this, true);
                     form.appendChild(fieldset);
                 }
 
                 div.appendChild(form);
 
-                this.recycleMessageEl = div.appendChild(
-                    document.createElement('div')
-                );
+                this.recycleMessageEl = div.appendChild(document.createElement('div'));
 
                 return div;
             },
@@ -306,9 +282,7 @@ if (
                 this.recycleEnergyEl.value = third;
 
                 this.totalWasteToRecycle = maxVal;
-                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(
-                    this.totalWasteToRecycle
-                );
+                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(this.totalWasteToRecycle);
                 this.SetTime();
             },
             MaxValue: function(e) {
@@ -355,15 +329,11 @@ if (
                 }
 
                 this.totalWasteToRecycle = newVal;
-                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(
-                    this.totalWasteToRecycle
-                );
+                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(this.totalWasteToRecycle);
                 this.SetTime();
             },
             SetTime: function() {
-                var seconds =
-                    this.totalWasteToRecycle *
-                    this.recycle.seconds_per_resource;
+                var seconds = this.totalWasteToRecycle * this.recycle.seconds_per_resource;
 
                 this.totalTimeToRecycle.innerHTML = Lib.formatTime(seconds);
             },
@@ -423,9 +393,7 @@ if (
                         var ce = this.recycleTab.get('contentEl');
                         Event.purgeElement(ce);
                         ce.innerHTML = '';
-                        ce.appendChild(
-                            this.RecycleGetDisplay(this.result.recycle)
-                        );
+                        ce.appendChild(this.RecycleGetDisplay(this.result.recycle));
                     }
                 }
             },
@@ -434,13 +402,11 @@ if (
                     this.recycleOreEl.value * 1 +
                     this.recycleWaterEl.value * 1 +
                     this.recycleEnergyEl.value * 1;
-                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(
-                    this.totalWasteToRecycle
-                );
+                this.totalWasteToRecycleEl.innerHTML = Lib.formatNumber(this.totalWasteToRecycle);
                 this.SetTime();
             },
             RecycleSubsidize: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.subsidize_recycling(
                     {
                         session_id: Game.GetSession(),
@@ -448,12 +414,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'WasteRecycling.RecycleSubsidize.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'WasteRecycling.RecycleSubsidize.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             this.resetQueue();
@@ -462,9 +424,7 @@ if (
                                 var ce = this.recycleTab.get('contentEl');
                                 Event.purgeElement(ce);
                                 ce.innerHTML = '';
-                                ce.appendChild(
-                                    this.RecycleGetDisplay(o.result.recycle)
-                                );
+                                ce.appendChild(this.RecycleGetDisplay(o.result.recycle));
                             }
                         },
                         scope: this,

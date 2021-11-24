@@ -2,7 +2,6 @@ YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
 
-var WindowActions = require('js/actions/window');
 var StarPanel = require('js/components/window/starPanel');
 var PlanetPanel = require('js/components/window/planetPanel');
 
@@ -61,9 +60,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     '    </div>',
                     '</div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(panel);
+                document.getElementById('oldYUIPanelContainer').appendChild(panel);
                 Dom.addClass(panel, 'nofooter');
 
                 this.starDetails = new YAHOO.widget.Panel(panelId, {
@@ -78,12 +75,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     zIndex: 9997,
                     context: ['header', 'tl', 'bl'],
                 });
-                this.starDetails.addQueue = function(
-                    seconds,
-                    queueFn,
-                    elm,
-                    sc
-                ) {
+                this.starDetails.addQueue = function(seconds, queueFn, elm, sc) {
                     this.queue = this.queue || [];
                     //check if the queue is empty and store
                     var notStarted = this.queue.length == 0;
@@ -151,9 +143,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
                 this.starDetails.renderEvent.subscribe(
                     function() {
-                        this.starDetails.tabView = new YAHOO.widget.TabView(
-                            'starDetailTabs'
-                        );
+                        this.starDetails.tabView = new YAHOO.widget.TabView('starDetailTabs');
 
                         /*Event.delegate("starDetailsInfo", "click", function(e, matchedEl, container){
                     var data = this.selectedStar;
@@ -305,9 +295,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     '    </div>',
                     '</div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(panel);
+                document.getElementById('oldYUIPanelContainer').appendChild(panel);
                 Dom.addClass(panel, 'nofooter');
 
                 this.planetDetails = new YAHOO.widget.Panel(panelId, {
@@ -320,20 +308,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     underlay: false,
                     width: '710px',
                     zIndex: 9997,
-                    context: [
-                        'header',
-                        'tr',
-                        'br',
-                        ['beforeShow', 'windowResize'],
-                        [-200, 40],
-                    ],
+                    context: ['header', 'tr', 'br', ['beforeShow', 'windowResize'], [-200, 40]],
                 });
-                this.planetDetails.addQueue = function(
-                    seconds,
-                    queueFn,
-                    elm,
-                    sc
-                ) {
+                this.planetDetails.addQueue = function(seconds, queueFn, elm, sc) {
                     this.queue = this.queue || [];
                     //check if the queue is empty and store
                     var notStarted = this.queue.length == 0;
@@ -458,54 +435,19 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             }
                         };
                         //Send Tab
-                        tv.getTab(1).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(1).subscribe('beforeActiveChange', getShips, this, true);
                         //Send Fleet Tab
-                        tv.getTab(2).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(2).subscribe('beforeActiveChange', getShips, this, true);
                         //Unavailable Tab
-                        tv.getTab(3).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(3).subscribe('beforeActiveChange', getShips, this, true);
                         //Incoming Tab
-                        tv.getTab(4).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(4).subscribe('beforeActiveChange', getShips, this, true);
                         //Orbiting Tab
-                        tv.getTab(5).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(5).subscribe('beforeActiveChange', getShips, this, true);
                         //Mining Tab
-                        tv.getTab(6).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(6).subscribe('beforeActiveChange', getShips, this, true);
                         //Excavator Tab
-                        tv.getTab(7).subscribe(
-                            'beforeActiveChange',
-                            getShips,
-                            this,
-                            true
-                        );
+                        tv.getTab(7).subscribe('beforeActiveChange', getShips, this, true);
 
                         Event.on(
                             'planetDetailSendFleetSubmit',
@@ -514,13 +456,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             this,
                             true
                         );
-                        Event.on(
-                            'starDetailSendFleetSubmit',
-                            'click',
-                            this.FleetSend,
-                            this,
-                            true
-                        );
+                        Event.on('starDetailSendFleetSubmit', 'click', this.FleetSend, this, true);
 
                         var spyTabs = {
                             planetDetailSendSpies: 9,
@@ -539,12 +475,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             if (spyTabs.hasOwnProperty(tabId)) {
                                 var tab = tv.getTab(spyTabs[tabId]);
                                 var tabEl = Dom.get(tabId);
-                                tab.subscribe(
-                                    'beforeActiveChange',
-                                    tabChange,
-                                    tabEl,
-                                    this
-                                );
+                                tab.subscribe('beforeActiveChange', tabChange, tabEl, this);
                                 tabEl.elSpiesPane = Sel.query(
                                     '.planetDetailSelectSpies',
                                     tabEl,
@@ -580,19 +511,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                     tabEl,
                                     true
                                 );
+                                Event.on(tabEl.elSendButton, 'click', this.MoveSpies, tabEl, this);
                                 Event.on(
-                                    tabEl.elSendButton,
-                                    'click',
-                                    this.MoveSpies,
-                                    tabEl,
-                                    this
-                                );
-                                Event.on(
-                                    Sel.query(
-                                        '.planetDetailSelectSpyShip button',
-                                        tabEl,
-                                        true
-                                    ),
+                                    Sel.query('.planetDetailSelectSpyShip button', tabEl, true),
                                     'click',
                                     this.MoveSpiesCancel,
                                     tabEl,
@@ -606,20 +527,10 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                     this,
                                     true
                                 );
-                                this.planetDetails.hideEvent.subscribe(
-                                    hideEventFn,
-                                    tabEl,
-                                    true
-                                );
+                                this.planetDetails.hideEvent.subscribe(hideEventFn, tabEl, true);
                             }
                         }
-                        Event.on(
-                            'planetDetailRenameSubmit',
-                            'click',
-                            this.Rename,
-                            this,
-                            true
-                        );
+                        Event.on('planetDetailRenameSubmit', 'click', this.Rename, this, true);
                     },
                     this,
                     true
@@ -668,9 +579,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     '    </div>',
                     '</div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(panel);
+                document.getElementById('oldYUIPanelContainer').appendChild(panel);
                 Dom.addClass(panel, 'nofooter');
 
                 this.starFind = new YAHOO.widget.Panel(panelId, {
@@ -683,44 +592,27 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     underlay: false,
                     width: '300px',
                     zIndex: 10005,
-                    context: [
-                        'footer',
-                        'bl',
-                        'tl',
-                        ['beforeShow', 'windowResize'],
-                        [0, -5],
-                    ],
+                    context: ['footer', 'bl', 'tl', ['beforeShow', 'windowResize'], [0, -5]],
                 });
                 this.starFind.createFind = function() {
-                    var dataSource = new Util.XHRDataSource(
-                        constants.RPC_BASE + 'map'
-                    );
+                    var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
                     dataSource.connMethodPost = 'POST';
                     dataSource.maxCacheEntries = 2;
-                    dataSource.responseType =
-                        YAHOO.util.XHRDataSource.TYPE_JSON;
+                    dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
                     dataSource.responseSchema = {
                         resultsList: 'result.stars',
                         fields: ['name', 'color', 'x', 'y'],
                     };
 
-                    var oTextboxList = new YAHOO.lacuna.TextboxList(
-                        this.findInput,
-                        dataSource,
-                        {
-                            //config options
-                            maxResultsDisplayed: 25,
-                            minQueryLength: 3,
-                            multiSelect: false,
-                            forceSelection: false,
-                            useIndicator: true,
-                        }
-                    );
-                    oTextboxList.formatResult = function(
-                        oResultData,
-                        sQuery,
-                        sResultMatch
-                    ) {
+                    var oTextboxList = new YAHOO.lacuna.TextboxList(this.findInput, dataSource, {
+                        //config options
+                        maxResultsDisplayed: 25,
+                        minQueryLength: 3,
+                        multiSelect: false,
+                        forceSelection: false,
+                        useIndicator: true,
+                    });
+                    oTextboxList.formatResult = function(oResultData, sQuery, sResultMatch) {
                         return [
                             '<div class="yui-gf">',
                             '    <div class="yui-u first" style="background-color:black;">',
@@ -751,23 +643,15 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             id: YAHOO.rpc.Service._requestId++,
                             method: 'search_stars',
                             jsonrpc: '2.0',
-                            params: [
-                                Game.GetSession(''),
-                                decodeURIComponent(sQuery),
-                            ],
+                            params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                         });
                         return s;
                     };
-                    oTextboxList.dirtyEvent.subscribe(function(
-                        event,
-                        isDirty,
-                        oSelf
-                    ) {
+                    oTextboxList.dirtyEvent.subscribe(function(event, isDirty, oSelf) {
                         var star = this._oTblSingleSelection.Object;
                         oSelf.X.value = star.x;
                         oSelf.Y.value = star.y;
-                    },
-                    this);
+                    }, this);
                     this.findStar = oTextboxList;
                 };
                 this.starFind.renderEvent.subscribe(
@@ -775,13 +659,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         this.starFind.findInput = Dom.get(panelId + 'Find');
                         this.starFind.X = Dom.get(panelId + 'X');
                         this.starFind.Y = Dom.get(panelId + 'Y');
-                        Event.on(
-                            panelId + 'Jump',
-                            'click',
-                            this.FindJump,
-                            this,
-                            true
-                        );
+                        Event.on(panelId + 'Jump', 'click', this.FindJump, this, true);
                         this.starFind.createFind();
                     },
                     this,
@@ -819,15 +697,11 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         YAHOO.log(visible, 'info', 'MapStar.MapVisible');
                         if (visible) {
                             if (!Dom.inDocument(this._elGrid)) {
-                                document
-                                    .getElementById('content')
-                                    .appendChild(this._elGrid);
+                                document.getElementById('content').appendChild(this._elGrid);
                             }
                             //Dom.setStyle(this._elGrid, "display", visible ? "" : "none");
                         } else {
-                            this._elGrid = this._elGrid.parentNode.removeChild(
-                                this._elGrid
-                            );
+                            this._elGrid = this._elGrid.parentNode.removeChild(this._elGrid);
                         }
                         if (visible) {
                             this.Resize();
@@ -863,13 +737,11 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
             },
             LoadGrid: function(loc) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 if (!this._gridCreated) {
                     var starMap = document.createElement('div');
                     starMap.id = 'starMap';
-                    this._elGrid = document
-                        .getElementById('content')
-                        .appendChild(starMap);
+                    this._elGrid = document.getElementById('content').appendChild(starMap);
                     this.SetSize();
 
                     var map = new Lacuna.Mapper.StarMap('starMap');
@@ -897,7 +769,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
 
                 this.MapVisible(true);
-                require('js/actions/menu/loader').hide();
+                require('js/stores/menu').hideLoader();
             },
             GridClick: function(e, matchedEl, container) {
                 if (!this._map.controller.isDragging()) {
@@ -905,18 +777,10 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     if (tile && tile.data) {
                         if (tile.data.isStar) {
                             this.ShowStar(tile);
-                            WindowActions.windowAdd(
-                                StarPanel,
-                                'starPanel',
-                                tile
-                            );
+                            WindowActions.windowAdd(StarPanel, 'starPanel', tile);
                         } else if (tile.data.isPlanet) {
                             this.ShowPlanet(tile);
-                            WindowActions.windowAdd(
-                                PlanetPanel,
-                                'planetPanel',
-                                tile
-                            );
+                            WindowActions.windowAdd(PlanetPanel, 'planetPanel', tile);
                         }
                     }
                 }
@@ -950,9 +814,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             PopulateShipsIncomingTab: function(panel) {
                 var ships = this.currentShips.incoming || [],
                     details = Dom.get(
-                        panel.isStarPanel
-                            ? 'starDetailIncomingShips'
-                            : 'planetDetailIncomingShips'
+                        panel.isStarPanel ? 'starDetailIncomingShips' : 'planetDetailIncomingShips'
                     );
 
                 if (ships.length > 0) {
@@ -977,9 +839,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     for (var i = 0; i < ships.length; i++) {
                         var ship = ships[i],
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(ship.date_arrives) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
                         nLi.Ship = ship;
 
@@ -1015,8 +875,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             '        </div>',
                             '        <div><label style="font-weight:bold;">Attributes:</label>',
                             '            <span>Speed:<span>',
-                            ship.fleet_speed > 0 &&
-                            ship.fleet_speed < ship.speed
+                            ship.fleet_speed > 0 && ship.fleet_speed < ship.speed
                                 ? ship.fleet_speed
                                 : ship.speed,
                             '</span></span>,',
@@ -1057,8 +916,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             ArrivesQueue: function(remaining, elLine) {
                 var arrTime;
                 if (remaining <= 0) {
-                    arrTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    arrTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     arrTime = Lib.formatTime(Math.round(remaining));
                 }
@@ -1068,9 +926,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             PopulateShipsSendTab: function(panel) {
                 var ships = this.currentShips.available,
                     details = Dom.get(
-                        panel.isStarPanel
-                            ? 'starDetailSendShips'
-                            : 'planetDetailSendShips'
+                        panel.isStarPanel ? 'starDetailSendShips' : 'planetDetailSendShips'
                     ),
                     detailsParent = details.parentNode,
                     li = document.createElement('li');
@@ -1186,12 +1042,8 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'MapStar.ShipSend.send_ship.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'MapStar.ShipSend.send_ship.success');
+                                require('js/stores/menu').hideLoader();
                                 this.Self.fireEvent('onMapRpc', o.result);
                                 delete this.Self.currentShips;
                                 this.Self.GetShips(panel, target);
@@ -1211,8 +1063,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             NotIsolationist: function(ship) {
                 if (
                     Game.EmpireData.is_isolationist == '1' &&
-                    (ship.type == 'colony_ship' ||
-                        ship.type == 'short_range_colony_ship')
+                    (ship.type == 'colony_ship' || ship.type == 'short_range_colony_ship')
                 ) {
                     return confirm(
                         'If you colonize another planet you will no longer be considered an Isolationist and you will be open to attack.  Are you sure you want to do this?'
@@ -1224,9 +1075,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             PopulateFleetSendTab: function(panel) {
                 var ships = this.currentShips.available,
                     details = Dom.get(
-                        panel.isStarPanel
-                            ? 'starDetailSendFleet'
-                            : 'planetDetailSendFleet'
+                        panel.isStarPanel ? 'starDetailSendFleet' : 'planetDetailSendFleet'
                     ),
                     btn = Dom.get(
                         panel.isStarPanel
@@ -1289,9 +1138,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             '        </div>',
                             '    </div>',
                             '    <div class="yui-u" style="width:8%">',
-                            ship.task == 'Docked'
-                                ? '<input type="checkbox" />'
-                                : '',
+                            ship.task == 'Docked' ? '<input type="checkbox" />' : '',
                             '    </div>',
                             '</div>',
                         ].join('');
@@ -1334,18 +1181,13 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
 
                 var speed = parseInt(
-                    Dom.get(
-                        panel.isStarPanel
-                            ? 'starDetailSetSpeed'
-                            : 'planetDetailSetSpeed'
-                    ).value,
+                    Dom.get(panel.isStarPanel ? 'starDetailSetSpeed' : 'planetDetailSetSpeed')
+                        .value,
                     10
                 );
                 var selected = Sel.query(
                     'input:checked',
-                    panel.isStarPanel
-                        ? 'starDetailSendFleet'
-                        : 'planetDetailSendFleet'
+                    panel.isStarPanel ? 'starDetailSendFleet' : 'planetDetailSendFleet'
                 );
                 if (selected.length > 0) {
                     var ships = [],
@@ -1366,9 +1208,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             btn.disabled = false;
                         } else {
                             if (speed > 0 && speed > minSpeed) {
-                                alert(
-                                    'Set speed cannot exceed the speed of the slowest ship.'
-                                );
+                                alert('Set speed cannot exceed the speed of the slowest ship.');
                                 btn.disabled = false;
                             } else {
                                 Game.Services.Buildings.SpacePort.send_fleet(
@@ -1380,11 +1220,8 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                     },
                                     {
                                         success: function(o) {
-                                            require('js/actions/menu/loader').hide();
-                                            this.fireEvent(
-                                                'onMapRpc',
-                                                o.result
-                                            );
+                                            require('js/stores/menu').hideLoader();
+                                            this.fireEvent('onMapRpc', o.result);
                                             delete this.currentShips;
                                             var details = Dom.get(
                                                 panel.isStarPanel
@@ -1435,9 +1272,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             PopulateShipsUnavailTab: function(panel) {
                 var ships = this.currentShips.unavailable,
                     details = Dom.get(
-                        panel.isStarPanel
-                            ? 'starDetailUnavailShips'
-                            : 'planetDetailUnavailShips'
+                        panel.isStarPanel ? 'starDetailUnavailShips' : 'planetDetailUnavailShips'
                     ),
                     detailsParent = details.parentNode,
                     li = document.createElement('li');
@@ -1616,12 +1451,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
                             Dom.addClass(nLi, 'shipName');
                             nLi.innerHTML = ship.empire_name;
-                            Event.on(
-                                nLi,
-                                'click',
-                                this.ShowEmpire,
-                                ship.empire_id
-                            );
+                            Event.on(nLi, 'click', this.ShowEmpire, ship.empire_id);
 
                             details.appendChild(nLi);
                         }
@@ -1665,12 +1495,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
                             Dom.addClass(nLi, 'shipName');
                             nLi.innerHTML = ship.empire_name;
-                            Event.on(
-                                nLi,
-                                'click',
-                                this.ShowEmpire,
-                                ship.empire_id
-                            );
+                            Event.on(nLi, 'click', this.ShowEmpire, ship.empire_id);
 
                             details.appendChild(nLi);
                         }
@@ -1697,7 +1522,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
             GetShips: function(panel, target) {
                 if (!this.currentShips) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     Game.Services.Buildings.SpacePort.get_ships_for(
                         {
@@ -1707,12 +1532,8 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'MapStar.ShowStar.get_ships_for.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'MapStar.ShowStar.get_ships_for.success');
+                                require('js/stores/menu').hideLoader();
                                 this.fireEvent('onMapRpc', o.result);
                                 this.currentShips = o.result;
 
@@ -1851,9 +1672,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             '</span></li>',
                             empire.id
                                 ? '<li><label>Isolationist: </label>' +
-                                  (empire.is_isolationist == '1'
-                                      ? 'Yes'
-                                      : 'No') +
+                                  (empire.is_isolationist == '1' ? 'Yes' : 'No') +
                                   '</li>'
                                 : '',
                             '    <li><label>Water: </label>',
@@ -1882,64 +1701,36 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             body.orbit,
                             '</li>',
                             empire.alignment == 'self' ||
-                            (empire.alignment == 'ally' &&
-                                body.type == 'space station')
+                            (empire.alignment == 'ally' && body.type == 'space station')
                                 ? '    <li><button type="button">View</button></li>'
                                 : '',
                             '</ul>',
                         ].join('');
 
-                        Dom.get('planetDetailsAnthracite').innerHTML =
-                            body.ore.anthracite;
-                        Dom.get('planetDetailsBauxite').innerHTML =
-                            body.ore.bauxite;
-                        Dom.get('planetDetailsBeryl').innerHTML =
-                            body.ore.beryl;
-                        Dom.get('planetDetailsChalcopyrite').innerHTML =
-                            body.ore.chalcopyrite;
-                        Dom.get('planetDetailsChromite').innerHTML =
-                            body.ore.chromite;
-                        Dom.get('planetDetailsFluorite').innerHTML =
-                            body.ore.fluorite;
-                        Dom.get('planetDetailsGalena').innerHTML =
-                            body.ore.galena;
-                        Dom.get('planetDetailsGoethite').innerHTML =
-                            body.ore.goethite;
+                        Dom.get('planetDetailsAnthracite').innerHTML = body.ore.anthracite;
+                        Dom.get('planetDetailsBauxite').innerHTML = body.ore.bauxite;
+                        Dom.get('planetDetailsBeryl').innerHTML = body.ore.beryl;
+                        Dom.get('planetDetailsChalcopyrite').innerHTML = body.ore.chalcopyrite;
+                        Dom.get('planetDetailsChromite').innerHTML = body.ore.chromite;
+                        Dom.get('planetDetailsFluorite').innerHTML = body.ore.fluorite;
+                        Dom.get('planetDetailsGalena').innerHTML = body.ore.galena;
+                        Dom.get('planetDetailsGoethite').innerHTML = body.ore.goethite;
                         Dom.get('planetDetailsGold').innerHTML = body.ore.gold;
-                        Dom.get('planetDetailsGypsum').innerHTML =
-                            body.ore.gypsum;
-                        Dom.get('planetDetailsHalite').innerHTML =
-                            body.ore.halite;
-                        Dom.get('planetDetailsKerogen').innerHTML =
-                            body.ore.kerogen;
-                        Dom.get('planetDetailsMagnetite').innerHTML =
-                            body.ore.magnetite;
-                        Dom.get('planetDetailsMethane').innerHTML =
-                            body.ore.methane;
-                        Dom.get('planetDetailsMonazite').innerHTML =
-                            body.ore.monazite;
-                        Dom.get('planetDetailsRutile').innerHTML =
-                            body.ore.rutile;
-                        Dom.get('planetDetailsSulfur').innerHTML =
-                            body.ore.sulfur;
-                        Dom.get('planetDetailsTrona').innerHTML =
-                            body.ore.trona;
-                        Dom.get('planetDetailsUraninite').innerHTML =
-                            body.ore.uraninite;
-                        Dom.get('planetDetailsZircon').innerHTML =
-                            body.ore.zircon;
+                        Dom.get('planetDetailsGypsum').innerHTML = body.ore.gypsum;
+                        Dom.get('planetDetailsHalite').innerHTML = body.ore.halite;
+                        Dom.get('planetDetailsKerogen').innerHTML = body.ore.kerogen;
+                        Dom.get('planetDetailsMagnetite').innerHTML = body.ore.magnetite;
+                        Dom.get('planetDetailsMethane').innerHTML = body.ore.methane;
+                        Dom.get('planetDetailsMonazite').innerHTML = body.ore.monazite;
+                        Dom.get('planetDetailsRutile').innerHTML = body.ore.rutile;
+                        Dom.get('planetDetailsSulfur').innerHTML = body.ore.sulfur;
+                        Dom.get('planetDetailsTrona').innerHTML = body.ore.trona;
+                        Dom.get('planetDetailsUraninite').innerHTML = body.ore.uraninite;
+                        Dom.get('planetDetailsZircon').innerHTML = body.ore.zircon;
 
                         if (empire.id) {
-                            Dom.setStyle(
-                                'planetDetailsEmpire',
-                                'cursor',
-                                'pointer'
-                            );
-                            Dom.setStyle(
-                                'planetDetailsEmpire',
-                                'text-decoration',
-                                'underline'
-                            );
+                            Dom.setStyle('planetDetailsEmpire', 'cursor', 'pointer');
+                            Dom.setStyle('planetDetailsEmpire', 'text-decoration', 'underline');
                             Event.on(
                                 'planetDetailsEmpire',
                                 'click',
@@ -1950,20 +1741,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                 true
                             );
                         } else {
-                            Dom.setStyle(
-                                'planetDetailsEmpire',
-                                'cursor',
-                                'normal'
-                            );
-                            Dom.setStyle(
-                                'planetDetailsEmpire',
-                                'text-decoration',
-                                'none'
-                            );
-                            Event.removeListener(
-                                'planetDetailsEmpire',
-                                'click'
-                            );
+                            Dom.setStyle('planetDetailsEmpire', 'cursor', 'normal');
+                            Dom.setStyle('planetDetailsEmpire', 'text-decoration', 'none');
+                            Event.removeListener('planetDetailsEmpire', 'click');
                         }
 
                         if (empire.alignment == 'self') {
@@ -1977,33 +1757,21 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             tabs = panel.tabView.get('tabs');
                             for (var nt = 0; nt < tabs.length; nt++) {
                                 tab = panel.tabView.getTab(nt);
-                                if (
-                                    tab &&
-                                    tab.get('label') == this._renameLabel
-                                ) {
+                                if (tab && tab.get('label') == this._renameLabel) {
                                     panel.renameTab = tab;
                                     panel.tabView.removeTab(tab);
                                     break;
                                 }
                             }
                         }
-                        if (
-                            empire.alignment == 'none' ||
-                            empire.is_isolationist == '1'
-                        ) {
+                        if (empire.alignment == 'none' || empire.is_isolationist == '1') {
                             tabs = panel.tabView.get('tabs');
                             for (var snt = tabs.length; snt >= 0; snt--) {
                                 tab = panel.tabView.getTab(snt);
-                                if (
-                                    tab &&
-                                    tab.get('label') == this._sendSpiesLabel
-                                ) {
+                                if (tab && tab.get('label') == this._sendSpiesLabel) {
                                     panel.sendSpiesTab = tab;
                                     panel.tabView.removeTab(tab);
-                                } else if (
-                                    tab &&
-                                    tab.get('label') == this._fetchSpiesLabel
-                                ) {
+                                } else if (tab && tab.get('label') == this._fetchSpiesLabel) {
                                     panel.fetchSpiesTab = tab;
                                     panel.tabView.removeTab(tab);
                                 }
@@ -2028,10 +1796,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             tabs = panel.tabView.get('tabs');
                             for (var mnt = tabs.length; mnt >= 0; mnt--) {
                                 tab = panel.tabView.getTab(mnt);
-                                if (
-                                    tab &&
-                                    tab.get('label') == this._miningLabel
-                                ) {
+                                if (tab && tab.get('label') == this._miningLabel) {
                                     panel.miningTab = tab;
                                     panel.tabView.removeTab(tab);
                                 }
@@ -2046,10 +1811,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             tabs = panel.tabView.get('tabs');
                             for (var mnt = tabs.length; mnt >= 0; mnt--) {
                                 tab = panel.tabView.getTab(mnt);
-                                if (
-                                    tab &&
-                                    tab.get('label') == this._excavLabel
-                                ) {
+                                if (tab && tab.get('label') == this._excavLabel) {
                                     panel.excavTab = tab;
                                     panel.tabView.removeTab(tab);
                                 }
@@ -2084,9 +1846,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'MapStar.Rename.success');
                             if (o.result && this.selectedBody) {
-                                Dom.get(
-                                    'planetDetailRenameMessage'
-                                ).innerHTML = [
+                                Dom.get('planetDetailRenameMessage').innerHTML = [
                                     'Successfully renamed your planet from ',
                                     this.selectedBody.name,
                                     ' to ',
@@ -2094,16 +1854,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                     '.',
                                 ].join('');
                                 Lib.fadeOutElm('planetDetailRenameMessage');
-                                Dom.get(
-                                    'planetDetailsName'
-                                ).innerHTML = newName;
-                                Game.EmpireData.planets[
-                                    this.selectedBody.id
-                                ].name = newName;
-                                if (
-                                    this.selectedTile instanceof
-                                    YAHOO.lacuna.Mapper.StarTile
-                                ) {
+                                Dom.get('planetDetailsName').innerHTML = newName;
+                                Game.EmpireData.planets[this.selectedBody.id].name = newName;
+                                if (this.selectedTile instanceof YAHOO.lacuna.Mapper.StarTile) {
                                     this._map.tileCache[this.selectedTile.x][
                                         this.selectedTile.y
                                     ].name = newName;
@@ -2114,8 +1867,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             }
                         },
                         failure: function(o) {
-                            Dom.get('planetDetailRenameMessage').innerHTML =
-                                o.error.message;
+                            Dom.get('planetDetailRenameMessage').innerHTML = o.error.message;
                             Lib.fadeOutElm('planetDetailRenameMessage');
                             return true;
                         },
@@ -2133,7 +1885,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 tab.elSpyShipsList.innerHTML = '';
                 tab.elMessage.innerHTML = '';
                 Dom.setStyle(tab.elSendButton, 'display', 'none');
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var method, data;
                 if (tab.id == 'planetDetailSendSpies') {
                     method = 'prepare_send_spies';
@@ -2153,13 +1905,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
                 Game.Services.Buildings.SpacePort[method](data, {
                     success: function(o) {
-                        YAHOO.log(
-                            o,
-                            'info',
-                            'MapStar.ShowSpies.' + method + '.success'
-                        );
+                        YAHOO.log(o, 'info', 'MapStar.ShowSpies.' + method + '.success');
                         this.fireEvent('onMapRpc', o.result);
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                         tab.avail = {
                             spyShips: o.result.ships,
                             spies: o.result.spies,
@@ -2216,9 +1964,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         '    <div class="yui-u">',
                         maxSpies == 0
                             ? ''
-                            : '<input type="checkbox" name="spyId" value="' +
-                              spy.id +
-                              '" />',
+                            : '<input type="checkbox" name="spyId" value="' + spy.id + '" />',
                         '        <div class="attributes"><span class="attribute">Offense: ',
                         spy.offense_rating,
                         '</span><span class="attribute">Defense: ',
@@ -2242,14 +1988,11 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 var ships = tab.avail.spyShips;
                 var list = tab.elSpyShipsList;
                 var verb = tab.id == 'planetDetailSendSpies' ? 'send' : 'fetch';
-                Dom.batch(
-                    tab.elSpiesList.getElementsByTagName('input'),
-                    function(el) {
-                        if (el.checked) {
-                            spies.push(el.value);
-                        }
+                Dom.batch(tab.elSpiesList.getElementsByTagName('input'), function(el) {
+                    if (el.checked) {
+                        spies.push(el.value);
                     }
-                );
+                });
                 if (spies.length == 0) {
                     alert('You must select at least one spy to ' + verb + '!');
                     return;
@@ -2324,7 +2067,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             },
             MoveSpyShip: function(e, matchedEl, tab) {
                 Event.stopEvent(e);
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var shipId = matchedEl.parentNode.parentNode.parentNode.shipId,
                     spies = tab.spiesToMove,
                     data = {
@@ -2347,14 +2090,12 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
                 method(data, {
                     success: function(o) {
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                         this.fireEvent('onMapRpc', o.result);
                         alert(
                             successMessage +
                                 '  Arrival time: ' +
-                                Lib.formatServerDateShort(
-                                    o.result.ship.date_arrives
-                                )
+                                Lib.formatServerDateShort(o.result.ship.date_arrives)
                         );
                         delete tab.avail.spies;
                         delete tab.avail.spyShips;

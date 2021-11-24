@@ -1,21 +1,17 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 
 var BodyRPCStore = require('js/stores/rpc/body');
-var RightSidebarActions = require('js/actions/menu/rightSidebar');
+var MenuStore = require('js/stores/menu');
 
-var RightSidebarButton = createReactClass({
-    displayName: 'RightSidebarButton',
-    mixins: [Reflux.connect(BodyRPCStore, 'body')],
+class RightSidebarButton extends React.Component {
+    click() {
+        MenuStore.showRightSidebar();
+    }
 
-    click: function() {
-        RightSidebarActions.rightSidebarShow();
-    },
-
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -25,16 +21,13 @@ var RightSidebarButton = createReactClass({
                     top: '15px',
                 }}
             >
-                <div
-                    className='ui right labeled icon blue button'
-                    onClick={this.click}
-                >
+                <div className='ui right labeled icon blue button' onClick={this.click}>
                     <i className='world icon' />
-                    {this.state.body.name}
+                    {BodyRPCStore.name}
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = RightSidebarButton;
+module.exports = observer(RightSidebarButton);

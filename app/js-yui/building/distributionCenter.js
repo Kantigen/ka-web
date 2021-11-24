@@ -60,27 +60,10 @@ if (
                     ].join(''),
                 });
 
-                this.tab.subscribe(
-                    'activeChange',
-                    this.CheckReserve,
-                    this,
-                    true
-                );
+                this.tab.subscribe('activeChange', this.CheckReserve, this, true);
 
-                Event.on(
-                    'distribReserveSubmit',
-                    'click',
-                    this.ReserveSubmit,
-                    this,
-                    true
-                );
-                Event.on(
-                    'distribReleaseSubmit',
-                    'click',
-                    this.StoreRelease,
-                    this,
-                    true
-                );
+                Event.on('distribReserveSubmit', 'click', this.ReserveSubmit, this, true);
+                Event.on('distribReleaseSubmit', 'click', this.StoreRelease, this, true);
 
                 Event.delegate(
                     'distribReserveOnPlanet',
@@ -104,7 +87,7 @@ if (
 
             GetStoredResources: function() {
                 if (!this.resources) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_stored_resources(
                         {
                             session_id: Game.GetSession(''),
@@ -115,7 +98,7 @@ if (
                                 this.rpcSuccess(o);
                                 this.resources = o.result.resources;
                                 this.ReservePopulate();
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -128,20 +111,12 @@ if (
             CheckReserve: function(e) {
                 if (e.newValue) {
                     if (!this.result.reserve.can) {
-                        Dom.setStyle(
-                            'distribReserveContainers',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('distribReserveContainers', 'display', 'none');
                         Dom.setStyle('distribStoredContainer', 'display', '');
                         this.StorePopulate();
                     } else {
                         Dom.setStyle('distribReserveContainers', 'display', '');
-                        Dom.setStyle(
-                            'distribStoredContainer',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('distribStoredContainer', 'display', 'none');
                         this.GetStoredResources();
                     }
                 }
@@ -233,12 +208,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length === 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         if (quantity > li.Reserve.quantity) {
                             quantity = li.Reserve.quantity;
@@ -251,9 +222,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.UpdateReserveStore(
-                                    ep.Object.quantity * -1
-                                );
+                                this.UpdateReserveStore(ep.Object.quantity * -1);
                                 Event.purgeElement(ep);
                                 ep.parentNode.removeChild(ep);
                             },
@@ -353,13 +322,12 @@ if (
                 }
 
                 if (reserveTotal == 0) {
-                    Dom.get('distribReserveMessage').innerHTML =
-                        'Must add items to Reserve.';
+                    Dom.get('distribReserveMessage').innerHTML = 'Must add items to Reserve.';
                 } else {
                     data.resources = reserveItems;
 
                     Dom.get('distribReserveMessage').innerHTML = '';
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.reserve(data, {
                         success: function(o) {
                             this.rpcSuccess(o);
@@ -367,9 +335,7 @@ if (
                             for (var n = 0; n < toStoreLis.length; n++) {
                                 if (toStoreLis[n].Object) {
                                     Event.purgeElement(toStoreLis[n]);
-                                    toStoreLis[n].parentNode.removeChild(
-                                        toStoreLis[n]
-                                    );
+                                    toStoreLis[n].parentNode.removeChild(toStoreLis[n]);
                                 }
                             }
                             Dom.get('distribTotalSelected').innerHTML = '0';
@@ -377,7 +343,7 @@ if (
                             delete o.result.status;
                             this.result = o.result;
 
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.CheckReserve({ newValue: 1 });
                         },
                         scope: this,
@@ -400,18 +366,10 @@ if (
                 if (announce) {
                     announce.innerHTML =
                         'Time left on current reserve: <span id="distribReserveTime"></span>';
-                    this.addQueue(
-                        reserve.seconds_remaining,
-                        this.StoreTimer,
-                        'distribReserveTime'
-                    );
+                    this.addQueue(reserve.seconds_remaining, this.StoreTimer, 'distribReserveTime');
                 }
 
-                if (
-                    inReserve &&
-                    reserve.resources &&
-                    reserve.resources.length > 0
-                ) {
+                if (inReserve && reserve.resources && reserve.resources.length > 0) {
                     inReserve.innerHTML = '';
                     for (x = 0; x < reserve.resources.length; x++) {
                         var obj = reserve.resources[x];
@@ -434,14 +392,12 @@ if (
                     p.removeChild(span);
                     p.innerHTML = 'Search Complete';
                 } else {
-                    Dom.get(el).innerHTML = Lib.formatTime(
-                        Math.round(remaining)
-                    );
+                    Dom.get(el).innerHTML = Lib.formatTime(Math.round(remaining));
                 }
             },
             StoreRelease: function() {
                 Dom.get('distribReleaseMessage').innerHTML = '';
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.release_reserve(
                     {
                         session_id: Game.GetSession(''),
@@ -456,7 +412,7 @@ if (
                             delete o.result.status;
                             this.result = o.result;
 
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.CheckReserve({ newValue: 1 });
                         },
                         scope: this,
@@ -467,9 +423,8 @@ if (
 
         Lacuna.buildings.DistributionCenter = DistributionCenter;
     })();
-    YAHOO.register(
-        'DistributionCenter',
-        YAHOO.lacuna.buildings.DistributionCenter,
-        { version: '1', build: '0' }
-    );
+    YAHOO.register('DistributionCenter', YAHOO.lacuna.buildings.DistributionCenter, {
+        version: '1',
+        build: '0',
+    });
 }

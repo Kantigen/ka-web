@@ -4,11 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var CaptchaWindowActions = require('js/actions/windows/captcha');
-var CaptchaRPCActions = require('js/actions/rpc/captcha');
-var WindowActions = require('js/actions/window');
 
 var CaptchaRPCStore = require('js/stores/rpc/captcha');
 
@@ -27,7 +22,7 @@ var Captcha = createReactClass({
         options: PropTypes.object.isRequired,
     },
 
-    mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],
+    // mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],
 
     componentWillMount: function() {
         CaptchaRPCActions.requestCaptchaRPCFetch();
@@ -88,8 +83,7 @@ var Captcha = createReactClass({
             <div>
                 <div
                     style={{
-                        backgroundImage:
-                            'url(' + this.state.captchaRPCStore.url + ')',
+                        backgroundImage: 'url(' + this.state.captchaRPCStore.url + ')',
                         width: 300,
                         height: 80,
                     }}
@@ -110,22 +104,13 @@ var Captcha = createReactClass({
                     />
 
                     <div className='ui large icon buttons'>
-                        <div
-                            className='ui green button'
-                            onClick={this.onClickSolve}
-                        >
+                        <div className='ui green button' onClick={this.onClickSolve}>
                             <i className='checkmark icon'></i>
                         </div>
-                        <div
-                            className='ui blue button'
-                            onClick={this.onClickRefresh}
-                        >
+                        <div className='ui blue button' onClick={this.onClickRefresh}>
                             <i className='refresh icon'></i>
                         </div>
-                        <div
-                            className='ui red button'
-                            onClick={this.onClickClose}
-                        >
+                        <div className='ui red button' onClick={this.onClickClose}>
                             <i className='remove icon'></i>
                         </div>
                     </div>

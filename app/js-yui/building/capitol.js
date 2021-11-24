@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.Capitol == 'undefined' ||
-    !YAHOO.lacuna.buildings.Capitol
-) {
+if (typeof YAHOO.lacuna.buildings.Capitol == 'undefined' || !YAHOO.lacuna.buildings.Capitol) {
     (function() {
         var Util = YAHOO.util,
             Dom = Util.Dom,
@@ -42,13 +39,7 @@ if (
                     '    <div><button id="capitolChangeEmpireName">Change Name</button></div>',
                     '</fieldset>',
                 ].join('');
-                Event.on(
-                    'capitolChangeEmpireName',
-                    'click',
-                    this.RenameEmpire,
-                    this,
-                    true
-                );
+                Event.on('capitolChangeEmpireName', 'click', this.RenameEmpire, this, true);
                 var tab = new YAHOO.widget.Tab({
                     label: 'Rename Empire',
                     contentEl: div,
@@ -59,7 +50,7 @@ if (
                 Event.stopEvent(e);
                 var btn = Event.getTarget(e);
                 var newName = Dom.get('capitolNewEmpireName').value;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 btn.disabled = true;
                 this.service.rename_empire(
                     {
@@ -69,17 +60,11 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Capitol.rename_empire.success'
-                            );
+                            YAHOO.log(o, 'info', 'Capitol.rename_empire.success');
                             btn.disabled = false;
                             Dom.get('capitolNewEmpireName').value = '';
-                            Dom.get(
-                                'capitolCurrentEmpireName'
-                            ).innerHTML = newName;
-                            require('js/actions/menu/loader').hide();
+                            Dom.get('capitolCurrentEmpireName').innerHTML = newName;
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             alert('Your empire name has been changed!');
                         },

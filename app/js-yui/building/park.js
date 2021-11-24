@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.Park == 'undefined' ||
-    !YAHOO.lacuna.buildings.Park
-) {
+if (typeof YAHOO.lacuna.buildings.Park == 'undefined' || !YAHOO.lacuna.buildings.Park) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -30,17 +27,14 @@ if (
                     div.appendChild(this.PartyGetDisplay());
                 } else if (this.result.party.seconds_remaining * 1 > 0) {
                     div.innerHTML = [].join('');
-                    div.appendChild(
-                        this.PartyGetTimeDisplay(this.result.party)
-                    );
+                    div.appendChild(this.PartyGetTimeDisplay(this.result.party));
                     this.addQueue(
                         this.result.party.seconds_remaining,
                         this.PartyQueue,
                         'partyTime'
                     );
                 } else {
-                    div.innerHTML =
-                        '<p>You need at least 10,000 food to throw a party.</p>';
+                    div.innerHTML = '<p>You need at least 10,000 food to throw a party.</p>';
                 }
                 this.partyTab = new YAHOO.widget.Tab({
                     label: 'Party',
@@ -49,7 +43,7 @@ if (
                 return this.partyTab;
             },
             Party: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.throw_a_party(
                     {
@@ -59,7 +53,7 @@ if (
                     {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'Park.Party.success');
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             //this.work = o.result.building.work;
                             //this.updateBuildingTile(o.result.building);
@@ -81,16 +75,11 @@ if (
                         this.work.seconds_remaining * 1 > 0
                     ) {
                         ce.appendChild(this.PartyGetTimeDisplay(party));
-                        this.addQueue(
-                            this.work.seconds_remaining,
-                            this.PartyQueue,
-                            'partyTime'
-                        );
+                        this.addQueue(this.work.seconds_remaining, this.PartyQueue, 'partyTime');
                     } else if (party && party.can_throw) {
                         ce.appendChild(this.PartyGetDisplay());
                     } else {
-                        ce.innerHTML =
-                            '<p>You need at least 10,000 food to throw a party.</p>';
+                        ce.innerHTML = '<p>You need at least 10,000 food to throw a party.</p>';
                     }
                 }
             },
@@ -125,13 +114,11 @@ if (
                     p.removeChild(span);
                     p.innerHTML = 'No Parties being thrown.';
                 } else {
-                    Dom.get(el).innerHTML = Lib.formatTime(
-                        Math.round(remaining)
-                    );
+                    Dom.get(el).innerHTML = Lib.formatTime(Math.round(remaining));
                 }
             },
             Subsidize: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Dom.get('parkSubsidize').disabled = true;
 
                 this.service.subsidize_party(
@@ -141,7 +128,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             //delete this.work;

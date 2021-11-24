@@ -4,9 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var BodyRPCGetBodyStatusStore = require('js/stores/rpc/body/getBodyStatus');
 
 var PlanetDetails = createReactClass({
     displayName: 'PlanetDetails',
@@ -15,10 +12,6 @@ var PlanetDetails = createReactClass({
         title: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
     },
-
-    mixins: [
-        Reflux.connect(BodyRPCGetBodyStatusStore, 'bodyRPCGetBodyStatusStore'),
-    ],
 
     render: function() {
         return (

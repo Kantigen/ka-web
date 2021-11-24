@@ -4,19 +4,13 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 
 var GenericBuildingStore = require('js/stores/genericBuilding');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
 
-var WindowActions = require('js/actions/window');
-var BuildingWindowActions = require('js/actions/windows/building');
-var GenericBuildingRPCActions = require('js/actions/rpc/genericBuilding');
-
-var Tabber = require('js/components/tabber');
-var Tabs = Tabber.Tabs;
+var { Tabs } = require('js/components/tabber');
 
 var GenericBuilding = createReactClass({
     displayName: 'GenericBuilding',
@@ -33,7 +27,7 @@ var GenericBuilding = createReactClass({
         options: PropTypes.object,
     },
 
-    mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
+    // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
     componentWillMount: function() {
         BuildingWindowActions.buildingWindowClear();

@@ -1,46 +1,21 @@
 'use strict';
 
-var Reflux = require('reflux');
+const { makeAutoObservable } = require('mobx');
 
-var WindowMixinStore = require('js/stores/mixins/window');
+class StatsWindowStore {
+    shown = false;
 
-var StatsWindowActions = require('js/actions/windows/stats');
-var KeyboardActions = require('js/actions/keyboard');
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-var StatsWindowStore = Reflux.createStore({
-    mixins: [WindowMixinStore],
-    listenables: [StatsWindowActions, KeyboardActions],
+    show() {
+        this.shown = true;
+    }
 
-    getDefaultData: function() {
-        return {
-            show: false,
-        };
-    },
+    hide() {
+        this.shown = false;
+    }
+}
 
-    getData: function() {
-        return this.state;
-    },
-
-    getInitialState: function() {
-        if (this.state) {
-            this.state = this.getDefaultData();
-        }
-        return this.state;
-    },
-
-    init: function() {
-        this.state = this.getDefaultData();
-    },
-
-    onStatsWindowShow: function() {
-        this.state.show = true;
-        this.trigger(this.state);
-    },
-
-    onStatsWindowHide: function() {
-        this.state.show = false;
-        this.trigger(this.state);
-    },
-});
-
-module.exports = StatsWindowStore;
+module.exports = new StatsWindowStore();

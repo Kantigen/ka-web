@@ -2,9 +2,6 @@
 
 var React = require('react');
 
-var WindowActions = require('js/actions/window');
-var UserWSActions = require('js/actions/ws/user');
-
 class LoginWindow extends React.Component {
     static options = {
         title: 'Web Socket Login',
@@ -37,16 +34,9 @@ class LoginWindow extends React.Component {
                     <input type='text' placeholder='Username' ref='username' />
                 </div>
                 <div className='ui large fluid action input'>
-                    <input
-                        type='password'
-                        placeholder='Password'
-                        ref='password'
-                    />
+                    <input type='password' placeholder='Password' ref='password' />
                 </div>
-                <div
-                    className='ui green large labeled icon button'
-                    onClick={this.clickLogin}
-                >
+                <div className='ui green large labeled icon button' onClick={this.clickLogin}>
                     Login
                 </div>
             </div>

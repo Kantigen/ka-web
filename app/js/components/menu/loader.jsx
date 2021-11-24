@@ -1,22 +1,17 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
+var MenuStore = require('js/stores/menu');
 
 var classNames = require('classnames');
 
-var LoaderMenuStore = require('js/stores/menu/loader');
-
-var Loader = createReactClass({
-    displayName: 'Loader',
-    mixins: [Reflux.connect(LoaderMenuStore, 'loaderMenu')],
-
-    render: function() {
+class Loader extends React.Component {
+    render() {
         return (
             <div
                 className={classNames('ui large loader', {
-                    active: this.state.loaderMenu.show,
+                    active: MenuStore.loaderShown,
                 })}
                 style={{
                     zIndex: 9999999999,
@@ -24,7 +19,7 @@ var Loader = createReactClass({
                 }}
             ></div>
         );
-    },
-});
+    }
+}
 
-module.exports = Loader;
+module.exports = observer(Loader);

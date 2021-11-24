@@ -4,7 +4,6 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var _ = require('lodash');
 
 var GetBuildableShipyardRPCStore = require('js/stores/rpc/shipyard/getBuildable');
@@ -26,7 +25,7 @@ var BuildFleetTab = createReactClass({
         };
     },
 
-    mixins: [Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')],
+    // mixins: [Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')],
 
     handleShowChange: function(e) {
         this.setState({
@@ -93,9 +92,8 @@ var BuildFleetTab = createReactClass({
         return (
             <div>
                 <div>
-                    There are {this.state.getBuildableStore.docks_available}{' '}
-                    docks available for new ships. You can queue{' '}
-                    {buildQueueAvailable} ships.
+                    There are {this.state.getBuildableStore.docks_available} docks available for new
+                    ships. You can queue {buildQueueAvailable} ships.
                 </div>
 
                 <div className='ui grid'>
@@ -110,9 +108,7 @@ var BuildFleetTab = createReactClass({
                             <option value='all' selected>
                                 All
                             </option>
-                            <option value='equal_or_higher'>
-                                Same or Higher Level
-                            </option>
+                            <option value='equal_or_higher'>Same or Higher Level</option>
                             <option value='equal'>Same Level</option>
                         </select>
                     </div>
@@ -140,11 +136,7 @@ var BuildFleetTab = createReactClass({
 
                     <div className='five wide column'>
                         Show{' '}
-                        <select
-                            className='ui dropdown'
-                            ref='show'
-                            onChange={this.handleShowChange}
-                        >
+                        <select className='ui dropdown' ref='show' onChange={this.handleShowChange}>
                             <option value='all'>All</option>
                             <option value='now' selected>
                                 Can build now

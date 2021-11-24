@@ -29,11 +29,7 @@ if (
                 Intelligence.superclass.destroy.call(this);
             },
             getChildTabs: function() {
-                return [
-                    this._getTrainTab(),
-                    this._getSpiesTab(),
-                    this._getRenameSpiesTab(),
-                ];
+                return [this._getTrainTab(), this._getSpiesTab(), this._getRenameSpiesTab()];
             },
             _getTrainTab: function() {
                 var spies = this.result.spies;
@@ -89,17 +85,8 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.trainTab.subscribe(
-                    'activeChange',
-                    this.trainView,
-                    this,
-                    true
-                );
-                var btn = Sel.query(
-                    'button',
-                    this.trainTab.get('contentEl'),
-                    true
-                );
+                this.trainTab.subscribe('activeChange', this.trainView, this, true);
+                var btn = Sel.query('button', this.trainTab.get('contentEl'), true);
                 if (btn) {
                     Event.on(btn, 'click', this.SpyTrain, this, true);
                 }
@@ -122,12 +109,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.spiesTab.subscribe(
-                    'activeChange',
-                    this.spiesView,
-                    this,
-                    true
-                );
+                this.spiesTab.subscribe('activeChange', this.spiesView, this, true);
 
                 Event.on('spiesSubsidize', 'click', this.Subsidize, this, true);
 
@@ -178,7 +160,7 @@ if (
             spiesView: function(e) {
                 if (e.newValue) {
                     if (!this.spies) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_spies(
                             {
                                 session_id: Game.GetSession(),
@@ -191,15 +173,14 @@ if (
                                         'info',
                                         'Intelligence.Intelligence.view_spies.success'
                                     );
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.spies = o.result;
                                     this.pager = new Pager({
                                         rowsPerPage: 30,
                                         totalRecords: o.result.spy_count,
                                         containers: 'spyPaginator',
-                                        template:
-                                            '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                        template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                         alwaysVisible: false,
                                     });
                                     this.pager.subscribe(
@@ -238,13 +219,7 @@ if (
                 Dom.addClass(nLi, 'spyName');
                 nLi.innerHTML = spy.name;
                 nUl.appendChild(nLi);
-                Event.on(
-                    nLi,
-                    'click',
-                    this.SpyName,
-                    { Self: this, Spy: spy, el: nLi },
-                    true
-                );
+                Event.on(nLi, 'click', this.SpyName, { Self: this, Spy: spy, el: nLi }, true);
 
                 nLi = li.cloneNode(false);
                 Dom.addClass(nLi, 'spyAssignedTo');
@@ -256,24 +231,14 @@ if (
                     '">' +
                     spy.assigned_to.name +
                     '</a>';
-                Event.delegate(
-                    nLi,
-                    'click',
-                    this.handleStarmapLink,
-                    'a.starmap_link',
-                    this,
-                    true
-                );
+                Event.delegate(nLi, 'click', this.handleStarmapLink, 'a.starmap_link', this, true);
                 nUl.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
                 Dom.addClass(nLi, 'spyAssignment');
 
                 var sel;
-                if (
-                    spy.is_available &&
-                    spy.assignment != 'Mercenary Transport'
-                ) {
+                if (spy.is_available && spy.assignment != 'Mercenary Transport') {
                     sel = document.createElement('select');
                     var opt = document.createElement('option'),
                         btn = document.createElement('button');
@@ -383,9 +348,7 @@ if (
                 Dom.addClass(nLi, 'spyAvailableWhen');
                 nLi.innerHTML =
                     '<label>Available:</label>' +
-                    (spy.is_available
-                        ? 'Now'
-                        : Lib.formatServerDate(spy.available_on));
+                    (spy.is_available ? 'Now' : Lib.formatServerDate(spy.available_on));
                 nUl.appendChild(nLi);
 
                 nDiv.appendChild(nUl);
@@ -424,22 +387,19 @@ if (
 
                 nLi = li.cloneNode(false);
                 Dom.addClass(nLi, 'spyOffensiveMissions');
-                nLi.innerHTML =
-                    '<label>Offensive:</label>' + mission_count.offensive;
+                nLi.innerHTML = '<label>Offensive:</label>' + mission_count.offensive;
                 nUl.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
                 Dom.addClass(nLi, 'spyDefensiveMissions');
-                nLi.innerHTML =
-                    '<label>Defensive:</label>' + mission_count.defensive;
+                nLi.innerHTML = '<label>Defensive:</label>' + mission_count.defensive;
                 nUl.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
                 Dom.addClass(nLi, 'spyTotalMissions');
                 nLi.innerHTML =
                     '<label>Total:</label>' +
-                    (parseInt(mission_count.defensive, 10) +
-                        parseInt(mission_count.offensive, 10));
+                    (parseInt(mission_count.defensive, 10) + parseInt(mission_count.offensive, 10));
                 nUl.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
@@ -452,13 +412,7 @@ if (
 
                 nDiv.appendChild(nUl);
 
-                Event.on(
-                    bbtn,
-                    'click',
-                    this.SpyBurn,
-                    { Self: this, Spy: spy, Line: nDiv },
-                    true
-                );
+                Event.on(bbtn, 'click', this.SpyBurn, { Self: this, Spy: spy, Line: nDiv }, true);
 
                 return [nDiv, isTraining];
             },
@@ -514,7 +468,7 @@ if (
                 }
             },
             SpyHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_spies(
                     {
                         session_id: Game.GetSession(),
@@ -528,7 +482,7 @@ if (
                                 'info',
                                 'Intelligence.SpyHandlePagination.view_spies.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.spies = o.result;
                             this.SpyPopulate();
@@ -545,15 +499,11 @@ if (
                     defVal = this.currentAssign,
                     selVal = this[this.selectedIndex].value;
                 if (btn) {
-                    Dom.setStyle(
-                        btn,
-                        'display',
-                        defVal != selVal ? '' : 'none'
-                    );
+                    Dom.setStyle(btn, 'display', defVal != selVal ? '' : 'none');
                 }
             },
             SpyAssign: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var assign = this.Assign[this.Assign.selectedIndex].value;
 
                 this.Self.service.assign_spy(
@@ -565,12 +515,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Intelligence.SpyAssign.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Intelligence.SpyAssign.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             //delete this.Self.spies; /* Can't delete it, we need it later */
                             var spy = o.result.spy;
@@ -586,13 +532,8 @@ if (
                             this.Self.spies.spies = spies;
                             var ret = this.Self.SpyInfo(spy);
                             //Dom.get('spiesDetails').replaceChild(ret[0], Dom.get('spy' + spy.id));
-                            this.Line.parentNode.insertBefore(
-                                ret[0],
-                                this.Line
-                            );
-                            var ol = this.Line.parentNode.removeChild(
-                                this.Line
-                            );
+                            this.Line.parentNode.insertBefore(ret[0], this.Line);
+                            var ol = this.Line.parentNode.removeChild(this.Line);
                             Event.purgeElement(ol);
                         },
                         failure: function(o) {
@@ -603,16 +544,8 @@ if (
                 );
             },
             SpyBurn: function() {
-                if (
-                    confirm(
-                        [
-                            'Are you sure you want to Burn ',
-                            this.Spy.name,
-                            '?',
-                        ].join('')
-                    )
-                ) {
-                    require('js/actions/menu/loader').show();
+                if (confirm(['Are you sure you want to Burn ', this.Spy.name, '?'].join(''))) {
+                    require('js/stores/menu').showLoader();
 
                     this.Self.service.burn_spy(
                         {
@@ -622,12 +555,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Intelligence.SpyBurn.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Intelligence.SpyBurn.success');
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
                                 var spies = this.Self.spies.spies;
                                 for (var i = 0; i < spies.length; i++) {
@@ -670,7 +599,7 @@ if (
             },
             SpyNameSave: function(e) {
                 Event.stopEvent(e);
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var newName = this.Input.value;
 
                 this.Self.service.name_spy(
@@ -682,12 +611,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Intelligence.SpyNameSave.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Intelligence.SpyNameSave.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             //this.Self.spies = undefined; /* Can't delete it, we need it later */
                             this.Spy.name = newName;
@@ -726,7 +651,7 @@ if (
                     Lang.isNumber(num) &&
                     num <= this.result.spies.maximum - this.result.spies.current
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.train_spy(
                         {
                             session_id: Game.GetSession(),
@@ -735,19 +660,14 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Intelligence.SpyTrain.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Intelligence.SpyTrain.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 var trained = o.result.trained * 1;
                                 if (trained > 0) {
                                     this.spies = undefined;
                                     this.result.spies.current =
-                                        this.result.spies.current * 1 +
-                                        o.result.trained * 1;
+                                        this.result.spies.current * 1 + o.result.trained * 1;
                                     this.trainView();
                                     // Dom.get("spiesCurrent").innerHTML = this.result.spies.current;
                                     //this.UpdateCost(this.spies.training_costs, trained);
@@ -767,7 +687,7 @@ if (
                 }
             },
             Subsidize: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Dom.get('spiesSubsidize').disabled = true;
 
                 this.service.subsidize_training(
@@ -777,7 +697,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete this.spies;
@@ -791,7 +711,7 @@ if (
                 );
             },
             RenameAll: function(e) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Dom.get('spiesRename').disabled = true;
 
                 var prefix = Dom.get('spiesRenamePrefix').value,
@@ -810,7 +730,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             Dom.get('spiesRename').disabled = false;
                         },

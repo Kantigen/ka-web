@@ -1,104 +1,56 @@
 'use strict';
 
-var Reflux = require('reflux');
-var _ = require('lodash');
+const { makeAutoObservable } = require('mobx');
 var util = require('js/util');
-
-var TickerActions = require('js/actions/ticker');
-var EmpireRPCActions = require('js/actions/rpc/empire');
-
-var StatefulMixinsStore = require('js/stores/mixins/stateful');
 var ServerRPCStore = require('js/stores/rpc/server');
+var server = require('js/server');
 
-var clone = util.clone;
+class BoostsEmpireRPCStore {
+    foodMsRemaining = 0;
+    oreMsRemaining = 0;
+    waterMsRemaining = 0;
+    energyMsRemaining = 0;
+    happinessMsRemaining = 0;
+    storageMsRemaining = 0;
+    buildingMsRemaining = 0;
+    spyTrainingMsRemaining = 0;
 
-var BOOST_TYPES = [
-    'food',
-    'ore',
-    'water',
-    'energy',
-    'happiness',
-    'storage',
-    'building',
-    'spy_training',
-];
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-var BoostsEmpireRPCStore = Reflux.createStore({
-    listenables: [TickerActions, EmpireRPCActions],
-
-    mixins: [StatefulMixinsStore],
-
-    getDefaultData: function() {
-        var defaultData = {};
-
-        _.each(BOOST_TYPES, function(type) {
-            defaultData[type] = {
-                ms: 0,
-                display: '',
-            };
+    fetch() {
+        server.call({
+            module: 'empire',
+            method: 'get_boosts',
+            params: [],
+            scope: this,
+            success: this.update,
         });
+    }
 
-        return defaultData;
-    },
+    update(result) {
+        const now = ServerRPCStore.serverTimeMoment;
+        this.buildingMsRemaining = util.serverDateToMoment(result.boosts.building) - now;
+        this.energyMsRemaining = util.serverDateToMoment(result.boosts.energy) - now;
+        this.foodMsRemaining = util.serverDateToMoment(result.boosts.food) - now;
+        this.happinessMsRemaining = util.serverDateToMoment(result.boosts.happiness) - now;
+        this.oreMsRemaining = util.serverDateToMoment(result.boosts.ore) - now;
+        this.spyTrainingMsRemaining = util.serverDateToMoment(result.boosts.spy_training) - now;
+        this.storageMsRemaining = util.serverDateToMoment(result.boosts.storage) - now;
+        this.waterMsRemaining = util.serverDateToMoment(result.boosts.water) - now;
+    }
 
-    handleNewBoost: function(timestamp) {
-        var millisecondsRemaining =
-            util.serverDateToMoment(timestamp) -
-            ServerRPCStore.getData().serverMoment;
+    tick() {
+        if (this.buildingMsRemaining > 0) this.buildingMsRemaining -= 1000;
+        if (this.energyMsRemaining > 0) this.energyMsRemaining -= 1000;
+        if (this.foodMsRemaining > 0) this.foodMsRemaining -= 1000;
+        if (this.happinessMsRemaining > 0) this.happinessMsRemaining -= 1000;
+        if (this.oreMsRemaining > 0) this.oreMsRemaining -= 1000;
+        if (this.spyTrainingMsRemaining > 0) this.spyTrainingMsRemaining -= 1000;
+        if (this.storageMsRemaining > 0) this.storageMsRemaining -= 1000;
+        if (this.waterMsRemaining > 0) this.waterMsRemaining -= 1000;
+    }
+}
 
-        if (timestamp && millisecondsRemaining > 0) {
-            return {
-                ms: millisecondsRemaining,
-                display: util.formatMillisecondTime(millisecondsRemaining),
-            };
-        } else {
-            return {
-                ms: 0,
-                display: '',
-            };
-        }
-    },
-
-    handleNewBoosts: function(result) {
-        var boosts = clone(this.state);
-
-        _.each(
-            BOOST_TYPES,
-            _.bind(function(type) {
-                boosts[type] = this.handleNewBoost(result.boosts[type]);
-            }, this)
-        );
-
-        this.emit(boosts);
-    },
-
-    onTickerTick: function() {
-        var boosts = clone(this.state);
-
-        _.mapValues(boosts, function(boost) {
-            if (boost.ms <= 0) {
-                return {
-                    ms: 0,
-                    display: '',
-                };
-            } else {
-                boost.ms -= 1000;
-                boost.display = util.formatMillisecondTime(boost.ms);
-
-                return boost;
-            }
-        });
-
-        this.emit(boosts);
-    },
-
-    onSuccessEmpireRPCGetBoosts: function(result) {
-        this.handleNewBoosts(result);
-    },
-
-    onSuccessEmpireRPCBoost: function(result) {
-        this.handleNewBoosts(result);
-    },
-});
-
-module.exports = BoostsEmpireRPCStore;
+module.exports = new BoostsEmpireRPCStore();

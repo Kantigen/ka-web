@@ -2,10 +2,6 @@
 
 var React = require('react');
 var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
-
-var EmpireRPCActions = require('js/actions/rpc/empire');
-var WindowActions = require('js/actions/window');
 
 var InviteRPCStore = require('js/stores/rpc/invite');
 
@@ -20,7 +16,7 @@ var InviteWindow = createReactClass({
         },
     },
 
-    mixins: [Reflux.connect(InviteRPCStore, 'inviteRPCStore')],
+    // mixins: [Reflux.connect(InviteRPCStore, 'inviteRPCStore')],
 
     closeWindow: function() {
         WindowActions.windowCloseByType('invite');
@@ -59,25 +55,15 @@ var InviteWindow = createReactClass({
                 <div className='ui form'>
                     <div className='field'>
                         <label style={{ color: '#ffffff' }}>Email</label>
-                        <input
-                            type='text'
-                            placeholder='someone@example.com'
-                            ref='email'
-                        ></input>
+                        <input type='text' placeholder='someone@example.com' ref='email'></input>
                     </div>
 
                     <div className='field'>
                         <label style={{ color: '#ffffff' }}>Message</label>
-                        <textarea
-                            ref='message'
-                            defaultValue={defaultMessage}
-                        ></textarea>
+                        <textarea ref='message' defaultValue={defaultMessage}></textarea>
                     </div>
 
-                    <div
-                        className='ui green button'
-                        onClick={this.handleInvite}
-                    >
+                    <div className='ui green button' onClick={this.handleInvite}>
                         Send Invite
                     </div>
                 </div>

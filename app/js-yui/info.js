@@ -22,10 +22,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                     container.id = this.id;
                     Dom.addClass(container, Lib.Styles.HIDDEN);
                     container.innerHTML = this._getHtml();
-                    document.body.insertBefore(
-                        container,
-                        document.body.firstChild
-                    );
+                    document.body.insertBefore(container, document.body.firstChild);
 
                     this.Panel = new YAHOO.widget.Panel(this.id, {
                         constraintoviewport: true,
@@ -100,7 +97,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
             Load: function(allianceId) {
                 this._createPanel();
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Alliance.view_profile(
                     {
                         session_id: Game.GetSession(''),
@@ -108,7 +105,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             //show now so there is a bit quicker response
                             this.Panel.show();
                             this.Panel.bringToTop();
@@ -116,9 +113,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                             var profile = o.result.profile;
                             this.name.innerHTML = profile.name;
                             this.desc.innerHTML = profile.description;
-                            this.founded.innerHTML = Lib.formatServerDate(
-                                profile.date_created
-                            );
+                            this.founded.innerHTML = Lib.formatServerDate(profile.date_created);
                             this.memberCount.innerHTML = profile.members.length;
 
                             var memberArray = [
@@ -163,10 +158,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                     container.id = this.id;
                     Dom.addClass(container, Lib.Styles.HIDDEN);
                     container.innerHTML = this._getHtml();
-                    document.body.insertBefore(
-                        container,
-                        document.body.firstChild
-                    );
+                    document.body.insertBefore(container, document.body.firstChild);
 
                     this.Panel = new YAHOO.widget.Dialog(this.id, {
                         constraintoviewport: true,
@@ -199,9 +191,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                             this.founded = Dom.get(this.id + 'Founded');
                             this.login = Dom.get(this.id + 'Login');
 
-                            this.coloniesList = Dom.get(
-                                this.id + 'ColoniesList'
-                            );
+                            this.coloniesList = Dom.get(this.id + 'ColoniesList');
 
                             this.medalsList = Dom.get(this.id + 'MedalsList');
 
@@ -210,9 +200,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                             this.country = Dom.get(this.id + 'Country');
                             this.skype = Dom.get(this.id + 'Skype');
 
-                            this.tabView = new YAHOO.widget.TabView(
-                                this.id + 'Tabs'
-                            );
+                            this.tabView = new YAHOO.widget.TabView(this.id + 'Tabs');
                             this.tabView.set('activeIndex', 0);
                             Dom.removeClass(this.id, Lib.Styles.HIDDEN);
                         },
@@ -316,28 +304,22 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
             Load: function(empireId) {
                 this._createPanel();
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Empire.view_public_profile(
                     { session_id: Game.GetSession(''), empire_id: empireId },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             var profile = o.result.profile;
                             this.currentEmpire = profile;
                             this.empire.innerHTML = profile.name;
                             this.status.innerHTML = profile.status_message;
                             this.desc.innerHTML = profile.description;
                             this.species.innerHTML = profile.species;
-                            this.alliance.innerHTML = profile.alliance
-                                ? profile.alliance.name
-                                : '';
+                            this.alliance.innerHTML = profile.alliance ? profile.alliance.name : '';
                             this.colonyCount.innerHTML = profile.colony_count;
-                            this.founded.innerHTML = Lib.formatServerDate(
-                                profile.date_founded
-                            );
-                            this.login.innerHTML = Lib.formatServerDate(
-                                profile.last_login
-                            );
+                            this.founded.innerHTML = Lib.formatServerDate(profile.date_founded);
+                            this.login.innerHTML = Lib.formatServerDate(profile.last_login);
 
                             //show now so there is a bit quicker response
                             this.Panel.show();
@@ -382,9 +364,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                             var colonyArray = [];
                             for (var colonyId in profile.known_colonies) {
                                 var colony = profile.known_colonies[colonyId];
-                                var homeworldclass = colony.homeworld
-                                    ? ' homeworld-highlight'
-                                    : '';
+                                var homeworldclass = colony.homeworld ? ' homeworld-highlight' : '';
                                 colonyArray = colonyArray.concat([
                                     '<li>',
                                     '    <div class="planetContainer yui-gf">',
@@ -425,10 +405,7 @@ if (typeof YAHOO.lacuna.Info == 'undefined' || !YAHOO.lacuna.Info) {
                                     profile.alliance.id
                                 );
                             } else {
-                                Event.removeListener(
-                                    this.id + 'Alliance',
-                                    'click'
-                                );
+                                Event.removeListener(this.id + 'Alliance', 'click');
                             }
                         },
                         scope: this,

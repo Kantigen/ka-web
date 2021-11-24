@@ -3,10 +3,7 @@
 // On click of "Get Available Groups of Ships for Target" disable sends that would not arrive before arrival time.
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' ||
-    !YAHOO.lacuna.buildings.SpacePort
-) {
+if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.buildings.SpacePort) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -78,12 +75,7 @@ if (
                 '    <div><div id="shipDetails"></div></div>',
             */
                 //subscribe after adding so active doesn't fire
-                this.travelTab.subscribe(
-                    'activeChange',
-                    this.getTravel,
-                    this,
-                    true
-                );
+                this.travelTab.subscribe('activeChange', this.getTravel, this, true);
 
                 return this.travelTab;
             },
@@ -99,19 +91,8 @@ if (
                     ].join(''),
                 });
                 //subscribe after adding so active doesn't fire
-                this.viewShipsTab.subscribe(
-                    'activeChange',
-                    this.getShips,
-                    this,
-                    true
-                );
-                Event.on(
-                    'shipsRecallAll',
-                    'click',
-                    this.ShipRecallAll,
-                    this,
-                    true
-                );
+                this.viewShipsTab.subscribe('activeChange', this.getShips, this, true);
+                Event.on('shipsRecallAll', 'click', this.ShipRecallAll, this, true);
 
                 return this.viewShipsTab;
             },
@@ -131,12 +112,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.viewOrbitingTab.subscribe(
-                    'activeChange',
-                    this.getOrbiting,
-                    this,
-                    true
-                );
+                this.viewOrbitingTab.subscribe('activeChange', this.getOrbiting, this, true);
 
                 return this.viewOrbitingTab;
             },
@@ -157,12 +133,7 @@ if (
                     ].join(''),
                 });
                 //subscribe after adding so active doesn't fire
-                this.foreignShipsTab.subscribe(
-                    'activeChange',
-                    this.getForeign,
-                    this,
-                    true
-                );
+                this.foreignShipsTab.subscribe('activeChange', this.getForeign, this, true);
 
                 return this.foreignShipsTab;
             },
@@ -183,12 +154,7 @@ if (
                     ].join(''),
                 });
                 //subscribe after adding so active doesn't fire
-                this.battleLogsTab.subscribe(
-                    'activeChange',
-                    this.getLogs,
-                    this,
-                    true
-                );
+                this.battleLogsTab.subscribe('activeChange', this.getLogs, this, true);
 
                 return this.battleLogsTab;
             },
@@ -211,19 +177,11 @@ if (
 
                 Event.on('sendShipType', 'change', function() {
                     if (Lib.getSelectedOptionValue(this) === 'xy') {
-                        Dom.setStyle(
-                            'sendShipTargetSelectText',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('sendShipTargetSelectText', 'display', 'none');
                         Dom.setStyle('sendShipTargetSelectXY', 'display', '');
                     } else {
                         Dom.setStyle('sendShipTargetSelectText', 'display', '');
-                        Dom.setStyle(
-                            'sendShipTargetSelectXY',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('sendShipTargetSelectXY', 'display', 'none');
                     }
                 });
                 Event.on('sendShipGet', 'click', this.GetShipsFor, this, true);
@@ -259,9 +217,7 @@ if (
                         '        <button type="button" id="sendFleetGet">Get Available Groups of Ships For Target</button>',
                         '    </div>',
                         '    <div class="yui-u-1-3" style="text-align:right;">',
-                        '        <div>    Current Time: (GMT) ' +
-                            currYear +
-                            ':',
+                        '        <div>    Current Time: (GMT) ' + currYear + ':',
                         Lib.padit(currMon, '0'),
                         ':',
                         Lib.padit(currDay, '0'),
@@ -299,23 +255,11 @@ if (
 
                 Event.on('sendFleetType', 'change', function() {
                     if (Lib.getSelectedOptionValue(this) === 'xy') {
-                        Dom.setStyle(
-                            'sendFleetTargetSelectText',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('sendFleetTargetSelectText', 'display', 'none');
                         Dom.setStyle('sendFleetTargetSelectXY', 'display', '');
                     } else {
-                        Dom.setStyle(
-                            'sendFleetTargetSelectText',
-                            'display',
-                            ''
-                        );
-                        Dom.setStyle(
-                            'sendFleetTargetSelectXY',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('sendFleetTargetSelectText', 'display', '');
+                        Dom.setStyle('sendFleetTargetSelectXY', 'display', 'none');
                     }
                 });
                 Event.on('sendFleetGet', 'click', this.GetFleetFor, this, true);
@@ -326,7 +270,7 @@ if (
             getTravel: function(e) {
                 if (e.newValue) {
                     if (!this.shipsTravelling) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_ships_travelling(
                             {
                                 session_id: Game.GetSession(),
@@ -335,23 +279,17 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'SpacePort.view_ships_travelling.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'SpacePort.view_ships_travelling.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.shipsTravelling = {
                                         number_of_ships_travelling:
                                             o.result.number_of_ships_travelling,
-                                        ships_travelling:
-                                            o.result.ships_travelling,
+                                        ships_travelling: o.result.ships_travelling,
                                     };
                                     this.shipsPager = new Pager({
                                         rowsPerPage: 25,
-                                        totalRecords:
-                                            o.result.number_of_ships_travelling,
+                                        totalRecords: o.result.number_of_ships_travelling,
                                         containers: 'shipsPaginator',
                                         template:
                                             '{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}',
@@ -378,7 +316,7 @@ if (
             getShips: function(e) {
                 if (e.newValue) {
                     if (!this.shipsView) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_all_ships(
                             {
                                 session_id: Game.GetSession(),
@@ -387,16 +325,11 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'SpacePort.view_all_ships.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'SpacePort.view_all_ships.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.shipsView = {
-                                        number_of_ships:
-                                            o.result.number_of_ships,
+                                        number_of_ships: o.result.number_of_ships,
                                         ships: o.result.ships,
                                     };
                                     this.viewPager = new Pager({
@@ -428,7 +361,7 @@ if (
             getForeign: function(e) {
                 if (e.newValue) {
                     if (!this.shipsForeign) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_foreign_ships(
                             {
                                 session_id: Game.GetSession(),
@@ -437,16 +370,11 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'SpacePort.view_foreign_ships.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'SpacePort.view_foreign_ships.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.shipsForeign = {
-                                        number_of_ships:
-                                            o.result.number_of_ships,
+                                        number_of_ships: o.result.number_of_ships,
                                         ships: o.result.ships,
                                     };
                                     this.foreignPager = new Pager({
@@ -478,7 +406,7 @@ if (
             getLogs: function(e) {
                 if (e.newValue) {
                     if (!this.battleLogs) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_battle_logs(
                             {
                                 session_id: Game.GetSession(),
@@ -486,12 +414,8 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'SpacePort.view_battle_logs.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'SpacePort.view_battle_logs.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.battleLogs = {
                                         number_of_logs: o.result.number_of_logs,
@@ -526,7 +450,7 @@ if (
             getOrbiting: function(e) {
                 if (e.newValue) {
                     if (!this.shipsOrbiting) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_ships_orbiting(
                             {
                                 session_id: Game.GetSession(),
@@ -534,11 +458,10 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.shipsOrbiting = {
-                                        number_of_ships:
-                                            o.result.number_of_ships,
+                                        number_of_ships: o.result.number_of_ships,
                                         ships: o.result.ships,
                                     };
                                     this.orbitingPager = new Pager({
@@ -584,9 +507,7 @@ if (
                     for (var i = 0; i < ships.length; i++) {
                         var ship = ships[i],
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(ship.date_arrives) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
                         nLi.innerHTML = [
                             '<div class="yui-g" style="margin-bottom:2px;">',
@@ -625,8 +546,7 @@ if (
                             '        <ul>',
                             '        <li><label style="font-weight:bold;">Attributes:</label></li>',
                             '        <li style="white-space:nowrap;"><label style="font-style:italic">Speed: </label>',
-                            ship.fleet_speed > 0 &&
-                            ship.fleet_speed < ship.speed
+                            ship.fleet_speed > 0 && ship.fleet_speed < ship.speed
                                 ? ship.fleet_speed
                                 : ship.speed,
                             '</li>',
@@ -686,7 +606,7 @@ if (
                 }
             },
             ShipHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_ships_travelling(
                     {
                         session_id: Game.GetSession(),
@@ -700,11 +620,10 @@ if (
                                 'info',
                                 'SpacePort.ShipHandlePagination.view_ships_travelling.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.shipsTravelling = {
-                                number_of_ships_travelling:
-                                    o.result.number_of_ships_travelling,
+                                number_of_ships_travelling: o.result.number_of_ships_travelling,
                                 ships_travelling: o.result.ships_travelling,
                             };
                             this.SpacePortPopulate();
@@ -719,8 +638,7 @@ if (
             SpacePortQueue: function(remaining, elLine) {
                 var arrTime;
                 if (remaining <= 0) {
-                    arrTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    arrTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     arrTime = Lib.formatTime(Math.round(remaining));
                 }
@@ -750,9 +668,7 @@ if (
                     }
                 } else if (ship.task === 'Travelling') {
                     var serverTime = Lib.getTime(Game.ServerData.time),
-                        sec =
-                            (Lib.getTime(ship.date_arrives) - serverTime) /
-                            1000;
+                        sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
                     ulDet[ulDet.length] =
                         '<li style="white-space:nowrap;"><label style="font-style:italic">Arrives In: </label><span class="shipArrives">';
@@ -767,8 +683,7 @@ if (
 
                     this.addQueue(sec, this.SpacePortQueue, nLi);
                 } else if (ship.task === 'Defend' || ship.task === 'Orbiting') {
-                    ulDet[ulDet.length] =
-                        '<li style="white-space:nowrap;"><span class="shipTo">';
+                    ulDet[ulDet.length] = '<li style="white-space:nowrap;"><span class="shipTo">';
                     ulDet[ulDet.length] = ship.orbiting.name;
                     ulDet[ulDet.length] =
                         '</span></li><li style="white-space:nowrap;margin-top:5px"><button type="button" class="recall">Recall</button></li>';
@@ -794,16 +709,9 @@ if (
                             nLi,
                             'click',
                             function(e, matchedEl, container) {
-                                var div = Sel.query(
-                                    'div.shipPayload',
-                                    container
-                                );
+                                var div = Sel.query('div.shipPayload', container);
                                 curDis = Dom.getStyle(div[0], 'display');
-                                Dom.setStyle(
-                                    div,
-                                    'display',
-                                    curDis === 'none' ? '' : 'none'
-                                );
+                                Dom.setStyle(div, 'display', curDis === 'none' ? '' : 'none');
                             },
                             'button.payload',
                             this,
@@ -870,8 +778,7 @@ if (
                             '    <div class="yui-u first">',
                             '        <ul>',
                             '        <li><label style="font-weight:bold;">Attributes:</label></li>',
-                            ship.fleet_speed > 0 &&
-                            ship.fleet_speed < ship.speed
+                            ship.fleet_speed > 0 && ship.fleet_speed < ship.speed
                                 ? '        <li style="white-space:nowrap;"><label style="font-style:italic">Fleet Speed: </label>' +
                                   ship.fleet_speed +
                                   '</li>'
@@ -913,10 +820,7 @@ if (
                             '</div>',
                         ].join('');
 
-                        if (
-                            ship.task === 'Defend' ||
-                            ship.task === 'Orbiting'
-                        ) {
+                        if (ship.task === 'Defend' || ship.task === 'Orbiting') {
                             displayRecallAll = true;
                         }
 
@@ -956,7 +860,7 @@ if (
                 }
             },
             ViewHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_all_ships(
                     {
                         session_id: Game.GetSession(),
@@ -970,7 +874,7 @@ if (
                                 'info',
                                 'SpacePort.ViewHandlePagination.view_all_ships.success'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.shipsView = {
                                 number_of_ships: o.result.number_of_ships,
@@ -1011,7 +915,7 @@ if (
             },
             ShipNameSave: function(e) {
                 Event.stopEvent(e);
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var newName = this.Input.value;
 
                 this.Self.service.name_ship(
@@ -1023,12 +927,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'SpacePort.ShipNameSave.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'SpacePort.ShipNameSave.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             delete this.Self.shipsView;
                             delete this.Self.shipsTravelling;
@@ -1089,9 +989,7 @@ if (
                         var ship = ships[i],
                             nUl = ul.cloneNode(false),
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(ship.date_arrives) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
                         nUl.Ship = ship;
                         Dom.addClass(nUl, 'shipInfo');
@@ -1138,12 +1036,7 @@ if (
                                     ' <span style="cursor:pointer;">[' +
                                     ship.from.empire.name +
                                     ']</span>';
-                                Event.on(
-                                    nLi,
-                                    'click',
-                                    this.EmpireProfile,
-                                    ship.from.empire
-                                );
+                                Event.on(nLi, 'click', this.EmpireProfile, ship.from.empire);
                             } else {
                                 nLi.innerHTML = ship.from.name;
                             }
@@ -1205,11 +1098,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'shipFrom');
-                        nLi.innerHTML =
-                            log.attacking_body +
-                            ' [' +
-                            log.attacking_empire +
-                            ']';
+                        nLi.innerHTML = log.attacking_body + ' [' + log.attacking_empire + ']';
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1218,8 +1107,7 @@ if (
 
                         details.appendChild(nUl);
 
-                        (nUl = ul.cloneNode(false)),
-                            Dom.addClass(nUl, 'shipInfo');
+                        (nUl = ul.cloneNode(false)), Dom.addClass(nUl, 'shipInfo');
                         Dom.addClass(nUl, 'clearafter');
                         Dom.addClass(nUl, 'defender');
 
@@ -1235,11 +1123,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'shipFrom');
-                        nLi.innerHTML =
-                            log.defending_body +
-                            ' [' +
-                            log.defending_empire +
-                            ']';
+                        nLi.innerHTML = log.defending_body + ' [' + log.defending_empire + ']';
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1252,8 +1136,7 @@ if (
 
                         details.appendChild(nUl);
 
-                        (nUl = ul.cloneNode(false)),
-                            Dom.addClass(nUl, 'shipInfo');
+                        (nUl = ul.cloneNode(false)), Dom.addClass(nUl, 'shipInfo');
                         Dom.addClass(nUl, 'clearafter');
                         Dom.addClass(nUl, 'attacked');
 
@@ -1264,11 +1147,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'shipFrom');
-                        nLi.innerHTML =
-                            log.attacked_body +
-                            ' [' +
-                            log.attacked_empire +
-                            ']';
+                        nLi.innerHTML = log.attacked_body + ' [' + log.attacked_empire + ']';
                         nUl.appendChild(nLi);
 
                         details.appendChild(nUl);
@@ -1287,7 +1166,7 @@ if (
                 }
             },
             ForeignHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_foreign_ships(
                     {
                         session_id: Game.GetSession(),
@@ -1296,12 +1175,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'SpacePort.view_foreign_ships.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'SpacePort.view_foreign_ships.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.shipsForeign = {
                                 number_of_ships: o.result.number_of_ships,
@@ -1317,7 +1192,7 @@ if (
                 this.foreignPager.setState(newState);
             },
             LogsHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_battle_logs(
                     {
                         session_id: Game.GetSession(),
@@ -1326,12 +1201,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'SpacePort.view_battle_logs.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'SpacePort.view_battle_logs.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.battleLogs = {
                                 number_of_logs: o.result.number_of_logs,
@@ -1349,8 +1220,7 @@ if (
             ForeignQueue: function(remaining, elLine) {
                 var arrTime;
                 if (remaining <= 0) {
-                    arrTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    arrTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     arrTime = Lib.formatTime(Math.round(remaining));
                 }
@@ -1386,9 +1256,7 @@ if (
                         var ship = ships[i],
                             nUl = ul.cloneNode(false),
                             nLi = li.cloneNode(false),
-                            sec =
-                                (Lib.getTime(ship.date_arrived) - serverTime) /
-                                1000;
+                            sec = (Lib.getTime(ship.date_arrived) - serverTime) / 1000;
                         nUl.Ship = ship;
                         Dom.addClass(nUl, 'shipInfo');
                         Dom.addClass(nUl, 'clearafter');
@@ -1434,12 +1302,7 @@ if (
                                     ' <span style="cursor:pointer;">[' +
                                     ship.from.empire.name +
                                     ']</span>';
-                                Event.on(
-                                    nLi,
-                                    'click',
-                                    this.EmpireProfile,
-                                    ship.from.empire
-                                );
+                                Event.on(nLi, 'click', this.EmpireProfile, ship.from.empire);
                             } else {
                                 nLi.innerHTML = ship.from.name;
                             }
@@ -1464,7 +1327,7 @@ if (
                 }
             },
             OrbitingHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_ships_orbiting(
                     {
                         session_id: Game.GetSession(),
@@ -1473,7 +1336,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.shipsOrbiting = {
                                 number_of_ships: o.result.number_of_ships,
@@ -1493,18 +1356,10 @@ if (
                 Lacuna.Info.Empire.Load(empire.id);
             },
             ShipScuttle: function(e, matchedEl, container) {
-                if (
-                    confirm(
-                        [
-                            'Are you sure you want to Scuttle ',
-                            this.Ship.name,
-                            '?',
-                        ].join('')
-                    )
-                ) {
+                if (confirm(['Are you sure you want to Scuttle ', this.Ship.name, '?'].join(''))) {
                     var btn = Event.getTarget(e);
                     btn.disabled = true;
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     this.Self.service.scuttle_ship(
                         {
@@ -1514,12 +1369,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'SpacePort.ShipScuttle.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'SpacePort.ShipScuttle.success');
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
                                 var ships = this.Self.shipsView.ships,
                                     info = Dom.get('shipsCount');
@@ -1552,7 +1403,7 @@ if (
             },
             ShipRecall: function(e, matchedEl, container) {
                 matchedEl.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.recall_ship(
                     {
@@ -1562,7 +1413,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             var ships = this.Self.shipsView.ships,
@@ -1584,11 +1435,7 @@ if (
                                 ].join('');
                             }
                             //set to travelling
-                            var ad = Sel.query(
-                                'ul.shipActionDetails',
-                                this.Line,
-                                true
-                            );
+                            var ad = Sel.query('ul.shipActionDetails', this.Line, true);
                             ad.innerHTML = this.Self.ViewActionDetails(
                                 this.Line,
                                 o.result.ship,
@@ -1608,7 +1455,7 @@ if (
             ShipRecallAll: function(e) {
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.recall_all(
                     {
@@ -1617,7 +1464,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete this.shipsTravelling;
@@ -1633,7 +1480,7 @@ if (
             },
 
             GetShipsFor: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 //Dom.setStyle("sendShipPick", "display", "none");
                 Dom.setStyle('sendShipSend', 'display', 'none');
@@ -1644,12 +1491,9 @@ if (
                 if (type === 'xy') {
                     target.x = Dom.get('sendShipTargetX').value;
                     target.y = Dom.get('sendShipTargetY').value;
-                    Dom.get('sendShipNote').innerHTML = [
-                        'X: ',
-                        target.x,
-                        ' - Y: ',
-                        target.y,
-                    ].join('');
+                    Dom.get('sendShipNote').innerHTML = ['X: ', target.x, ' - Y: ', target.y].join(
+                        ''
+                    );
                 } else {
                     target[type] = Dom.get('sendShipTargetText').value;
                     Dom.get('sendShipNote').innerHTML = target[type];
@@ -1663,12 +1507,9 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
-                            this.PopulateShipsSendTab(
-                                target,
-                                o.result.available
-                            );
+                            this.PopulateShipsSendTab(target, o.result.available);
                         },
                         scope: this,
                     }
@@ -1783,7 +1624,7 @@ if (
                     target = this.Target;
 
                 if (target && ship.id && Lacuna.MapStar.NotIsolationist(ship)) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     oSelf.service.send_ship(
                         {
                             session_id: Game.GetSession(),
@@ -1792,16 +1633,14 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
                                 delete this.Self.shipsView;
                                 delete this.Self.shipsTravelling;
                                 this.Self.GetShipsFor();
                                 Event.purgeElement(this.Line, true);
                                 this.Line.innerHTML =
-                                    'Successfully sent ' +
-                                    this.Ship.type_human +
-                                    '.';
+                                    'Successfully sent ' + this.Ship.type_human + '.';
                             },
                             failure: function(o) {
                                 btn.disabled = false;
@@ -1815,7 +1654,7 @@ if (
             },
 
             GetFleetFor: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 Dom.setStyle('sendFleetSend', 'display', 'none');
 
@@ -1825,12 +1664,9 @@ if (
                 if (type === 'xy') {
                     target.x = Dom.get('sendFleetTargetX').value;
                     target.y = Dom.get('sendFleetTargetY').value;
-                    Dom.get('sendFleetNote').innerHTML = [
-                        'X: ',
-                        target.x,
-                        ' - Y: ',
-                        target.y,
-                    ].join('');
+                    Dom.get('sendFleetNote').innerHTML = ['X: ', target.x, ' - Y: ', target.y].join(
+                        ''
+                    );
                 } else {
                     target[type] = Dom.get('sendFleetTargetText').value;
                     Dom.get('sendFleetNote').innerHTML = target[type];
@@ -1844,7 +1680,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.PopulateFleetSendTab(target, o.result.ships);
                         },
@@ -1936,9 +1772,7 @@ if (
                             '    <div class="yui-g">',
                             '        <div class="yui-u-1">',
                             '            <input type="text"',
-                            '            id="FS' +
-                                skey +
-                                '" value="1" style="width:32px" />',
+                            '            id="FS' + skey + '" value="1" style="width:32px" />',
                             '            <button type="button">Send</button>',
                             '        </div>',
                             '    </div>',
@@ -1983,7 +1817,7 @@ if (
                     ship = this.Ship,
                     targ = this.Target,
                     skey = this.Key;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var t_param = {};
                 t_param.type = ship.type;
                 t_param.speed = ship.speed;
@@ -2049,7 +1883,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             btn.disabled = false;
                             this.Self.rpcSuccess(o);
                             delete this.FleetTarget;

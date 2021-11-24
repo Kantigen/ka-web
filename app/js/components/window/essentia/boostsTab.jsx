@@ -1,17 +1,16 @@
 'use strict';
 
-var PropTypes = require('prop-types');
-
 var React = require('react');
+var { observer } = require('mobx-react');
+var EmpireRPCStore = require('js/stores/rpc/empire');
+var BoostsRPCStore = require('js/stores/rpc/empire/boosts');
 
 var Boost = require('js/components/window/essentia/boost');
 
 class BoostsTab extends React.Component {
-    static propTypes = {
-        exactEssentia: PropTypes.number.isRequired,
-        boosts: PropTypes.object.isRequired,
-        essentia: PropTypes.number.isRequired,
-    };
+    componentDidMount() {
+        BoostsRPCStore.fetch();
+    }
 
     render() {
         return (
@@ -20,9 +19,7 @@ class BoostsTab extends React.Component {
                     <div className='ui large green labels'>
                         <div className='ui label'>
                             Essentia
-                            <div className='detail'>
-                                {this.props.exactEssentia}
-                            </div>
+                            <div className='detail'>{EmpireRPCStore.exact_essentia}</div>
                         </div>
                         <div className='ui label'>
                             Boost Cost
@@ -37,29 +34,25 @@ class BoostsTab extends React.Component {
                             type='food'
                             description='+25% Food / hr'
                             iconName='food'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.foodMsRemaining}
                         />
                         <Boost
                             type='water'
                             description='+25% Water / hr'
                             iconName='theme'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.waterMsRemaining}
                         />
                         <Boost
                             type='happiness'
                             description='+25% Happiness / hr'
                             iconName='smile'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.happinessMsRemaining}
                         />
                         <Boost
                             type='building'
                             description='+25% Building Construction Speed'
                             iconName='building outline'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.buildingMsRemaining}
                         />
                     </div>
 
@@ -68,29 +61,25 @@ class BoostsTab extends React.Component {
                             type='ore'
                             description='+25% Ore / hr'
                             iconName='diamond'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.oreMsRemaining}
                         />
                         <Boost
                             type='energy'
                             description='+25% Energy / hr'
                             iconName='lightning'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.energyMsRemaining}
                         />
                         <Boost
                             type='storage'
                             description='+25% Storage'
                             iconName='archive'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.storageMsRemaining}
                         />
                         <Boost
                             type='spy_training'
                             description='+50% Spy Training Speed'
                             iconName='protect'
-                            boosts={this.props.boosts}
-                            essentia={this.props.essentia}
+                            ms={BoostsRPCStore.spyTrainingMsRemaining}
                         />
                     </div>
                 </div>
@@ -99,4 +88,4 @@ class BoostsTab extends React.Component {
     }
 }
 
-module.exports = BoostsTab;
+module.exports = observer(BoostsTab);

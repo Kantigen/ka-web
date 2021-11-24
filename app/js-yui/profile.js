@@ -5,8 +5,6 @@ YAHOO.namespace('lacuna');
 var _ = require('lodash');
 var util = require('js/util');
 
-var OptionsWindowActions = require('js/actions/windows/options');
-
 if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
     (function() {
         var Lang = YAHOO.lang,
@@ -28,9 +26,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 container.id = this.id;
                 Dom.addClass(container, Lib.Styles.HIDDEN);
                 container.innerHTML = this._getHtml();
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(container);
+                document.getElementById('oldYUIPanelContainer').appendChild(container);
 
                 this.Dialog = new YAHOO.widget.Dialog(this.id, {
                     constraintoviewport: true,
@@ -59,140 +55,68 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                         this.country = Dom.get('profileCountry');
                         this.skype = Dom.get('profileSkype');
                         this.player_name = Dom.get('profilePlayerName');
-                        this.skipFacebook = Dom.get(
-                            'profileSkipFacebookWallPosts'
-                        );
+                        this.skipFacebook = Dom.get('profileSkipFacebookWallPosts');
                         this.skipMedal = Dom.get('profileSkipMedal');
                         this.skipHappiness = Dom.get('profileSkipHappiness');
                         this.skipResource = Dom.get('profileSkipResource');
                         this.skipPollution = Dom.get('profileSkipPollution');
-                        this.skipFoundNothing = Dom.get(
-                            'profileSkipFoundNothing'
-                        );
-                        this.skipExcavatorResources = Dom.get(
-                            'profileSkipExcavatorResources'
-                        );
-                        this.skipExcavatorGlyph = Dom.get(
-                            'profileSkipExcavatorGlyph'
-                        );
-                        this.skipExcavatorPlan = Dom.get(
-                            'profileSkipExcavatorPlan'
-                        );
-                        this.skipExcavatorArtifact = Dom.get(
-                            'profileSkipExcavatorArtifact'
-                        );
-                        this.skipExcavatorDestroyed = Dom.get(
-                            'profileSkipExcavatorDestroyed'
-                        );
-                        this.skipAllExcavator = Dom.get(
-                            'profileSkipAllExcavator'
-                        );
-                        this.skipSpyRecovery = Dom.get(
-                            'profileSkipSpyRecovery'
-                        );
-                        this.skipProbeDetected = Dom.get(
-                            'profileSkipProbeDetected'
-                        );
-                        this.skipAttackMessages = Dom.get(
-                            'profileSkipAttackMessages'
-                        );
-                        this.skipIncomingShips = Dom.get(
-                            'profileSkipIncomingShips'
-                        );
-                        this.skipExcavatorReplaceMsg = Dom.get(
-                            'profileSkipExcavatorReplaceMsg'
-                        );
-                        this.dontReplaceExcavator = Dom.get(
-                            'profileDontReplaceExcavator'
-                        );
+                        this.skipFoundNothing = Dom.get('profileSkipFoundNothing');
+                        this.skipExcavatorResources = Dom.get('profileSkipExcavatorResources');
+                        this.skipExcavatorGlyph = Dom.get('profileSkipExcavatorGlyph');
+                        this.skipExcavatorPlan = Dom.get('profileSkipExcavatorPlan');
+                        this.skipExcavatorArtifact = Dom.get('profileSkipExcavatorArtifact');
+                        this.skipExcavatorDestroyed = Dom.get('profileSkipExcavatorDestroyed');
+                        this.skipAllExcavator = Dom.get('profileSkipAllExcavator');
+                        this.skipSpyRecovery = Dom.get('profileSkipSpyRecovery');
+                        this.skipProbeDetected = Dom.get('profileSkipProbeDetected');
+                        this.skipAttackMessages = Dom.get('profileSkipAttackMessages');
+                        this.skipIncomingShips = Dom.get('profileSkipIncomingShips');
+                        this.skipExcavatorReplaceMsg = Dom.get('profileSkipExcavatorReplaceMsg');
+                        this.dontReplaceExcavator = Dom.get('profileDontReplaceExcavator');
                         Event.on(this.skipFoundNothing, 'change', function() {
                             if (!this.checked) {
-                                Dom.get(
-                                    'profileSkipAllExcavator'
-                                ).checked = false;
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
                         });
-                        Event.on(
-                            this.skipExcavatorResources,
-                            'change',
-                            function() {
-                                if (!this.checked) {
-                                    Dom.get(
-                                        'profileSkipAllExcavator'
-                                    ).checked = false;
-                                }
+                        Event.on(this.skipExcavatorResources, 'change', function() {
+                            if (!this.checked) {
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
-                        );
+                        });
                         Event.on(this.skipExcavatorGlyph, 'change', function() {
                             if (!this.checked) {
-                                Dom.get(
-                                    'profileSkipAllExcavator'
-                                ).checked = false;
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
                         });
                         Event.on(this.skipExcavatorPlan, 'change', function() {
                             if (!this.checked) {
-                                Dom.get(
-                                    'profileSkipAllExcavator'
-                                ).checked = false;
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
                         });
-                        Event.on(
-                            this.skipExcavatorArtifact,
-                            'change',
-                            function() {
-                                if (!this.checked) {
-                                    Dom.get(
-                                        'profileSkipAllExcavator'
-                                    ).checked = false;
-                                }
+                        Event.on(this.skipExcavatorArtifact, 'change', function() {
+                            if (!this.checked) {
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
-                        );
-                        Event.on(
-                            this.skipExcavatorDestroyed,
-                            'change',
-                            function() {
-                                if (!this.checked) {
-                                    Dom.get(
-                                        'profileSkipAllExcavator'
-                                    ).checked = false;
-                                }
+                        });
+                        Event.on(this.skipExcavatorDestroyed, 'change', function() {
+                            if (!this.checked) {
+                                Dom.get('profileSkipAllExcavator').checked = false;
                             }
-                        );
-                        Event.on(
-                            this.skipExcavatorReplaceMsg,
-                            'change',
-                            function() {
-                                if (!this.checked) {
-                                    Dom.get(
-                                        'profileSkipExcavatorReplaceMsg'
-                                    ).checked = false;
-                                }
+                        });
+                        Event.on(this.skipExcavatorReplaceMsg, 'change', function() {
+                            if (!this.checked) {
+                                Dom.get('profileSkipExcavatorReplaceMsg').checked = false;
                             }
-                        );
+                        });
                         Event.on(this.skipAllExcavator, 'change', function() {
                             if (this.checked) {
-                                Dom.get(
-                                    'profileSkipFoundNothing'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorResources'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorGlyph'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorPlan'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorArtifact'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorDestroyed'
-                                ).checked = true;
-                                Dom.get(
-                                    'profileSkipExcavatorReplaceMsg'
-                                ).checked = true;
+                                Dom.get('profileSkipFoundNothing').checked = true;
+                                Dom.get('profileSkipExcavatorResources').checked = true;
+                                Dom.get('profileSkipExcavatorGlyph').checked = true;
+                                Dom.get('profileSkipExcavatorPlan').checked = true;
+                                Dom.get('profileSkipExcavatorArtifact').checked = true;
+                                Dom.get('profileSkipExcavatorDestroyed').checked = true;
+                                Dom.get('profileSkipExcavatorReplaceMsg').checked = true;
                             }
                         });
 
@@ -204,9 +128,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                         this.userID = Dom.get('profileUserID');
                         this.allianceID = Dom.get('profileAllianceID');
                         this.new_password = Dom.get('profileNewPassword');
-                        this.confirm_password = Dom.get(
-                            'profileConfirmPassword'
-                        );
+                        this.confirm_password = Dom.get('profileConfirmPassword');
                         this.account_tab = Dom.get('detailsAccount');
                         Event.on(this.sitter_password, 'focus', function() {
                             this.type = 'text';
@@ -237,12 +159,8 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                                                     'info',
                                                     'Profile.show.view_stats.success'
                                                 );
-                                                this.fireEvent(
-                                                    'onRpc',
-                                                    o.result
-                                                );
-                                                this.speciesStats =
-                                                    o.result.species;
+                                                this.fireEvent('onRpc', o.result);
+                                                this.speciesStats = o.result.species;
                                                 requests++;
                                                 if (requests == 2) {
                                                     this.populateSpecies();
@@ -260,12 +178,8 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                                                     'info',
                                                     'Profile.redefine_species_limits.success'
                                                 );
-                                                this.fireEvent(
-                                                    'onRpc',
-                                                    o.result
-                                                );
-                                                this.speciesRedefineLimits =
-                                                    o.result;
+                                                this.fireEvent('onRpc', o.result);
+                                                this.speciesRedefineLimits = o.result;
                                                 requests++;
                                                 if (requests == 2) {
                                                     this.populateSpecies();
@@ -286,9 +200,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     true
                 );
                 // Let the React component know that we're going away now.
-                this.Dialog.hideEvent.subscribe(
-                    OptionsWindowActions.optionsWindowHide
-                );
+                this.Dialog.hideEvent.subscribe(OptionsWindowActions.optionsWindowHide);
                 this.Dialog.render();
                 Game.OverlayManager.register(this.Dialog);
 
@@ -310,9 +222,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     '    </div>',
                     '    <div class="ft"></div>',
                 ].join('');
-                document
-                    .getElementById('oldYUIPanelContainer')
-                    .appendChild(speciesContainer);
+                document.getElementById('oldYUIPanelContainer').appendChild(speciesContainer);
                 this.SpeciesDialog = new YAHOO.widget.Dialog(this.speciesId, {
                     constraintoviewport: true,
                     postmethod: 'none',
@@ -457,9 +367,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
             handleUpdate: function() {
                 var updatesLeft = 1;
                 if (this.new_password.value != '') {
-                    if (
-                        this.new_password.value != this.confirm_password.value
-                    ) {
+                    if (this.new_password.value != this.confirm_password.value) {
                         alert("Passwords don't match!");
                         this.tabView.set('activeIndex', 4);
                         this.confirm_password.focus();
@@ -474,15 +382,8 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'Profile.handleUpdate.password.success'
-                                    );
-                                    Dom.removeClass(
-                                        this.account_tab,
-                                        'password-changed'
-                                    );
+                                    YAHOO.log(o, 'info', 'Profile.handleUpdate.password.success');
+                                    Dom.removeClass(this.account_tab, 'password-changed');
                                     if (--updatesLeft == 0) {
                                         this.hide();
                                     }
@@ -501,10 +402,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 var pmc = Sel.query('li', 'profileMedalsList'),
                     publicMedals = [];
                 for (var i = 0; i < pmc.length; i++) {
-                    if (
-                        Sel.query('input[type="checkbox"]', pmc[i], true)
-                            .checked
-                    ) {
+                    if (Sel.query('input[type="checkbox"]', pmc[i], true).checked) {
                         publicMedals.push(pmc[i].MedalId);
                     }
                 }
@@ -534,9 +432,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     } else {
                         Game.RemoveCookieSettings('showLevels');
                     }
-                    var levels = Sel.query(
-                        '#planetMap .tileContainer .planetMapTileActionLevel'
-                    );
+                    var levels = Sel.query('#planetMap .tileContainer .planetMapTileActionLevel');
                     for (var n = 0; n < levels.length; n++) {
                         Dom.setStyle(
                             levels[n].parentNode,
@@ -575,71 +471,30 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                             notes: this.notes.value,
                             sitter_password: this.sitter_password.value,
                             public_medals: publicMedals,
-                            skip_happiness_warnings: this.skipHappiness.checked
-                                ? 1
-                                : 0,
-                            skip_resource_warnings: this.skipResource.checked
-                                ? 1
-                                : 0,
-                            skip_pollution_warnings: this.skipPollution.checked
-                                ? 1
-                                : 0,
+                            skip_happiness_warnings: this.skipHappiness.checked ? 1 : 0,
+                            skip_resource_warnings: this.skipResource.checked ? 1 : 0,
+                            skip_pollution_warnings: this.skipPollution.checked ? 1 : 0,
                             skip_medal_messages: this.skipMedal.checked ? 1 : 0,
-                            skip_facebook_wall_posts: this.skipFacebook.checked
+                            skip_facebook_wall_posts: this.skipFacebook.checked ? 1 : 0,
+                            skip_found_nothing: this.skipFoundNothing.checked ? 1 : 0,
+                            skip_excavator_resources: this.skipExcavatorResources.checked ? 1 : 0,
+                            skip_excavator_glyph: this.skipExcavatorGlyph.checked ? 1 : 0,
+                            skip_excavator_plan: this.skipExcavatorPlan.checked ? 1 : 0,
+                            skip_excavator_artifact: this.skipExcavatorArtifact.checked ? 1 : 0,
+                            skip_excavator_destroyed: this.skipExcavatorDestroyed.checked ? 1 : 0,
+                            skip_excavator_replace_msg: this.skipExcavatorReplaceMsg.checked
                                 ? 1
                                 : 0,
-                            skip_found_nothing: this.skipFoundNothing.checked
-                                ? 1
-                                : 0,
-                            skip_excavator_resources: this
-                                .skipExcavatorResources.checked
-                                ? 1
-                                : 0,
-                            skip_excavator_glyph: this.skipExcavatorGlyph
-                                .checked
-                                ? 1
-                                : 0,
-                            skip_excavator_plan: this.skipExcavatorPlan.checked
-                                ? 1
-                                : 0,
-                            skip_excavator_artifact: this.skipExcavatorArtifact
-                                .checked
-                                ? 1
-                                : 0,
-                            skip_excavator_destroyed: this
-                                .skipExcavatorDestroyed.checked
-                                ? 1
-                                : 0,
-                            skip_excavator_replace_msg: this
-                                .skipExcavatorReplaceMsg.checked
-                                ? 1
-                                : 0,
-                            dont_replace_excavator: this.dontReplaceExcavator
-                                .checked
-                                ? 1
-                                : 0,
-                            skip_spy_recovery: this.skipSpyRecovery.checked
-                                ? 1
-                                : 0,
-                            skip_probe_detected: this.skipProbeDetected.checked
-                                ? 1
-                                : 0,
-                            skip_attack_messages: this.skipAttackMessages
-                                .checked
-                                ? 1
-                                : 0,
-                            skip_incoming_ships: this.skipIncomingShips.checked
-                                ? 1
-                                : 0,
+                            dont_replace_excavator: this.dontReplaceExcavator.checked ? 1 : 0,
+                            skip_spy_recovery: this.skipSpyRecovery.checked ? 1 : 0,
+                            skip_probe_detected: this.skipProbeDetected.checked ? 1 : 0,
+                            skip_attack_messages: this.skipAttackMessages.checked ? 1 : 0,
+                            skip_incoming_ships: this.skipIncomingShips.checked ? 1 : 0,
                         },
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Profile.handleUpdate.success'
-                            );
+                            YAHOO.log(o, 'info', 'Profile.handleUpdate.success');
                             if (--updatesLeft == 0) {
                                 this.hide();
                             }
@@ -680,12 +535,9 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 this.country.value = p.country;
                 this.skype.value = p.skype;
                 this.player_name.value = p.player_name;
-                this.userID.innerHTML = ['#', results.status.empire.id].join(
-                    ''
-                );
+                this.userID.innerHTML = ['#', results.status.empire.id].join('');
                 if (results.status.empire.alliance_id) {
-                    this.allianceID.innerHTML =
-                        results.status.empire.alliance_id;
+                    this.allianceID.innerHTML = results.status.empire.alliance_id;
                 }
 
                 this.skipFacebook.checked = p.skip_facebook_wall_posts == '1';
@@ -694,22 +546,17 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 this.skipResource.checked = p.skip_resource_warnings == '1';
                 this.skipPollution.checked = p.skip_pollution_warnings == '1';
                 this.skipFoundNothing.checked = p.skip_found_nothing == '1';
-                this.skipExcavatorResources.checked =
-                    p.skip_excavator_resources == '1';
+                this.skipExcavatorResources.checked = p.skip_excavator_resources == '1';
                 this.skipExcavatorGlyph.checked = p.skip_excavator_glyph == '1';
                 this.skipExcavatorPlan.checked = p.skip_excavator_plan == '1';
-                this.skipExcavatorArtifact.checked =
-                    p.skip_excavator_artifact == '1';
-                this.skipExcavatorDestroyed.checked =
-                    p.skip_excavator_destroyed == '1';
+                this.skipExcavatorArtifact.checked = p.skip_excavator_artifact == '1';
+                this.skipExcavatorDestroyed.checked = p.skip_excavator_destroyed == '1';
                 this.skipSpyRecovery.checked = p.skip_spy_recovery == '1';
                 this.skipProbeDetected.checked = p.skip_probe_detected == '1';
                 this.skipAttackMessages.checked = p.skip_attack_messages == '1';
                 this.skipIncomingShips.checked = p.skip_incoming_ships == '1';
-                this.skipExcavatorReplaceMsg.checked =
-                    p.skip_excavator_replace_msg == '1';
-                this.dontReplaceExcavator.checked =
-                    p.dont_replace_excavator == '1';
+                this.skipExcavatorReplaceMsg.checked = p.skip_excavator_replace_msg == '1';
+                this.dontReplaceExcavator.checked = p.dont_replace_excavator == '1';
                 this.skipAllExcavator.checked =
                     this.skipFoundNothing.checked &&
                     this.skipExcavatorResources.checked &&
@@ -719,12 +566,9 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     this.skipExcavatorDestroyed.checked &&
                     this.skipExcavatorReplaceMsg.checked;
 
-                this.stopAnim.checked =
-                    Game.GetCookieSettings('disableDialogAnim', '0') == '1';
-                this.showLevels.checked =
-                    Game.GetCookieSettings('showLevels', '0') == '1';
-                this.hidePlanets.checked =
-                    Game.GetCookieSettings('hidePlanets', '0') == '1';
+                this.stopAnim.checked = Game.GetCookieSettings('disableDialogAnim', '0') == '1';
+                this.showLevels.checked = Game.GetCookieSettings('showLevels', '0') == '1';
+                this.hidePlanets.checked = Game.GetCookieSettings('hidePlanets', '0') == '1';
 
                 this.iso_status.innerHTML =
                     util.int(Game.EmpireData.is_isolationist) == 1
@@ -788,12 +632,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 var stat = this.speciesStats;
 
                 var nLi = li.cloneNode(false);
-                nLi.innerHTML = [
-                    '<label>Name</label>',
-                    '<span>',
-                    stat.name,
-                    '</span>',
-                ].join('');
+                nLi.innerHTML = ['<label>Name</label>', '<span>', stat.name, '</span>'].join('');
                 frag.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
@@ -810,9 +649,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     '<label>Habitable Orbits</label>',
                     '<span>',
                     stat.min_orbit,
-                    stat.max_orbit > stat.min_orbit
-                        ? ' to ' + stat.max_orbit
-                        : '',
+                    stat.max_orbit > stat.min_orbit ? ' to ' + stat.max_orbit : '',
                     '</span>',
                 ].join('');
                 frag.appendChild(nLi);
@@ -928,13 +765,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 nLi.appendChild(redefineButton);
                 frag.appendChild(nLi);
 
-                Event.on(
-                    redefineButton,
-                    'click',
-                    this.showSpeciesRedefine,
-                    this,
-                    true
-                );
+                Event.on(redefineButton, 'click', this.showSpeciesRedefine, this, true);
 
                 this.species.innerHTML = '';
                 this.species.appendChild(frag);
@@ -952,9 +783,7 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     if (this.SpeciesDesigner.needsExpert(this.speciesStats)) {
                         this.SpeciesDesigner.setExpert();
                     }
-                    this.SpeciesDesigner.setSpeciesLocks(
-                        this.speciesRedefineLimits
-                    );
+                    this.SpeciesDesigner.setSpeciesLocks(this.speciesRedefineLimits);
                     this.SpeciesDialog.getButtons()[0].innerHTML = [
                         this.speciesRedefineLimits.essentia_cost,
                         ' <img src="',
@@ -963,20 +792,12 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     ].join('');
                     this.SpeciesDialog.show();
                 } else {
-                    alert(
-                        "Can't redefine species: " +
-                            this.speciesRedefineLimits.reason
-                    );
+                    alert("Can't redefine species: " + this.speciesRedefineLimits.reason);
                 }
             },
             redefineSpecies: function() {
                 var data = this.SpeciesDesigner.getSpeciesData();
-                if (
-                    this.SpeciesDesigner.compareSpeciesData(
-                        data,
-                        this.speciesStats
-                    )
-                ) {
+                if (this.SpeciesDesigner.compareSpeciesData(data, this.speciesStats)) {
                     this.SpeciesDialog.hide();
                     return;
                 }
@@ -988,17 +809,13 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     alert(e);
                     return;
                 }
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 Game.Services.Empire.redefine_species(
                     { session_id: Game.GetSession(''), params: data },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Profile.redefine_species.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Profile.redefine_species.success');
+                            require('js/stores/menu').hideLoader();
                             this.hasSpecies = false;
                             this.SpeciesDialog.hide();
                             this.fireEvent('onRpc', o.result);

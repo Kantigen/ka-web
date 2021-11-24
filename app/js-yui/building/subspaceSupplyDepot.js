@@ -100,9 +100,7 @@ if (
                                 if (buildings.hasOwnProperty(building)) {
                                     var b = buildings[building];
                                     if (b.pending_build) {
-                                        var buildLength =
-                                            b.pending_build.seconds_remaining *
-                                            1;
+                                        var buildLength = b.pending_build.seconds_remaining * 1;
                                         if (buildLength > buildQueueTotal) {
                                             buildQueueTotal = buildLength;
                                         }
@@ -131,14 +129,12 @@ if (
                 } else {
                     Dom.get('subspaceCompleteBuildQueue').disabled = false;
                 }
-                Dom.get('subspaceQueueTime').innerHTML = Lib.formatTime(
-                    remaining
-                );
+                Dom.get('subspaceQueueTime').innerHTML = Lib.formatTime(remaining);
             },
             Transmit: function(e, opt) {
                 var btn = Event.getTarget(e);
                 Event.stopEvent(e);
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 btn.disabled = true;
                 this.service[opt.method](
                     {
@@ -147,11 +143,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'SubspaceSupplyDepot.Transmit.success'
-                            );
+                            YAHOO.log(o, 'info', 'SubspaceSupplyDepot.Transmit.success');
                             var elMessage = Dom.get('subspaceMessage');
                             if (opt.method == 'complete_build_queue') {
                                 this.resetQueue();
@@ -161,11 +153,7 @@ if (
                                 btn.disabled = false;
                                 elMessage.innerHTML = 'Transmission completed.';
                             }
-                            var a = new Util.Anim(
-                                elMessage,
-                                { opacity: { from: 1, to: 0 } },
-                                4
-                            );
+                            var a = new Util.Anim(elMessage, { opacity: { from: 1, to: 0 } }, 4);
                             a.onComplete.subscribe(
                                 function() {
                                     elMessage.innerHTML = '&nbsp;';
@@ -174,7 +162,7 @@ if (
                                 true
                             );
                             a.animate();
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                         },
                         failure: function(o) {
@@ -188,9 +176,8 @@ if (
 
         Lacuna.buildings.SubspaceSupplyDepot = SubspaceSupplyDepot;
     })();
-    YAHOO.register(
-        'SubspaceSupplyDepot',
-        YAHOO.lacuna.buildings.SubspaceSupplyDepot,
-        { version: '1', build: '0' }
-    );
+    YAHOO.register('SubspaceSupplyDepot', YAHOO.lacuna.buildings.SubspaceSupplyDepot, {
+        version: '1',
+        build: '0',
+    });
 }

@@ -5,9 +5,6 @@ var React = require('react');
 var AboutTab = require('js/components/window/about/aboutTab');
 var CreditsTab = require('js/components/window/about/creditsTab');
 
-var StatsRPCActions = require('js/actions/rpc/stats');
-var WindowActions = require('js/actions/window');
-
 var Tabber = require('js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
@@ -30,10 +27,7 @@ class AboutWindow extends React.Component {
                     <AboutTab />
                 </Tab>
 
-                <Tab
-                    title='Credits'
-                    onSelect={StatsRPCActions.requestStatsRPCGetCredits}
-                >
+                <Tab title='Credits' onSelect={StatsRPCActions.requestStatsRPCGetCredits}>
                     <CreditsTab />
                 </Tab>
             </Tabs>

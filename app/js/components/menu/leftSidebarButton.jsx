@@ -1,21 +1,17 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+var { observer } = require('mobx-react');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');
-var LeftSidebarActions = require('js/actions/menu/leftSidebar');
+var MenuStore = require('js/stores/menu');
 
-var LeftSidebarButton = createReactClass({
-    displayName: 'LeftSidebarButton',
-    mixins: [Reflux.connect(EmpireRPCStore, 'empire')],
+class LeftSidebarButton extends React.Component {
+    clickLeftSidebarButton() {
+        MenuStore.showLeftSidebar();
+    }
 
-    clickLeftSidebarButton: function() {
-        LeftSidebarActions.show();
-    },
-
-    render: function() {
+    render() {
         return (
             <div
                 style={{
@@ -30,11 +26,11 @@ var LeftSidebarButton = createReactClass({
                     onClick={this.clickLeftSidebarButton}
                 >
                     <i className='content icon' />
-                    {this.state.empire.name}
+                    {EmpireRPCStore.name}
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = LeftSidebarButton;
+module.exports = observer(LeftSidebarButton);

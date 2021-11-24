@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' ||
-    !YAHOO.lacuna.buildings.Shipyard
-) {
+if (typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' || !YAHOO.lacuna.buildings.Shipyard) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -102,13 +99,7 @@ if (
                     true
                 );
 
-                Event.on(
-                    'shipBuildView',
-                    'change',
-                    this.ShipPopulate,
-                    this,
-                    true
-                );
+                Event.on('shipBuildView', 'change', this.ShipPopulate, this, true);
 
                 this.buildTab = buildTab;
 
@@ -116,7 +107,7 @@ if (
             },
             getBuild: function() {
                 if (!this.ships) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_buildable(
                         {
                             session_id: Game.GetSession(),
@@ -124,20 +115,14 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Shipyard.getBuild.get_buildable.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Shipyard.getBuild.get_buildable.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.ships = {
                                     buildable: o.result.buildable,
                                     docks_available: o.result.docks_available,
-                                    build_queue_max:
-                                        o.result['build_queue_max'],
-                                    build_queue_used:
-                                        o.result['build_queue_used'],
+                                    build_queue_max: o.result['build_queue_max'],
+                                    build_queue_used: o.result['build_queue_used'],
                                 };
                                 this.SetDocksAvailableMessage();
                                 this.ShipPopulate();
@@ -151,7 +136,7 @@ if (
             },
             getQueue: function() {
                 if (!this.ship_build_queue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_build_queue(
                         {
                             session_id: Game.GetSession(),
@@ -160,12 +145,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Shipyard.getQueue.view_build_queue.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Shipyard.getQueue.view_build_queue.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.ship_build_queue = o.result;
                                 this.ShipyardDisplay();
@@ -195,19 +176,12 @@ if (
                     number_of_ships_building: o.result.number_of_ships_building,
                     ships_building: o.result.ships_building
                 };*/
-                    if (
-                        bq &&
-                        bq.ships_building &&
-                        bq.ships_building.length > 0
-                    ) {
+                    if (bq && bq.ships_building && bq.ships_building.length > 0) {
                         for (var i = 0; i < bq.ships_building.length; i++) {
                             var bqo = bq.ships_building[i],
                                 nUl = ul.cloneNode(false),
                                 nLi = li.cloneNode(false),
-                                ncs =
-                                    (Lib.getTime(bqo.date_completed) -
-                                        serverTime) /
-                                    1000;
+                                ncs = (Lib.getTime(bqo.date_completed) - serverTime) / 1000;
 
                             nUl.Build = bqo;
 
@@ -249,19 +223,14 @@ if (
             ShipyardQueue: function(remaining, elLine) {
                 var compTime;
                 if (remaining <= 0) {
-                    compTime =
-                        'Overdue ' + Lib.formatTime(Math.round(-remaining));
+                    compTime = 'Overdue ' + Lib.formatTime(Math.round(-remaining));
                 } else {
                     compTime = Lib.formatTime(Math.round(remaining));
                 }
-                Sel.query(
-                    'li.shipQueueEach',
-                    elLine,
-                    true
-                ).innerHTML = compTime;
+                Sel.query('li.shipQueueEach', elLine, true).innerHTML = compTime;
             },
             SubsidizeBuildQueue: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.subsidize_build_queue(
                     {
@@ -270,12 +239,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Shipyard.SubsidizeBuildQueue.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Shipyard.SubsidizeBuildQueue.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             this.ship_build_queue = undefined;
@@ -303,16 +268,12 @@ if (
                             ' docks available for new ships.';
                         if (
                             this.ships.build_queue_max &&
-                            this.ships.build_queue_max -
-                                this.ships.build_queue_used >
-                                0
+                            this.ships.build_queue_max - this.ships.build_queue_used > 0
                         ) {
                             message +=
                                 '  You can queue ' +
-                                (this.ships.build_queue_max -
-                                    this.ships.build_queue_used) +
-                                (this.ships.build_queue_used &&
-                                this.ships.build_queue_used - 0
+                                (this.ships.build_queue_max - this.ships.build_queue_used) +
+                                (this.ships.build_queue_used && this.ships.build_queue_used - 0
                                     ? ' additional'
                                     : '') +
                                 ' ships.';
@@ -347,10 +308,7 @@ if (
                                 shipNames.push(shipType);
                             } else if (filter == 'Now' && ships[shipType].can) {
                                 shipNames.push(shipType);
-                            } else if (
-                                filter == 'Later' &&
-                                !ships[shipType].can
-                            ) {
+                            } else if (filter == 'Later' && !ships[shipType].can) {
                                 shipNames.push(shipType);
                             }
                         }
@@ -365,24 +323,16 @@ if (
                             attributes = [];
 
                         if (ship.reason) {
-                            reason =
-                                '<div style="font-style:italic;">' +
-                                ship.reason[1] +
-                                '</div>';
+                            reason = '<div style="font-style:italic;">' + ship.reason[1] + '</div>';
                             //reason = '<div style="font-style:italic;">'+Lib.parseReason(ship.reason, defReason)+'</div>';
                         }
 
                         for (var a in ship.attributes) {
                             attributes[attributes.length] =
                                 '<span style="white-space:nowrap;margin-left:5px;"><label style="font-style:italic">';
-                            attributes[attributes.length] = a.titleCaps(
-                                '_',
-                                ' '
-                            );
+                            attributes[attributes.length] = a.titleCaps('_', ' ');
                             attributes[attributes.length] = ': </label>';
-                            attributes[attributes.length] = Lib.formatNumber(
-                                ship.attributes[a]
-                            );
+                            attributes[attributes.length] = Lib.formatNumber(ship.attributes[a]);
                             attributes[attributes.length] = '</span> ';
                         }
 
@@ -462,33 +412,19 @@ if (
                         details.appendChild(nLi);
                     }
 
-                    Event.delegate(
-                        details,
-                        'click',
-                        this.ShipExpandDesc,
-                        '.shipName'
-                    );
-                    Event.delegate(
-                        details,
-                        'click',
-                        this.ShipExpandDesc,
-                        '.shipImage'
-                    );
+                    Event.delegate(details, 'click', this.ShipExpandDesc, '.shipName');
+                    Event.delegate(details, 'click', this.ShipExpandDesc, '.shipImage');
                 }
             },
             ShipExpandDesc: function(e, matchedEl, container) {
-                var desc = Sel.query(
-                    'div.shipDesc',
-                    matchedEl.parentNode.parentNode,
-                    true
-                );
+                var desc = Sel.query('div.shipDesc', matchedEl.parentNode.parentNode, true);
                 if (desc) {
                     var dis = Dom.getStyle(desc, 'display');
                     Dom.setStyle(desc, 'display', dis == 'none' ? '' : 'none');
                 }
             },
             SubsidizeShip: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.subsidize_ship(
                     {
                         args: {
@@ -499,7 +435,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             this.Item.parentNode.removeChild(this.Item);
                         },
@@ -510,7 +446,7 @@ if (
             ShipBuild: function(e) {
                 var btn = Event.getTarget(e);
                 btn.disabled = true;
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var qty = Dom.get('ship_' + this.Type);
                 var use = Lib.getSelectedOptionValue('shipBuildYards');
                 this.Self.service.build_ships(
@@ -526,7 +462,7 @@ if (
                     {
                         success: function(o) {
                             btn.disabled = false;
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             //this.Self.ship_build_queue = o.result;
@@ -539,9 +475,7 @@ if (
                             }
                             this.Self.SetDocksAvailableMessage();
                             this.Self.SetBuildMessage(
-                                'Successfully started building ' +
-                                    this.Ship.type_human +
-                                    '.'
+                                'Successfully started building ' + this.Ship.type_human + '.'
                             );
                         },
                         failure: function(o) {

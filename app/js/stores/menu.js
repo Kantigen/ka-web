@@ -6,7 +6,10 @@ var PLANET_MAP_MODE = 'planetMap';
 var STAR_MAP_MODE = 'starMap';
 
 class MenuStore {
-    show = false;
+    menuShown = false;
+    leftSidebarShown = false;
+    rightSidebarShown = false;
+    loaderShwon = false;
     mapMode = PLANET_MAP_MODE;
     planetId = 0;
 
@@ -15,11 +18,11 @@ class MenuStore {
     }
 
     showMenu() {
-        this.show = true;
+        this.menuShown = true;
     }
 
     hideMenu() {
-        this.show = false;
+        this.menuShown = false;
     }
 
     showPlanetMap() {
@@ -30,10 +33,38 @@ class MenuStore {
         this.mapMode = STAR_MAP_MODE;
     }
 
+    toggleMapMode() {
+        this.mapMode = this.mapMode == PLANET_MAP_MODE ? STAR_MAP_MODE : PLANET_MAP_MODE;
+    }
+
     changePlanet(id) {
         console.log('Changing to planet (#' + id + ').');
         this.mapMode = PLANET_MAP_MODE;
         this.planetId = id;
+    }
+
+    showLeftSidebar() {
+        this.leftSidebarShown = true;
+    }
+
+    hideLeftSidebar() {
+        this.leftSidebarShown = false;
+    }
+
+    showRightSidebar() {
+        this.rightSidebarShown = true;
+    }
+
+    hideRightSidebar() {
+        this.rightSidebarShown = false;
+    }
+
+    showLoader() {
+        this.loaderShwon = true;
+    }
+
+    hideLoader() {
+        this.loaderShwon = false;
     }
 }
 

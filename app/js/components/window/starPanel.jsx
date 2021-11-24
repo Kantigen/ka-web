@@ -4,8 +4,6 @@ var React = require('react');
 
 var createReactClass = require('create-react-class');
 
-var WindowActions = require('js/actions/window');
-
 var Tabber = require('js/components/tabber');
 
 var Tabs = Tabber.Tabs;

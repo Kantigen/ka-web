@@ -41,17 +41,9 @@ if (
                 dragEl.innerHTML = clickEl.innerHTML;
 
                 Dom.setStyle(dragEl, 'color', Dom.getStyle(clickEl, 'color'));
-                Dom.setStyle(
-                    dragEl,
-                    'backgroundColor',
-                    Dom.getStyle(clickEl, 'backgroundColor')
-                );
+                Dom.setStyle(dragEl, 'backgroundColor', Dom.getStyle(clickEl, 'backgroundColor'));
                 Dom.setStyle(dragEl, 'border', '2px solid gray');
-                Dom.setStyle(
-                    dragEl,
-                    'zIndex',
-                    Dom.getStyle('buildingDetails_c', 'zIndex') * 1 + 1
-                );
+                Dom.setStyle(dragEl, 'zIndex', Dom.getStyle('buildingDetails_c', 'zIndex') * 1 + 1);
 
                 if (!fromCombineList) {
                     this._removeGlyphCount(dragEl);
@@ -97,9 +89,7 @@ if (
                     if (!region.intersect(pt)) {
                         var El = this.getEl();
 
-                        var fromCombineList = Dom.getAncestorBy(El, function(
-                            el
-                        ) {
+                        var fromCombineList = Dom.getAncestorBy(El, function(el) {
                             return el.id == 'archaeologyGlyphCombine';
                         });
                         if (fromCombineList) {
@@ -124,9 +114,7 @@ if (
                         var destDD = DDM.getDDById(id);
                         var El = this.getEl();
 
-                        var fromAvailableList = Dom.getAncestorBy(El, function(
-                            el
-                        ) {
+                        var fromAvailableList = Dom.getAncestorBy(El, function(el) {
                             return el.id == 'archaeologyGlyphDetails';
                         });
                         if (fromAvailableList) {
@@ -261,20 +249,8 @@ if (
                 );
 
                 this.searchTab = tab;
-                Event.on(
-                    'archaeologySearch',
-                    'click',
-                    this.searchForGlyph,
-                    this,
-                    true
-                );
-                Event.on(
-                    'archaeologySearchSubsidize',
-                    'click',
-                    this.Subsidize,
-                    this,
-                    true
-                );
+                Event.on('archaeologySearch', 'click', this.searchForGlyph, this, true);
+                Event.on('archaeologySearchSubsidize', 'click', this.Subsidize, this, true);
 
                 return tab;
             },
@@ -306,8 +282,7 @@ if (
                         if (Ht > 442) {
                             Ht = 442;
                         }
-                        var tC = Dom.get('archaeologyGlyphDetails').parentNode
-                            .parentNode;
+                        var tC = Dom.get('archaeologyGlyphDetails').parentNode.parentNode;
                         Dom.setStyle(tC, 'height', Ht + 'px');
                         Dom.setStyle(tC, 'overflow-y', 'auto');
                     },
@@ -318,30 +293,14 @@ if (
                 Event.onAvailable(
                     'archaeologyCombine',
                     function(e) {
-                        Event.on(
-                            'archaeologyCombine',
-                            'click',
-                            this.assembleGlyph,
-                            this,
-                            true
-                        );
+                        Event.on('archaeologyCombine', 'click', this.assembleGlyph, this, true);
                     },
                     this,
                     true
                 );
 
-                Event.delegate(
-                    'archaeologyGlyphDetails',
-                    'dblclick',
-                    this.viewAdd,
-                    'li'
-                );
-                Event.delegate(
-                    'archaeologyGlyphCombine',
-                    'dblclick',
-                    this.viewRemove,
-                    'li'
-                );
+                Event.delegate('archaeologyGlyphDetails', 'dblclick', this.viewAdd, 'li');
+                Event.delegate('archaeologyGlyphCombine', 'dblclick', this.viewRemove, 'li');
 
                 this.viewTab = tab;
                 return tab;
@@ -357,12 +316,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.excavatorTab.subscribe(
-                    'activeChange',
-                    this.viewExcavators,
-                    this,
-                    true
-                );
+                this.excavatorTab.subscribe('activeChange', this.viewExcavators, this, true);
 
                 return this.excavatorTab;
             },
@@ -375,19 +329,9 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                var btn = Sel.query(
-                    'button',
-                    this.excavatorTab.get('contentEl'),
-                    true
-                );
+                var btn = Sel.query('button', this.excavatorTab.get('contentEl'), true);
                 if (btn) {
-                    Event.on(
-                        btn,
-                        'click',
-                        this.AbandonAllExcavators,
-                        this,
-                        true
-                    );
+                    Event.on(btn, 'click', this.AbandonAllExcavators, this, true);
                 }
 
                 return this.excavatorTab;
@@ -395,7 +339,7 @@ if (
             viewExcavators: function(e) {
                 if (e.newValue) {
                     if (!this.excavators) {
-                        require('js/actions/menu/loader').show();
+                        require('js/stores/menu').showLoader();
                         this.service.view_excavators(
                             {
                                 session_id: Game.GetSession(),
@@ -403,12 +347,8 @@ if (
                             },
                             {
                                 success: function(o) {
-                                    YAHOO.log(
-                                        o,
-                                        'info',
-                                        'Archaeology.view_excavators.success'
-                                    );
-                                    require('js/actions/menu/loader').hide();
+                                    YAHOO.log(o, 'info', 'Archaeology.view_excavators.success');
+                                    require('js/stores/menu').hideLoader();
                                     this.rpcSuccess(o);
                                     this.excavators = {
                                         max_excavators: o.result.max_excavators,
@@ -495,10 +435,7 @@ if (
                             }
 
                             nLi = li.cloneNode(false);
-                            var ptype = obj.body.image.slice(
-                                0,
-                                obj.body.image.indexOf('-')
-                            );
+                            var ptype = obj.body.image.slice(0, obj.body.image.indexOf('-'));
                             Dom.addClass(nLi, 'excavatorChances');
                             var outChance = [
                                 '<ul><li><label>Body Type: </label>',
@@ -508,12 +445,7 @@ if (
                                 ' <label>Chances:</label></li>',
                             ];
                             var total = 0;
-                            var ctypes = [
-                                'artifact',
-                                'glyph',
-                                'plan',
-                                'resource',
-                            ];
+                            var ctypes = ['artifact', 'glyph', 'plan', 'resource'];
                             for (var chance_i in ctypes) {
                                 var chance = ctypes[chance_i];
                                 if (obj[chance] > 0) {
@@ -530,11 +462,7 @@ if (
                                 }
                             }
                             if (total > 0) {
-                                outChance.splice(
-                                    5,
-                                    0,
-                                    '<li><label>Total:</label> '
-                                );
+                                outChance.splice(5, 0, '<li><label>Total:</label> ');
                                 outChance.splice(6, 0, parseInt(total));
                                 outChance.splice(7, 0, '</li>');
                             }
@@ -577,7 +505,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     this.Self.service.abandon_excavator(
                         {
@@ -587,15 +515,10 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Archaeology.ExcavatorAbandon.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Archaeology.ExcavatorAbandon.success');
+                                require('js/stores/menu').hideLoader();
                                 this.Self.rpcSuccess(o);
-                                var excavators = this.Self.excavators
-                                    .excavators;
+                                var excavators = this.Self.excavators.excavators;
                                 for (var i = 0; i < excavators.length; i++) {
                                     if (excavators[i].id == this.Excavator.id) {
                                         excavators.splice(i, 1);
@@ -637,27 +560,15 @@ if (
                     }
                     if (sel.options.length > 0) {
                         Dom.setStyle('archaeologySearchForm', 'display', '');
-                        Dom.setStyle(
-                            'archaeologySearchNone',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('archaeologySearchNone', 'display', 'none');
                     } else {
-                        Dom.setStyle(
-                            'archaeologySearchForm',
-                            'display',
-                            'none'
-                        );
+                        Dom.setStyle('archaeologySearchForm', 'display', 'none');
                         Dom.setStyle('archaeologySearchNone', 'display', '');
                     }
                 }
             },
             populateActiveSearch: function(seconds_remaining) {
-                this.addQueue(
-                    seconds_remaining,
-                    this.searchQueue,
-                    'archaeologySearchTime'
-                );
+                this.addQueue(seconds_remaining, this.searchQueue, 'archaeologySearchTime');
             },
             searchQueue: function(remaining, el) {
                 if (remaining <= 0) {
@@ -666,9 +577,7 @@ if (
                     p.removeChild(span);
                     p.innerHTML = 'Search Complete';
                 } else {
-                    Dom.get(el).innerHTML = Lib.formatTime(
-                        Math.round(remaining)
-                    );
+                    Dom.get(el).innerHTML = Lib.formatTime(Math.round(remaining));
                 }
             },
 
@@ -678,17 +587,11 @@ if (
 
                 if (details) {
                     if (!this.glyphList) {
-                        this.glyphList = new Util.DDTarget(
-                            'archaeologyGlyphDetails'
-                        );
+                        this.glyphList = new Util.DDTarget('archaeologyGlyphDetails');
                         this.glyphList.isGlyphContainer = true;
                     } else {
                         var gl = Sel.query('li', 'archaeologyGlyphDetails');
-                        for (
-                            var gli = 0, glLen = gl.length;
-                            gli < glLen;
-                            gli++
-                        ) {
+                        for (var gli = 0, glLen = gl.length; gli < glLen; gli++) {
                             var glio = gl[gli];
                             glio.DD.unreg();
                             glio.parentNode.removeChild(glio);
@@ -696,17 +599,11 @@ if (
                         }
                     }
                     if (!this.glyphCombine) {
-                        this.glyphCombine = new Util.DDTarget(
-                            'archaeologyGlyphCombine'
-                        );
+                        this.glyphCombine = new Util.DDTarget('archaeologyGlyphCombine');
                         this.glyphCombine.isGlyphContainer = true;
                     } else {
                         var gc = Sel.query('li', 'archaeologyGlyphCombine');
-                        for (
-                            var gci = 0, gcLen = gc.length;
-                            gci < gcLen;
-                            gci++
-                        ) {
+                        for (var gci = 0, gcLen = gc.length; gci < gcLen; gci++) {
                             var gcio = gc[gci];
                             gcio.DD.unreg();
                             gcio.parentNode.removeChild(gcio);
@@ -769,30 +666,20 @@ if (
 
             checkIfWorking: function() {
                 if (this.work && this.work.seconds_remaining) {
-                    Dom.setStyle(
-                        'archaeologySearchContainer',
-                        'display',
-                        'none'
-                    );
+                    Dom.setStyle('archaeologySearchContainer', 'display', 'none');
                     Dom.setStyle('archaeologyWorkingContainer', 'display', '');
-                    Dom.get(
-                        'archaeologySearchOre'
-                    ).innerHTML = this.work.searching;
+                    Dom.get('archaeologySearchOre').innerHTML = this.work.searching;
                     this.populateActiveSearch(this.work.seconds_remaining);
                 } else {
                     Dom.setStyle('archaeologySearchContainer', 'display', '');
-                    Dom.setStyle(
-                        'archaeologyWorkingContainer',
-                        'display',
-                        'none'
-                    );
+                    Dom.setStyle('archaeologyWorkingContainer', 'display', 'none');
                     this.getOres();
                 }
             },
 
             getOres: function() {
                 if (!this.ore) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_ores_available_for_processing(
                         {
                             session_id: Game.GetSession(),
@@ -800,12 +687,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Archaeology.getOres.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Archaeology.getOres.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.ore = o.result.ore;
 
@@ -818,7 +701,7 @@ if (
             },
             getGlyphs: function() {
                 if (!this.glyphs) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_glyphs(
                         {
                             session_id: Game.GetSession(),
@@ -826,12 +709,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Archaeology.getGlyphs.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Archaeology.getGlyphs.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.glyphs = o.result.glyphs;
 
@@ -843,7 +722,7 @@ if (
                 }
             },
             assembleGlyph: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var glyphs = Sel.query('li', 'archaeologyGlyphCombine'),
                     glyphTypes = [],
                     quantity = parseInt(Dom.get('combineQuantity').value, 10);
@@ -860,11 +739,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Archaeology.assembleGlyph.success'
-                            );
+                            YAHOO.log(o, 'info', 'Archaeology.assembleGlyph.success');
                             var article = quantity == 1 ? 'a' : quantity;
                             var suffix = quantity == 1 ? 'plan' : 'plans';
                             alert(
@@ -876,7 +751,7 @@ if (
                                     suffix +
                                     '!'
                             );
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             delete this.glyphs;
                             this.getGlyphs();
@@ -886,7 +761,7 @@ if (
                 );
             },
             searchForGlyph: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var sel = Dom.get('archaeologyOre'),
                     opts = sel.options,
                     selInd = sel.selectedIndex,
@@ -901,12 +776,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Archaeology.searchForGlyph.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Archaeology.searchForGlyph.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 //this.work = o.result.building.work;
                                 //this.updateBuildingTile(o.result.building);
@@ -918,7 +789,7 @@ if (
                 }
             },
             Subsidize: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.subsidize_search(
                     {
@@ -927,7 +798,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete this.work;
@@ -947,7 +818,7 @@ if (
                         'Are you sure you want to abandon all excavators controlled by this Archaeology Ministry?'
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.mass_abandon_excavator(
                         {
                             session_id: Game.GetSession(),
@@ -960,7 +831,7 @@ if (
                                     'info',
                                     'Archaeology.AbandonAllExcavators.mass_abandon_excavator.success'
                                 );
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
                                 this.probes = null;
 

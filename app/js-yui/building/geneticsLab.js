@@ -59,12 +59,7 @@ if (
                         '</div>',
                     ].join(''),
                 });
-                this.tab.subscribe(
-                    'activeChange',
-                    this.prepareExperiment,
-                    this,
-                    true
-                );
+                this.tab.subscribe('activeChange', this.prepareExperiment, this, true);
 
                 Event.delegate(
                     'geneticsLabSpies',
@@ -74,13 +69,7 @@ if (
                     this,
                     true
                 );
-                Event.on(
-                    'geneticsLabRunExperiement',
-                    'click',
-                    this.runExperiment,
-                    this,
-                    true
-                );
+                Event.on('geneticsLabRunExperiement', 'click', this.runExperiment, this, true);
 
                 return this.tab;
             },
@@ -106,20 +95,9 @@ if (
                     label: 'Rename Species',
                     contentEl: div,
                 });
-                this.tab.subscribe(
-                    'activeChange',
-                    this.ShowSpecies,
-                    this,
-                    true
-                );
+                this.tab.subscribe('activeChange', this.ShowSpecies, this, true);
 
-                Event.on(
-                    'changeSpeciesName',
-                    'click',
-                    this.RenameSpecies,
-                    this,
-                    true
-                );
+                Event.on('changeSpeciesName', 'click', this.RenameSpecies, this, true);
 
                 return this.tab;
             },
@@ -131,12 +109,10 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             var profile = o.result.profile;
-                            Dom.get('currentSpeciesDesc').innerHTML =
-                                profile.description;
-                            Dom.get('currentSpeciesName').innerHTML =
-                                profile.species;
+                            Dom.get('currentSpeciesDesc').innerHTML = profile.description;
+                            Dom.get('currentSpeciesName').innerHTML = profile.species;
                         },
                         scope: this,
                     }
@@ -147,7 +123,7 @@ if (
                 var btn = Event.getTarget(e);
                 var newName = Dom.get('newSpeciesName').value;
                 var newDesc = Dom.get('newSpeciesDesc').value.substr(0, 1024);
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 btn.disabled = true;
                 this.service.rename_species(
                     {
@@ -160,17 +136,13 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'GeneticsLab.rename_species.success'
-                            );
+                            YAHOO.log(o, 'info', 'GeneticsLab.rename_species.success');
                             btn.disabled = false;
                             Dom.get('newSpeciesName').value = '';
                             Dom.get('newSpeciesDesc').value = '';
                             Dom.get('currentSpeciesName').innerHTML = newName;
                             Dom.get('currentSpeciesDesc').innerHTML = newDesc;
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             alert('Your species name has been changed!');
                         },
@@ -187,12 +159,7 @@ if (
                     li = document.createElement('li');
 
                 var nLi = li.cloneNode(false);
-                nLi.innerHTML = [
-                    '<label>Name</label>',
-                    '<span>',
-                    stat.name,
-                    '</span>',
-                ].join('');
+                nLi.innerHTML = ['<label>Name</label>', '<span>', stat.name, '</span>'].join('');
                 frag.appendChild(nLi);
 
                 nLi = li.cloneNode(false);
@@ -209,9 +176,7 @@ if (
                     '<label>Habitable Orbits</label>',
                     '<span>',
                     stat.min_orbit,
-                    stat.max_orbit > stat.min_orbit
-                        ? ' to ' + stat.max_orbit
-                        : '',
+                    stat.max_orbit > stat.min_orbit ? ' to ' + stat.max_orbit : '',
                     '</span>',
                 ].join('');
                 frag.appendChild(nLi);
@@ -319,7 +284,7 @@ if (
             },
             prepareExperiment: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     delete this.currentSpy;
 
                     this.service.prepare_experiment(
@@ -329,19 +294,13 @@ if (
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
                                 if (o.result.can_experiment == 1) {
                                     if (o.result.grafts.length > 0) {
-                                        Dom.get(
-                                            'geneticsLabMessage'
-                                        ).innerHTML = '';
-                                        Dom.setStyle(
-                                            'geneticsLabDisplay',
-                                            'display',
-                                            ''
-                                        );
+                                        Dom.get('geneticsLabMessage').innerHTML = '';
+                                        Dom.setStyle('geneticsLabDisplay', 'display', '');
                                     }
 
                                     this.updateDisplay(o.result);
@@ -357,36 +316,25 @@ if (
             },
             runExperiment: function() {
                 if (this.currentSpy) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
 
                     this.service.run_experiment(
                         {
                             session_id: Game.GetSession(),
                             building_id: this.building.id,
                             spy_id: this.currentSpy,
-                            affinity: Lib.getSelectedOptionValue(
-                                'geneticsLabAffinities'
-                            ),
+                            affinity: Lib.getSelectedOptionValue('geneticsLabAffinities'),
                         },
                         {
                             success: function(o) {
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
-                                Dom.get(
-                                    'geneticsLabExperimentMessage'
-                                ).innerHTML = o.result.experiment.message;
-                                Dom.setStyle(
-                                    'geneticsLabExperimentMessage',
-                                    'display',
-                                    ''
-                                );
+                                Dom.get('geneticsLabExperimentMessage').innerHTML =
+                                    o.result.experiment.message;
+                                Dom.setStyle('geneticsLabExperimentMessage', 'display', '');
 
-                                Dom.setStyle(
-                                    'geneticsLabDetailsContainer',
-                                    'display',
-                                    'none'
-                                );
+                                Dom.setStyle('geneticsLabDetailsContainer', 'display', 'none');
                                 this.updateDisplay(o.result);
                             },
                             scope: this,
@@ -400,10 +348,7 @@ if (
                     details = Dom.get('geneticsLabDetails'),
                     option = document.createElement('option');
 
-                Dom.removeClass(
-                    Sel.query('li.selected', 'geneticsLabSpies'),
-                    'selected'
-                );
+                Dom.removeClass(Sel.query('li.selected', 'geneticsLabSpies'), 'selected');
                 Dom.addClass(matchedEl, 'selected');
                 Dom.get('geneticsLabSpyName').innerHTML = [
                     '[',
@@ -418,10 +363,7 @@ if (
                 for (var a = 0; a < obj.graftable_affinities.length; a++) {
                     var nOpt = option.cloneNode(false);
                     nOpt.value = obj.graftable_affinities[a];
-                    nOpt.innerHTML = obj.graftable_affinities[a].titleCaps(
-                        '_',
-                        ' '
-                    );
+                    nOpt.innerHTML = obj.graftable_affinities[a].titleCaps('_', ' ');
                     sel.appendChild(nOpt);
                 }
                 details.innerHTML = '';
@@ -431,10 +373,7 @@ if (
                 Dom.get('geneticsLabSurvival').innerHTML = exp.survival_odds;
                 Dom.get('geneticsLabGraft').innerHTML = exp.graft_odds;
                 Dom.get('geneticsLabCost').innerHTML = exp.essentia_cost;
-                Dom.removeClass(
-                    Sel.query('li.selected', 'geneticsLabSpies'),
-                    'selected'
-                );
+                Dom.removeClass(Sel.query('li.selected', 'geneticsLabSpies'), 'selected');
                 if (exp.grafts.length) {
                     var grafts = exp.grafts;
                     //sort by species name then spy name
@@ -460,21 +399,14 @@ if (
                             nLi = li.cloneNode(false);
                         nLi.Object = obj;
                         Dom.setStyle(nLi, 'prisoner');
-                        nLi.innerHTML = [
-                            '[',
-                            obj.species.name,
-                            '] ',
-                            obj.spy.name,
-                        ].join('');
+                        nLi.innerHTML = ['[', obj.species.name, '] ', obj.spy.name].join('');
                         ul.appendChild(nLi);
                     }
                 } else {
-                    var expMsg = Dom.get('geneticsLabExperimentMessage')
-                        .innerHTML;
+                    var expMsg = Dom.get('geneticsLabExperimentMessage').innerHTML;
                     if (expMsg) {
                         Dom.get('geneticsLabMessage').innerHTML =
-                            expMsg +
-                            '  No spies available to run experiments on.';
+                            expMsg + '  No spies available to run experiments on.';
                     } else {
                         Dom.get('geneticsLabMessage').innerHTML =
                             'No spies available to run experiments on.';

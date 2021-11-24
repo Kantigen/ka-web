@@ -48,9 +48,7 @@ if (
             createFind: function() {
                 this.species = Dom.get('lojDetails');
 
-                var dataSource = new Util.XHRDataSource(
-                    constants.RPC_BASE + 'empire'
-                );
+                var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
                 dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -59,45 +57,33 @@ if (
                     fields: ['name', 'id'],
                 };
 
-                var oTextboxList = new YAHOO.lacuna.TextboxList(
-                    'lojFindEmpire',
-                    dataSource,
-                    {
-                        //config options
-                        maxResultsDisplayed: 25,
-                        minQueryLength: 3,
-                        multiSelect: false,
-                        forceSelection: false,
-                        useIndicator: true,
-                    }
-                );
+                var oTextboxList = new YAHOO.lacuna.TextboxList('lojFindEmpire', dataSource, {
+                    //config options
+                    maxResultsDisplayed: 25,
+                    minQueryLength: 3,
+                    multiSelect: false,
+                    forceSelection: false,
+                    useIndicator: true,
+                });
                 oTextboxList.generateRequest = function(sQuery) {
                     var s = Lang.JSON.stringify({
                         id: YAHOO.rpc.Service._requestId++,
                         method: 'find',
                         jsonrpc: '2.0',
-                        params: [
-                            Game.GetSession(''),
-                            decodeURIComponent(sQuery),
-                        ],
+                        params: [Game.GetSession(''), decodeURIComponent(sQuery)],
                     });
                     return s;
                 };
-                oTextboxList.dirtyEvent.subscribe(function(
-                    event,
-                    isDirty,
-                    oSelf
-                ) {
+                oTextboxList.dirtyEvent.subscribe(function(event, isDirty, oSelf) {
                     var empire = this._oTblSingleSelection.Object;
 
                     oSelf.getSpecies(empire.id);
-                },
-                this);
+                }, this);
                 this.find = oTextboxList;
             },
 
             getSpecies: function(id) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.research_species(
                     {
                         session_id: Game.GetSession(),
@@ -106,7 +92,7 @@ if (
                     },
                     {
                         success: function(o) {
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.speciesDisplay(o.result.species);
                         },
@@ -125,9 +111,7 @@ if (
                     '<li>',
                     '    <label>Habitable Orbits:</label><span>',
                     stat.min_orbit,
-                    stat.max_orbit > stat.min_orbit
-                        ? ' to ' + stat.max_orbit
-                        : '',
+                    stat.max_orbit > stat.min_orbit ? ' to ' + stat.max_orbit : '',
                     '</span>',
                     '</li>',
                     '<li>',

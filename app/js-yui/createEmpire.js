@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna');
 
-if (
-    typeof YAHOO.lacuna.CreateEmpire == 'undefined' ||
-    !YAHOO.lacuna.CreateEmpire
-) {
+if (typeof YAHOO.lacuna.CreateEmpire == 'undefined' || !YAHOO.lacuna.CreateEmpire) {
     (function() {
         var Util = YAHOO.util,
             Cookie = Util.Cookie,
@@ -149,14 +146,11 @@ if (
                     return;
                 }
                 this.setMessage('');
-                if (
-                    this.savedEmpire &&
-                    this.savedEmpire.name == this.elName.value
-                ) {
+                if (this.savedEmpire && this.savedEmpire.name == this.elName.value) {
                     Game.SpeciesCreator.show(this.savedEmpire.id);
                     this.hide(); //hide empire
                 } else {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     var EmpireServ = Game.Services.Empire,
                         data = {
                             name: this.elName.value,
@@ -183,7 +177,7 @@ if (
                             this.savedEmpire = data;
                             this.savedEmpire.id = o.result;
                             Game.SpeciesCreator.show(o.result);
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             this.hide(); //hide empire
                         },
                         failure: function(o) {
@@ -196,9 +190,7 @@ if (
                             } else if (o.error.code == 1100) {
                                 this.savedEmpire = data;
                                 this.savedEmpire.id = o.error.data;
-                                Game.SpeciesCreator.show(
-                                    o.error.data.empire_id
-                                );
+                                Game.SpeciesCreator.show(o.error.data.empire_id);
                                 this.hide(); //hide empire
                             }
                             return true;
@@ -212,11 +204,7 @@ if (
                 this._login.show();
             },
             setMessage: function(str) {
-                Dom.replaceClass(
-                    this.elMessage,
-                    Lib.Styles.HIDDEN,
-                    Lib.Styles.ALERT
-                );
+                Dom.replaceClass(this.elMessage, Lib.Styles.HIDDEN, Lib.Styles.ALERT);
                 this.elMessage.innerHTML = str;
             },
             facebookReturn: function(uid, token, name) {
@@ -243,8 +231,7 @@ if (
                     this.elName.value = '';
                     this.elDesc.value = '';
                     this.elEmail.value = '';
-                    this.elFriendCode.value =
-                        Cookie.get('lacunaReferral') || '';
+                    this.elFriendCode.value = Cookie.get('lacunaReferral') || '';
                     this.elPass.value = '';
                     this.elPassConfirm.value = '';
                     this.elAgreeTOS.checked = false;
@@ -255,11 +242,7 @@ if (
                 this.Dialog.show();
             },
             hide: function() {
-                Dom.replaceClass(
-                    this.elMessage,
-                    Lib.Styles.ALERT,
-                    Lib.Styles.HIDDEN
-                );
+                Dom.replaceClass(this.elMessage, Lib.Styles.ALERT, Lib.Styles.HIDDEN);
                 this.Dialog.hide();
             },
             initSpecies: function() {

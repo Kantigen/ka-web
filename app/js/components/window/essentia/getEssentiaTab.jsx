@@ -1,24 +1,14 @@
 'use strict';
 
-var PropTypes = require('prop-types');
-
 var React = require('react');
-
-var EmpireRPCActions = require('js/actions/rpc/empire');
-
-var WindowActions = require('js/actions/window');
-
+var { observer } = require('mobx-react');
 var InviteWindow = require('js/components/window/invite');
-
 var constants = require('js/constants');
+var SessionStore = require('js/stores/session');
 
 class GetEssentiaTab extends React.Component {
-    static propTypes = {
-        session: PropTypes.string.isRequired,
-    };
-
     purchase = () => {
-        var url = constants.RPC_BASE + 'pay?session_id=' + this.props.session;
+        var url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
         window.open(
             url,
             'essentiaPayment',
@@ -41,10 +31,7 @@ class GetEssentiaTab extends React.Component {
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
-                <div
-                    className='ui large green labeled icon button'
-                    onClick={this.purchase}
-                >
+                <div className='ui large green labeled icon button' onClick={this.purchase}>
                     <i className='payment icon'></i>
                     Purchase Essentia
                 </div>
@@ -61,20 +48,16 @@ class GetEssentiaTab extends React.Component {
                 <h3>OR</h3>
 
                 <p>
-                    Invite your friends to the game and you get{' '}
-                    <strong>free Essentia!</strong> For every university level
-                    past 4 that they achieve, you'll get 5 Essentia. That's up
-                    to{' '}
+                    Invite your friends to the game and you get <strong>free Essentia!</strong> For
+                    every university level past 4 that they achieve, you'll get 5 Essentia. That's
+                    up to{' '}
                     <u>
                         <strong>130 Essentia</strong>
                     </u>{' '}
                     per friend!
                 </p>
 
-                <div
-                    className='ui large green labeled icon button'
-                    onClick={this.invite}
-                >
+                <div className='ui large green labeled icon button' onClick={this.invite}>
                     <i className='add user icon'></i>
                     Invite a Friend
                 </div>
@@ -83,4 +66,4 @@ class GetEssentiaTab extends React.Component {
     }
 }
 
-module.exports = GetEssentiaTab;
+module.exports = observer(GetEssentiaTab);

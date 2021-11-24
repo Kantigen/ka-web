@@ -38,7 +38,6 @@
         "react-draggable": "4.0.3",
         "react-tabs": "3.0.0",
         "react-tooltip": "3.x.x",
-        "reflux": "6.4.1",
         "validator": "11.1.0"
     },
     "devDependencies": {

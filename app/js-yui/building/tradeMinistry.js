@@ -1,9 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
-if (
-    typeof YAHOO.lacuna.buildings.Trade == 'undefined' ||
-    !YAHOO.lacuna.buildings.Trade
-) {
+if (typeof YAHOO.lacuna.buildings.Trade == 'undefined' || !YAHOO.lacuna.buildings.Trade) {
     (function() {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
@@ -42,18 +39,8 @@ if (
                     'onLoad',
                     function() {
                         this.getStoredResources();
-                        this.mine.subscribe(
-                            'activeChange',
-                            this.getMyTrades,
-                            this,
-                            true
-                        );
-                        this.avail.subscribe(
-                            'activeChange',
-                            this.getAvailableTrades,
-                            this,
-                            true
-                        );
+                        this.mine.subscribe('activeChange', this.getMyTrades, this, true);
+                        this.avail.subscribe('activeChange', this.getAvailableTrades, this, true);
                         this.push.subscribe(
                             'activeChange',
                             function(e) {
@@ -417,36 +404,11 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadResources',
-                    this.populatePushResourceName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadGlyphSummary',
-                    this.populatePushGlyphSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPlanSummary',
-                    this.populatePushPlanSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadShipSummary',
-                    this.populatePushShipSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPrisoners',
-                    this.populatePushPrisonerName,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadResources', this.populatePushResourceName, this, true);
+                this.subscribe('onLoadGlyphSummary', this.populatePushGlyphSummaryName, this, true);
+                this.subscribe('onLoadPlanSummary', this.populatePushPlanSummaryName, this, true);
+                this.subscribe('onLoadShipSummary', this.populatePushShipSummaryName, this, true);
+                this.subscribe('onLoadPrisoners', this.populatePushPrisonerName, this, true);
                 var This = this;
 
                 Event.onAvailable('tradePushColony', function() {
@@ -457,18 +419,11 @@ if (
                         var nOpt = opt.cloneNode(false);
                         var b = planets[p];
                         nOpt.value = b.id;
-                        nOpt.innerHTML =
-                            b.name + ' (' + b.x + ',' + b.y + '): ' + b.zone;
+                        nOpt.innerHTML = b.name + ' (' + b.x + ',' + b.y + '): ' + b.zone;
                         this.appendChild(nOpt);
                     }
                 });
-                Event.on(
-                    'tradePushColony',
-                    'change',
-                    this.getPushShips,
-                    this,
-                    true
-                );
+                Event.on('tradePushColony', 'change', this.getPushShips, this, true);
 
                 Event.delegate(
                     'tradePushResourceName',
@@ -511,14 +466,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'tradePushItems',
-                    'click',
-                    this.PushRemove,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('tradePushItems', 'click', this.PushRemove, 'button', this, true);
 
                 Event.on('tradePushSend', 'click', this.Push, this, true);
 
@@ -608,36 +556,11 @@ if (
                     ].join(''),
                 });
 
-                this.subscribe(
-                    'onLoadResources',
-                    this.populateAddResourceName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadGlyphSummary',
-                    this.populateAddGlyphSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPlanSummary',
-                    this.populateAddPlanSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadShipSummary',
-                    this.populateAddShipSummaryName,
-                    this,
-                    true
-                );
-                this.subscribe(
-                    'onLoadPrisoners',
-                    this.populateAddPrisonerName,
-                    this,
-                    true
-                );
+                this.subscribe('onLoadResources', this.populateAddResourceName, this, true);
+                this.subscribe('onLoadGlyphSummary', this.populateAddGlyphSummaryName, this, true);
+                this.subscribe('onLoadPlanSummary', this.populateAddPlanSummaryName, this, true);
+                this.subscribe('onLoadShipSummary', this.populateAddShipSummaryName, this, true);
+                this.subscribe('onLoadPrisoners', this.populateAddPrisonerName, this, true);
 
                 Event.delegate(
                     'tradeAddResourceName',
@@ -680,14 +603,7 @@ if (
                     true
                 );
 
-                Event.delegate(
-                    'tradeAddItems',
-                    'click',
-                    this.AddRemove,
-                    'button',
-                    this,
-                    true
-                );
+                Event.delegate('tradeAddItems', 'click', this.AddRemove, 'button', this, true);
 
                 Event.on('tradeAdd', 'click', this.AddTrade, this, true);
                 return this.add;
@@ -748,12 +664,7 @@ if (
                     true
                 );
 
-                this.supplyChainTab.subscribe(
-                    'activeChange',
-                    this.viewSupplyChainInfo,
-                    this,
-                    true
-                );
+                this.supplyChainTab.subscribe('activeChange', this.viewSupplyChainInfo, this, true);
 
                 return this.supplyChainTab;
             },
@@ -776,12 +687,7 @@ if (
                     ].join(''),
                 });
 
-                this.supplyShipsTab.subscribe(
-                    'activeChange',
-                    this.viewSupplyShips,
-                    this,
-                    true
-                );
+                this.supplyShipsTab.subscribe('activeChange', this.viewSupplyShips, this, true);
 
                 return this.supplyShipsTab;
             },
@@ -804,19 +710,14 @@ if (
                     ].join(''),
                 });
 
-                this.wasteChainTab.subscribe(
-                    'activeChange',
-                    this.viewWasteChainInfo,
-                    this,
-                    true
-                );
+                this.wasteChainTab.subscribe('activeChange', this.viewWasteChainInfo, this, true);
 
                 return this.wasteChainTab;
             },
 
             getGlyphSummary: function(force) {
                 if (force || !this.glyph_summary) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_glyph_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -828,7 +729,7 @@ if (
                                 this.glyph_summary = o.result.glyphs;
                                 this.glyphSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadGlyphSummary');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -838,7 +739,7 @@ if (
 
             getPlanSummary: function(force) {
                 if (force || !this.plan_summary) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_plan_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -850,7 +751,7 @@ if (
                                 this.plan_summary = o.result.plans;
                                 this.planSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadPlanSummary');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -859,7 +760,7 @@ if (
             },
             getPrisoners: function(force) {
                 if (force || !this.prisoners) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_prisoners(
                         {
                             session_id: Game.GetSession(''),
@@ -871,7 +772,7 @@ if (
                                 this.prisoners = o.result.prisoners;
                                 this.spySize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadPrisoners');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -880,7 +781,7 @@ if (
             },
             getShipSummary: function(force) {
                 if (force || !this.ship_summary) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_ship_summary(
                         {
                             session_id: Game.GetSession(''),
@@ -892,7 +793,7 @@ if (
                                 this.ship_summary = o.result.ships;
                                 this.shipSize = o.result.cargo_space_used_each;
                                 this.fireEvent('onLoadShipSummary');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -900,11 +801,8 @@ if (
                 }
             },
             getStoredResources: function(force) {
-                if (
-                    this.result.building.efficiency >= 100 &&
-                    (force || !this.resources)
-                ) {
-                    require('js/actions/menu/loader').show();
+                if (this.result.building.efficiency >= 100 && (force || !this.resources)) {
+                    require('js/stores/menu').showLoader();
                     this.service.get_stored_resources(
                         {
                             session_id: Game.GetSession(''),
@@ -915,7 +813,7 @@ if (
                                 this.rpcSuccess(o);
                                 this.resources = o.result.resources;
                                 this.fireEvent('onLoadResources');
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -926,7 +824,7 @@ if (
             //View Available
             getAvailableTrades: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     var data = {
                             session_id: Game.GetSession(),
                             building_id: this.building.id,
@@ -938,12 +836,8 @@ if (
                     }
                     this.service.view_market(data, {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.view_available_trades.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -953,8 +847,7 @@ if (
                                 rowsPerPage: 25,
                                 totalRecords: o.result.trade_count,
                                 containers: 'tradeAvailablePaginator',
-                                template:
-                                    '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                 alwaysVisible: false,
                             });
                             this.availablePager.subscribe(
@@ -995,19 +888,12 @@ if (
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeEmpire');
                         nLi.innerHTML = trade.empire.name;
-                        Event.on(
-                            nLi,
-                            'click',
-                            this.EmpireProfile,
-                            trade.empire
-                        );
+                        Event.on(nLi, 'click', this.EmpireProfile, trade.empire);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatTime(
-                            Math.round(trade.delivery.duration)
-                        );
+                        nLi.innerHTML = Lib.formatTime(Math.round(trade.delivery.duration));
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1071,7 +957,7 @@ if (
                 }
             },
             AvailableHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 var data = {
                         session_id: Game.GetSession(),
                         building_id: this.building.id,
@@ -1083,12 +969,8 @@ if (
                 }
                 this.service.view_market(data, {
                     success: function(o) {
-                        YAHOO.log(
-                            o,
-                            'info',
-                            'Trade.view_available_trades.success'
-                        );
-                        require('js/actions/menu/loader').hide();
+                        YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                        require('js/stores/menu').hideLoader();
                         this.rpcSuccess(o);
 
                         delete o.result.status; //get rid of status after we process it, since it's big
@@ -1103,7 +985,7 @@ if (
                 this.availablePager.setState(newState);
             },
             AvailableAccept: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.accept_from_market(
                     {
                         session_id: Game.GetSession(''),
@@ -1116,14 +998,14 @@ if (
                             this.Self.rpcSuccess(o);
                             //force get the new availabe list after accepting so we get a new captcha
                             this.Self.getAvailableTrades({ newValue: true });
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     }
                 );
             },
             AvailableReport: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.report_abuse(
                     {
                         session_id: Game.GetSession(''),
@@ -1132,17 +1014,13 @@ if (
                     },
                     {
                         success: function(o) {
-                            var btn = Sel.query(
-                                '.reportAbuse',
-                                this.Line,
-                                true
-                            );
+                            var btn = Sel.query('.reportAbuse', this.Line, true);
                             if (btn) {
                                 Event.purgeElement(btn);
                                 btn.parentNode.removeChild(btn);
                             }
                             this.Self.rpcSuccess(o);
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     }
@@ -1155,7 +1033,7 @@ if (
             //View Mine
             getMyTrades: function(e) {
                 if (e.newValue) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_my_market(
                         {
                             session_id: Game.GetSession(),
@@ -1164,12 +1042,8 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.view_my_trades.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Trade.view_my_trades.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
 
                                 delete o.result.status; //get rid of status after we process it, since it's big
@@ -1179,8 +1053,7 @@ if (
                                     rowsPerPage: 25,
                                     totalRecords: o.result.trade_count,
                                     containers: 'tradeMinePaginator',
-                                    template:
-                                        '{PreviousPageLink} {PageLinks} {NextPageLink}',
+                                    template: '{PreviousPageLink} {PageLinks} {NextPageLink}',
                                     alwaysVisible: false,
                                 });
                                 this.minePage.subscribe(
@@ -1220,9 +1093,7 @@ if (
 
                         nLi = li.cloneNode(false);
                         Dom.addClass(nLi, 'tradeOfferedDate');
-                        nLi.innerHTML = Lib.formatServerDateTimeShort(
-                            trade.date_offered
-                        );
+                        nLi.innerHTML = Lib.formatServerDateTimeShort(trade.date_offered);
                         nUl.appendChild(nLi);
 
                         nLi = li.cloneNode(false);
@@ -1272,7 +1143,7 @@ if (
                 }
             },
             MineHandlePagination: function(newState) {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_my_market(
                     {
                         session_id: Game.GetSession(),
@@ -1281,12 +1152,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.view_available_trades.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.view_available_trades.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
 
                             delete o.result.status; //get rid of status after we process it, since it's big
@@ -1313,7 +1180,7 @@ if (
                         ].join('')
                     )
                 ) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.Self.service.withdraw_from_market(
                         {
                             session_id: Game.GetSession(''),
@@ -1322,11 +1189,7 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.withdraw_trade.success'
-                                );
+                                YAHOO.log(o, 'info', 'Trade.withdraw_trade.success');
                                 this.Self.rpcSuccess(o);
                                 var trades = this.Self.mineTrades.trades;
                                 for (var i = 0; i < trades.length; i++) {
@@ -1336,7 +1199,7 @@ if (
                                     }
                                 }
                                 this.Line.parentNode.removeChild(this.Line);
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
 
                                 this.Self.getStoredResources(true);
                                 this.Self.getPlanSummary(true);
@@ -1550,7 +1413,7 @@ if (
                 }
             },
             getAddShips: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.service.get_trade_ships(
                     {
@@ -1567,9 +1430,7 @@ if (
                                 nOpt;
 
                             if (elm && ships) {
-                                var selectedVal = Lib.getSelectedOptionValue(
-                                    elm
-                                );
+                                var selectedVal = Lib.getSelectedOptionValue(elm);
                                 elm.options.length = 0;
                                 for (var x = 0; x < ships.length; x++) {
                                     var obj = ships[x];
@@ -1592,7 +1453,7 @@ if (
                                 }
                             }
 
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                         },
                         scope: this,
                     }
@@ -1612,12 +1473,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         if (quantity > li.Resource.quantity) {
                             quantity = li.Resource.quantity;
@@ -1689,12 +1546,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1704,9 +1557,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.glyphSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.glyphSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1758,25 +1609,14 @@ if (
                         pType = li.PlanSummary.plan_type,
                         pLevel = li.PlanSummary.level,
                         pExtra = li.PlanSummary.extra_build_level,
-                        id = [
-                            'addPlanSummary-',
-                            pType,
-                            '-',
-                            pLevel,
-                            '-',
-                            pExtra,
-                        ]
+                        id = ['addPlanSummary-', pType, '-', pLevel, '-', pExtra]
                             .join('')
                             .titleCaps(' ', '_'),
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1786,9 +1626,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.planSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.planSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1862,25 +1700,14 @@ if (
                         sSize = li.ShipSummary.hold_size,
                         sBerth = li.ShipSummary.berth_level,
                         sSpeed = li.ShipSummary.speed,
-                        id = [
-                            'addShipSummary',
-                            sName,
-                            sType,
-                            sSize,
-                            sBerth,
-                            sSpeed,
-                        ]
+                        id = ['addShipSummary', sName, sType, sSize, sBerth, sSpeed]
                             .join('-')
                             .titleCaps(' ', '_'),
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -1890,9 +1717,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updateAddCargo(
-                                    ep.Object.quantity * -this.shipSize
-                                );
+                                this.updateAddCargo(ep.Object.quantity * -this.shipSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -1957,12 +1782,8 @@ if (
                         id = 'addPrisoner-' + gId;
                     if (Sel.query('#' + id, c).length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2001,9 +1822,7 @@ if (
                     }
 
                     if (newTotal == 0) {
-                        this.updateAddCargo(
-                            li.Object.quantity * -1 * li.Object.size
-                        );
+                        this.updateAddCargo(li.Object.quantity * -1 * li.Object.size);
                         Event.purgeElement(li);
                         li.parentNode.removeChild(li);
                     } else {
@@ -2069,7 +1888,7 @@ if (
                     }
                 }
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.add_to_market(data, {
                     success: function(o) {
                         this.rpcSuccess(o);
@@ -2097,7 +1916,7 @@ if (
                         Dom.get('tradeAddAskingQuantity').value = '';
                         Dom.get('tradeAddCargo').innerHTML = '0';
                         this.fireEvent('onSelectTab', this.mineTabIndex);
-                        require('js/actions/menu/loader').hide();
+                        require('js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -2306,7 +2125,7 @@ if (
             getPushShips: function() {
                 var targetId = Lib.getSelectedOptionValue('tradePushColony');
                 if (targetId) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.get_trade_ships(
                         {
                             session_id: Game.GetSession(''),
@@ -2323,9 +2142,7 @@ if (
                                     nOpt;
 
                                 if (elm && ships) {
-                                    var selectedVal = Lib.getSelectedOptionValue(
-                                        elm
-                                    );
+                                    var selectedVal = Lib.getSelectedOptionValue(elm);
                                     elm.options.length = 0;
                                     for (var x = 0; x < ships.length; x++) {
                                         var obj = ships[x];
@@ -2338,9 +2155,7 @@ if (
                                             ' - Hold:',
                                             obj.hold_size,
                                             ' - Estimated Travel Time:',
-                                            Lib.formatTime(
-                                                obj.estimated_travel_time
-                                            ),
+                                            Lib.formatTime(obj.estimated_travel_time),
                                             ')',
                                         ].join('');
                                         nOpt.selected = selectedVal == obj.id;
@@ -2348,7 +2163,7 @@ if (
                                     }
                                 }
 
-                                require('js/actions/menu/loader').hide();
+                                require('js/stores/menu').hideLoader();
                             },
                             scope: this,
                         }
@@ -2371,12 +2186,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         if (quantity > li.Resource.quantity) {
                             quantity = li.Resource.quantity;
@@ -2448,12 +2259,8 @@ if (
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2463,9 +2270,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.glyphSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.glyphSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2517,26 +2322,15 @@ if (
                         pType = li.PlanSummary.plan_type,
                         pLevel = li.PlanSummary.level,
                         pExtra = li.PlanSummary.extra_build_level,
-                        id = [
-                            'pushPlanSummary-',
-                            pType,
-                            '-',
-                            pLevel,
-                            '-',
-                            pExtra,
-                        ]
+                        id = ['pushPlanSummary-', pType, '-', pLevel, '-', pExtra]
                             .join('')
                             .titleCaps(' ', '_'),
                         exists = Sel.query('#' + id, c);
 
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2546,9 +2340,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.planSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.planSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2623,25 +2415,14 @@ if (
                         sSize = li.ShipSummary.hold_size,
                         sBerth = li.ShipSummary.berth_level,
                         sSpeed = li.ShipSummary.speed,
-                        id = [
-                            'pushShipSummary-',
-                            sName,
-                            sType,
-                            sSize,
-                            sBerth,
-                            sSpeed,
-                        ]
+                        id = ['pushShipSummary-', sName, sType, sSize, sBerth, sSpeed]
                             .join('-')
                             .titleCaps(' ', '_'),
                         exists = Sel.query('#' + id, c);
                     if (exists.length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2651,9 +2432,7 @@ if (
                             function(e) {
                                 var ed = Event.getTarget(e),
                                     ep = ed.parentNode;
-                                this.updatePushCargo(
-                                    ep.Object.quantity * -this.shipSize
-                                );
+                                this.updatePushCargo(ep.Object.quantity * -this.shipSize);
                                 Event.purgeElement(item);
                                 item.parentNode.removeChild(item);
                             },
@@ -2718,12 +2497,8 @@ if (
                         id = 'pushPrisoner-' + gId;
                     if (Sel.query('#' + id, c).length == 0) {
                         var item = document.createElement('li'),
-                            del = item.appendChild(
-                                document.createElement('div')
-                            ),
-                            content = item.appendChild(
-                                document.createElement('div')
-                            );
+                            del = item.appendChild(document.createElement('div')),
+                            content = item.appendChild(document.createElement('div'));
                         item.id = id;
                         Dom.addClass(item, 'tradeItem');
                         Dom.addClass(del, 'tradeDelete');
@@ -2762,9 +2537,7 @@ if (
                     }
 
                     if (newTotal == 0) {
-                        this.updatePushCargo(
-                            li.Object.quantity * -1 * li.Object.size
-                        );
+                        this.updatePushCargo(li.Object.quantity * -1 * li.Object.size);
                         Event.purgeElement(li);
                         li.parentNode.removeChild(li);
                     } else {
@@ -2784,13 +2557,9 @@ if (
                 var data = {
                         session_id: Game.GetSession(''),
                         building_id: this.building.id,
-                        target_id: Lib.getSelectedOptionValue(
-                            Dom.get('tradePushColony')
-                        ),
+                        target_id: Lib.getSelectedOptionValue(Dom.get('tradePushColony')),
                         options: {
-                            ship_id: Lib.getSelectedOptionValue(
-                                Dom.get('tradePushShip')
-                            ),
+                            ship_id: Lib.getSelectedOptionValue(Dom.get('tradePushShip')),
                             stay: Dom.get('tradePushStay').checked ? 1 : 0,
                         },
                     },
@@ -2827,11 +2596,10 @@ if (
                 data.items = items;
 
                 if (data.items.length == 0) {
-                    Dom.get('tradePushMessage').innerHTML =
-                        'Must add items to send to colony.';
+                    Dom.get('tradePushMessage').innerHTML = 'Must add items to send to colony.';
                 } else {
                     Dom.get('tradePushMessage').innerHTML = '';
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.push_items(data, {
                         success: function(o) {
                             this.rpcSuccess(o);
@@ -2864,13 +2632,11 @@ if (
                             var msg = Dom.get('tradePushMessage');
                             msg.innerHTML = [
                                 'Successfully pushed to ',
-                                Lib.getSelectedOption(
-                                    Dom.get('tradePushColony')
-                                ).innerHTML,
+                                Lib.getSelectedOption(Dom.get('tradePushColony')).innerHTML,
                                 '.',
                             ].join('');
                             Lib.fadeOutElm('tradePushMessage');
-                            require('js/actions/menu/loader').hide();
+                            require('js/stores/menu').hideLoader();
                             //get new ships since we just sent one
                             this.getPushShips();
                         },
@@ -2919,47 +2685,27 @@ if (
                     if (Lib.ResourceTypes.hasOwnProperty(r)) {
                         resource = Lib.ResourceTypes[r];
                         if (Lang.isArray(resource)) {
-                            resource_options += [
-                                '<optgroup label="',
-                                r.titleCaps(),
-                                '">',
-                            ].join('');
+                            resource_options += ['<optgroup label="', r.titleCaps(), '">'].join('');
 
                             for (x = 0; x < resource.length; x++) {
                                 name = resource[x];
-                                resource_options += [
-                                    '<option value="',
-                                    name,
-                                    '"',
-                                ].join('');
+                                resource_options += ['<option value="', name, '"'].join('');
 
                                 if (selected && name == selected) {
                                     resource_options += ' selected="selected"';
                                 }
 
-                                resource_options += [
-                                    '>',
-                                    name.titleCaps(),
-                                    '</option>',
-                                ].join('');
+                                resource_options += ['>', name.titleCaps(), '</option>'].join('');
                             }
                             resource_options += '</optgroup>';
                         } else if (resource) {
-                            resource_options += [
-                                '<option value="',
-                                r,
-                                '"',
-                            ].join('');
+                            resource_options += ['<option value="', r, '"'].join('');
 
                             if (selected && r == selected) {
                                 resource_options += ' selected="selected"';
                             }
 
-                            resource_options += [
-                                '>',
-                                r.titleCaps(),
-                                '</option>',
-                            ].join('');
+                            resource_options += ['>', r.titleCaps(), '</option>'].join('');
                         }
                     }
                 }
@@ -2971,7 +2717,7 @@ if (
                 Dom.setStyle('supplyChainListNone', 'display', 'none');
 
                 if (!this.supply_chains) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     this.service.view_supply_chains(
                         {
                             session_id: Game.GetSession(),
@@ -2979,15 +2725,10 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.viewSupplyChainList.success'
-                                );
-                                require('js/actions/menu/loader').hide();
+                                YAHOO.log(o, 'info', 'Trade.viewSupplyChainList.success');
+                                require('js/stores/menu').hideLoader();
                                 this.rpcSuccess(o);
-                                this.max_supply_chains =
-                                    o.result.max_supply_chains;
+                                this.max_supply_chains = o.result.max_supply_chains;
                                 this.supply_chains = o.result.supply_chains;
 
                                 this.SupplyChainMaxCount();
@@ -3124,15 +2865,9 @@ if (
                 }, 10);
             },
             SupplyMetricDescription: function(percent_transferred) {
-                var output = [
-                    'Current supply capacity is ',
-                    percent_transferred,
-                    '&#37;. ',
-                ];
+                var output = ['Current supply capacity is ', percent_transferred, '&#37;. '];
                 if (percent_transferred == 0) {
-                    output.push(
-                        'You have no ships servicing your supply chains.'
-                    );
+                    output.push('You have no ships servicing your supply chains.');
                 } else if (percent_transferred > 100) {
                     output.push(
                         'You have excess ships servicing your supply chains. You can increase your chain hourly rate, or you may be able to remove some ships to get closer to 100&#37;.'
@@ -3149,15 +2884,11 @@ if (
                 return output.join('');
             },
             SupplyChainAddNew: function() {
-                var target_id = Lib.getSelectedOptionValue(
-                        'supplyChainAddTargetId'
-                    ),
-                    resource_type = Lib.getSelectedOptionValue(
-                        'supplyChainAddResourceType'
-                    ),
+                var target_id = Lib.getSelectedOptionValue('supplyChainAddTargetId'),
+                    resource_type = Lib.getSelectedOptionValue('supplyChainAddResourceType'),
                     resource_hour = Dom.get('supplyChainAddResourceHour').value;
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.create_supply_chain(
                     {
                         session_id: Game.GetSession(),
@@ -3168,12 +2899,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.SupplyChainAddNew.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.SupplyChainAddNew.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             delete this.Self.supply_chains;
@@ -3184,25 +2911,19 @@ if (
                 );
             },
             SupplyChainUpdate: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.update_supply_chain(
                     {
                         session_id: Game.GetSession(),
                         building_id: this.Self.building.id,
                         supply_chain_id: this.Chain.id,
-                        resource_type: Lib.getSelectedOptionValueFromSelectElement(
-                            this.Type
-                        ),
+                        resource_type: Lib.getSelectedOptionValueFromSelectElement(this.Type),
                         resource_hour: this.Hour.value,
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.SupplyChainUpdate.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.SupplyChainUpdate.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             delete this.Self.supply_chains;
@@ -3228,7 +2949,7 @@ if (
                 )
                     return;
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.delete_supply_chain(
                     {
                         session_id: Game.GetSession(),
@@ -3237,12 +2958,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.SupplyChainRemove.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.SupplyChainRemove.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             delete this.Self.supply_chains;
@@ -3259,7 +2976,7 @@ if (
                 var request_count = 0;
 
                 if (!this.supply_chains) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     request_count++;
 
                     this.service.view_supply_chains(
@@ -3269,14 +2986,10 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.viewSupplyChainList.success'
-                                );
+                                YAHOO.log(o, 'info', 'Trade.viewSupplyChainList.success');
                                 request_count--;
                                 if (request_count == 0) {
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                 }
                                 this.rpcSuccess(o);
                                 this.supply_chains = o.result.supply_chains;
@@ -3291,7 +3004,7 @@ if (
                 }
 
                 if (!this.supply_chain_ships) {
-                    require('js/actions/menu/loader').show();
+                    require('js/stores/menu').showLoader();
                     request_count++;
 
                     this.service.get_supply_ships(
@@ -3301,14 +3014,10 @@ if (
                         },
                         {
                             success: function(o) {
-                                YAHOO.log(
-                                    o,
-                                    'info',
-                                    'Trade.viewSupplyShipsInfo.success'
-                                );
+                                YAHOO.log(o, 'info', 'Trade.viewSupplyShipsInfo.success');
                                 request_count--;
                                 if (request_count == 0) {
-                                    require('js/actions/menu/loader').hide();
+                                    require('js/stores/menu').hideLoader();
                                 }
                                 this.rpcSuccess(o);
                                 this.supply_chain_ships = o.result.ships;
@@ -3400,9 +3109,7 @@ if (
                         var bbtn = document.createElement('button');
                         bbtn.setAttribute('type', 'button');
                         bbtn.innerHTML =
-                            ship.task == 'Docked'
-                                ? 'Add to Chain'
-                                : 'Remove from Chain';
+                            ship.task == 'Docked' ? 'Add to Chain' : 'Remove from Chain';
                         bbtn = nLi.appendChild(bbtn);
                         nUl.appendChild(nLi);
 
@@ -3439,7 +3146,7 @@ if (
                 }
             },
             SupplyChainShipAdd: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.add_supply_ship_to_fleet(
                     {
@@ -3449,12 +3156,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.SupplyChainShipAdd.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.SupplyChainShipAdd.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             var ships = this.Self.supply_chain_ships;
                             for (var i = 0; i < ships.length; i++) {
@@ -3472,7 +3175,7 @@ if (
                 );
             },
             SupplyChainShipRemove: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.remove_supply_ship_from_fleet(
                     {
@@ -3482,12 +3185,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.SupplyChainShipRemove.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.SupplyChainShipRemove.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             var ships = this.Self.supply_chain_ships;
                             for (var i = 0; i < ships.length; i++) {
@@ -3516,7 +3215,7 @@ if (
                 }
             },
             WasteChainDetails: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.view_waste_chains(
                     {
                         session_id: Game.GetSession(),
@@ -3524,12 +3223,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.WasteChainDetails.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.WasteChainDetails.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.waste_chain = o.result.waste_chain[0];
 
@@ -3589,7 +3284,7 @@ if (
                 var waste_chain_id = this.Self.waste_chain.id,
                     waste_hour = Dom.get('chainWasteHourInput').value;
 
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.Self.service.update_waste_chain(
                     {
                         session_id: Game.GetSession(),
@@ -3599,12 +3294,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.WasteChainUpdateWasteHour.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.WasteChainUpdateWasteHour.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
 
                             this.Self.WasteChainDetails();
@@ -3624,7 +3315,7 @@ if (
                 Dom.get('chainWasteHourInput').value = waste_hour;
             },
             WasteChainShipsView: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
                 this.service.get_waste_ships(
                     {
                         session_id: Game.GetSession(),
@@ -3632,12 +3323,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.WasteChainShipsView.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.WasteChainShipsView.success');
+                            require('js/stores/menu').hideLoader();
                             this.rpcSuccess(o);
                             this.waste_chain_ships = o.result.ships;
 
@@ -3710,9 +3397,7 @@ if (
                         var bbtn = document.createElement('button');
                         bbtn.setAttribute('type', 'button');
                         bbtn.innerHTML =
-                            ship.task == 'Docked'
-                                ? 'Add to Chain'
-                                : 'Remove from Chain';
+                            ship.task == 'Docked' ? 'Add to Chain' : 'Remove from Chain';
                         bbtn = nLi.appendChild(bbtn);
                         nUl.appendChild(nLi);
 
@@ -3749,7 +3434,7 @@ if (
                 }
             },
             WasteChainShipAdd: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.add_waste_ship_to_fleet(
                     {
@@ -3759,12 +3444,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.WasteChainShipAdd.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.WasteChainShipAdd.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             var ships = this.Self.waste_chain_ships;
                             for (var i = 0; i < ships.length; i++) {
@@ -3782,7 +3463,7 @@ if (
                 );
             },
             WasteChainShipRemove: function() {
-                require('js/actions/menu/loader').show();
+                require('js/stores/menu').showLoader();
 
                 this.Self.service.remove_waste_ship_from_fleet(
                     {
@@ -3792,12 +3473,8 @@ if (
                     },
                     {
                         success: function(o) {
-                            YAHOO.log(
-                                o,
-                                'info',
-                                'Trade.WasteChainShipRemove.success'
-                            );
-                            require('js/actions/menu/loader').hide();
+                            YAHOO.log(o, 'info', 'Trade.WasteChainShipRemove.success');
+                            require('js/stores/menu').hideLoader();
                             this.Self.rpcSuccess(o);
                             var ships = this.Self.waste_chain_ships;
                             for (var i = 0; i < ships.length; i++) {

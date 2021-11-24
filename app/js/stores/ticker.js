@@ -1,66 +1,50 @@
 'use strict';
 
+//
 // This is just a basic store that updates once a second.
 // Useful for views which require a frequent update, e.g
 // server clock or menu bars that show resource changes.
 //
 
-var Reflux = require('reflux');
-var _ = require('lodash');
+const { makeAutoObservable } = require('mobx');
+const _ = require('lodash');
+const BoostsRPCStore = require('js/stores/rpc/empire/boosts');
+const EmpireRPCStore = require('js/stores/rpc/empire');
+const ServerRPCStore = require('js/stores/rpc/server');
+const BodyRPCStore = require('js/stores/rpc/body');
 
-var TickerActions = require('js/actions/ticker');
-var EmpireRPCActions = require('js/actions/rpc/empire');
-var UserActions = require('js/actions/user');
+const INTERVAL_TIME = 1000;
 
-var StatefulStore = require('js/stores/mixins/stateful');
-var clone = require('js/util').clone;
+class TickerStore {
+    ticking = false;
+    interval = _.noop;
+    clockTicks = 0;
 
-var INTERVAL_TIME = 1000;
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-var TickerStore = Reflux.createStore({
-    listenables: [TickerActions, EmpireRPCActions, UserActions],
+    tick() {
+        this.clockTicks += 1;
+        BoostsRPCStore.tick();
+        BodyRPCStore.tick();
+        EmpireRPCStore.tick();
+        ServerRPCStore.tick();
+    }
 
-    mixins: [StatefulStore],
-
-    getDefaultData: function() {
-        return {
-            ticking: false,
-            interval: _.noop,
-            clockTicks: 0,
-        };
-    },
-
-    tick: function() {
-        TickerActions.tickerTick();
-
-        var state = clone(this.state);
-
-        state.clockTicks += 1;
-
-        this.emit(state);
-    },
-
-    onTickerStart: function() {
-        if (!this.state.ticking) {
-            var state = clone(this.state);
-
-            state.interval = setInterval(this.tick, INTERVAL_TIME);
-            state.ticking = true;
-
-            this.emit(state);
+    start() {
+        if (!this.ticking) {
+            this.interval = setInterval(this.tick, INTERVAL_TIME);
+            this.ticking = true;
         }
-    },
+    }
 
-    onSuccessEmpireRPCLogout: function() {
-        this.onTickerStop();
-    },
-
-    onTickerStop: function() {
+    stop() {
         if (this.ticking) {
-            clearInterval(this.state.interval);
-            this.emit(this.getDefaultData());
+            clearInterval(this.interval);
+            this.ticking = false;
         }
-    },
-});
+    }
+}
 
-module.exports = TickerStore;
+module.exports = new TickerStore();

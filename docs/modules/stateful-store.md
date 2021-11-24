@@ -3,7 +3,6 @@
 ## Usage
 
 ```javascript
-var Reflux        = require('reflux');
 var StatefulStore = require('js/stores/mixins/stateful');
 
 var MyStore = Reflux.createStore({
@@ -40,30 +39,23 @@ Stores need to be immutable so that each React component's [`shouldComponentUpda
 ## Example
 
 ```javascript
-var Reflux        = require('reflux');
 var StatefulStore = require('js/stores/mixins/stateful');
 
-var clone         = require('js/util').clone;
+var clone = require('js/util').clone;
 
 var MyStore = Reflux.createStore({
-    mixins : [
-        StatefulStore
-    ],
+    mixins: [StatefulStore],
 
-    getDefaultData : function() {
+    getDefaultData: function() {
         return {
-            foo    : 'bar',
-            spam   : 'eggs',
-            points : 10,
-            users  : [
-                'Dave',
-                'Bob',
-                'Harry'
-            ]
-        }
+            foo: 'bar',
+            spam: 'eggs',
+            points: 10,
+            users: ['Dave', 'Bob', 'Harry'],
+        };
     },
 
-    onAddUser : function(name) {
+    onAddUser: function(name) {
         // Clone the store's state. See above for reasoning.
         var state = clone(this.state);
 
@@ -74,10 +66,10 @@ var MyStore = Reflux.createStore({
         this.emit(name);
     },
 
-    clear : function() {
+    clear: function() {
         // This is common pattern for reseting a store back to its initial data.
         this.emit(this.getDefaultData());
-    }
+    },
 });
 
 // Elsewhere...

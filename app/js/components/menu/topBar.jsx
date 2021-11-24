@@ -1,44 +1,33 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
 var classNames = require('classnames');
+var { observer } = require('mobx-react');
+var _ = require('lodash');
 
 var EmpireRPCStore = require('js/stores/rpc/empire');
-var MapModeMenuStore = require('js/stores/menu/mapMode');
 var ServerRPCStore = require('js/stores/rpc/server');
-
-var EmpireRPCActions = require('js/actions/rpc/empire');
-var MapMenuActions = require('js/actions/menu/map');
-var WindowActions = require('js/actions/window');
-var MailWindowActions = require('js/actions/windows/mail');
-var StatsWindowActions = require('js/actions/windows/stats');
+var MenuStore = require('js/stores/menu');
+var MailWindowStore = require('js/stores/windows/mail');
+var StatsWindowStore = require('js/stores/windows/stats');
+var WindowsStore = require('js/stores/windows');
 
 var EssentiaWindow = require('js/components/window/essentia');
 var PromotionsWindow = require('js/components/window/promotions');
 
-var TopBar = createReactClass({
-    displayName: 'TopBar',
-
-    mixins: [
-        Reflux.connect(EmpireRPCStore, 'empire'),
-        Reflux.connect(ServerRPCStore, 'server'),
-        Reflux.connect(MapModeMenuStore, 'mapMode'),
-    ],
-
-    mapButtonTip: function() {
-        if (this.state.mapMode === MapModeMenuStore.PLANET_MAP_MODE) {
+class TopBar extends React.Component {
+    mapButtonTip() {
+        if (MenuStore.mapMode === MenuStore.PLANET_MAP_MODE) {
             return 'To Star Map';
         } else {
             return 'To Planet Map';
         }
-    },
+    }
 
-    render: function() {
+    render() {
         var barClass = classNames('ui inverted compact small menu', {
-            red: this.state.empire.self_destruct_active,
-            blue: !this.state.empire.self_destruct_active,
+            red: EmpireRPCStore.self_destruct_active,
+            blue: !EmpireRPCStore.self_destruct_active,
         });
 
         return (
@@ -55,20 +44,16 @@ var TopBar = createReactClass({
                         <a
                             className='item'
                             data-tip={this.mapButtonTip()}
-                            onClick={MapMenuActions.mapToggleMode}
+                            onClick={MenuStore.toggleMapMode}
                         >
                             <i className='map big icon'></i>
                         </a>
 
-                        <a
-                            className='item'
-                            data-tip='Mail'
-                            onClick={MailWindowActions.mailWindowShow}
-                        >
+                        <a className='item' data-tip='Mail' onClick={MailWindowStore.show}>
                             <i className='mail big icon'></i>
-                            {this.state.empire.has_new_messages > 0 ? (
+                            {EmpireRPCStore.has_new_messages > 0 ? (
                                 <div className='ui yellow label'>
-                                    {this.state.empire.has_new_messages}
+                                    {EmpireRPCStore.has_new_messages}
                                 </div>
                             ) : (
                                 ''
@@ -79,62 +64,48 @@ var TopBar = createReactClass({
                             className='item'
                             data-tip='Essentia'
                             onClick={function() {
-                                WindowActions.windowAdd(
-                                    EssentiaWindow,
-                                    'essentia'
-                                );
+                                WindowsStore.add('essentia');
                             }}
                         >
                             <i className='money big icon'></i>
-                            <div className='ui teal label'>
-                                {this.state.empire.essentia}
-                            </div>
+                            <div className='ui teal label'>{EmpireRPCStore.essentia}</div>
                         </a>
 
                         <a
                             className='item'
                             data-tip='Universe Rankings'
-                            onClick={StatsWindowActions.statsWindowShow}
+                            onClick={StatsWindowStore.show}
                         >
                             <i className='find big icon'></i>
                         </a>
 
-                        {this.state.server.promotions.length > 0 ? (
+                        {ServerRPCStore.promotions.length > 0 ? (
                             <a
                                 className='item'
                                 data-tip={
-                                    this.state.server.promotions.length > 1
+                                    ServerRPCStore.promotions.length > 1
                                         ? 'Active Promotions'
                                         : 'Active Promotion'
                                 }
                                 onClick={function() {
-                                    WindowActions.windowAdd(
-                                        PromotionsWindow,
-                                        'promotions'
-                                    );
+                                    WindowActions.windowAdd(PromotionsWindow, 'promotions');
                                 }}
                             >
                                 <i className='announcement big icon'></i>
-                                <div className='ui orange floated right circular label'>
-                                    Event!
-                                </div>
+                                <div className='ui orange floated right circular label'>Event!</div>
                             </a>
                         ) : (
                             ''
                         )}
 
-                        <a
-                            className='item'
-                            data-tip='Sign Out'
-                            onClick={EmpireRPCActions.requestEmpireRPCLogout}
-                        >
+                        <a className='item' data-tip='Sign Out' onClick={_.noop}>
                             <i className='power big icon'></i>
                         </a>
                     </div>
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = TopBar;
+module.exports = observer(TopBar);

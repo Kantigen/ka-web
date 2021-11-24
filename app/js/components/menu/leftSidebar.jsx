@@ -1,137 +1,105 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-var Reflux = require('reflux');
+const { observer } = require('mobx-react');
 
 var vex = require('js/vex');
 var util = require('js/util');
-
-var LeftSidebarActions = require('js/actions/menu/leftSidebar');
-var OptionsWindowActions = require('js/actions/windows/options');
-var WindowActions = require('js/actions/window');
-var EmpireRPCActions = require('js/actions/rpc/empire');
 
 var AboutWindow = require('js/components/window/about');
 var InviteWindow = require('js/components/window/invite');
 
 var ServerClock = require('js/components/window/serverClock');
 
+var MenuStore = require('js/stores/menu');
 var EmpireRPCStore = require('js/stores/rpc/empire');
-var LeftSidebarStore = require('js/stores/menu/leftSidebar');
 
 // Because there's a bit of special logic going on here, this is in a separate component.
-var SelfDestruct = createReactClass({
-    displayName: 'SelfDestruct',
-    mixins: [Reflux.connect(EmpireRPCStore, 'empireRPCStore')],
+const SelfDestruct = observer(
+    class SelfDestruct extends React.Component {
+        handleDestructClick() {
+            MenuStore.hideLeftSidebar();
 
-    handleDestructClick: function() {
-        LeftSidebarActions.hide();
+            if (EmpireRPCStore.self_destruct_active === 1) {
+                EmpireRPCActions.requestEmpireRPCDisableSelfDestruct();
+                return;
+            }
 
-        if (this.state.empireRPCStore.self_destruct_active === 1) {
-            EmpireRPCActions.requestEmpireRPCDisableSelfDestruct();
-            return;
+            vex.confirm(
+                'Are you ABSOLUTELY sure you want to enable self destruct?  If enabled, your empire will be deleted after 24 hours.',
+                EmpireRPCActions.requestEmpireRPCEnableSelfDestruct
+            );
         }
 
-        vex.confirm(
-            'Are you ABSOLUTELY sure you want to enable self destuct?  If enabled, your empire will be deleted after 24 hours.',
-            EmpireRPCActions.requestEmpireRPCEnableSelfDestruct
-        );
-    },
+        render() {
+            var destructMs = EmpireRPCStore.self_destruct_ms;
+            var destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
+            var formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
 
-    render: function() {
-        var destructMs = this.state.empireRPCStore.self_destruct_ms;
-        var destructActive =
-            this.state.empireRPCStore.self_destruct_active && destructMs > 0;
-        var formattedDestructMs = destructActive
-            ? util.formatMillisecondTime(destructMs)
-            : '';
+            var itemStyle = destructActive
+                ? {
+                      color: 'red',
+                  }
+                : {};
 
-        var itemStyle = destructActive
-            ? {
-                  color: 'red',
-              }
-            : {};
+            var verb = destructActive ? 'Disable' : 'Enable';
 
-        var verb = destructActive ? 'Disable' : 'Enable';
+            return (
+                <a className='item' style={itemStyle} onClick={this.handleDestructClick}>
+                    <i className='bomb icon'></i>
+                    {verb} Self Destruct{' '}
+                    {destructActive ? (
+                        <span>
+                            <p
+                                style={{
+                                    margin: 0,
+                                }}
+                            >
+                                SELF DESTRUCT ACTIVE
+                            </p>
+                            <p
+                                style={{
+                                    textAlign: 'right !important',
+                                }}
+                            >
+                                {formattedDestructMs}
+                            </p>
+                        </span>
+                    ) : (
+                        ''
+                    )}
+                </a>
+            );
+        }
+    }
+);
 
-        return (
-            <a
-                className='item'
-                style={itemStyle}
-                onClick={this.handleDestructClick}
-            >
-                <i className='bomb icon'></i>
-                {verb} Self Destruct{' '}
-                {destructActive ? (
-                    <span>
-                        <p
-                            style={{
-                                margin: 0,
-                            }}
-                        >
-                            SELF DESTRUCT ACTIVE
-                        </p>
-                        <p
-                            style={{
-                                textAlign: 'right !important',
-                            }}
-                        >
-                            {formattedDestructMs}
-                        </p>
-                    </span>
-                ) : (
-                    ''
-                )}
-            </a>
-        );
-    },
-});
-
-var LeftSidebar = createReactClass({
-    displayName: 'LeftSidebar',
-
-    mixins: [
-        Reflux.connect(EmpireRPCStore, 'empire'),
-        Reflux.connect(LeftSidebarStore, 'leftSidebar'),
-    ],
-
-    componentDidMount: function() {
-        var el = this.refs.sidebar;
-
-        $(el).sidebar({
+class LeftSidebar extends React.Component {
+    componentDidMount() {
+        $('#left-sidebar').sidebar({
             context: $('#sidebarContainer'),
             duration: 300,
             transition: 'overlay',
-            onHidden: LeftSidebarActions.hide,
-            onVisible: LeftSidebarActions.show,
+            onHidden: () => {
+                MenuStore.hideLeftSidebar();
+            },
         });
-    },
+    }
 
-    componentDidUpdate: function(prevProps, prevState) {
-        if (prevState.leftSidebar !== this.state.leftSidebar) {
-            this.handleSidebarShowing();
-        }
-    },
+    componentDidUpdate() {
+        $('#left-sidebar').sidebar(MenuStore.leftSidebarShown ? 'show' : 'hide');
+    }
 
-    handleSidebarShowing: function() {
-        var el = this.refs.sidebar;
-
-        $(el).sidebar(this.state.leftSidebar ? 'show' : 'hide');
-    },
-
-    render: function() {
+    render() {
+        const shown = MenuStore.leftSidebarShown;
         return (
-            <div
-                className='ui left vertical inverted sidebar menu'
-                ref='sidebar'
-            >
+            <div className='ui left vertical inverted sidebar menu' id='left-sidebar'>
                 <div className='ui horizontal inverted divider'>Actions</div>
 
                 <a
                     className='item'
                     onClick={function() {
-                        LeftSidebarActions.hide();
+                        MenuStore.hideLeftSidebar();
                         WindowActions.windowAdd(InviteWindow, 'invite');
                     }}
                 >
@@ -141,7 +109,7 @@ var LeftSidebar = createReactClass({
                 <a
                     className='item'
                     onClick={function() {
-                        LeftSidebarActions.hide();
+                        MenuStore.hideLeftSidebar();
                         YAHOO.lacuna.MapPlanet.Refresh();
                     }}
                 >
@@ -155,7 +123,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='/starmap/'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='map icon'></i>
                     Alliance Map
@@ -164,7 +132,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='/changes.txt'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='code icon'></i>
                     Changes Log
@@ -173,7 +141,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='http://community.lacunaexpanse.com/forums'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='comments layout icon'></i>
                     Forums
@@ -182,7 +150,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='http://www.lacunaexpanse.com/help/'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='student icon'></i>
                     Help
@@ -191,7 +159,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='http://www.lacunaexpanse.com/terms/'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='info circle icon'></i>
                     Terms of Service
@@ -200,7 +168,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='http://lacunaexpanse.com/tutorial/'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='marker icon'></i>
                     Tutorial
@@ -209,7 +177,7 @@ var LeftSidebar = createReactClass({
                     className='item'
                     target='_blank'
                     href='http://community.lacunaexpanse.com/wiki'
-                    onClick={LeftSidebarActions.hide}
+                    onClick={MenuStore.hideLeftSidebar}
                 >
                     <i className='share alternate icon'></i>
                     Wiki
@@ -220,7 +188,7 @@ var LeftSidebar = createReactClass({
                 <a
                     className='item'
                     onClick={function() {
-                        LeftSidebarActions.hide();
+                        MenuStore.hideLeftSidebar();
                         WindowActions.windowAdd(AboutWindow, 'about');
                     }}
                 >
@@ -231,7 +199,7 @@ var LeftSidebar = createReactClass({
                 <a
                     className='item'
                     onClick={function() {
-                        LeftSidebarActions.hide();
+                        MenuStore.hideLeftSidebar();
                         OptionsWindowActions.optionsWindowShow();
                     }}
                 >
@@ -241,7 +209,7 @@ var LeftSidebar = createReactClass({
                 <a
                     className='item'
                     onClick={function() {
-                        LeftSidebarActions.hide();
+                        MenuStore.hideLeftSidebar();
                         WindowActions.windowAdd(ServerClock, 'serverclock');
                     }}
                 >
@@ -249,14 +217,12 @@ var LeftSidebar = createReactClass({
                     Server Clock
                 </a>
 
-                <div className='ui horizontal inverted divider'>
-                    Self Destruct
-                </div>
+                <div className='ui horizontal inverted divider'>Self Destruct</div>
 
                 <SelfDestruct />
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = LeftSidebar;
+module.exports = observer(LeftSidebar);

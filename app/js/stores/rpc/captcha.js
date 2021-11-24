@@ -1,57 +1,23 @@
 'use strict';
 
-var Reflux = require('reflux');
-var StatefulMixinStore = require('js/stores/mixins/stateful');
+const { makeAutoObservable } = require('mobx');
 
-var CaptchaWindowActions = require('js/actions/windows/captcha');
-var CaptchaRPCActions = require('js/actions/rpc/captcha');
-var WindowsActions = require('js/actions/window');
+class CaptchaRPCStore {
+    guid = '';
+    url = '';
+    solved = '';
+    window = '';
 
-var clone = require('js/util').clone;
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-var CaptchaRPCStore = Reflux.createStore({
-    listenables: [CaptchaWindowActions, CaptchaRPCActions],
+    clear() {
+        this.guid = '';
+        this.url = '';
+        this.solved = '';
+        this.window = '';
+    }
+}
 
-    mixins: [StatefulMixinStore],
-
-    getDefaultData: function() {
-        return {
-            guid: '',
-            url: '',
-            solved: 0,
-            window: '',
-        };
-    },
-
-    onCaptchaWindowClear: function() {
-        this.emit(this.getDefaultData());
-    },
-
-    onSuccessCaptchaRPCFetch: function(result) {
-        var update = clone(this.state);
-        update.guid = result.guid;
-        update.url = result.url;
-
-        this.emit(update);
-    },
-
-    onSuccessCaptchaRPCSolve: function(result) {
-        var update = clone(this.state);
-        update.solved = 1;
-
-        this.emit(update);
-        WindowsActions.windowCloseByType('captcha');
-    },
-
-    onCaptchaWindowShow: function(window) {
-        var update = clone(this.state);
-        update.window = window;
-        this.emit(update);
-    },
-
-    onCaptchaWindowRefresh: function() {
-        this.onCaptchaWindowClear();
-    },
-});
-
-module.exports = CaptchaRPCStore;
+module.exports = new CaptchaRPCStore();

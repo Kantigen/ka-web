@@ -1,20 +1,14 @@
 'use strict';
 
-var Reflux = require('reflux');
+const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
 
-var StatefulMixinStore = require('js/stores/mixins/stateful');
+class CreditsStatsRPCStore {
+    credits = [];
 
-var StatsRPCActions = require('js/actions/rpc/stats');
-
-var CreditsStatsRPCStore = Reflux.createStore({
-    listenables: [StatsRPCActions],
-
-    mixins: [StatefulMixinStore],
-
-    getDefaultData: function() {
-        return {};
-    },
+    constructor() {
+        makeAutoObservable(this);
+    }
 
     // INPUT:
     //
@@ -33,7 +27,7 @@ var CreditsStatsRPCStore = Reflux.createStore({
     //     'Play Testers' : ['John Ottinger', 'Jamie Vrbsky']
     // }
 
-    onSuccessStatsRPCGetCredits: function(result) {
+    update(result) {
         var credits = {};
 
         _.each(result, function(foo) {
@@ -42,8 +36,8 @@ var CreditsStatsRPCStore = Reflux.createStore({
             });
         });
 
-        this.emit(credits);
-    },
-});
+        this.credits = credits;
+    }
+}
 
 module.exports = CreditsStatsRPCStore;

@@ -1,32 +1,17 @@
 'use strict';
 
-var Reflux = require('reflux');
+const { makeAutoObservable } = require('mobx');
 
-var SessionActions = require('js/actions/session');
-var EmpireRPCActions = require('js/actions/rpc/empire');
+class SessionStore {
+    session = '';
 
-var StatefulStore = require('js/stores/mixins/stateful');
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-var SessionStore = Reflux.createStore({
-    listenables: [SessionActions, EmpireRPCActions],
+    update(session) {
+        this.session = session;
+    }
+}
 
-    mixins: [StatefulStore],
-
-    getDefaultData: function() {
-        return '';
-    },
-
-    onSessionSet: function(session) {
-        this.emit(session);
-    },
-
-    onSessionClear: function() {
-        this.emit(this.getDefaultData());
-    },
-
-    onSuccessEmpireRPCLogout: function() {
-        this.emit(this.getDefaultData());
-    },
-});
-
-module.exports = SessionStore;
+module.exports = new SessionStore();

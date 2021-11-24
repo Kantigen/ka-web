@@ -1,170 +1,205 @@
 'use strict';
 
-var Reflux = require('reflux');
-var StatefulStore = require('js/stores/mixins/stateful');
-var _ = require('lodash');
-
-var BodyStatusActions = require('js/actions/bodyStatus');
-var TickerActions = require('js/actions/ticker');
-var UserActions = require('js/actions/user');
-
+const { makeAutoObservable } = require('mobx');
 var ServerRPCStore = require('js/stores/rpc/server');
-
+var _ = require('lodash');
 var util = require('js/util');
 var int = util.int;
-var clone = util.clone;
 
-var BodyRPCStore = Reflux.createStore({
-    listenables: [BodyStatusActions, TickerActions, UserActions],
+class BodyRPCStore {
+    id = 0;
+    x = 0;
+    y = 0;
+    star_id = '';
+    star_name = '';
+    orbit = 0;
+    type = '';
+    name = '';
+    image = '';
+    size = 0;
+    water = 0;
+    ore = {
+        anthracite: 0,
+        bauxite: 0,
+        beryl: 0,
+        chromite: 0,
+        chalcopyrite: 0,
+        fluorite: 0,
+        galena: 0,
+        goethite: 0,
+        gold: 0,
+        gypsum: 0,
+        halite: 0,
+        kerogen: 0,
+        magnetite: 0,
+        methane: 0,
+        monazite: 0,
+        rutile: 0,
+        sulfur: 0,
+        trona: 0,
+        uraninite: 0,
+        zircon: 0,
+    };
+    empire = {
+        id: '',
+        name: '',
+        alignment: '',
+        is_isolationist: 0,
+    };
+    station = {
+        id: 0,
+        x: 0,
+        y: 0,
+        name: '',
+    };
+    needs_surface_refresh = 0;
+    building_count = 0;
+    build_queue_size = 0;
+    build_queue_len = 0;
+    plots_available = 0;
+    happiness = 0;
+    happiness_hour = 0;
+    unhappy_date = '01 13 2014 16:11:21 +0600';
+    neutral_entry = '01 13 2014 16:11:21 +0600';
+    propaganda_boost = 0;
+    food_stored = 0;
+    food_capacity = 0;
+    food_hour = 0;
+    energy_stored = 0;
+    energy_capacity = 0;
+    energy_hour = 0;
+    ore_hour = 0;
+    ore_capacity = 0;
+    ore_stored = 0;
+    waste_hour = 0;
+    waste_stored = 0;
+    waste_capacity = 0;
+    water_stored = 0;
+    water_hour = 0;
+    water_capacity = 0;
+    skip_incoming_ships = 0;
+    num_incoming_enemy = 0;
+    num_incoming_ally = 0;
+    num_incoming_own = 0;
+    incoming_enemy_ships = [];
+    incoming_ally_ships = [];
+    incoming_own_ships = [];
+    food_percent_full = 0;
+    ore_percent_full = 0;
+    water_percent_full = 0;
+    energy_percent_full = 0;
+    waste_percent_full = 0;
+    alliance = {
+        id: '',
+        name: '',
+    };
+    influence = {
+        total: 0,
+        spent: 0,
+    };
 
-    mixins: [StatefulStore],
+    constructor() {
+        makeAutoObservable(this);
+    }
 
-    getDefaultData: function() {
-        return {
-            id: 0,
-            x: 0,
-            y: 0,
-            star_id: '',
-            star_name: '',
-            orbit: 0,
-            type: '',
-            name: '',
-            image: '',
-            size: 0,
-            water: 0,
-            ore: {
-                anthracite: 0,
-                bauxite: 0,
-                beryl: 0,
-                chromite: 0,
-                chalcopyrite: 0,
-                fluorite: 0,
-                galena: 0,
-                goethite: 0,
-                gold: 0,
-                gypsum: 0,
-                halite: 0,
-                kerogen: 0,
-                magnetite: 0,
-                methane: 0,
-                monazite: 0,
-                rutile: 0,
-                sulfur: 0,
-                trona: 0,
-                uraninite: 0,
-                zircon: 0,
-            },
-            empire: {
-                id: '',
-                name: '',
-                alignment: '',
-                is_isolationist: 0,
-            },
-            station: {
-                id: 0,
-                x: 0,
-                y: 0,
-                name: '',
-            },
-            needs_surface_refresh: 0,
-            building_count: 0,
-            build_queue_size: 0,
-            build_queue_len: 0,
-            plots_available: 0,
-            happiness: 0,
-            happiness_hour: 0,
-            unhappy_date: '01 13 2014 16:11:21 +0600',
-            neutral_entry: '01 13 2014 16:11:21 +0600',
-            propaganda_boost: 0,
-            food_stored: 0,
-            food_capacity: 0,
-            food_hour: 0,
-            energy_stored: 0,
-            energy_capacity: 0,
-            energy_hour: 0,
-            ore_hour: 0,
-            ore_capacity: 0,
-            ore_stored: 0,
-            waste_hour: 0,
-            waste_stored: 0,
-            waste_capacity: 0,
-            water_stored: 0,
-            water_hour: 0,
-            water_capacity: 0,
-            skip_incoming_ships: 0,
-            num_incoming_enemy: 0,
-            num_incoming_ally: 0,
-            num_incoming_own: 0,
-            incoming_enemy_ships: [],
-            incoming_ally_ships: [],
-            incoming_own_ships: [],
-            food_percent_full: 0,
-            ore_percent_full: 0,
-            water_percent_full: 0,
-            energy_percent_full: 0,
-            waste_percent_full: 0,
-            alliance: {
-                id: '',
-                name: '',
-            },
-            influence: {
-                total: 0,
-                spent: 0,
-            },
-        };
-    },
+    clear() {}
 
-    onUserSignOut: function() {
-        this.emit(this.getDefaultData());
-    },
+    update(body) {
+        this.id = body.id;
+        this.x = int(body.x);
+        this.y = int(body.y);
+        this.star_id = body.star_id;
+        this.star_name = body.star_name;
+        this.orbit = int(body.orbit);
+        this.type = body.type;
+        this.name = body.name;
+        this.image = body.image;
+        this.size = body.size;
+        this.water = body.water;
 
-    onBodyStatusUpdate: function(body) {
-        // ////////////
-        // CLEAN UP //
-        // ////////////
+        this.ore.anthracite = body.ore.anthracite;
+        this.ore.bauxite = body.ore.bauxite;
+        this.ore.beryl = body.ore.beryl;
+        this.ore.chromite = body.ore.chromite;
+        this.ore.chalcopyrite = body.ore.chalcopyrite;
+        this.ore.fluorite = body.ore.fluorite;
+        this.ore.galena = body.ore.galena;
+        this.ore.goethite = body.ore.goethite;
+        this.ore.gold = body.ore.gold;
+        this.ore.gypsum = body.ore.gypsum;
+        this.ore.halite = body.ore.halite;
+        this.ore.kerogen = body.ore.kerogen;
+        this.ore.magnetite = body.ore.magnetite;
+        this.ore.methane = body.ore.methane;
+        this.ore.monazite = body.ore.monazite;
+        this.ore.rutile = body.ore.rutile;
+        this.ore.sulfur = body.ore.sulfur;
+        this.ore.trona = body.ore.trona;
+        this.ore.uraninite = body.ore.uraninite;
+        this.ore.zircon = body.ore.zircon;
 
-        body.x = int(body.x);
-        body.y = int(body.y);
-
-        body.num_incoming_own = int(body.num_incoming_own);
-        body.num_incoming_ally = int(body.num_incoming_ally);
-        body.num_incoming_enemy = int(body.num_incoming_enemy);
-        body.plots_available = int(body.plots_available);
-        body.building_count = int(body.building_count);
-
-        // no point recalcing for each ship.
-        var serverTimeMs = ServerRPCStore.getData().serverMoment.valueOf();
+        this.empire.id = body.empire.id;
+        this.empire.name = body.empire.name;
+        this.empire.alignment = body.empire.alignment;
+        this.empire.is_isolationist = body.empire.is_isolationist;
+        this.station.id = body.station.id;
+        this.station.x = body.station.x;
+        this.station.y = body.station.y;
+        this.station.name = body.station.name;
+        this.needs_surface_refresh = body.needs_surface_refresh;
+        this.building_count = int(body.building_count);
+        this.build_queue_size = body.build_queue_size;
+        this.build_queue_len = body.build_queue_len;
+        this.plots_available = int(body.plots_available);
+        this.happiness = body.happiness;
+        this.happiness_hour = body.happiness_hour;
+        this.unhappy_date = body.unhappy_date;
+        this.neutral_entry = body.neutral_entry;
+        this.propaganda_boost = body.propaganda_boost;
+        this.food_stored = body.food_stored;
+        this.food_capacity = body.food_capacity;
+        this.food_hour = body.food_hour;
+        this.energy_stored = body.energy_stored;
+        this.energy_capacity = body.energy_capacity;
+        this.energy_hour = body.energy_hour;
+        this.ore_hour = body.ore_hour;
+        this.ore_capacity = body.ore_capacity;
+        this.ore_stored = body.ore_stored;
+        this.waste_hour = body.waste_hour;
+        this.waste_stored = body.waste_stored;
+        this.waste_capacity = body.waste_capacity;
+        this.water_stored = body.water_stored;
+        this.water_hour = body.water_hour;
+        this.water_capacity = body.water_capacity;
+        this.skip_incoming_ships = body.skip_incoming_ships;
+        this.num_incoming_own = int(body.num_incoming_own);
+        this.num_incoming_ally = int(body.num_incoming_ally);
+        this.num_incoming_enemy = int(body.num_incoming_enemy);
+        this.incoming_enemy_ships = body.incoming_enemy_ships;
+        this.incoming_ally_ships = body.incoming_ally_ships;
+        this.incoming_own_ships = body.incoming_own_ships;
+        this.alliance = body.alliance;
+        this.influence = body.influence;
 
         var updateShip = function(ship) {
-            ship.arrival_ms =
-                util.serverDateToMs(ship.date_arrives) - serverTimeMs;
+            ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - ServerRPCStore.serverTimeMs;
             return ship;
         };
 
-        _.map(body.incoming_own_ships, updateShip);
-        _.map(body.incoming_ally_ships, updateShip);
-        _.map(body.incoming_enemy_ships, updateShip);
+        _.map(this.incoming_own_ships, updateShip);
+        _.map(this.incoming_ally_ships, updateShip);
+        _.map(this.incoming_enemy_ships, updateShip);
+    }
 
-        body = this.handleResourcesPercentages(body);
-
-        this.emit(body);
-    },
-
-    onBodyStatusClear: function() {
-        this.emit(this.getDefaultData());
-    },
-
-    onTickerTick: function() {
-        var body = clone(this.state);
-
+    tick() {
         var tickIncoming = function(ship) {
             ship.arrival_ms -= 1000;
             return ship;
         };
 
-        _.map(body.incoming_own_ships, tickIncoming);
-        _.map(body.incoming_ally_ships, tickIncoming);
-        _.map(body.incoming_enemy_ships, tickIncoming);
+        _.map(this.incoming_own_ships, tickIncoming);
+        _.map(this.incoming_ally_ships, tickIncoming);
+        _.map(this.incoming_enemy_ships, tickIncoming);
 
         var tickResource = function(production, capacity, stored, stopAtZero) {
             var amount = production / 60 / 60;
@@ -179,67 +214,48 @@ var BodyRPCStore = Reflux.createStore({
             }
         };
 
-        body.food_stored = tickResource(
-            body.food_hour,
-            body.food_capacity,
-            body.food_stored,
+        this.food_stored = tickResource(this.food_hour, this.food_capacity, this.food_stored, 1);
+        this.ore_stored = tickResource(this.ore_hour, this.ore_capacity, this.ore_stored, 1);
+        this.water_stored = tickResource(
+            this.water_hour,
+            this.water_capacity,
+            this.water_stored,
             1
         );
-        body.ore_stored = tickResource(
-            body.ore_hour,
-            body.ore_capacity,
-            body.ore_stored,
+        this.energy_stored = tickResource(
+            this.energy_hour,
+            this.energy_capacity,
+            this.energy_stored,
             1
         );
-        body.water_stored = tickResource(
-            body.water_hour,
-            body.water_capacity,
-            body.water_stored,
+        this.waste_stored = tickResource(
+            this.waste_hour,
+            this.waste_capacity,
+            this.waste_stored,
             1
         );
-        body.energy_stored = tickResource(
-            body.energy_hour,
-            body.energy_capacity,
-            body.energy_stored,
-            1
-        );
-        body.waste_stored = tickResource(
-            body.waste_hour,
-            body.waste_capacity,
-            body.waste_stored,
-            1
-        );
-        body.happiness = tickResource(
-            body.happiness_hour,
-            undefined,
-            body.happiness,
-            undefined
-        );
+        this.happiness = tickResource(this.happiness_hour, undefined, this.happiness, undefined);
+    }
 
-        body = this.handleResourcesPercentages(body);
+    get food_percent_full() {
+        return int((this.food_stored / this.food_capacity) * 100);
+    }
 
-        this.emit(body);
-    },
+    get ore_percent_full() {
+        return int((this.ore_stored / this.ore_capacity) * 100);
+    }
 
-    handleResourcesPercentages: function(body) {
-        body.food_percent_full = int(
-            (body.food_stored / body.food_capacity) * 100
-        );
-        body.ore_percent_full = int(
-            (body.ore_stored / body.ore_capacity) * 100
-        );
-        body.water_percent_full = int(
-            (body.water_stored / body.water_capacity) * 100
-        );
-        body.energy_percent_full = int(
-            (body.energy_stored / body.energy_capacity) * 100
-        );
-        body.waste_percent_full = int(
-            (body.waste_stored / body.waste_capacity) * 100
-        );
+    get water_percent_full() {
+        return int((this.water_stored / this.water_capacity) * 100);
+    }
 
-        return body;
-    },
-});
+    get energy_percent_full() {
+        return int((this.energy_stored / this.energy_capacity) * 100);
+    }
 
-module.exports = BodyRPCStore;
+    get waste_percent_full() {
+        return int((this.waste_stored / this.waste_capacity) * 100);
+    }
+}
+
+module.exports = new BodyRPCStore();
