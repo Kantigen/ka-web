@@ -8,12 +8,7 @@ var _ = require('lodash');
 var EmpireRPCStore = require('js/stores/rpc/empire');
 var ServerRPCStore = require('js/stores/rpc/server');
 var MenuStore = require('js/stores/menu');
-var MailWindowStore = require('js/stores/windows/mail');
-var StatsWindowStore = require('js/stores/windows/stats');
 var WindowsStore = require('js/stores/windows');
-
-var EssentiaWindow = require('js/components/window/essentia');
-var PromotionsWindow = require('js/components/window/promotions');
 
 class TopBar extends React.Component {
     mapButtonTip() {
@@ -49,7 +44,11 @@ class TopBar extends React.Component {
                             <i className='map big icon'></i>
                         </a>
 
-                        <a className='item' data-tip='Mail' onClick={MailWindowStore.show}>
+                        <a
+                            className='item'
+                            data-tip='Mail'
+                            onClick={() => WindowsStore.add('mail')}
+                        >
                             <i className='mail big icon'></i>
                             {EmpireRPCStore.has_new_messages > 0 ? (
                                 <div className='ui yellow label'>
@@ -63,7 +62,7 @@ class TopBar extends React.Component {
                         <a
                             className='item'
                             data-tip='Essentia'
-                            onClick={function() {
+                            onClick={() => {
                                 WindowsStore.add('essentia');
                             }}
                         >
@@ -74,7 +73,9 @@ class TopBar extends React.Component {
                         <a
                             className='item'
                             data-tip='Universe Rankings'
-                            onClick={StatsWindowStore.show}
+                            onClick={() => {
+                                WindowsStore.add('stats');
+                            }}
                         >
                             <i className='find big icon'></i>
                         </a>
@@ -88,7 +89,7 @@ class TopBar extends React.Component {
                                         : 'Active Promotion'
                                 }
                                 onClick={function() {
-                                    WindowActions.windowAdd(PromotionsWindow, 'promotions');
+                                    WindowsStore.add('promotions');
                                 }}
                             >
                                 <i className='announcement big icon'></i>

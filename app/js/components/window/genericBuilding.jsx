@@ -1,67 +1,67 @@
 'use strict';
 
-var PropTypes = require('prop-types');
-
 var React = require('react');
-var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
+var { observer } = require('mobx-react');
 
-var GenericBuildingStore = require('js/stores/genericBuilding');
-
-var StandardTabs = require('js/components/window/building/standardTabs');
 var BuildingInformation = require('js/components/window/building/information');
+var RepairTab = require('js/components/window/building/repairTab');
+var ProductionTab = require('js/components/window/building/productionTab');
 
-var { Tabs } = require('js/components/tabber');
+var { Tabs, Tab } = require('js/components/tabber');
+var GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
 
-var GenericBuilding = createReactClass({
-    displayName: 'GenericBuilding',
+class GenericBuilding extends React.Component {
+    static options = {
+        title: 'Building',
+        width: 700,
+        height: 420,
+    };
 
-    statics: {
-        options: {
-            title: 'Generic Building',
-            width: 700,
-            height: 420,
-        },
-    },
-
-    propTypes: {
+    static propTypes = {
         options: PropTypes.object,
-    },
+    };
 
-    // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
+    componentWillMount() {
+        GenericBuildingRPCStore.fetch(this.props.options.url, this.props.options.id);
+    }
 
-    componentWillMount: function() {
-        BuildingWindowActions.buildingWindowClear();
-        GenericBuildingRPCActions.requestGenericBuildingRPCView(
-            this.props.options.url,
-            this.props.options.id
-        );
-    },
+    componentDidUpdate(prevProps) {
+        if (
+            prevProps.options.url != this.props.options.url ||
+            prevProps.options.id != this.props.options.id
+        ) {
+            GenericBuildingRPCStore.fetch(this.props.options.url, this.props.options.id);
+        }
+    }
 
-    componentWillReceiveProps: function() {
-        BuildingWindowActions.buildingWindowClear();
-        GenericBuildingRPCActions.requestGenericBuildingRPCView(
-            this.props.options.url,
-            this.props.options.id
-        );
-    },
+    closeWindow() {
+        WindowsStore.close('genericBuilding');
+    }
 
-    closeWindow: function() {
-        WindowActions.windowCloseByType('building');
-    },
-
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
-
+    render() {
         return (
             <div>
                 <BuildingInformation options={this.props.options} />
                 <div>
-                    <Tabs>{tabs}</Tabs>
+                    <Tabs>
+                        {GenericBuildingRPCStore.efficiency !== 100 &&
+                        GenericBuildingRPCStore.id ? (
+                            <Tab title='Repair' key='Repair'>
+                                <RepairTab />
+                            </Tab>
+                        ) : (
+                            undefined
+                        )}
+
+                        <Tab title='Production' key='Production'>
+                            <ProductionTab />
+                        </Tab>
+                    </Tabs>
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = GenericBuilding;
+module.exports = observer(GenericBuilding);

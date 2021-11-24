@@ -2,6 +2,8 @@
 
 var PropTypes = require('prop-types');
 
+var WindowsStore = require('js/stores/windows');
+
 var React = require('react');
 var Draggable = require('react-draggable');
 
@@ -16,17 +18,17 @@ class Panel extends React.Component {
         window: PropTypes.func,
     };
 
-    onBringToTop = () => {
-        WindowActions.windowBringToTop(this.props.type);
-    };
+    onBringToTop() {
+        WindowsStore.bringToTop(this.props.type);
+    }
 
-    closeWindow = () => {
-        WindowActions.windowCloseByType(this.props.type);
-    };
+    closeWindow() {
+        WindowsStore.close(this.props.type);
+    }
 
-    handleCentering = () => {
+    handleCentering() {
         return ($(window.document).width() - this.props.window.options.width) / 2;
-    };
+    }
 
     render() {
         var subPanel = React.createElement(this.props.window, {
@@ -43,12 +45,12 @@ class Panel extends React.Component {
                         zIndex: this.props.zIndex,
                         left: this.handleCentering(),
                     }}
-                    onClick={this.onBringToTop}
+                    onClick={() => this.onBringToTop()}
                 >
                     <PanelHeader
                         title={this.props.window.options.title}
                         panelWidth={this.props.window.options.width}
-                        onClose={this.closeWindow}
+                        onClose={() => this.closeWindow()}
                     />
 
                     <PanelContent

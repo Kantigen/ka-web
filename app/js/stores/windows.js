@@ -80,7 +80,7 @@ class WindowsStore {
             .first()
             .value();
         if (!toClose) return;
-        this.closeByType(toClose.type);
+        this.close(toClose.type);
     }
 
     //

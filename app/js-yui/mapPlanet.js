@@ -2,7 +2,7 @@ YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
 
-var GenericBuilding = require('js/components/window/genericBuilding');
+var WindowsStore = require('js/stores/windows');
 
 if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
     (function() {
@@ -16,53 +16,18 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
             Lib = Lacuna.Library;
 
         var ReactFactoryMap = {
-            '/essentiavein': require('js/components/window/essentiavein'),
-            '/inteltraining': require('js/components/window/inteltraining'),
-            '/mayhemtraining': require('js/components/window/mayhemtraining'),
-            '/politicstraining': require('js/components/window/politicstraining'),
-            '/thefttraining': require('js/components/window/thefttraining'),
-            '/shipyard': require('js/components/window/shipyard'),
-            '/spaceport': require('js/components/window/spaceport'),
-            '/trade': require('js/components/window/trade'),
-            '/transporter': require('js/components/window/transporter'),
+            // '/essentiavein': require('js/components/window/essentiavein'),
+            // '/inteltraining': require('js/components/window/inteltraining'),
+            // '/mayhemtraining': require('js/components/window/mayhemtraining'),
+            // '/politicstraining': require('js/components/window/politicstraining'),
+            // '/thefttraining': require('js/components/window/thefttraining'),
+            // '/shipyard': require('js/components/window/shipyard'),
+            // '/spaceport': require('js/components/window/spaceport'),
+            // '/trade': require('js/components/window/trade'),
+            // '/transporter': require('js/components/window/transporter'),
         };
 
-        var FactoryMap = {
-            //buildings
-            '/archaeology': Lacuna.buildings.Archaeology,
-            '/blackholegenerator': Lacuna.buildings.BlackHoleGenerator,
-            '/capitol': Lacuna.buildings.Capitol,
-            '/development': Lacuna.buildings.Development,
-            '/distributioncenter': Lacuna.buildings.DistributionCenter,
-            '/embassy': Lacuna.buildings.Embassy,
-            '/energyreserve': Lacuna.buildings.EnergyReserve,
-            '/entertainment': Lacuna.buildings.Entertainment,
-            '/foodreserve': Lacuna.buildings.FoodReserve,
-            '/geneticslab': Lacuna.buildings.GeneticsLab,
-            '/intelligence': Lacuna.buildings.Intelligence,
-            '/libraryofjith': Lacuna.buildings.LibraryOfJith,
-            '/mercenariesguild': Lacuna.buildings.MercenariesGuild,
-            '/miningministry': Lacuna.buildings.MiningMinistry,
-            '/missioncommand': Lacuna.buildings.MissionCommand,
-            '/network19': Lacuna.buildings.Network19,
-            '/observatory': Lacuna.buildings.Observatory,
-            '/orestorage': Lacuna.buildings.OreStorage,
-            '/park': Lacuna.buildings.Park,
-            '/planetarycommand': Lacuna.buildings.PlanetaryCommand,
-            '/security': Lacuna.buildings.Security,
-            '/ssla': Lacuna.buildings.SpaceStationLab,
-            '/subspacesupplydepot': Lacuna.buildings.SubspaceSupplyDepot,
-            '/themepark': Lacuna.buildings.ThemePark,
-            '/thedillonforge': Lacuna.buildings.TheDillonForge,
-            '/templeofthedrajilites': Lacuna.buildings.TempleOfTheDrajilites,
-            '/waterstorage': Lacuna.buildings.WaterStorage,
-            '/wasteexchanger': Lacuna.buildings.WasteExchanger,
-            '/wasterecycling': Lacuna.buildings.WasteRecycling,
-            //modules
-            '/parliament': Lacuna.modules.Parliament,
-            '/policestation': Lacuna.modules.PoliceStation,
-            '/stationcommand': Lacuna.modules.StationCommand,
-        };
+        var FactoryMap = {};
 
         var MapPlanet = function() {
             this.createEvent('onMapRpc');
@@ -1032,13 +997,15 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                     // Pass this off to the new React stuff.
 
                     if (ReactFactoryMap[tile.data.url]) {
-                        WindowActions.windowAdd(
-                            ReactFactoryMap[tile.data.url],
-                            'building',
-                            tile.data
-                        );
+                        debugger;
+                        console.error('Not implemented yet');
+                        // WindowActions.windowAdd(
+                        //     ReactFactoryMap[tile.data.url],
+                        //     'building',
+                        //     tile.data
+                        // );
                     } else {
-                        WindowActions.windowAdd(GenericBuilding, 'building', tile.data);
+                        WindowsStore.add('genericBuilding', tile.data);
                     }
 
                     return;

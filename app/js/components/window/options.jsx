@@ -2,17 +2,16 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var OptionsWindowStore = require('js/stores/windows/options');
 
 class OptionsWindow extends React.Component {
+    static options = {
+        title: 'Options',
+        width: 600,
+        height: 400,
+    };
+
     render() {
-        if (OptionsWindowStore.shown) {
-            YAHOO.lacuna.Profile.show();
-        }
-
-        // TODO: make this into a React component!!
-
-        return <div></div>;
+        return <div>This is the options window.</div>;
     }
 }
 

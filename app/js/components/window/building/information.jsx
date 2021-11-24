@@ -13,12 +13,7 @@ class BuildingInformation extends React.Component {
     };
 
     getImageUrl = () => {
-        return (
-            constants.ASSETS_URL +
-            'planet_side/100/' +
-            this.props.options.image +
-            '.png'
-        );
+        return constants.ASSETS_URL + 'planet_side/100/' + this.props.options.image + '.png';
     };
 
     render() {
@@ -47,21 +42,17 @@ class BuildingInformation extends React.Component {
                     }}
                 >
                     <strong style={{ fontSize: '1.2em' }}>
-                        {this.props.options.name} {this.props.options.level}{' '}
-                        (ID: {this.props.options.id})
+                        {this.props.options.name} {this.props.options.level} (ID:{' '}
+                        {this.props.options.id})
                     </strong>
 
                     <p>
-                        {
-                            resources.buildings[this.props.options.url]
-                                .description
-                        }
+                        {resources.buildings[this.props.options.url].description}
                         <br />
                         <a
                             target='_blank'
-                            href={
-                                resources.buildings[this.props.options.url].wiki
-                            }
+                            href={resources.buildings[this.props.options.url].wiki}
+                            style={{ color: '#fff' }}
                         >
                             More information on Wiki.
                         </a>

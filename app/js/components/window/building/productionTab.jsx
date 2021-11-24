@@ -3,10 +3,11 @@
 var PropTypes = require('prop-types');
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var { observer } = require('mobx-react');
 var _ = require('lodash');
 
 var BodyRPCStore = require('js/stores/rpc/body');
+var GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
 
 var ActionButton = require('js/components/window/building/actionButton');
 var ResourceProduction = require('js/components/window/building/resourceProduction');
@@ -16,15 +17,8 @@ var ResourceLine = require('js/components/window/building/resourceLine');
 var util = require('js/util');
 var vex = require('js/vex');
 
-var ProductionTab = createReactClass({
-    displayName: 'ProductionTab',
-    // mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
-
-    propTypes: {
-        building: PropTypes.object,
-    },
-
-    onDemolishClick: function() {
+class ProductionTab extends React.Component {
+    onDemolishClick() {
         var name = this.props.building.name + ' ' + this.props.building.level;
 
         vex.confirm(
@@ -36,9 +30,9 @@ var ProductionTab = createReactClass({
                 );
             }, this)
         );
-    },
+    }
 
-    onDowngradeClick: function() {
+    onDowngradeClick() {
         var name = this.props.building.name + ' ' + this.props.building.level;
 
         vex.confirm(
@@ -50,20 +44,20 @@ var ProductionTab = createReactClass({
                 );
             }, this)
         );
-    },
+    }
 
-    onUpgradeClick: function() {
+    onUpgradeClick() {
         GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(
             this.props.building.url,
             this.props.building.id
         );
-    },
+    }
 
-    render: function() {
-        var b = this.props.building;
+    render() {
+        var b = GenericBuildingRPCStore;
         var body = BodyRPCStore;
 
-        // Don't let the user downgrade a level 1 building. They shoulod demolish it instead.
+        // Don't let the user downgrade a level 1 building. They should demolish it instead.
         if (b.level === 1) {
             b.downgrade.can = 0;
             b.downgrade.reason = [1009, 'You cannot downgrade a level 1 building.', undefined];
@@ -198,7 +192,7 @@ var ProductionTab = createReactClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = ProductionTab;
+module.exports = observer(ProductionTab);

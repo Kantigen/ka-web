@@ -14,6 +14,7 @@ var BodyRPCStore = require('js/stores/rpc/body');
 var MenuStore = require('js/stores/menu');
 var SessionStore = require('js/stores/session');
 var TickerStore = require('js/stores/ticker');
+var WindowsStore = require('js/stores/windows');
 
 var constants = require('js/constants');
 
@@ -72,7 +73,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     {
                         fn: function() {
                             Game.OverlayManager.hideAll();
-                            KeyboardActions.escKey();
+                            WindowsStore.onEscKey();
                         },
                         scope: Game.OverlayManager,
                         correctScope: true,

@@ -7,6 +7,10 @@ var Panel = require('js/components/window/panel');
 
 const WINDOW_MAP = {
     essentia: require('js/components/window/essentia'),
+    mail: require('js/components/window/mail'),
+    options: require('js/components/window/options'),
+    stats: require('js/components/window/stats'),
+    genericBuilding: require('js/components/window/genericBuilding'),
 };
 
 class WindowManager extends React.Component {
