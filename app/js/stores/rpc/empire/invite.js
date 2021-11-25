@@ -3,10 +3,14 @@
 const { makeAutoObservable } = require('mobx');
 
 class InviteRPCStore {
-    referralUrl = '';
+    referral_url = '';
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    update(result) {
+        this.referral_url = result.referral_url;
     }
 }
 

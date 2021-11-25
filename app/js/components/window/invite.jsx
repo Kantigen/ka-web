@@ -1,50 +1,41 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var { observer } = require('mobx-react');
+var InviteRPCStore = require('js/stores/rpc/empire/invite');
+var EmpireService = require('js/services/empire');
+var WindowsStore = require('js/stores/windows');
 
-var InviteRPCStore = require('js/stores/rpc/invite');
+class InviteWindow extends React.Component {
+    static options = {
+        title: 'Invite a Friend',
+        width: 450,
+        height: 400,
+    };
 
-var InviteWindow = createReactClass({
-    displayName: 'InviteWindow',
+    closeWindow() {
+        WindowsStore.close('invite');
+    }
 
-    statics: {
-        options: {
-            title: 'Invite a Friend',
-            width: 450,
-            height: 400,
-        },
-    },
-
-    // mixins: [Reflux.connect(InviteRPCStore, 'inviteRPCStore')],
-
-    closeWindow: function() {
-        WindowActions.windowCloseByType('invite');
-    },
-
-    handleInvite: function() {
+    handleInvite() {
         var email = this.refs.email.value;
         var message = this.refs.message.value;
+        EmpireService.inviteFriend(email, message);
+    }
 
-        EmpireRPCActions.requestEmpireRPCInviteFriend({
-            email: email,
-            message: message,
-        });
-    },
+    componentDidMount() {
+        EmpireService.getInviteFriendUrl();
+    }
 
-    componentDidMount: function() {
-        EmpireRPCActions.requestEmpireRPCGetInviteFriendUrl();
-    },
-
-    componentDidUpdate: function() {
+    componentDidUpdate() {
         var $el = $(this.refs.referral);
 
         $el.off().click(function() {
             $(this).select();
         });
-    },
+    }
 
-    render: function() {
+    render() {
         var defaultMessage = [
             "I'm having a great time with this new game called 'Kenó Antigen'.",
             'Come play with me!',
@@ -63,7 +54,7 @@ var InviteWindow = createReactClass({
                         <textarea ref='message' defaultValue={defaultMessage}></textarea>
                     </div>
 
-                    <div className='ui green button' onClick={this.handleInvite}>
+                    <div className='ui green button' onClick={() => this.handleInvite()}>
                         Send Invite
                     </div>
                 </div>
@@ -75,12 +66,12 @@ var InviteWindow = createReactClass({
                         type='text'
                         readOnly
                         placeholder='Referral link'
-                        value={this.state.inviteRPCStore.referral_url}
+                        value={InviteRPCStore.referral_url}
                     />
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = InviteWindow;
+module.exports = observer(InviteWindow);
