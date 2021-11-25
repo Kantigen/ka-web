@@ -6,7 +6,7 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var _ = require('lodash');
 
-var GenericBuildingStore = require('js/stores/genericBuilding');
+var GenericBuildingStore = require('js/stores/rpc/genericBuilding');
 var BodyRPCStore = require('js/stores/rpc/body');
 
 var StandardTabs = require('js/components/window/building/standardTabs');

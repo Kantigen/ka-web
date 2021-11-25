@@ -5,7 +5,7 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var GenericBuildingStore = require('js/stores/genericBuilding');
+var GenericBuildingStore = require('js/stores/rpc/genericBuilding');
 
 var StandardTabs = require('js/components/window/building/standardTabs');
 
