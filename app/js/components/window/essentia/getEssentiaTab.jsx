@@ -2,36 +2,37 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var InviteWindow = require('js/components/window/invite');
-var constants = require('js/constants');
-var SessionStore = require('js/stores/session');
+var vex = require('js/vex');
+var WindowsStore = require('js/stores/windows');
 
 class GetEssentiaTab extends React.Component {
-    purchase = () => {
-        var url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
-        window.open(
-            url,
-            'essentiaPayment',
-            'status=0,toolbar=0,location=0,menubar=0,resizable=1,scrollbars=1,height=550,width=600,directories=0'
-        );
-    };
+    purchase() {
+        vex.alert('Not available at the moment.');
+        // var url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
+        // window.open(
+        //     url,
+        //     'essentiaPayment',
+        //     'status=0,toolbar=0,location=0,menubar=0,resizable=1,scrollbars=1,height=550,width=600,directories=0'
+        // );
+    }
 
-    redeem = () => {
-        var node = this.refs.code;
-        EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({
-            code: node.value,
-        });
-        node.value = '';
-    };
+    redeem() {
+        vex.alert('Not available at the moment.');
+        // var node = this.refs.code;
+        // EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({
+        //     code: node.value,
+        // });
+        // node.value = '';
+    }
 
-    invite = () => {
-        WindowActions.windowAdd(InviteWindow, 'invite');
-    };
+    invite() {
+        WindowsStore.add('invite');
+    }
 
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
-                <div className='ui large green labeled icon button' onClick={this.purchase}>
+                <div className='ui large green labeled icon button' onClick={() => this.purchase()}>
                     <i className='payment icon'></i>
                     Purchase Essentia
                 </div>
@@ -40,7 +41,7 @@ class GetEssentiaTab extends React.Component {
 
                 <div className='ui large fluid action input'>
                     <input type='text' placeholder='Essentia code' ref='code' />
-                    <button className='ui blue button' onClick={this.redeem}>
+                    <button className='ui blue button' onClick={() => this.redeem()}>
                         Redeem
                     </button>
                 </div>
@@ -57,7 +58,7 @@ class GetEssentiaTab extends React.Component {
                     per friend!
                 </p>
 
-                <div className='ui large green labeled icon button' onClick={this.invite}>
+                <div className='ui large green labeled icon button' onClick={() => this.invite()}>
                     <i className='add user icon'></i>
                     Invite a Friend
                 </div>
