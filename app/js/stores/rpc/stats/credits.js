@@ -2,8 +2,9 @@
 
 const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
+var server = require('js/server');
 
-class CreditsStatsRPCStore {
+class CreditsRPCStore {
     credits = [];
 
     constructor() {
@@ -38,6 +39,16 @@ class CreditsStatsRPCStore {
 
         this.credits = credits;
     }
+
+    fetch() {
+        server.call({
+            module: 'stats',
+            method: 'credits',
+            params: [],
+            scope: this,
+            success: this.update,
+        });
+    }
 }
 
-module.exports = CreditsStatsRPCStore;
+module.exports = new CreditsRPCStore();

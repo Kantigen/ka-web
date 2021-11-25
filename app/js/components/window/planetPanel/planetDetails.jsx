@@ -11,7 +11,7 @@ var PlanetDetails = createReactClass({
     displayName: 'PlanetDetails',
 
     render: function() {
-        var bodyStatus = BodyRPCStoreRPCGetBodyStatusStore;
+        var bodyStatus = BodyRPCStoreGetBodyStatusStore;
         var location = bodyStatus.x + 'x : ' + bodyStatus.y + 'y';
 
         return (

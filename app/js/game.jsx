@@ -267,6 +267,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 SessionStore.update(Game.GetSession(''));
                 MenuStore.showMenu();
+                console.log('starting the ticker');
                 TickerStore.start();
                 // TODO This should be possible to be removed. BUT it is needed for
                 // now. It is called in the map store by attaching tothe onUserSignin
@@ -633,7 +634,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 // disable esc handler
                 Game.escListener.disable();
 
-                document.title = 'Keno Antigen';
+                document.title = 'Kenó Antigen';
                 Game.RemoveCookie('locationId');
                 Game.RemoveCookie('locationView');
 

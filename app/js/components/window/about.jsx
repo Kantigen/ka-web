@@ -5,9 +5,9 @@ var React = require('react');
 var AboutTab = require('js/components/window/about/aboutTab');
 var CreditsTab = require('js/components/window/about/creditsTab');
 
-var Tabber = require('js/components/tabber');
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+var { Tabs, Tab } = require('js/components/tabber');
+
+var WindowsStore = require('js/stores/windows');
 
 class AboutWindow extends React.Component {
     static options = {
@@ -16,9 +16,9 @@ class AboutWindow extends React.Component {
         height: 400,
     };
 
-    closeWindow = () => {
-        WindowActions.windowCloseByType('about');
-    };
+    closeWindow() {
+        WindowsStore.close('about');
+    }
 
     render() {
         return (
@@ -27,7 +27,7 @@ class AboutWindow extends React.Component {
                     <AboutTab />
                 </Tab>
 
-                <Tab title='Credits' onSelect={StatsRPCActions.requestStatsRPCGetCredits}>
+                <Tab title='Credits'>
                     <CreditsTab />
                 </Tab>
             </Tabs>

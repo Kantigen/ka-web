@@ -6,13 +6,9 @@ const { observer } = require('mobx-react');
 var vex = require('js/vex');
 var util = require('js/util');
 
-var AboutWindow = require('js/components/window/about');
-var InviteWindow = require('js/components/window/invite');
-
-var ServerClock = require('js/components/window/serverClock');
-
 var MenuStore = require('js/stores/menu');
 var EmpireRPCStore = require('js/stores/rpc/empire');
+var WindowsStore = require('js/stores/windows');
 
 // Because there's a bit of special logic going on here, this is in a separate component.
 const SelfDestruct = observer(
@@ -100,7 +96,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     onClick={function() {
                         MenuStore.hideLeftSidebar();
-                        WindowActions.windowAdd(InviteWindow, 'invite');
+                        WindowsStore.add('invite');
                     }}
                 >
                     <i className='add user icon'></i>
@@ -123,7 +119,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='/starmap/'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='map icon'></i>
                     Alliance Map
@@ -132,7 +128,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='/changes.txt'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='code icon'></i>
                     Changes Log
@@ -141,7 +137,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='http://community.lacunaexpanse.com/forums'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='comments layout icon'></i>
                     Forums
@@ -150,7 +146,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='http://www.lacunaexpanse.com/help/'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='student icon'></i>
                     Help
@@ -159,7 +155,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='http://www.lacunaexpanse.com/terms/'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='info circle icon'></i>
                     Terms of Service
@@ -168,7 +164,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='http://lacunaexpanse.com/tutorial/'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='marker icon'></i>
                     Tutorial
@@ -177,7 +173,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     target='_blank'
                     href='http://community.lacunaexpanse.com/wiki'
-                    onClick={MenuStore.hideLeftSidebar}
+                    onClick={() => MenuStore.hideLeftSidebar()}
                 >
                     <i className='share alternate icon'></i>
                     Wiki
@@ -187,9 +183,9 @@ class LeftSidebar extends React.Component {
 
                 <a
                     className='item'
-                    onClick={function() {
+                    onClick={() => {
                         MenuStore.hideLeftSidebar();
-                        WindowActions.windowAdd(AboutWindow, 'about');
+                        WindowsStore.add('about');
                     }}
                 >
                     <i className='rocket icon'></i>
@@ -198,9 +194,9 @@ class LeftSidebar extends React.Component {
 
                 <a
                     className='item'
-                    onClick={function() {
+                    onClick={() => {
                         MenuStore.hideLeftSidebar();
-                        OptionsWindowActions.optionsWindowShow();
+                        WindowsStore.add('options');
                     }}
                 >
                     <i className='options icon'></i>
@@ -210,7 +206,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     onClick={function() {
                         MenuStore.hideLeftSidebar();
-                        WindowActions.windowAdd(ServerClock, 'serverclock');
+                        WindowsStore.add('serverClock');
                     }}
                 >
                     <i className='wait icon'></i>

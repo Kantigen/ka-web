@@ -12,7 +12,7 @@ var PlanetOre = createReactClass({
 
     render: function() {
         var ores = constants.ORES;
-        var bodyOre = BodyRPCStoreRPCGetBodyStatusStore.ore;
+        var bodyOre = BodyRPCStoreGetBodyStatusStore.ore;
 
         var renderOres = [];
         for (var prop in ores) {

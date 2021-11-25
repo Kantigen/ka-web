@@ -59,7 +59,7 @@ class Map extends React.Component {
             Lacuna.MapPlanet.MapVisible(false);
             Lacuna.MapStar.MapVisible(true);
             Lacuna.MapStar.Load();
-            // Lacuna.MapStar.Jump(BodyRPCStoreRPC.x, BodyRPCStoreRPC.y);
+            // Lacuna.MapStar.Jump(BodyRPCStore.x, BodyRPCStore.y);
 
             this.previousPlanetId = MenuStore.planetId;
             this.previousMapMode = MenuStore.mapMode;

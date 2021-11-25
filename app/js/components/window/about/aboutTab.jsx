@@ -1,28 +1,25 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var { observer } = require('mobx-react');
 
 var ServerRPCStore = require('js/stores/rpc/server');
 
-var AboutTab = createReactClass({
-    displayName: 'AboutTab',
-    // mixins: [Reflux.connect(ServerRPCStore, 'serverRPC')],
-
-    render: function() {
+class AboutTab extends React.Component {
+    render() {
         return (
             <div>
-                <h1>Keno Antigen</h1>
+                <h1>Kenó Antigen</h1>
 
                 <p>
-                    Copyright {new Date().getFullYear()} Keno Antigen open source contributors.
+                    Copyright {new Date().getFullYear()} Kenó Antigen open source contributors.
                     Originally forked from code provided by The Lacuna Expanse Corp copyright 2010.
                 </p>
 
-                <p>Server Version: {ServerRPCStoreRPC.version}.</p>
+                <p>Server Version: {ServerRPCStore.version}.</p>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = AboutTab;
+module.exports = observer(AboutTab);

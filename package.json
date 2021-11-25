@@ -1,14 +1,14 @@
 {
     "name": "ka-web",
     "version": "0.0.1",
-    "description": "Web client for the open source game Keno Antigen.",
+    "description": "Web client for the open source game Kenó Antigen.",
     "main": "app/js/load.js",
     "private": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/Kantigen/ka-web"
     },
-    "author": "Lacuna Expanse Corp, Keno Antigen Community & Open Source Contributors",
+    "author": "Lacuna Expanse Corp, Kenó Antigen Community & Open Source Contributors",
     "contributors": [
         "Nathan McCallum <hey@nathan-mccallum.com> (https://github.com/1vasari)",
         "Darin McBride <dmcbride@cpan.org> (https://github.com/dmcbride)"

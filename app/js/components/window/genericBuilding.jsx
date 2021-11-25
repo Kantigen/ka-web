@@ -15,7 +15,7 @@ class GenericBuilding extends React.Component {
     static options = {
         title: 'Building',
         width: 700,
-        height: 420,
+        height: 'auto',
     };
 
     static propTypes = {

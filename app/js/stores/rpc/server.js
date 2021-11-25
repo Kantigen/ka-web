@@ -4,6 +4,7 @@ const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
 var moment = require('moment');
 var util = require('js/util');
+var constants = require('js/constants');
 
 class ServerRPCStore {
     time = '01 31 2010 13:09:05 +0600';
@@ -39,6 +40,8 @@ class ServerRPCStore {
     tick() {
         var now = Date.now();
 
+        this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
+
         this.promotions = _.chain(this.promotions)
             .filter(function(promotion) {
                 // Note: date objects can be compared numerically,
@@ -63,11 +66,11 @@ class ServerRPCStore {
     }
 
     get serverTimeFormatted() {
-        return util.formatMomentLong(this.serverMoment);
+        return util.formatMomentLong(this.serverTimeMoment);
     }
 
     get clientTimeFormatted() {
-        return util.formatMomentLong(this.clientMoment);
+        return util.formatMomentLong(this.clientTimeMoment);
     }
 
     get serverTimeMs() {

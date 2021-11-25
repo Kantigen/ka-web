@@ -1,28 +1,29 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var { observer } = require('mobx-react');
 var _ = require('lodash');
 
-var CreditsStatsRPCStore = require('js/stores/rpc/stats/credits');
+var CreditsRPCStore = require('js/stores/rpc/stats/credits');
 
 var CreditsSection = require('js/components/window/about/creditsSection');
 
-var CreditsTab = createReactClass({
-    displayName: 'CreditsTab',
-    // mixins: [Reflux.connect(CreditsStatsRPCStore, 'creditsStatsRPC')],
+class CreditsTab extends React.Component {
+    componentDidMount() {
+        CreditsRPCStore.fetch();
+    }
 
-    render: function() {
+    render() {
         return (
             <div>
                 <h1>Credits</h1>
 
-                {_.map(this.state.creditsStatsRPC, function(names, header) {
+                {_.map(CreditsRPCStore.credits, function(names, header) {
                     return <CreditsSection key={header} header={header} names={names} />;
                 })}
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = CreditsTab;
+module.exports = observer(CreditsTab);

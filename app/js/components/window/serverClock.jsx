@@ -1,29 +1,24 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var { observer } = require('mobx-react');
 
 var ServerRPCStore = require('js/stores/rpc/server');
 var TickerStore = require('js/stores/ticker');
+var WindowsStore = require('js/stores/windows');
 
-var ServerClock = createReactClass({
-    displayName: 'ServerClock',
+class ServerClock extends React.Component {
+    static options = {
+        title: 'Server Clock',
+        width: 330,
+        height: 'auto',
+    };
 
-    statics: {
-        options: {
-            title: 'Server Clock',
-            width: 330,
-            height: 'auto',
-        },
-    },
+    closeWindow() {
+        WindowsStore.close('serverClock');
+    }
 
-    // mixins: [Reflux.connect(TickerStore, 'ticker'), Reflux.connect(ServerRPCStore, 'serverRPC')],
-
-    closeWindow: function() {
-        WindowActions.windowCloseByType('serverclock');
-    },
-
-    render: function() {
+    render() {
         return (
             <div>
                 <table>
@@ -32,25 +27,25 @@ var ServerClock = createReactClass({
                             <td>
                                 <strong>Server</strong>
                             </td>
-                            <td>{ServerRPCStoreRPC.serverFormattedTime}</td>
+                            <td>{ServerRPCStore.serverTimeFormatted}</td>
                         </tr>
                         <tr>
                             <td>
                                 <strong>Client</strong>
                             </td>
-                            <td>{ServerRPCStoreRPC.clientFormattedTime}</td>
+                            <td>{ServerRPCStore.clientTimeFormatted}</td>
                         </tr>
                         <tr>
                             <td>
                                 <strong>Tick Count</strong>
                             </td>
-                            <td>{this.state.ticker.clockTicks}</td>
+                            <td>{TickerStore.clockTicks}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = ServerClock;
+module.exports = observer(ServerClock);

@@ -46,7 +46,7 @@ var InviteWindow = createReactClass({
 
     render: function() {
         var defaultMessage = [
-            "I'm having a great time with this new game called 'Keno Antigen'.",
+            "I'm having a great time with this new game called 'Kenó Antigen'.",
             'Come play with me!',
         ].join(' ');
 

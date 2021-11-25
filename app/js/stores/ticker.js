@@ -34,7 +34,7 @@ class TickerStore {
 
     start() {
         if (!this.ticking) {
-            this.interval = setInterval(this.tick, INTERVAL_TIME);
+            this.interval = setInterval(() => this.tick(), INTERVAL_TIME);
             this.ticking = true;
         }
     }
