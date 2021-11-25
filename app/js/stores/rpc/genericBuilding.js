@@ -2,8 +2,6 @@
 
 const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
-var server = require('js/server');
-var { int } = require('js/util');
 
 class GenericBuildingRPCStore {
     id = '';
@@ -138,17 +136,6 @@ class GenericBuildingRPCStore {
         // building.extraViewData = extraViewData;
         // // Manually update the old planet map with the new data we got.
         // YAHOO.lacuna.MapPlanet.ReloadBuilding(_.cloneDeep(building));
-    }
-
-    fetch(url, id) {
-        this.clear();
-        server.call({
-            module: url.replace(/^\//, ''),
-            method: 'view',
-            params: [id],
-            scope: this,
-            success: this.update,
-        });
     }
 
     clear() {

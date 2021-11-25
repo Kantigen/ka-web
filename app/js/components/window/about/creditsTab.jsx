@@ -5,12 +5,13 @@ var { observer } = require('mobx-react');
 var _ = require('lodash');
 
 var CreditsRPCStore = require('js/stores/rpc/stats/credits');
+var StatsService = require('js/services/stats');
 
 var CreditsSection = require('js/components/window/about/creditsSection');
 
 class CreditsTab extends React.Component {
     componentDidMount() {
-        CreditsRPCStore.fetch();
+        StatsService.getCredits();
     }
 
     render() {

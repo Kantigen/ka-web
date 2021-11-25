@@ -39,16 +39,6 @@ class CreditsRPCStore {
 
         this.credits = credits;
     }
-
-    fetch() {
-        server.call({
-            module: 'stats',
-            method: 'credits',
-            params: [],
-            scope: this,
-            success: this.update,
-        });
-    }
 }
 
 module.exports = new CreditsRPCStore();

@@ -19,16 +19,6 @@ class BoostsEmpireRPCStore {
         makeAutoObservable(this);
     }
 
-    fetch() {
-        server.call({
-            module: 'empire',
-            method: 'get_boosts',
-            params: [],
-            scope: this,
-            success: this.update,
-        });
-    }
-
     update(result) {
         const now = ServerRPCStore.serverTimeMoment;
         this.buildingMsRemaining = util.serverDateToMoment(result.boosts.building) - now;

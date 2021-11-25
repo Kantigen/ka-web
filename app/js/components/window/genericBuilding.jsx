@@ -10,6 +10,7 @@ var ProductionTab = require('js/components/window/building/productionTab');
 
 var { Tabs, Tab } = require('js/components/tabber');
 var GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
+var GenericBuildingService = require('js/services/genericBuilding');
 
 class GenericBuilding extends React.Component {
     static options = {
@@ -23,7 +24,7 @@ class GenericBuilding extends React.Component {
     };
 
     componentWillMount() {
-        GenericBuildingRPCStore.fetch(this.props.options.url, this.props.options.id);
+        GenericBuildingService.view(this.props.options.url, this.props.options.id);
     }
 
     componentDidUpdate(prevProps) {
@@ -31,7 +32,7 @@ class GenericBuilding extends React.Component {
             prevProps.options.url != this.props.options.url ||
             prevProps.options.id != this.props.options.id
         ) {
-            GenericBuildingRPCStore.fetch(this.props.options.url, this.props.options.id);
+            GenericBuildingService.view(this.props.options.url, this.props.options.id);
         }
     }
 
