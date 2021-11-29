@@ -640,7 +640,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 Game.SetSession();
                 Game.EmpireData = {};
-                Lacuna.Stats.Reset();
                 Lacuna.MapStar.Reset();
                 Lacuna.MapPlanet.Reset();
                 Lacuna.Notify.Hide();

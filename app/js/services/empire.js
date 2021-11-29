@@ -47,7 +47,18 @@ class EmpireService {
     }
 
     logout() {
-        //
+        server.call({
+            module: 'empire',
+            method: 'logout',
+            success: () => {
+                YAHOO.lacuna.Game.Reset();
+                YAHOO.lacuna.MapPlanet.Reset();
+                YAHOO.lacuna.Game.DoLogin();
+
+                // Hide all our tooltips
+                ReactTooltip.hide();
+            },
+        });
     }
 }
 
