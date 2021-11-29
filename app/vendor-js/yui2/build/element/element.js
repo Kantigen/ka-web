@@ -686,7 +686,7 @@ Element.prototype = {
 	                }
 
 					if ((e.toElement && !e.relatedTarget) || (e.fromElement && !e.relatedTarget)) {
-						e.relatedTarget = Event.getRelatedTarget(e);
+						// e.relatedTarget = Event.getRelatedTarget(e);
 					}
 					
 					if (!e.currentTarget) {
