@@ -10,6 +10,8 @@ var EmpireRPCStore = require('js/stores/rpc/empire');
 var ServerRPCStore = require('js/stores/rpc/server');
 var MenuStore = require('js/stores/menu');
 var WindowsStore = require('js/stores/windows');
+var MailWindowStore = require('js/stores/window/mail');
+var StatsWindowStore = require('js/stores/window/stats');
 
 class TopBar extends React.Component {
     mapButtonTip() {
@@ -45,11 +47,7 @@ class TopBar extends React.Component {
                             <i className='map big icon'></i>
                         </a>
 
-                        <a
-                            className='item'
-                            data-tip='Mail'
-                            onClick={() => WindowsStore.add('mail')}
-                        >
+                        <a className='item' data-tip='Mail' onClick={() => MailWindowStore.show()}>
                             <i className='mail big icon'></i>
                             {EmpireRPCStore.has_new_messages > 0 ? (
                                 <div className='ui yellow label'>
@@ -74,9 +72,7 @@ class TopBar extends React.Component {
                         <a
                             className='item'
                             data-tip='Universe Rankings'
-                            onClick={() => {
-                                WindowsStore.add('stats');
-                            }}
+                            onClick={() => StatsWindowStore.show()}
                         >
                             <i className='find big icon'></i>
                         </a>

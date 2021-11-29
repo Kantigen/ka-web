@@ -9,6 +9,7 @@ var util = require('js/util');
 var MenuStore = require('js/stores/menu');
 var EmpireRPCStore = require('js/stores/rpc/empire');
 var WindowsStore = require('js/stores/windows');
+var OptionsWindowStore = require('js/stores/window/options');
 
 // Because there's a bit of special logic going on here, this is in a separate component.
 const SelfDestruct = observer(
@@ -196,7 +197,7 @@ class LeftSidebar extends React.Component {
                     className='item'
                     onClick={() => {
                         MenuStore.hideLeftSidebar();
-                        WindowsStore.add('options');
+                        OptionsWindowStore.show();
                     }}
                 >
                     <i className='options icon'></i>

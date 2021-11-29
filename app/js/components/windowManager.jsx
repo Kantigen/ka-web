@@ -10,12 +10,9 @@ const WINDOW_MAP = {
     essentia: require('js/components/window/essentia'),
     genericBuilding: require('js/components/window/genericBuilding'),
     invite: require('js/components/window/invite'),
-    mail: require('js/components/window/mail'),
-    options: require('js/components/window/options'),
     planetPanel: require('js/components/window/planetPanel'),
     serverClock: require('js/components/window/serverClock'),
     starPanel: require('js/components/window/starPanel'),
-    stats: require('js/components/window/stats'),
 };
 
 class WindowManager extends React.Component {

@@ -2,16 +2,16 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
+var StatsWindowStore = require('js/stores/window/stats');
 
 class StatsWindow extends React.Component {
-    static options = {
-        title: 'Stats',
-        width: 600,
-        height: 400,
-    };
-
     render() {
-        return <div>This is the stats window.</div>;
+        console.log('statswindow', StatsWindowStore.shown);
+        if (StatsWindowStore.shown) {
+            YAHOO.lacuna.Stats.show();
+        }
+
+        return <div></div>;
     }
 }
 

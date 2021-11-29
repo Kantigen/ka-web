@@ -22,6 +22,9 @@ require('js-yui/login');
 require('js-yui/mapper');
 require('js-yui/mapStar');
 require('js-yui/mapPlanet');
+require('js-yui/messaging');
+require('js-yui/profile');
+require('js-yui/stats');
 require('js-yui/notify');
 require('js/components/menu');
 
