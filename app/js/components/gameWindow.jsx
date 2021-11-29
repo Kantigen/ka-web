@@ -7,10 +7,6 @@ const Map = require('js/components/menu/map');
 const Menu = require('js/components/menu');
 const WindowManager = require('js/components/windowManager');
 
-const MailWindow = require('js/components/window/mail');
-const OptionsWindow = require('js/components/window/options');
-const StatsWindow = require('js/components/window/stats');
-
 //
 // This React component will be the main container of everything that appears on the screen.
 //
@@ -40,9 +36,6 @@ const GameWindow = () => (
             <Map />
             <div id='content'></div> {/* This div is used by map. */}
             <WindowManager />
-            <MailWindow />
-            <OptionsWindow />
-            <StatsWindow />
         </div>
     </div>
 );
