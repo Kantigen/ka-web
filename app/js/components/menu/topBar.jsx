@@ -39,7 +39,7 @@ class TopBar extends React.Component {
                         <a
                             className='item'
                             data-tip={this.mapButtonTip()}
-                            onClick={MenuStore.toggleMapMode}
+                            onClick={() => MenuStore.toggleMapMode()}
                         >
                             <i className='map big icon'></i>
                         </a>

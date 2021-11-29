@@ -1,9 +1,7 @@
 YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
-
-var StarPanel = require('js/components/window/starPanel');
-var PlanetPanel = require('js/components/window/planetPanel');
+var WindowsStore = require('js/stores/windows');
 
 var constants = require('js/constants');
 
@@ -468,8 +466,8 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                 }
                             },
                             hideEventFn = function() {
-                                delete this.avail.spyShips;
-                                delete this.avail.spies;
+                                delete this.avail?.spyShips;
+                                delete this.avail?.spies;
                             };
                         for (var tabId in spyTabs) {
                             if (spyTabs.hasOwnProperty(tabId)) {
@@ -777,10 +775,10 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     if (tile && tile.data) {
                         if (tile.data.isStar) {
                             this.ShowStar(tile);
-                            WindowActions.windowAdd(StarPanel, 'starPanel', tile);
+                            WindowsStore.add('starPanel', tile);
                         } else if (tile.data.isPlanet) {
                             this.ShowPlanet(tile);
-                            WindowActions.windowAdd(PlanetPanel, 'planetPanel', tile);
+                            WindowsStore.add('planetPanel', tile);
                         }
                     }
                 }
@@ -1430,7 +1428,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
             PopulateShipsMiningPlatforms: function(panel) {
                 var ships = this.currentShips.mining_platforms || [];
-                details = Dom.get('planetDetailMiningShips');
+                var details = Dom.get('planetDetailMiningShips');
 
                 if (details) {
                     var parent = details.parentNode;
@@ -1474,7 +1472,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             },
             PopulateShipsExcavators: function(panel) {
                 var ships = this.currentShips.excavators || [];
-                details = Dom.get('planetDetailExcavators');
+                var details = Dom.get('planetDetailExcavators');
 
                 if (details) {
                     var parent = details.parentNode;
