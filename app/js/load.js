@@ -1,14 +1,13 @@
 'use strict';
 
-require('vendor-css/yui-reset.css');
+require('shims/jquery');
+require('shims/yahoo');
+
 require('vendor-css/semantic.css');
 require('vendor-css/vex.css');
 require('vendor-css/vex-theme-default.css');
 require('css/styles.css');
 require('react-tabs/style/react-tabs.css');
-
-require('shims/jquery');
-require('shims/yahoo');
 
 require('js-yui/library');
 require('js-yui/textboxList');
