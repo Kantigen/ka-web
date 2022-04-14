@@ -21,28 +21,26 @@ class ServerClock extends React.Component {
     render() {
         return (
             <div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>Server</strong>
-                            </td>
-                            <td>{ServerRPCStore.serverTimeFormatted}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Client</strong>
-                            </td>
-                            <td>{ServerRPCStore.clientTimeFormatted}</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Tick Count</strong>
-                            </td>
-                            <td>{TickerStore.clockTicks}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class='ui row' style={{ marginBottom: 10 }}>
+                    <div class='four wide column'>
+                        <strong>Server</strong>
+                    </div>
+                    <div class='ten wide column'>{ServerRPCStore.serverTimeFormatted}</div>
+                </div>
+
+                <div class='ui row' style={{ marginBottom: 10 }}>
+                    <div class='four wide column'>
+                        <strong>Client</strong>
+                    </div>
+                    <div class='ten wide column'>{ServerRPCStore.clientTimeFormatted}</div>
+                </div>
+
+                <div class='ui row' style={{ marginBottom: 10 }}>
+                    <div class='four wide column'>
+                        <strong>Tick Count</strong>
+                    </div>
+                    <div class='ten wide column'>{TickerStore.clockTicks}</div>
+                </div>
             </div>
         );
     }
