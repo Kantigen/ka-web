@@ -1,24 +1,33 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
 
 var PlanetPanelLine = require('js/components/window/planetPanel/line');
 
 var constants = require('js/constants');
 
-var PlanetDetails = createReactClass({
-    displayName: 'PlanetDetails',
+class PlanetDetails extends React.Component {
+    static propTypes = {
+        status: PropTypes.object.isRequired,
+    };
 
-    render: function() {
-        var bodyStatus = BodyRPCStoreGetBodyStatusStore;
+    render() {
+        var bodyStatus = this.props.status;
         var location = bodyStatus.x + 'x : ' + bodyStatus.y + 'y';
 
         return (
             <div className='ui grid'>
                 <div className='five wide column'>
                     <img
-                        src={constants.ASSETS_URL + 'star_system/' + bodyStatus.image + '.png'}
+                        src={
+                            constants.ASSETS_URL +
+                            'star_system/' +
+                            bodyStatus.image +
+                            '-' +
+                            bodyStatus.orbit +
+                            '.png'
+                        }
                         style={{
                             width: 100,
                             height: 100,
@@ -42,7 +51,7 @@ var PlanetDetails = createReactClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = PlanetDetails;

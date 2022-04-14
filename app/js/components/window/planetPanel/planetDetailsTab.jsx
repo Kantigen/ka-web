@@ -1,18 +1,17 @@
 'use strict';
 
 var React = require('react');
-var createReactClass = require('create-react-class');
-
-var BodyRPCStore = require('js/stores/rpc/body');
+var PropTypes = require('prop-types');
 
 var PlanetDetails = require('js/components/window/planetPanel/planetDetails');
 var PlanetOre = require('js/components/window/planetPanel/planetOre');
 
-var PlanetDetailsTab = createReactClass({
-    displayName: 'PlanetDetailsTab',
-    // mixins: [Reflux.connect(BodyRPCStore, 'bodyRPCStore')],
+class PlanetDetailsTab extends React.Component {
+    static propTypes = {
+        status: PropTypes.object.isRequired,
+    };
 
-    render: function() {
+    render() {
         return (
             <div className='ui grid'>
                 <div className='ui centered row'>
@@ -40,15 +39,15 @@ var PlanetDetailsTab = createReactClass({
 
                 <div className='ui centered row'>
                     <div className='nine wide column'>
-                        <PlanetDetails />
+                        <PlanetDetails status={this.props.status} />
                     </div>
                     <div className='seven wide column'>
-                        <PlanetOre />
+                        <PlanetOre status={this.props.status} />
                     </div>
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = PlanetDetailsTab;

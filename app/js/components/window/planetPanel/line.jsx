@@ -10,7 +10,8 @@ var PlanetDetails = createReactClass({
 
     propTypes: {
         title: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
+        // TODO: how to specify multiple types?
+        // value: [PropTypes.string.isRequired, PropTypes.number.isRequired],
     },
 
     render: function() {

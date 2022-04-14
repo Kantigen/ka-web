@@ -777,7 +777,6 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                             this.ShowStar(tile);
                             WindowsStore.add('starPanel', tile);
                         } else if (tile.data.isPlanet) {
-                            this.ShowPlanet(tile);
                             WindowsStore.add('planetPanel', tile);
                         }
                     }
