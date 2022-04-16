@@ -3,7 +3,7 @@
 YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
-var util = require('js/util');
+var EmpireRPCStore = require('js/stores/rpc/empire');
 
 var OptionsWindowStore = require('js/stores/window/options');
 
@@ -572,10 +572,9 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                 this.showLevels.checked = Game.GetCookieSettings('showLevels', '0') == '1';
                 this.hidePlanets.checked = Game.GetCookieSettings('hidePlanets', '0') == '1';
 
-                this.iso_status.innerHTML =
-                    util.int(Game.EmpireData.is_isolationist) == 1
-                        ? 'Isolationist'
-                        : 'Not Isolationist';
+                this.iso_status.innerHTML = EmpireRPCStore.is_isolationist
+                    ? 'Isolationist'
+                    : 'Not Isolationist';
 
                 this.notes.value = p.notes;
                 this.sitter_password.value = p.sitter_password;

@@ -74,14 +74,8 @@ var handleSuccess = function(options, result) {
     if (result) {
         if (result.status) {
             splitStatus(result.status);
-
-            // Handle the legacy Status stuff...
-            YAHOO.lacuna.Game.ProcessStatus(result.status);
         } else if (options.method === 'get_status') {
             splitStatus(result);
-
-            // Handle the legacy Status stuff...
-            YAHOO.lacuna.Game.ProcessStatus(result.status);
         }
     }
 

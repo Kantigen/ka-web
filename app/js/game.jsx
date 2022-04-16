@@ -4,19 +4,18 @@ YAHOO.namespace('lacuna');
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var _ = require('lodash');
-var ReactTooltip = require('react-tooltip');
 
 var GameWindow = require('js/components/gameWindow');
 var Captcha = require('js/components/window/captcha');
 
-var BodyRPCStore = require('js/stores/rpc/body');
+var EmpireRPCStore = require('js/stores/rpc/empire');
 var MenuStore = require('js/stores/menu');
 var SessionStore = require('js/stores/session');
 var TickerStore = require('js/stores/ticker');
 var WindowsStore = require('js/stores/windows');
 
 var constants = require('js/constants');
+var server = require('js/server');
 
 if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
     (function() {
@@ -29,9 +28,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         var Lib = Lacuna.Library;
 
         var Game = {
-            EmpireData: {},
-            Resources: {},
-            ServerData: {},
+            Resources: require('json/resources'),
             Services: {},
             Timeout: 60000,
             HourMS: 3600000, // (60min * 60sec * 1000ms),
@@ -79,10 +76,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         correctScope: true,
                     }
                 );
-
-                // get resources right away since they don't depend on anything.
-                Game.Resources = require('js/resources');
-                Game.PreloadUI();
 
                 Game.Services = Game.InitServices(YAHOO.lacuna.SMD.Services);
 
@@ -136,13 +129,15 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     return;
                 }
 
-                // Run rest of UI since we're logged in
-                Game.GetStatus({
-                    success: Game.Run,
-                    failure: function(o) {
+                server.call({
+                    module: 'empire',
+                    method: 'get_status',
+                    success: () => {
+                        Game.Run();
+                    },
+                    failure: () => {
                         Game.Reset();
                         Game.DoLogin(o.error);
-                        return true;
                     },
                 });
             },
@@ -199,10 +194,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         Game.RemoveCookie('locationId');
                         Game.RemoveCookie('locationView');
 
-                        // store empire data
-                        Lacuna.Game.ProcessStatus(result.status);
-                        // Run rest of UI now that we're logged in
-
                         Lacuna.Game.Run();
 
                         if (result.welcome_message_id) {
@@ -246,35 +237,21 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 require('js/stores/menu').hideLoader();
             },
             Run: function() {
-                // set our interval going for resource calcs since Logout clears it
-                Game.recTime = new Date().getTime();
-                Game.isRunning = 1;
-
-                /* possible new pattern for game loop*/
-                (function GameLoop() {
-                    if (Game.isRunning) {
-                        Game.Tick();
-                        setTimeout(GameLoop, 1000);
-                    }
-                })();
-
                 // init event subscribtions if we need to
                 Game.InitEvents();
                 // enable esc handler
                 Game.escListener.enable();
 
-                document.title = 'KA - ' + Game.EmpireData.name;
+                document.title = 'KA - ' + EmpireRPCStore.name;
 
                 SessionStore.update(Game.GetSession(''));
                 MenuStore.showMenu();
-                console.log('starting the ticker');
+
+                console.log('Starting the ticker');
                 TickerStore.start();
-                // TODO This should be possible to be removed. BUT it is needed for
-                // now. It is called in the map store by attaching tothe onUserSignin
-                // event (as it does here) but perhaps it requires the other stores
-                // to complete first before it works?
+
                 console.log('Firing up the planet view');
-                MenuStore.changePlanet(YAHOO.lacuna.Game.EmpireData.home_planet_id);
+                MenuStore.changePlanet(EmpireRPCStore.home_planet_id);
             },
             InitEvents: function() {
                 // make sure we only subscribe once
@@ -362,14 +339,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 };
                 return func;
             },
-            PreloadUI: function() {
-                var images = Lib.UIImages;
-                for (var i = 0; i < images.length; i++) {
-                    var url = Lib.AssetUrl + images[i];
-                    var img = new window.Image();
-                    img.src = url;
-                }
-            },
             QuickDialog: function(config, afterRender, afterHide) {
                 var container = document.createElement('div');
                 if (config.id) {
@@ -406,144 +375,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 dialog.render();
                 Game.OverlayManager.register(dialog);
             },
-            onRpc: function(oResult) {
-                Lacuna.Game.ProcessStatus(oResult.status);
-            },
 
-            ProcessStatus: function(status) {
-                if (status) {
-                    if (status.server) {
-                        // add everything from status empire to game empire
-                        Lang.augmentObject(Game.ServerData, status.server, true);
-                        Game.ServerData.time = Lib.parseServerDate(Game.ServerData.time);
-
-                        if (status.server.announcement) {
-                            Lacuna.Announce.show();
-                        }
-                    }
-                    if (status.empire) {
-                        // convert to numbers
-                        status.empire.has_new_messages *= 1;
-                        if (status.empire.happiness) {
-                            status.empire.happiness *= 1;
-                            status.empire.happiness_hour *= 1;
-                        }
-
-                        if (!Lacuna.Game.EmpireData.planets) {
-                            Lacuna.Game.EmpireData.planets = {};
-                        }
-                        if (!Lacuna.Game.EmpireData.planetsByName) {
-                            Lacuna.Game.EmpireData.planetsByName = {};
-                        }
-                        if (!Lacuna.Game.EmpireData.coloniesByName) {
-                            Lacuna.Game.EmpireData.coloniesByName = {};
-                        }
-                        if (!Lacuna.Game.EmpireData.stationsByName) {
-                            Lacuna.Game.EmpireData.stationsByName = {};
-                        }
-                        for (var cKey in status.empire.colonies) {
-                            Lacuna.Game.EmpireData.coloniesByName[
-                                status.empire.colonies[cKey]
-                            ] = cKey;
-                        }
-                        for (var sKey in status.empire.stations) {
-                            Lacuna.Game.EmpireData.stationsByName[
-                                status.empire.stations[sKey]
-                            ] = sKey;
-                        }
-                        for (var pKey in status.empire.planets) {
-                            if (status.empire.planets.hasOwnProperty(pKey)) {
-                                var ePlanet = Lacuna.Game.EmpireData.planets[pKey];
-                                if (!ePlanet) {
-                                    Lacuna.Game.EmpireData.planets[pKey] = {
-                                        id: pKey,
-                                        name: status.empire.planets[pKey],
-                                        star_name: '',
-                                        image: undefined,
-                                        energy_capacity: 0,
-                                        energy_hour: 0,
-                                        energy_stored: 0,
-                                        food_capacity: 0,
-                                        food_hour: 0,
-                                        food_stored: 0,
-                                        happiness: 0,
-                                        happiness_hour: 0,
-                                        ore_capacity: 0,
-                                        ore_hour: 0,
-                                        ore_stored: 0,
-                                        waste_capacity: 0,
-                                        waste_hour: 0,
-                                        waste_stored: 0,
-                                        water_capacity: 0,
-                                        water_hour: 0,
-                                        water_stored: 0,
-                                    };
-                                } else {
-                                    Lacuna.Game.EmpireData.planets[pKey].name =
-                                        status.empire.planets[pKey];
-                                }
-                                Lacuna.Game.EmpireData.planetsByName[status.empire.planets[pKey]] =
-                                    Lacuna.Game.EmpireData.planets[pKey];
-                            }
-                        }
-                        delete status.empire.planets; // delete this so it doesn't overwrite the desired structure
-
-                        // add everything from status empire to game empire
-                        Lang.augmentObject(Lacuna.Game.EmpireData, status.empire, true);
-                    }
-                    if (status.body) {
-                        var planet = status.body;
-                        var p = Game.EmpireData.planets[planet.id];
-
-                        if (p) {
-                            Lang.augmentObject(p, planet, true);
-
-                            p.energy_capacity *= 1;
-                            p.energy_hour *= 1;
-                            p.energy_stored *= 1;
-                            p.food_capacity *= 1;
-                            p.food_hour *= 1;
-                            p.food_stored *= 1;
-                            p.happiness *= 1;
-                            p.happiness_hour *= 1;
-                            p.ore_capacity *= 1;
-                            p.ore_hour *= 1;
-                            p.ore_stored *= 1;
-                            p.waste_capacity *= 1;
-                            p.waste_hour *= 1;
-                            p.waste_stored *= 1;
-                            p.water_capacity *= 1;
-                            p.water_hour *= 1;
-                            p.water_stored *= 1;
-                        }
-                    }
-                }
-            },
-            GetStatus: function(callback) {
-                var EmpireServ = Game.Services.Empire;
-                var session = Game.GetSession();
-
-                EmpireServ.get_status(
-                    {
-                        session_id: session,
-                    },
-                    {
-                        success: function(o) {
-                            YAHOO.log(o, 'info', 'Game.GetStatus.success');
-                            Lacuna.Game.ProcessStatus(o.result);
-                            if (callback && callback.success) {
-                                return callback.success.call(this);
-                            }
-                        },
-                        failure: function(o) {
-                            if (callback && callback.failure) {
-                                return callback.failure.call(this, o);
-                            }
-                        },
-                        scope: (callback && callback.scope) || this,
-                    }
-                );
-            },
             GetSession: function(replace) {
                 if (!this._session) {
                     this._session = Game.GetCookie('session');
@@ -558,9 +390,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     Game.RemoveCookie('session');
                     delete Game._session;
                 }
-            },
-            GetCurrentPlanet: function() {
-                return BodyRPCStore;
             },
             GetSize: function() {
                 var content = document.getElementById('content');
@@ -629,8 +458,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             },
 
             Reset: function() {
-                delete Game.isRunning;
-
                 // disable esc handler
                 Game.escListener.disable();
 
@@ -639,7 +466,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 Game.RemoveCookie('locationView');
 
                 Game.SetSession();
-                Game.EmpireData = {};
                 Lacuna.MapStar.Reset();
                 Lacuna.MapPlanet.Reset();
                 Lacuna.Notify.Hide();
@@ -691,192 +517,6 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 Cookie.removeSub('lacunaSettings', key, {
                     domain: Game.domain,
                 });
-            },
-
-            // Tick related
-            Tick: function() {
-                var ED = Lacuna.Game.EmpireData;
-                var SD = Lacuna.Game.ServerData;
-                var dt = new Date().getTime();
-                var diff = dt - Lacuna.Game.recTime;
-
-                Lacuna.Game.recTime = dt;
-                SD.time = new Date(Lib.getTime(SD.time) + diff);
-
-                var ratio = diff / Lacuna.Game.HourMS;
-
-                for (var pKey in ED.planets) {
-                    if (ED.planets.hasOwnProperty(pKey)) {
-                        var planet = ED.planets[pKey];
-                        var isNotStation = planet.type !== 'space station';
-
-                        if (planet.energy_stored < planet.energy_capacity) {
-                            planet.energy_stored += planet.energy_hour * ratio;
-
-                            if (planet.energy_stored > planet.energy_capacity) {
-                                planet.energy_stored = planet.energy_capacity;
-                            } else if (planet.energy_stored < 0) {
-                                if (isNotStation) {
-                                    planet.happiness += planet.energy_stored;
-                                }
-                                planet.energy_stored = 0;
-                            }
-                        }
-
-                        if (planet.food_stored < planet.food_capacity) {
-                            planet.food_stored += planet.food_hour * ratio;
-
-                            if (planet.food_stored > planet.food_capacity) {
-                                planet.food_stored = planet.food_capacity;
-                            } else if (planet.food_stored < 0) {
-                                if (isNotStation) {
-                                    planet.happiness += planet.food_stored;
-                                }
-                                planet.food_stored = 0;
-                            }
-                        }
-
-                        if (planet.ore_stored < planet.ore_capacity) {
-                            planet.ore_stored += planet.ore_hour * ratio;
-
-                            if (planet.ore_stored > planet.ore_capacity) {
-                                planet.ore_stored = planet.ore_capacity;
-                            } else if (planet.ore_stored < 0) {
-                                if (isNotStation) {
-                                    planet.happiness += planet.ore_stored;
-                                }
-                                planet.ore_stored = 0;
-                            }
-                        }
-
-                        if (planet.water_stored < planet.water_capacity) {
-                            planet.water_stored += planet.water_hour * ratio;
-
-                            if (planet.water_stored > planet.water_capacity) {
-                                planet.water_stored = planet.water_capacity;
-                            } else if (planet.water_stored < 0) {
-                                if (isNotStation) {
-                                    planet.happiness += planet.water_stored;
-                                }
-                                planet.water_stored = 0;
-                            }
-                        }
-
-                        var wasteOverage = 0;
-                        if (planet.waste_stored < planet.waste_capacity) {
-                            planet.waste_stored += planet.waste_hour * ratio;
-
-                            if (planet.waste_stored > planet.waste_capacity) {
-                                wasteOverage = planet.waste_stored - planet.waste_capacity;
-                                planet.waste_stored = planet.waste_capacity;
-                            } else if (planet.waste_stored < 0) {
-                                if (isNotStation) {
-                                    planet.happiness += planet.waste_stored;
-                                }
-                                planet.waste_stored = 0;
-                            }
-                        } else {
-                            wasteOverage = planet.waste_hour * ratio;
-                        }
-
-                        if (isNotStation) {
-                            planet.happiness += planet.happiness_hour * ratio - wasteOverage;
-
-                            if (planet.happiness < 0 && ED.is_isolationist === '1') {
-                                planet.happiness = 0;
-                            }
-                        }
-                    }
-                }
-
-                Game.onTick.fire(diff);
-            },
-            QueueAdd: function(id, type, ms) {
-                if (!id || !type || !ms) {
-                    return;
-                }
-
-                if (!Game.queue) {
-                    Game.queue = {};
-                }
-
-                if (!Game.queue[type]) {
-                    Game.queue[type] = {};
-                }
-
-                Game.queue[type][id] = ms;
-            },
-            QueueProcess: function(e, oArgs) {
-                // only do anything if the queue actually has data
-                if (Game.queue) {
-                    var toFire = {};
-                    var tickMS = oArgs[0];
-
-                    for (var type in Game.queue) {
-                        if (Game.queue.hasOwnProperty(type)) {
-                            var qt = Game.queue[type];
-
-                            for (var id in qt) {
-                                if (qt.hasOwnProperty(id)) {
-                                    var ms = qt[id] - tickMS;
-                                    if (ms <= 0) {
-                                        toFire[id] = type;
-                                    } else {
-                                        qt[id] = ms;
-                                        Game.QueueTick(type, id, ms);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    for (var fId in toFire) {
-                        if (toFire.hasOwnProperty(fId)) {
-                            delete Game.queue[toFire[fId]][fId];
-                            Game.QueueFire(toFire[fId], fId);
-                        }
-                    }
-                }
-            },
-            QueueTick: function(type, id, ms) {
-                switch (type) {
-                    case Lib.QueueTypes.PLANET:
-                        Lacuna.MapPlanet.QueueTick(id, ms);
-                        break;
-                    case Lib.QueueTypes.STAR:
-                        break;
-                    case Lib.QueueTypes.SYSTEM:
-                        break;
-                    default:
-                        break;
-                }
-            },
-            QueueFire: function(type, id) {
-                YAHOO.log(arguments, 'debug', 'Game.QueueFire');
-
-                switch (type) {
-                    case Lib.QueueTypes.PLANET:
-                        Lacuna.MapPlanet.ReLoadTile(id);
-                        break;
-                    case Lib.QueueTypes.STAR:
-                        break;
-                    case Lib.QueueTypes.SYSTEM:
-                        break;
-                    default:
-                        YAHOO.log('type unknown', 'debug', 'Game.QueueFire');
-                        break;
-                }
-            },
-            QueueResetPlanet: function() {
-                if (Game.queue && Game.queue[Lib.QueueTypes.PLANET]) {
-                    var queue = Game.queue[Lib.QueueTypes.PLANET];
-
-                    for (var id in queue) {
-                        if (queue.hasOwnProperty(id)) {
-                            queue[id] = 0;
-                        }
-                    }
-                }
             },
 
             onScroll: (function() {

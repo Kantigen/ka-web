@@ -2,6 +2,9 @@ YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
 var WindowsStore = require('js/stores/windows');
+var EmpireRPCStore = require('js/stores/rpc/empire');
+var ServerRPCStore = require('js/stores/rpc/server');
+var BodyRPCStore = require('js/stores/rpc/body');
 
 var constants = require('js/constants');
 
@@ -723,9 +726,9 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 });
             },
             Load: function() {
-                var cId = Game.GetCurrentPlanet().id;
+                var cId = BodyRPCStore.id;
                 if (cId) {
-                    var loc = Game.EmpireData.planets[cId];
+                    var loc = EmpireRPCStore.planets[cId];
                     if (loc) {
                         this.locationId = cId;
                         loc.x *= 1;
@@ -831,7 +834,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         }
                     });
 
-                    var serverTime = Lib.getTime(Game.ServerData.time);
+                    var serverTime = Lib.getTime(ServerRPCStore.time);
 
                     for (var i = 0; i < ships.length; i++) {
                         var ship = ships[i],
@@ -1059,7 +1062,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             },
             NotIsolationist: function(ship) {
                 if (
-                    Game.EmpireData.is_isolationist == '1' &&
+                    EmpireRPCStore.is_isolationist &&
                     (ship.type == 'colony_ship' || ship.type == 'short_range_colony_ship')
                 ) {
                     return confirm(
@@ -1245,7 +1248,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
             },
             NotFleetIsolationist: function(ships) {
-                if (Game.EmpireData.is_isolationist == '1') {
+                if (EmpireRPCStore.is_isolationist) {
                     var hasIsoShip;
                     for (var n = 0; n < ships.length; n++) {
                         if (
@@ -1524,7 +1527,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     Game.Services.Buildings.SpacePort.get_ships_for(
                         {
                             session_id: Game.GetSession(),
-                            from_body_id: Game.GetCurrentPlanet().id,
+                            from_body_id: BodyRPCStore.id,
                             target: target,
                         },
                         {
@@ -1852,7 +1855,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                 ].join('');
                                 Lib.fadeOutElm('planetDetailRenameMessage');
                                 Dom.get('planetDetailsName').innerHTML = newName;
-                                Game.EmpireData.planets[this.selectedBody.id].name = newName;
+                                EmpireRPCStore.planets[this.selectedBody.id].name = newName;
                                 if (this.selectedTile instanceof YAHOO.lacuna.Mapper.StarTile) {
                                     this._map.tileCache[this.selectedTile.x][
                                         this.selectedTile.y
@@ -1888,7 +1891,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     method = 'prepare_send_spies';
                     data = {
                         session_id: Game.GetSession(),
-                        on_body_id: Game.GetCurrentPlanet().id,
+                        on_body_id: BodyRPCStore.id,
                         to_body_id: this.selectedBody.id,
                     };
                 } else {
@@ -1896,7 +1899,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     data = {
                         session_id: Game.GetSession(),
                         on_body_id: this.selectedBody.id,
-                        to_body_id: Game.GetCurrentPlanet().id,
+                        to_body_id: BodyRPCStore.id,
                     };
                 }
 
@@ -2077,13 +2080,13 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 if (tab.id == 'planetDetailSendSpies') {
                     successMessage = 'Spies sent!';
                     method = Game.Services.Buildings.SpacePort.send_spies;
-                    data.on_body_id = Game.GetCurrentPlanet().id;
+                    data.on_body_id = BodyRPCStore.id;
                     data.to_body_id = this.selectedBody.id;
                 } else {
                     successMessage = 'Spies fetched!';
                     method = Game.Services.Buildings.SpacePort.fetch_spies;
                     data.on_body_id = this.selectedBody.id;
-                    data.to_body_id = Game.GetCurrentPlanet().id;
+                    data.to_body_id = BodyRPCStore.id;
                 }
                 method(data, {
                     success: function(o) {

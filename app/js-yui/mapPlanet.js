@@ -3,6 +3,8 @@ YAHOO.namespace('lacuna');
 var _ = require('lodash');
 
 var WindowsStore = require('js/stores/windows');
+const EmpireRPCStore = require('js/stores/rpc/empire');
+const BodyRPCStore = require('js/stores/rpc/body');
 
 if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
     (function() {
@@ -387,7 +389,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                         names = [],
                         reason,
                         br,
-                        planet = Game.GetCurrentPlanet(),
+                        planet = BodyRPCStore,
                         isMaxPlots = planet.plots_available * 1 === 0;
 
                     for (var key in filters) {
@@ -720,7 +722,6 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                         this._map.mapDiv,
                         'click',
                         function(e, matchedEl, container) {
-                            var planet = Game.GetCurrentPlanet();
                             if (!this._map.controller.isDragging()) {
                                 var tile = this._map.tileLayer.findTileById(
                                     matchedEl.parentNode.id
@@ -766,8 +767,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
             },
             RefreshWithData: function(o) {
                 this.fireEvent('onMapRpc', o.result);
-                var planet = Game.GetCurrentPlanet();
-                this._map.setPlotsAvailable(planet.plots_available * 1);
+                this._map.setPlotsAvailable(BodyRPCStore.plots_available * 1);
                 this._map.addTileData(o.result.buildings, true);
                 this._map.refresh();
             },
@@ -893,7 +893,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                 require('js/stores/menu').hideLoader();
             },
             NotIsolationist: function(building) {
-                if (Game.EmpireData.is_isolationist == '1') {
+                if (EmpireRPCStore.is_isolationist) {
                     if (
                         building.url == '/espionage' &&
                         !confirm(
@@ -1181,11 +1181,6 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                 building = this.CleanBuilding(building);
                 this.buildings[building.id] = building;
                 this._map.refreshTile(building);
-                /*
-            var ms = (building.pending_build.seconds_remaining * 1000);
-            YAHOO.log({b:building, time:ms}, "debug", "MapPlanet.ReloadBuilding");
-            Game.QueueAdd(building.id, Lib.QueueTypes.PLANET, ms);
-            */
             },
         };
         Lang.augmentProto(MapPlanet, Util.EventProvider);

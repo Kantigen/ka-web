@@ -3,6 +3,7 @@
 var MailWindowStore = require('js/stores/window/mail');
 
 var constants = require('js/constants');
+var EmpireRPCStore = require('js/stores/rpc/empire');
 
 var _ = require('lodash');
 
@@ -463,7 +464,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         var to = [{ name: this.viewingMessage.from }];
                         for (var i = 0; i < this.viewingMessage.recipients.length; i++) {
                             var nm = this.viewingMessage.recipients[i];
-                            if (nm != Game.EmpireData.name) {
+                            if (nm != EmpireRPCStore.name) {
                                 to.push({ name: nm });
                             }
                         }
@@ -1121,9 +1122,9 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         if (results.success.indexOf(el.Message.id) >= 0) {
                             delete this.toArchive[el.Message.id];
                             if (el.Message.has_read * 1 == 0) {
-                                Game.EmpireData.has_new_messages--;
-                                if (Game.EmpireData.has_new_messages < 0) {
-                                    Game.EmpireData.has_new_messages = 0;
+                                EmpireRPCStore.has_new_messages--;
+                                if (EmpireRPCStore.has_new_messages < 0) {
+                                    EmpireRPCStore.has_new_messages = 0;
                                 }
                             }
                             this.toArchiveCount--;
@@ -1192,9 +1193,9 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         if (results.success.indexOf(el.Message.id) >= 0) {
                             delete this.toArchive[el.Message.id];
                             if (el.Message.has_read * 1 == 0) {
-                                Game.EmpireData.has_new_messages--;
-                                if (Game.EmpireData.has_new_messages < 0) {
-                                    Game.EmpireData.has_new_messages = 0;
+                                EmpireRPCStore.has_new_messages--;
+                                if (EmpireRPCStore.has_new_messages < 0) {
+                                    EmpireRPCStore.has_new_messages = 0;
                                 }
                             }
                             this.toArchiveCount--;
@@ -1301,7 +1302,6 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 Event.stopEvent(e);
                 var res = el.href.match(/\#(-?\d+)$/);
                 this.hide();
-                var planet = Game.EmpireData.planets[res[1]];
                 require('js/stores/menu').changePlanet(res[1]);
                 //Game.PlanetJump(planet);
             },

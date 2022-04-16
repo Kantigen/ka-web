@@ -55,7 +55,6 @@ if (typeof YAHOO.rpc.Service == 'undefined' || !YAHOO.rpc.Service) {
 
                             // Send the status block off to relevant stores to update UI.
                             if (results.result && results.result.status) {
-                                YAHOO.lacuna.Game.ProcessStatus(results.result.status);
                                 server.splitStatus(results.result.status);
                             }
 

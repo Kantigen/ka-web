@@ -1,5 +1,8 @@
 YAHOO.namespace('lacuna');
 
+const ServerRPCStore = require('js/stores/rpc/server');
+const server = require('js/server');
+
 if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
     (function() {
         var Lang = YAHOO.lang,
@@ -826,7 +829,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
             _showCachedTiles: function() {
                 if (this.tileCache) {
                     var bounds = this.visibleArea.coordBounds();
-                    var planets = Game.EmpireData.planetsByName || {};
+                    var planets = {};
 
                     //from left to right (smaller to bigger)
                     for (var xc = bounds.x1; xc <= bounds.x2; xc++) {
@@ -1226,7 +1229,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
                 this.maxZoom = 2;
                 this.minZoom = -3;
 
-                var mapSize = Game.ServerData.star_map_size;
+                var mapSize = ServerRPCStore.star_map_size;
                 this.maxBounds = {
                     x1Left: mapSize.x[0],
                     x2Right: mapSize.x[1],
@@ -1298,7 +1301,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
                                 //YAHOO.log(o, "debug", "StarMap.getTileData.get_stars.success");
                                 require('js/stores/menu').hideLoader();
                                 if (o && o.result) {
-                                    Game.ProcessStatus(o.result.status);
+                                    server.splitStatus(o.result);
                                     this.addTileData(o.result.stars);
                                     callback.success.call(
                                         callback.scope || this,
@@ -1330,7 +1333,6 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
 
             addTileData: function(aStars) {
                 //var startZoomLevel = 0;
-                var cp = Game.GetCurrentPlanet();
 
                 for (var i = 0; i < aStars.length; i++) {
                     var star = aStars[i];
@@ -1341,7 +1343,6 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
                     this.tileCache[star.x][star.y] = star;
 
                     if (star.bodies) {
-                        // && cp.star_id == star.id) {
                         for (var bKey in star.bodies) {
                             if (star.bodies.hasOwnProperty(bKey)) {
                                 var body = star.bodies[bKey];

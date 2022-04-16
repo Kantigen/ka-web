@@ -78,7 +78,6 @@ class EmpireRPCStore {
 
         // Possible things to do here:
         //  ~ Turn self_destruct_date into a Date object.
-        //  ~ See also: Game.ProcessStatus.
         this.self_destruct_active = int(empire.self_destruct_active);
         this.exactEssentia = parseFloat(empire.essentia, 10);
         this.essentia = int(empire.essentia);
