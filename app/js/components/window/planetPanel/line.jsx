@@ -1,19 +1,15 @@
 'use strict';
 
 var PropTypes = require('prop-types');
-
 var React = require('react');
-var createReactClass = require('create-react-class');
 
-var PlanetDetails = createReactClass({
-    displayName: 'PlanetDetails',
-
-    propTypes: {
+class Line extends React.Component {
+    static propTypes = {
         title: PropTypes.string.isRequired,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    },
+    };
 
-    render: function() {
+    render() {
         return (
             <div>
                 {this.props.title}:
@@ -26,7 +22,7 @@ var PlanetDetails = createReactClass({
                 </span>
             </div>
         );
-    },
-});
+    }
+}
 
-module.exports = PlanetDetails;
+module.exports = Line;

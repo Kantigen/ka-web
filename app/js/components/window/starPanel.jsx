@@ -2,32 +2,23 @@
 
 var React = require('react');
 
-var createReactClass = require('create-react-class');
-
 var Tabber = require('js/components/tabber');
 
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 
-var StarPanel = createReactClass({
-    displayName: 'StarPanel',
+class StarPanel extends React.Component {
+    static options = {
+        title: 'Star Details',
+        width: 700,
+        height: 420,
+    };
 
-    statics: {
-        options: {
-            title: 'Star Details',
-            width: 700,
-            height: 420,
-        },
-    },
-
-    mixins: [],
-    componentWillMount: function() {},
-
-    closeWindow: function() {
+    closeWindow() {
         WindowActions.windowCloseByType('planetPanel');
-    },
+    }
 
-    render: function() {
+    render() {
         var tabs = [];
         tabs.push(
             <Tab title='Star Details' key='Star Details'>
@@ -52,7 +43,7 @@ var StarPanel = createReactClass({
                 </div>
             </div>
         );
-    },
-});
+    }
+}
 
 module.exports = StarPanel;
