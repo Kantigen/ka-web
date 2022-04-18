@@ -1,5 +1,7 @@
 'use strict';
 
+import constants from 'app/js/constants';
+
 var _ = require('lodash');
 var util = require('js/util');
 
@@ -9,8 +11,6 @@ var BodyRPCStore = require('js/stores/rpc/body');
 var MenuStore = require('js/stores/menu');
 var SessionStore = require('js/stores/session');
 var Captcha = require('js/components/window/captcha');
-
-var constants = require('js/constants');
 
 var defaults = {
     module: '',

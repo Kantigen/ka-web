@@ -2,6 +2,8 @@
 
 YAHOO.namespace('lacuna');
 
+import constants from 'app/js/constants';
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -14,7 +16,6 @@ var SessionStore = require('js/stores/session');
 var TickerStore = require('js/stores/ticker');
 var WindowsStore = require('js/stores/windows');
 
-var constants = require('js/constants');
 var server = require('js/server');
 
 if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
@@ -176,7 +177,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         },
                         function() {
                             Dom.get('internalErrorMessageText').value = o.error.data;
-                        }
+                        },
+                        null
                     );
                 } else {
                     fail();
@@ -220,7 +222,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                                         },
                                     },
                                 ],
-                            });
+                            }, null, null);
                         }
                     });
                 }

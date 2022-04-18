@@ -1,5 +1,3 @@
-'use strict';
-
 require('shims/jquery');
 require('shims/yahoo');
 
@@ -27,6 +25,8 @@ require('js-yui/profile');
 require('js-yui/stats');
 require('js-yui/notify');
 require('js/components/menu');
+
+declare const YAHOO: any;
 
 const init = () => {
     // TODO this code can be improved.

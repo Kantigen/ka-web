@@ -1,10 +1,20 @@
-'use strict';
+interface AppConfig {
+    ASSETS_URL: string;
+    NEW_SERVER_DATE_FORMAT: string;
+    OLD_SERVER_DATE_FORMAT: string;
+    RPC_BASE: string;
+    WS_BASE: string;
+    FLEET_TAGS: any;
+    FLEET_TASKS: any;
+    FLEET_TYPES: any;
+    ORES: any;
+};
 
-var constants = {
+const constants:AppConfig = {
     ASSETS_URL: process.env.KA_ASSETS_URL,
     NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
-    RPC_BASE: (function() {
+    RPC_BASE: (function(): string {
         var url = process.env.KA_SERVER_URL;
         var lastChar = url.slice(-1);
 
@@ -117,4 +127,4 @@ var constants = {
     },
 };
 
-module.exports = constants;
+export default constants;

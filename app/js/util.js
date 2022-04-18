@@ -1,9 +1,9 @@
 'use strict';
 
+import constants from 'app/js/constants';
+
 var moment = require('moment');
 var _ = require('lodash');
-
-var constants = require('js/constants');
 
 var xPad = function(x, pad, r) {
     if (typeof r === 'undefined') {
@@ -90,9 +90,7 @@ module.exports.formatTime = function(totalSeconds) {
     var seconds = Math.floor(sleft % 60);
 
     if (day > 0) {
-        return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(
-            ':'
-        );
+        return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(':');
     } else if (hour > 0) {
         return [hour, xPad(min, '0'), xPad(seconds, '0')].join(':');
     } else {

@@ -2,6 +2,7 @@
 
 var browserify = require('browserify');
 var watchify = require('watchify');
+var tsify = require('tsify');
 
 var gutil = require('gulp-util');
 
@@ -14,7 +15,6 @@ function handleBundle(b, options) {
         .bundle()
         .on('error', function(err) {
             gutil.log(gutil.colors.red('Browserify compile error:'), err.message);
-            this.emit('end');
         })
         .pipe(fs.createWriteStream(path.join(options.rootDir, 'bundle.js')));
 }
@@ -40,15 +40,21 @@ function loadConfig(env) {
 }
 
 module.exports = function(options) {
-    var b = browserify(['./app/js/load.js'], {
-        extensions: ['.jsx'],
+    const plugins = [tsify];
+
+    if (options.watch) {
+        plugins.push(watchify);
+    }
+
+    var b = browserify(['./app/js/load.ts'], {
+        extensions: ['.jsx', '.tsx'],
         paths: [path.join(options.rootDir, 'app')],
         ignoreMissing: true,
 
         // watchify options
         cache: {},
         packageCache: {},
-        plugin: options.watch ? [watchify] : [],
+        plugin: plugins,
     });
 
     // This transforms all the .jsx files into JavaScript.
