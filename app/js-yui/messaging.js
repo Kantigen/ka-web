@@ -1,9 +1,9 @@
 'use strict';
 
-var MailWindowStore = require('js/stores/window/mail');
+var MailWindowStore = require('app/js/stores/window/mail');
 
-var constants = require('js/constants');
-var EmpireRPCStore = require('js/stores/rpc/empire');
+var constants = require('app/js/constants');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
 
 var _ = require('lodash');
 
@@ -533,12 +533,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
 
                             this.processMessages(o.result, { inbox: 1 });
                             this.fireEvent('onPageLoaded', o);
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                         },
                         scope: this,
                     };
 
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 if (this.tag && this.tag == 'Unread') {
                     InboxServ.view_unread(data, cb);
                 } else {
@@ -559,7 +559,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_sent(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -583,7 +583,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { sent: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -599,7 +599,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_archived(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -623,7 +623,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { archive: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -639,7 +639,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_trashed(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -663,7 +663,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { trash: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -679,11 +679,11 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         success: function(o) {
                             this.fireEvent('onRpc', o.result);
                             this.processMessages(o.result, { inbox: 1 });
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                         },
                         scope: this,
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 if (this.tag && this.tag == 'Unread') {
                     InboxServ.view_unread(data, cb);
                 } else {
@@ -702,12 +702,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_sent(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { sent: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -721,12 +721,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_archived(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { archive: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -740,12 +740,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 InboxServ.view_trashed(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { trash: 1 });
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                     },
                     scope: this,
                 });
@@ -867,7 +867,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             message_id: msg.id,
                         };
 
-                    require('js/stores/menu').showLoader();
+                    require('app/js/stores/menu').showLoader();
                     InboxServ.read_message(data, {
                         success: function(o) {
                             var message = matchedEl.parentNode;
@@ -877,7 +877,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             Dom.removeClass(matchedEl.parentNode, 'unread');
                             this.fireEvent('onRpc', o.result);
                             this.displayMessage(o.result.message);
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                         },
                         scope: this,
                     });
@@ -1302,7 +1302,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 Event.stopEvent(e);
                 var res = el.href.match(/\#(-?\d+)$/);
                 this.hide();
-                require('js/stores/menu').changePlanet(res[1]);
+                require('app/js/stores/menu').changePlanet(res[1]);
                 //Game.PlanetJump(planet);
             },
             handleAllianceLink: function(e, el) {

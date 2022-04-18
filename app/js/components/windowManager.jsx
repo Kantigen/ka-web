@@ -2,17 +2,17 @@ var React = require('react');
 var { observer } = require('mobx-react');
 var _ = require('lodash');
 
-var WindowsStore = require('js/stores/windows');
-var Panel = require('js/components/window/panel');
+var WindowsStore = require('app/js/stores/windows');
+var Panel = require('app/js/components/window/panel');
 
 const WINDOW_MAP = {
-    about: require('js/components/window/about'),
-    essentia: require('js/components/window/essentia'),
-    genericBuilding: require('js/components/window/genericBuilding'),
-    invite: require('js/components/window/invite'),
-    planetPanel: require('js/components/window/planetPanel'),
-    serverClock: require('js/components/window/serverClock'),
-    starPanel: require('js/components/window/starPanel'),
+    about: require('app/js/components/window/about'),
+    essentia: require('app/js/components/window/essentia'),
+    genericBuilding: require('app/js/components/window/genericBuilding'),
+    invite: require('app/js/components/window/invite'),
+    planetPanel: require('app/js/components/window/planetPanel'),
+    serverClock: require('app/js/components/window/serverClock'),
+    starPanel: require('app/js/components/window/starPanel'),
 };
 
 class WindowManager extends React.Component {

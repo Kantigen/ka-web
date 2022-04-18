@@ -2,9 +2,9 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var InviteRPCStore = require('js/stores/rpc/empire/invite');
-var EmpireService = require('js/services/empire');
-var WindowsStore = require('js/stores/windows');
+var InviteRPCStore = require('app/js/stores/rpc/empire/invite');
+var EmpireService = require('app/js/services/empire');
+var WindowsStore = require('app/js/stores/windows');
 
 class InviteWindow extends React.Component {
     static options = {

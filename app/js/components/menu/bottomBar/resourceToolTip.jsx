@@ -5,7 +5,7 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var classnames = require('classnames');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class ResourceToolTip extends React.Component {
     static propTypes = {
@@ -42,8 +42,7 @@ class ResourceToolTip extends React.Component {
             return (
                 <div>
                     <i className='large wait icon'></i>
-                    Full in{' '}
-                    {util.formatTime((3600 * (capicity - stored)) / hour)}
+                    Full in {util.formatTime((3600 * (capicity - stored)) / hour)}
                 </div>
             );
         } else if (hour > 0 && stored > 0 && !hasCapicity) {
@@ -67,8 +66,7 @@ class ResourceToolTip extends React.Component {
         var body = this.props.body;
 
         var hour = body[this.props.type + '_hour'];
-        var stored =
-            body[this.props.type + '_stored'] || body[this.props.type] || 0;
+        var stored = body[this.props.type + '_stored'] || body[this.props.type] || 0;
         var capicity = body[this.props.type + '_capacity'];
 
         // Some resources (happiness) do not have a storage limit.
@@ -89,11 +87,8 @@ class ResourceToolTip extends React.Component {
                 </div>
 
                 <div>
-                    <i
-                        className={classnames(this.props.icon, 'large icon')}
-                    ></i>
-                    {util.commify(stored)}{' '}
-                    {hasCapicity ? ' / ' + util.commify(capicity) : ''}
+                    <i className={classnames(this.props.icon, 'large icon')}></i>
+                    {util.commify(stored)} {hasCapicity ? ' / ' + util.commify(capicity) : ''}
                 </div>
 
                 <div>

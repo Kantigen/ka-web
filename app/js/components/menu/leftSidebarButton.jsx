@@ -3,8 +3,8 @@
 var React = require('react');
 var { observer } = require('mobx-react');
 
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var MenuStore = require('js/stores/menu');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var MenuStore = require('app/js/stores/menu');
 
 class LeftSidebarButton extends React.Component {
     clickLeftSidebarButton() {

@@ -1,30 +1,30 @@
-require('shims/jquery');
-require('shims/yahoo');
+require('app/shims/jquery');
+require('app/shims/yahoo');
 
-require('vendor-css/semantic.css');
-require('vendor-css/vex.css');
-require('vendor-css/vex-theme-default.css');
-require('css/styles.css');
+require('app/vendor-css/semantic.css');
+require('app/vendor-css/vex.css');
+require('app/vendor-css/vex-theme-default.css');
+require('app/css/styles.css');
 require('react-tabs/style/react-tabs.css');
 
-require('js-yui/library');
-require('js-yui/textboxList');
-require('js-yui/smd');
-require('js-yui/rpc');
-require('js/game');
-require('js-yui/announce');
-require('js-yui/speciesDesigner');
-require('js-yui/createSpecies');
-require('js-yui/createEmpire');
-require('js-yui/login');
-require('js-yui/mapper');
-require('js-yui/mapStar');
-require('js-yui/mapPlanet');
-require('js-yui/messaging');
-require('js-yui/profile');
-require('js-yui/stats');
-require('js-yui/notify');
-require('js/components/menu');
+require('app/js-yui/library');
+require('app/js-yui/textboxList');
+require('app/js-yui/smd');
+require('app/js-yui/rpc');
+require('app/js/game');
+require('app/js-yui/announce');
+require('app/js-yui/speciesDesigner');
+require('app/js-yui/createSpecies');
+require('app/js-yui/createEmpire');
+require('app/js-yui/login');
+require('app/js-yui/mapper');
+require('app/js-yui/mapStar');
+require('app/js-yui/mapPlanet');
+require('app/js-yui/messaging');
+require('app/js-yui/profile');
+require('app/js-yui/stats');
+require('app/js-yui/notify');
+require('app/js/components/menu');
 
 declare const YAHOO: any;
 

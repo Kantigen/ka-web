@@ -1,10 +1,10 @@
 'use strict';
 
-var StatsWindowStore = require('js/stores/window/stats');
+var StatsWindowStore = require('app/js/stores/window/stats');
 
 var _ = require('lodash');
 
-var constants = require('js/constants');
+var constants = require('app/js/constants');
 
 YAHOO.namespace('lacuna');
 
@@ -181,11 +181,11 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             },
 
             getServerStats: function() {
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 Util.Connect.asyncRequest('GET', 'server_overview.json', {
                     success: function(o) {
                         YAHOO.log(o, 'info', 'Stats.populateServerStats.success');
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                         try {
                             this._serverOverview = Lang.JSON.parse(o.responseText);
                             this.populateServerStats();

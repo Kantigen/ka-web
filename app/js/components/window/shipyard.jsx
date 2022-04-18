@@ -6,14 +6,14 @@ var React = require('react');
 var createReactClass = require('create-react-class');
 var _ = require('lodash');
 
-var GenericBuildingStore = require('js/stores/rpc/genericBuilding');
+var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
 
-var StandardTabs = require('js/components/window/building/standardTabs');
-var BuildingInformation = require('js/components/window/building/information');
-var BuildFleetTab = require('js/components/window/shipyard/buildFleetTab');
-var BuildQueueTab = require('js/components/window/shipyard/buildQueueTab');
+var StandardTabs = require('app/js/components/window/building/standardTabs');
+var BuildingInformation = require('app/js/components/window/building/information');
+var BuildFleetTab = require('app/js/components/window/shipyard/buildFleetTab');
+var BuildQueueTab = require('app/js/components/window/shipyard/buildQueueTab');
 
-var Tabber = require('js/components/tabber');
+var Tabber = require('app/js/components/tabber');
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;
 

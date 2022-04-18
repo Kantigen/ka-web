@@ -2,7 +2,7 @@
 
 const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
-var util = require('js/util');
+var util = require('app/js/util');
 var int = util.int;
 var clone = util.clone;
 

@@ -2,7 +2,7 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var StatsWindowStore = require('js/stores/window/stats');
+var StatsWindowStore = require('app/js/stores/window/stats');
 
 class StatsWindow extends React.Component {
     render() {

@@ -1,9 +1,9 @@
 'use strict';
 
 const { makeAutoObservable } = require('mobx');
-var ServerRPCStore = require('js/stores/rpc/server');
+var ServerRPCStore = require('app/js/stores/rpc/server');
 var _ = require('lodash');
-var util = require('js/util');
+var util = require('app/js/util');
 var int = util.int;
 
 class BodyRPCStore {

@@ -4,9 +4,9 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ResourceAttribute = require('js/components/window/shipyard/resourceAttribute');
+var ResourceAttribute = require('app/js/components/window/shipyard/resourceAttribute');
 
-var constants = require('js/constants');
+var constants = require('app/js/constants');
 
 class BuildFleetItem extends React.Component {
     static propTypes = {
@@ -25,8 +25,7 @@ class BuildFleetItem extends React.Component {
         };
 
         var obj = this.props.obj;
-        var shipImage =
-            constants.ASSETS_URL + 'ships/' + obj.details.type + '.png';
+        var shipImage = constants.ASSETS_URL + 'ships/' + obj.details.type + '.png';
 
         return (
             <div>
@@ -43,46 +42,19 @@ class BuildFleetItem extends React.Component {
                     </div>
 
                     <div className='four wide column'>
-                        <ResourceAttribute
-                            name={'Quantity'}
-                            attr={obj.quantity}
-                        />
-                        <ResourceAttribute
-                            name={'Speed'}
-                            attr={obj.details.speed}
-                        />
-                        <ResourceAttribute
-                            name={'Berth Level'}
-                            attr={obj.details.berth_level}
-                        />
-                        <ResourceAttribute
-                            name={'Hold Size'}
-                            attr={obj.details.hold_size}
-                        />
+                        <ResourceAttribute name={'Quantity'} attr={obj.quantity} />
+                        <ResourceAttribute name={'Speed'} attr={obj.details.speed} />
+                        <ResourceAttribute name={'Berth Level'} attr={obj.details.berth_level} />
+                        <ResourceAttribute name={'Hold Size'} attr={obj.details.hold_size} />
                         <ResourceAttribute
                             name={'Max Occupants'}
                             attr={obj.details.max_occupants}
                         />
-                        <ResourceAttribute
-                            name={'Combat'}
-                            attr={obj.details.combat}
-                        />
-                        <ResourceAttribute
-                            name={'Stealth'}
-                            attr={obj.details.stealth}
-                        />
-                        <ResourceAttribute
-                            name={'Name'}
-                            attr={obj.details.name}
-                        />
-                        <ResourceAttribute
-                            name={'Type'}
-                            attr={obj.details.type}
-                        />
-                        <ResourceAttribute
-                            name={'Marque'}
-                            attr={obj.details.mark}
-                        />
+                        <ResourceAttribute name={'Combat'} attr={obj.details.combat} />
+                        <ResourceAttribute name={'Stealth'} attr={obj.details.stealth} />
+                        <ResourceAttribute name={'Name'} attr={obj.details.name} />
+                        <ResourceAttribute name={'Type'} attr={obj.details.type} />
+                        <ResourceAttribute name={'Marque'} attr={obj.details.mark} />
                     </div>
 
                     <div className='four wide column'>buttons</div>

@@ -2,7 +2,7 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var MenuStore = require('js/stores/menu');
+var MenuStore = require('app/js/stores/menu');
 
 var classNames = require('classnames');
 

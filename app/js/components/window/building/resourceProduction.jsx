@@ -4,9 +4,9 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ResourceLine = require('js/components/window/building/resourceLine');
+var ResourceLine = require('app/js/components/window/building/resourceLine');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class ResourceProduction extends React.Component {
     static propTypes = {

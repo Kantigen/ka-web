@@ -5,7 +5,7 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var classnames = require('classnames');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class ResourceLine extends React.Component {
     static propTypes = {

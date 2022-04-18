@@ -2,7 +2,7 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var OptionsWindowStore = require('js/stores/window/options');
+var OptionsWindowStore = require('app/js/stores/window/options');
 
 class OptionsWindow extends React.Component {
     render() {

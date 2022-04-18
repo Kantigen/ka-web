@@ -1,9 +1,9 @@
 'use strict';
 
-const BoostsRPCStore = require('js/stores/rpc/empire/boosts');
-const InviteRPCStore = require('js/stores/rpc/empire/invite');
-const server = require('js/server');
-const vex = require('js/vex');
+const BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
+const InviteRPCStore = require('app/js/stores/rpc/empire/invite');
+const server = require('app/js/server');
+const vex = require('app/js/vex');
 
 class EmpireService {
     getBoosts() {

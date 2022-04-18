@@ -2,8 +2,8 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var vex = require('js/vex');
-var WindowsStore = require('js/stores/windows');
+var vex = require('app/js/vex');
+var WindowsStore = require('app/js/stores/windows');
 
 class GetEssentiaTab extends React.Component {
     purchase() {

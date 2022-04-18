@@ -1,7 +1,7 @@
 YAHOO.namespace('lacuna');
 
-const ServerRPCStore = require('js/stores/rpc/server');
-const server = require('js/server');
+const ServerRPCStore = require('app/js/stores/rpc/server');
+const server = require('app/js/server');
 
 if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
     (function() {
@@ -1285,7 +1285,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
                     }
                 } else {
                     //YAHOO.log(data, "debug", "StarMap.getTileData.requestData");
-                    require('js/stores/menu').showLoader();
+                    require('app/js/stores/menu').showLoader();
                     Game.Services.Map.get_star_map(
                         {
                             args: {
@@ -1299,7 +1299,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
                         {
                             success: function(o) {
                                 //YAHOO.log(o, "debug", "StarMap.getTileData.get_stars.success");
-                                require('js/stores/menu').hideLoader();
+                                require('app/js/stores/menu').hideLoader();
                                 if (o && o.result) {
                                     server.splitStatus(o.result);
                                     this.addTileData(o.result.stars);

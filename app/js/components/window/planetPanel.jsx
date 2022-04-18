@@ -2,11 +2,11 @@
 
 var React = require('react');
 var PropTypes = require('prop-types');
-var server = require('js/server');
-var util = require('js/util');
+var server = require('app/js/server');
+var util = require('app/js/util');
 
-var PlanetDetailsTab = require('js/components/window/planetPanel/planetDetailsTab');
-var Tabber = require('js/components/tabber');
+var PlanetDetailsTab = require('app/js/components/window/planetPanel/planetDetailsTab');
+var Tabber = require('app/js/components/tabber');
 
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;

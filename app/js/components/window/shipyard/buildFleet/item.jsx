@@ -4,11 +4,11 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ResourceLine = require('js/components/window/shipyard/resourceLine');
-var ResourceAttribute = require('js/components/window/shipyard/resourceAttribute');
-var BuildButton = require('js/components/window/shipyard/buildFleet/button');
+var ResourceLine = require('app/js/components/window/shipyard/resourceLine');
+var ResourceAttribute = require('app/js/components/window/shipyard/resourceAttribute');
+var BuildButton = require('app/js/components/window/shipyard/buildFleet/button');
 
-var constants = require('js/constants');
+var constants = require('app/js/constants');
 
 class BuildFleetItem extends React.Component {
     static propTypes = {
@@ -31,8 +31,7 @@ class BuildFleetItem extends React.Component {
         };
 
         var obj = this.props.obj;
-        var shipImage =
-            constants.ASSETS_URL + 'ships/' + this.props.fleetType + '.png';
+        var shipImage = constants.ASSETS_URL + 'ships/' + this.props.fleetType + '.png';
         var reason = '';
         var canBuild = 1;
 
@@ -62,38 +61,20 @@ class BuildFleetItem extends React.Component {
                         <ResourceLine icon={'food'} cost={obj.cost.food} />
                         <ResourceLine icon={'diamond'} cost={obj.cost.ore} />
                         <ResourceLine icon={'theme'} cost={obj.cost.water} />
-                        <ResourceLine
-                            icon={'lightning'}
-                            cost={obj.cost.energy}
-                        />
+                        <ResourceLine icon={'lightning'} cost={obj.cost.energy} />
                         <ResourceLine icon={'wait'} cost={obj.cost.time} />
                     </div>
 
                     <div className='four wide column'>
-                        <ResourceAttribute
-                            name={'Speed'}
-                            attr={obj.attributes.speed}
-                        />
-                        <ResourceAttribute
-                            name={'Berth Level'}
-                            attr={obj.attributes.berth_level}
-                        />
-                        <ResourceAttribute
-                            name={'Hold Size'}
-                            attr={obj.attributes.hold_size}
-                        />
+                        <ResourceAttribute name={'Speed'} attr={obj.attributes.speed} />
+                        <ResourceAttribute name={'Berth Level'} attr={obj.attributes.berth_level} />
+                        <ResourceAttribute name={'Hold Size'} attr={obj.attributes.hold_size} />
                         <ResourceAttribute
                             name={'Max Occupants'}
                             attr={obj.attributes.max_occupants}
                         />
-                        <ResourceAttribute
-                            name={'Combat'}
-                            attr={obj.attributes.combat}
-                        />
-                        <ResourceAttribute
-                            name={'Stealth'}
-                            attr={obj.attributes.stealth}
-                        />
+                        <ResourceAttribute name={'Combat'} attr={obj.attributes.combat} />
+                        <ResourceAttribute name={'Stealth'} attr={obj.attributes.stealth} />
                     </div>
 
                     <div className='four wide column'>

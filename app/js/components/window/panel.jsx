@@ -2,13 +2,13 @@
 
 var PropTypes = require('prop-types');
 
-var WindowsStore = require('js/stores/windows');
+var WindowsStore = require('app/js/stores/windows');
 
 var React = require('react');
 var Draggable = require('react-draggable');
 
-var PanelHeader = require('js/components/window/panel/panelHeader');
-var PanelContent = require('js/components/window/panel/panelContent');
+var PanelHeader = require('app/js/components/window/panel/panelHeader');
+var PanelContent = require('app/js/components/window/panel/panelContent');
 
 class Panel extends React.Component {
     static propTypes = {

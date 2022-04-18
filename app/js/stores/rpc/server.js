@@ -3,8 +3,8 @@
 const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
 var moment = require('moment');
-var util = require('js/util');
-var constants = require('js/constants');
+var util = require('app/js/util');
+var constants = require('app/js/constants');
 
 class ServerRPCStore {
     time = '01 31 2010 13:09:05 +0600';

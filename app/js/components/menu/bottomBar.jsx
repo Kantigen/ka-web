@@ -5,18 +5,18 @@ var ReactDOM = require('react-dom');
 var ReactDOMServer = require('react-dom/server');
 var { observer } = require('mobx-react');
 
-var BodyRPCStore = require('js/stores/rpc/body');
-var ServerRPCStore = require('js/stores/rpc/server');
-var EmpireRPCStore = require('js/stores/rpc/empire');
+var BodyRPCStore = require('app/js/stores/rpc/body');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
 
-var BottomBarSection = require('js/components/menu/bottomBar/bottomBarSection');
+var BottomBarSection = require('app/js/components/menu/bottomBar/bottomBarSection');
 
-var BuildingCountToolTip = require('js/components/menu/bottomBar/buildingCountToolTip');
-var BuildQueueToolTip = require('js/components/menu/bottomBar/buildQueueToolTip');
-var ResourceToolTip = require('js/components/menu/bottomBar/resourceToolTip');
-var RPCCountToolTip = require('js/components/menu/bottomBar/rpcCountToolTip');
+var BuildingCountToolTip = require('app/js/components/menu/bottomBar/buildingCountToolTip');
+var BuildQueueToolTip = require('app/js/components/menu/bottomBar/buildQueueToolTip');
+var ResourceToolTip = require('app/js/components/menu/bottomBar/resourceToolTip');
+var RPCCountToolTip = require('app/js/components/menu/bottomBar/rpcCountToolTip');
 
-var util = require('js/util');
+var util = require('app/js/util');
 var rn = util.reduceNumber;
 
 class BottomBar extends React.Component {

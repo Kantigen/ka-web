@@ -2,12 +2,12 @@
 
 var React = require('react');
 
-var AboutTab = require('js/components/window/about/aboutTab');
-var CreditsTab = require('js/components/window/about/creditsTab');
+var AboutTab = require('app/js/components/window/about/aboutTab');
+var CreditsTab = require('app/js/components/window/about/creditsTab');
 
-var { Tabs, Tab } = require('js/components/tabber');
+var { Tabs, Tab } = require('app/js/components/tabber');
 
-var WindowsStore = require('js/stores/windows');
+var WindowsStore = require('app/js/stores/windows');
 
 class AboutWindow extends React.Component {
     static options = {

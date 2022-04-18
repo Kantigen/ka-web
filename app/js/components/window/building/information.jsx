@@ -4,8 +4,8 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var constants = require('js/constants');
-var resources = require('js/resources');
+var constants = require('app/js/constants');
+var resources = require('app/js/resources');
 
 class BuildingInformation extends React.Component {
     static propTypes = {

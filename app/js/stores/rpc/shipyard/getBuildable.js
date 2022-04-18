@@ -1,8 +1,8 @@
 'use strict';
 
-// var util = require('js/util');
+// var util = require('app/js/util');
 
-// var StatefulMixinsStore = require('js/stores/mixins/stateful');
+// var StatefulMixinsStore = require('app/js/stores/mixins/stateful');
 
 // var clone = util.clone;
 

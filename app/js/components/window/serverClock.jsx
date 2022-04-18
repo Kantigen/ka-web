@@ -3,9 +3,9 @@
 var React = require('react');
 var { observer } = require('mobx-react');
 
-var ServerRPCStore = require('js/stores/rpc/server');
-var TickerStore = require('js/stores/ticker');
-var WindowsStore = require('js/stores/windows');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var TickerStore = require('app/js/stores/ticker');
+var WindowsStore = require('app/js/stores/windows');
 
 class ServerClock extends React.Component {
     static options = {

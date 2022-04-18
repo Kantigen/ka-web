@@ -3,14 +3,14 @@
 import constants from 'app/js/constants';
 
 var _ = require('lodash');
-var util = require('js/util');
+var util = require('app/js/util');
 
-var ServerRPCStore = require('js/stores/rpc/server');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var BodyRPCStore = require('js/stores/rpc/body');
-var MenuStore = require('js/stores/menu');
-var SessionStore = require('js/stores/session');
-var Captcha = require('js/components/window/captcha');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var BodyRPCStore = require('app/js/stores/rpc/body');
+var MenuStore = require('app/js/stores/menu');
+var SessionStore = require('app/js/stores/session');
+var Captcha = require('app/js/components/window/captcha');
 
 var defaults = {
     module: '',

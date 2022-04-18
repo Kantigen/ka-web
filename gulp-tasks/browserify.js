@@ -48,7 +48,7 @@ module.exports = function(options) {
 
     var b = browserify(['./app/js/load.ts'], {
         extensions: ['.jsx', '.tsx'],
-        paths: [path.join(options.rootDir, 'app')],
+        paths: [path.join(options.rootDir)],
         ignoreMissing: true,
 
         // watchify options

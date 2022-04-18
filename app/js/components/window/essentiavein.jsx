@@ -5,14 +5,14 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var GenericBuildingStore = require('js/stores/rpc/genericBuilding');
+var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
 
-var StandardTabs = require('js/components/window/building/standardTabs');
+var StandardTabs = require('app/js/components/window/building/standardTabs');
 
-var BuildingInformation = require('js/components/window/building/information');
-var DrainTab = require('js/components/window/essentiavein/drainTab');
+var BuildingInformation = require('app/js/components/window/building/information');
+var DrainTab = require('app/js/components/window/essentiavein/drainTab');
 
-var { Tabs, Tab } = require('js/components/tabber');
+var { Tabs, Tab } = require('app/js/components/tabber');
 
 var EssentiaVein = createReactClass({
     displayName: 'EssentiaVein',

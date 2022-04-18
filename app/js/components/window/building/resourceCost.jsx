@@ -4,9 +4,9 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ResourceLine = require('js/components/window/building/resourceLine');
+var ResourceLine = require('app/js/components/window/building/resourceLine');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class ResourceCost extends React.Component {
     static propTypes = {
@@ -18,10 +18,7 @@ class ResourceCost extends React.Component {
     render() {
         var red = false;
 
-        if (
-            typeof this.props.stored === 'number' &&
-            this.props.number > this.props.stored
-        ) {
+        if (typeof this.props.stored === 'number' && this.props.number > this.props.stored) {
             red = true;
         }
 

@@ -7,16 +7,16 @@ import constants from 'app/js/constants';
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var GameWindow = require('js/components/gameWindow');
-var Captcha = require('js/components/window/captcha');
+var GameWindow = require('app/js/components/gameWindow');
+var Captcha = require('app/js/components/window/captcha');
 
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var MenuStore = require('js/stores/menu');
-var SessionStore = require('js/stores/session');
-var TickerStore = require('js/stores/ticker');
-var WindowsStore = require('js/stores/windows');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var MenuStore = require('app/js/stores/menu');
+var SessionStore = require('app/js/stores/session');
+var TickerStore = require('app/js/stores/ticker');
+var WindowsStore = require('app/js/stores/windows');
 
-var server = require('js/server');
+var server = require('app/js/server');
 
 if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
     (function() {
@@ -29,7 +29,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         var Lib = Lacuna.Library;
 
         var Game = {
-            Resources: require('json/resources'),
+            Resources: require('app/json/resources'),
             Services: {},
             Timeout: 60000,
             HourMS: 3600000, // (60min * 60sec * 1000ms),
@@ -49,7 +49,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
                 ReactDOM.render(<GameWindow />, document.getElementById('mainGameContainer'));
 
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
 
                 // add overlay manager functionality
                 Game.OverlayManager.hideAllBut = function(id) {
@@ -236,7 +236,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 this.InitLogin();
                 Lacuna.Game.LoginDialog.show(error);
                 MenuStore.hideMenu();
-                require('js/stores/menu').hideLoader();
+                require('app/js/stores/menu').hideLoader();
             },
             Run: function() {
                 // init event subscribtions if we need to
@@ -329,7 +329,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                                 }
                             };
                             YAHOO.log(o, 'error', logNS);
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                             Game.Failure(o, retry, failure);
                         },
                     };
@@ -413,7 +413,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             StarJump: function(star) {
                 YAHOO.log(star, 'debug', 'StarJump');
                 Game.OverlayManager.hideAll();
-                require('js/stores/menu/mapMode').setMapMode('starMap');
+                require('app/js/stores/menu/mapMode').setMapMode('starMap');
                 // Lacuna.MapPlanet.MapVisible(false);
                 // Lacuna.MapStar.MapVisible(true);
                 Lacuna.MapStar.Jump(star.x * 1, star.y * 1);

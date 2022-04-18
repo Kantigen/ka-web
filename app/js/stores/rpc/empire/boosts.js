@@ -1,9 +1,9 @@
 'use strict';
 
 const { makeAutoObservable } = require('mobx');
-var util = require('js/util');
-var ServerRPCStore = require('js/stores/rpc/server');
-var server = require('js/server');
+var util = require('app/js/util');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var server = require('app/js/server');
 
 class BoostsEmpireRPCStore {
     foodMsRemaining = 0;

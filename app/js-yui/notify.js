@@ -1,6 +1,6 @@
 'use strict';
 
-var BodyRPCStore = require('js/stores/rpc/body');
+var BodyRPCStore = require('app/js/stores/rpc/body');
 
 if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {
     (function() {

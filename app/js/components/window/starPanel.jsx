@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-var Tabber = require('js/components/tabber');
+var Tabber = require('app/js/components/tabber');
 
 var Tabs = Tabber.Tabs;
 var Tab = Tabber.Tab;

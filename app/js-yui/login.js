@@ -128,7 +128,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
         };
         Login.prototype = {
             handleLogin: function() {
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 this.setMessage('');
                 var EmpireServ = Game.Services.Empire;
                 Fingerprint2.get(
@@ -439,11 +439,11 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                     data.email = email;
                 }
                 this.EmailDialog.getButtons()[0].disabled = true;
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 Game.Services.Empire.send_password_reset_message(data, {
                     success: function(o) {
                         YAHOO.log(o, 'info', 'ResetPassword.sendEmail.success');
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                         this.showReset();
                     },
                     failure: function(o) {
@@ -470,7 +470,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 if (password1 != password2) {
                     alert('Passwords do not match!');
                 } else {
-                    require('js/stores/menu').showLoader();
+                    require('app/js/stores/menu').showLoader();
                     Game.Services.Empire.reset_password(
                         {
                             reset_key: reset_key,
@@ -481,7 +481,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                         {
                             success: function(o) {
                                 YAHOO.log(o, 'info', 'ResetPassword.resetPassword.success');
-                                require('js/stores/menu').hideLoader();
+                                require('app/js/stores/menu').hideLoader();
                                 this.fireEvent('onResetSuccessful', o);
                                 this.hide();
                             },

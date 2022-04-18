@@ -1,12 +1,12 @@
 YAHOO.namespace('lacuna');
 
 var _ = require('lodash');
-var WindowsStore = require('js/stores/windows');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var ServerRPCStore = require('js/stores/rpc/server');
-var BodyRPCStore = require('js/stores/rpc/body');
+var WindowsStore = require('app/js/stores/windows');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var BodyRPCStore = require('app/js/stores/rpc/body');
 
-var constants = require('js/constants');
+var constants = require('app/js/constants');
 
 if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
     (function() {
@@ -738,7 +738,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
             },
             LoadGrid: function(loc) {
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 if (!this._gridCreated) {
                     var starMap = document.createElement('div');
                     starMap.id = 'starMap';
@@ -770,7 +770,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
 
                 this.MapVisible(true);
-                require('js/stores/menu').hideLoader();
+                require('app/js/stores/menu').hideLoader();
             },
             GridClick: function(e, matchedEl, container) {
                 if (!this._map.controller.isDragging()) {
@@ -1043,7 +1043,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         {
                             success: function(o) {
                                 YAHOO.log(o, 'info', 'MapStar.ShipSend.send_ship.success');
-                                require('js/stores/menu').hideLoader();
+                                require('app/js/stores/menu').hideLoader();
                                 this.Self.fireEvent('onMapRpc', o.result);
                                 delete this.Self.currentShips;
                                 this.Self.GetShips(panel, target);
@@ -1220,7 +1220,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                                     },
                                     {
                                         success: function(o) {
-                                            require('js/stores/menu').hideLoader();
+                                            require('app/js/stores/menu').hideLoader();
                                             this.fireEvent('onMapRpc', o.result);
                                             delete this.currentShips;
                                             var details = Dom.get(
@@ -1522,7 +1522,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
 
             GetShips: function(panel, target) {
                 if (!this.currentShips) {
-                    require('js/stores/menu').showLoader();
+                    require('app/js/stores/menu').showLoader();
 
                     Game.Services.Buildings.SpacePort.get_ships_for(
                         {
@@ -1533,7 +1533,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                         {
                             success: function(o) {
                                 YAHOO.log(o, 'info', 'MapStar.ShowStar.get_ships_for.success');
-                                require('js/stores/menu').hideLoader();
+                                require('app/js/stores/menu').hideLoader();
                                 this.fireEvent('onMapRpc', o.result);
                                 this.currentShips = o.result;
 
@@ -1885,7 +1885,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 tab.elSpyShipsList.innerHTML = '';
                 tab.elMessage.innerHTML = '';
                 Dom.setStyle(tab.elSendButton, 'display', 'none');
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 var method, data;
                 if (tab.id == 'planetDetailSendSpies') {
                     method = 'prepare_send_spies';
@@ -1907,7 +1907,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                     success: function(o) {
                         YAHOO.log(o, 'info', 'MapStar.ShowSpies.' + method + '.success');
                         this.fireEvent('onMapRpc', o.result);
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                         tab.avail = {
                             spyShips: o.result.ships,
                             spies: o.result.spies,
@@ -2067,7 +2067,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
             },
             MoveSpyShip: function(e, matchedEl, tab) {
                 Event.stopEvent(e);
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 var shipId = matchedEl.parentNode.parentNode.parentNode.shipId,
                     spies = tab.spiesToMove,
                     data = {
@@ -2090,7 +2090,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
                 }
                 method(data, {
                     success: function(o) {
-                        require('js/stores/menu').hideLoader();
+                        require('app/js/stores/menu').hideLoader();
                         this.fireEvent('onMapRpc', o.result);
                         alert(
                             successMessage +

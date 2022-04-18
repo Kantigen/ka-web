@@ -1,7 +1,7 @@
 'use strict';
 
-const server = require('js/server');
-const GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
+const server = require('app/js/server');
+const GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
 
 class GenericBuildingService {
     view(url, id) {

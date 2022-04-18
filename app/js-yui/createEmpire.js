@@ -150,7 +150,7 @@ if (typeof YAHOO.lacuna.CreateEmpire == 'undefined' || !YAHOO.lacuna.CreateEmpir
                     Game.SpeciesCreator.show(this.savedEmpire.id);
                     this.hide(); //hide empire
                 } else {
-                    require('js/stores/menu').showLoader();
+                    require('app/js/stores/menu').showLoader();
                     var EmpireServ = Game.Services.Empire,
                         data = {
                             name: this.elName.value,
@@ -177,7 +177,7 @@ if (typeof YAHOO.lacuna.CreateEmpire == 'undefined' || !YAHOO.lacuna.CreateEmpir
                             this.savedEmpire = data;
                             this.savedEmpire.id = o.result;
                             Game.SpeciesCreator.show(o.result);
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                             this.hide(); //hide empire
                         },
                         failure: function(o) {

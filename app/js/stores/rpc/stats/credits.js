@@ -2,7 +2,7 @@
 
 const { makeAutoObservable } = require('mobx');
 var _ = require('lodash');
-var server = require('js/server');
+var server = require('app/js/server');
 
 class CreditsRPCStore {
     credits = [];

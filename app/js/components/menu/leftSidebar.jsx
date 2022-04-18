@@ -3,13 +3,13 @@
 var React = require('react');
 const { observer } = require('mobx-react');
 
-var vex = require('js/vex');
-var util = require('js/util');
+var vex = require('app/js/vex');
+var util = require('app/js/util');
 
-var MenuStore = require('js/stores/menu');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var WindowsStore = require('js/stores/windows');
-var OptionsWindowStore = require('js/stores/window/options');
+var MenuStore = require('app/js/stores/menu');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var WindowsStore = require('app/js/stores/windows');
+var OptionsWindowStore = require('app/js/stores/window/options');
 
 // Because there's a bit of special logic going on here, this is in a separate component.
 const SelfDestruct = observer(

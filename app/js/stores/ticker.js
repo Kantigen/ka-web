@@ -8,10 +8,10 @@
 
 const { makeAutoObservable } = require('mobx');
 const _ = require('lodash');
-const BoostsRPCStore = require('js/stores/rpc/empire/boosts');
-const EmpireRPCStore = require('js/stores/rpc/empire');
-const ServerRPCStore = require('js/stores/rpc/server');
-const BodyRPCStore = require('js/stores/rpc/body');
+const BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
+const EmpireRPCStore = require('app/js/stores/rpc/empire');
+const ServerRPCStore = require('app/js/stores/rpc/server');
+const BodyRPCStore = require('app/js/stores/rpc/body');
 
 const INTERVAL_TIME = 1000;
 

@@ -30,8 +30,7 @@ if (!Array.prototype.indexOf) {
     };
 }
 if (!String.prototype.titleCaps) {
-    String.small =
-        '(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)';
+    String.small = '(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)';
     String.punct = '([!"#$%&\'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)';
 
     String.prototype.titleCaps = function(replaceVal, withVal) {
@@ -58,18 +57,9 @@ if (!String.prototype.titleCaps) {
                 processVal
                     .substring(index, m ? m.index : processVal.length)
                     .replace(/\b([A-Za-z][a-z.'�]*)\b/g, fnUpper)
-                    .replace(
-                        RegExp('\\b' + String.small + '\\b', 'ig'),
-                        String.lower
-                    )
-                    .replace(
-                        RegExp('^' + String.punct + String.small + '\\b', 'ig'),
-                        fnPuntUpper
-                    )
-                    .replace(
-                        RegExp('\\b' + String.small + String.punct + '$', 'ig'),
-                        String.upper
-                    )
+                    .replace(RegExp('\\b' + String.small + '\\b', 'ig'), String.lower)
+                    .replace(RegExp('^' + String.punct + String.small + '\\b', 'ig'), fnPuntUpper)
+                    .replace(RegExp('\\b' + String.small + String.punct + '$', 'ig'), String.upper)
             );
 
             index = split.lastIndex;
@@ -102,7 +92,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
         var Util = YAHOO.util,
             Lang = YAHOO.lang,
             Dom = Util.Dom,
-            util = require('js/util'),
+            util = require('app/js/util'),
             assetUrl = process.env.KA_ASSETS_URL;
 
         var Library = {
@@ -222,9 +212,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
                                 output = [
                                     reason[1],
                                     ' Requires more ',
-                                    Lang.isArray(reason[2])
-                                        ? reason[2].join(', ')
-                                        : reason[2],
+                                    Lang.isArray(reason[2]) ? reason[2].join(', ') : reason[2],
                                 ].join('');
                                 break;
                             case 1012:
@@ -232,9 +220,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
                                     output = [
                                         reason[1],
                                         ' Requires higher production of ',
-                                        Lang.isArray(reason[2])
-                                            ? reason[2].join(', ')
-                                            : reason[2],
+                                        Lang.isArray(reason[2]) ? reason[2].join(', ') : reason[2],
                                     ].join('');
                                 } else {
                                     output = reason[1];
@@ -254,24 +240,15 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
                 return output;
             },
             formatServerDate: function(oDate) {
-                var dt =
-                    oDate instanceof Date
-                        ? oDate
-                        : Library.parseServerDate(oDate);
+                var dt = oDate instanceof Date ? oDate : Library.parseServerDate(oDate);
                 return Util.Date.format(dt, { format: '%m/%d/%Y %r' }, 'en');
             },
             formatServerDateShort: function(oDate) {
-                var dt =
-                    oDate instanceof Date
-                        ? oDate
-                        : Library.parseServerDate(oDate);
+                var dt = oDate instanceof Date ? oDate : Library.parseServerDate(oDate);
                 return Util.Date.format(dt, { format: '%m/%d %r' }, 'en');
             },
             formatServerDateTimeShort: function(oDate) {
-                var dt =
-                    oDate instanceof Date
-                        ? oDate
-                        : Library.parseServerDate(oDate);
+                var dt = oDate instanceof Date ? oDate : Library.parseServerDate(oDate);
                 return Util.Date.format(dt, { format: '%m/%d %I:%M%p' }, 'en');
             },
             formatUTC: function(oDate) {
@@ -385,8 +362,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
                 excavator: 'Excavator',
                 fighter: 'Fighter',
                 freighter: 'Freighter',
-                gas_giant_settlement_platform_ship:
-                    'Gas Giant Settlement Platform Ship',
+                gas_giant_settlement_platform_ship: 'Gas Giant Settlement Platform Ship',
                 mining_platform_ship: 'Mining Platform Ship',
                 observatory_seeker: 'Observatory Seeker',
                 probe: 'Probe',

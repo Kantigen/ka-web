@@ -2,11 +2,11 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var BoostsRPCStore = require('js/stores/rpc/empire/boosts');
-var EmpireService = require('js/services/empire');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
+var EmpireService = require('app/js/services/empire');
 
-var Boost = require('js/components/window/essentia/boost');
+var Boost = require('app/js/components/window/essentia/boost');
 
 class BoostsTab extends React.Component {
     componentDidMount() {

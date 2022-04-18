@@ -4,13 +4,13 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var { observer } = require('mobx-react');
 
-var BuildingInformation = require('js/components/window/building/information');
-var RepairTab = require('js/components/window/building/repairTab');
-var ProductionTab = require('js/components/window/building/productionTab');
+var BuildingInformation = require('app/js/components/window/building/information');
+var RepairTab = require('app/js/components/window/building/repairTab');
+var ProductionTab = require('app/js/components/window/building/productionTab');
 
-var { Tabs, Tab } = require('js/components/tabber');
-var GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
-var GenericBuildingService = require('js/services/genericBuilding');
+var { Tabs, Tab } = require('app/js/components/tabber');
+var GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
+var GenericBuildingService = require('app/js/services/genericBuilding');
 
 class GenericBuilding extends React.Component {
     static options = {

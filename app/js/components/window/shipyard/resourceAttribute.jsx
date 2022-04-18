@@ -4,7 +4,7 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class ResourceAttribute extends React.Component {
     static propTypes = {

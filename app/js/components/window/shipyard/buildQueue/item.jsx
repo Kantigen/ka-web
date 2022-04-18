@@ -4,12 +4,12 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var ResourceAttribute = require('js/components/window/shipyard/resourceAttribute');
-var SubsidizeButton = require('js/components/window/shipyard/buildQueue/subsidizeButton');
-var CountdownTimer = require('js/components/countdownTimer');
+var ResourceAttribute = require('app/js/components/window/shipyard/resourceAttribute');
+var SubsidizeButton = require('app/js/components/window/shipyard/buildQueue/subsidizeButton');
+var CountdownTimer = require('app/js/components/countdownTimer');
 
-var util = require('js/util');
-var constants = require('js/constants');
+var util = require('app/js/util');
+var constants = require('app/js/constants');
 
 class BuildQueueItem extends React.Component {
     static propTypes = {
@@ -28,8 +28,7 @@ class BuildQueueItem extends React.Component {
         };
 
         var obj = this.props.obj;
-        var shipImage =
-            constants.ASSETS_URL + 'ships/' + this.props.obj.type + '.png';
+        var shipImage = constants.ASSETS_URL + 'ships/' + this.props.obj.type + '.png';
 
         return (
             <div>
@@ -49,34 +48,16 @@ class BuildQueueItem extends React.Component {
                     </div>
 
                     <div className='four wide column'>
-                        <ResourceAttribute
-                            name={'Quantity'}
-                            attr={obj.quantity}
-                        />
-                        <ResourceAttribute
-                            name={'Speed'}
-                            attr={obj.attributes.speed}
-                        />
-                        <ResourceAttribute
-                            name={'Berth Level'}
-                            attr={obj.attributes.berth_level}
-                        />
-                        <ResourceAttribute
-                            name={'Hold Size'}
-                            attr={obj.attributes.hold_size}
-                        />
+                        <ResourceAttribute name={'Quantity'} attr={obj.quantity} />
+                        <ResourceAttribute name={'Speed'} attr={obj.attributes.speed} />
+                        <ResourceAttribute name={'Berth Level'} attr={obj.attributes.berth_level} />
+                        <ResourceAttribute name={'Hold Size'} attr={obj.attributes.hold_size} />
                         <ResourceAttribute
                             name={'Max Occupants'}
                             attr={obj.attributes.max_occupants}
                         />
-                        <ResourceAttribute
-                            name={'Combat'}
-                            attr={obj.attributes.combat}
-                        />
-                        <ResourceAttribute
-                            name={'Stealth'}
-                            attr={obj.attributes.stealth}
-                        />
+                        <ResourceAttribute name={'Combat'} attr={obj.attributes.combat} />
+                        <ResourceAttribute name={'Stealth'} attr={obj.attributes.stealth} />
                     </div>
 
                     <div className='four wide column'>
@@ -88,10 +69,7 @@ class BuildQueueItem extends React.Component {
                     </div>
 
                     <div className='five wide column'>
-                        <SubsidizeButton
-                            obj={obj}
-                            buildingId={this.props.buildingId}
-                        />
+                        <SubsidizeButton obj={obj} buildingId={this.props.buildingId} />
                     </div>
                 </div>
 

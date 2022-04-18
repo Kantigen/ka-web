@@ -8,8 +8,8 @@ const { observer } = require('mobx-react');
 
 var classNames = require('classnames');
 
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var MenuStore = require('js/stores/menu');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var MenuStore = require('app/js/stores/menu');
 
 class PlanetListItem extends React.Component {
     static propTypes = {

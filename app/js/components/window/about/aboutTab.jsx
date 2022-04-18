@@ -3,7 +3,7 @@
 var React = require('react');
 var { observer } = require('mobx-react');
 
-var ServerRPCStore = require('js/stores/rpc/server');
+var ServerRPCStore = require('app/js/stores/rpc/server');
 
 class AboutTab extends React.Component {
     render() {

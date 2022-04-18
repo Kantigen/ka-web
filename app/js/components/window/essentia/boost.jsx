@@ -1,6 +1,6 @@
 'use strict';
 
-var vex = require('js/vex');
+var vex = require('app/js/vex');
 
 var PropTypes = require('prop-types');
 
@@ -8,8 +8,8 @@ var React = require('react');
 var { observer } = require('mobx-react');
 var classnames = require('classnames');
 var validator = require('validator');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var util = require('js/util');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var util = require('app/js/util');
 
 class Boost extends React.Component {
     static propTypes = {

@@ -3,8 +3,8 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 
-var PlanetDetails = require('js/components/window/planetPanel/planetDetails');
-var PlanetOre = require('js/components/window/planetPanel/planetOre');
+var PlanetDetails = require('app/js/components/window/planetPanel/planetDetails');
+var PlanetOre = require('app/js/components/window/planetPanel/planetOre');
 
 class PlanetDetailsTab extends React.Component {
     static propTypes = {

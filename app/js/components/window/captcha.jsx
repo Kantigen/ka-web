@@ -5,7 +5,7 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var CaptchaRPCStore = require('js/stores/rpc/captcha');
+var CaptchaRPCStore = require('app/js/stores/rpc/captcha');
 
 var Captcha = createReactClass({
     displayName: 'Captcha',

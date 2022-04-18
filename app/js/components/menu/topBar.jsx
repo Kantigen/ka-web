@@ -5,13 +5,13 @@ var classNames = require('classnames');
 var { observer } = require('mobx-react');
 var _ = require('lodash');
 
-var EmpireService = require('js/services/empire');
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var ServerRPCStore = require('js/stores/rpc/server');
-var MenuStore = require('js/stores/menu');
-var WindowsStore = require('js/stores/windows');
-var MailWindowStore = require('js/stores/window/mail');
-var StatsWindowStore = require('js/stores/window/stats');
+var EmpireService = require('app/js/services/empire');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var ServerRPCStore = require('app/js/stores/rpc/server');
+var MenuStore = require('app/js/stores/menu');
+var WindowsStore = require('app/js/stores/windows');
+var MailWindowStore = require('app/js/stores/window/mail');
+var StatsWindowStore = require('app/js/stores/window/stats');
 
 class TopBar extends React.Component {
     mapButtonTip() {

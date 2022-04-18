@@ -4,7 +4,7 @@ var PropTypes = require('prop-types');
 
 var React = require('react');
 
-var util = require('js/util');
+var util = require('app/js/util');
 
 class SpyTrainingStatus extends React.Component {
     static propTypes = {
@@ -30,10 +30,7 @@ class SpyTrainingStatus extends React.Component {
                     Points / hr / training spy
                     <div className='detail'>
                         {this.props.inTraining > 0
-                            ? util.int(
-                                  this.props.pointsPerHour /
-                                      this.props.inTraining
-                              )
+                            ? util.int(this.props.pointsPerHour / this.props.inTraining)
                             : 0}
                     </div>
                 </div>

@@ -3,10 +3,10 @@
 var React = require('react');
 var createReactClass = require('create-react-class');
 
-var GenericBuildingStore = require('js/stores/rpc/genericBuilding');
-var BodyRPCStore = require('js/stores/rpc/body');
+var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
+var BodyRPCStore = require('app/js/stores/rpc/body');
 
-var ResourceCost = require('js/components/window/building/resourceCost');
+var ResourceCost = require('app/js/components/window/building/resourceCost');
 
 var RepairTab = createReactClass({
     displayName: 'RepairTab',

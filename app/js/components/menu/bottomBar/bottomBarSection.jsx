@@ -5,7 +5,7 @@ var PropTypes = require('prop-types');
 var React = require('react');
 var classnames = require('classnames');
 
-var ProgressBar = require('js/components/menu/bottomBar/progressBar');
+var ProgressBar = require('app/js/components/menu/bottomBar/progressBar');
 
 class BottomBarSection extends React.Component {
     static propTypes = {
@@ -31,9 +31,7 @@ class BottomBarSection extends React.Component {
                     ''
                 )}
 
-                <i
-                    className={classnames(this.props.iconName, 'large icon')}
-                ></i>
+                <i className={classnames(this.props.iconName, 'large icon')}></i>
 
                 <p
                     style={{

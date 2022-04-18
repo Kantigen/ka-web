@@ -3,12 +3,12 @@
 var React = require('react');
 var { observer } = require('mobx-react');
 
-var EmpireRPCStore = require('js/stores/rpc/empire');
-var BoostsRPCStore = require('js/stores/rpc/empire/boosts');
-var BoostsTab = require('js/components/window/essentia/boostsTab');
-var GetEssentiaTab = require('js/components/window/essentia/getEssentiaTab');
+var EmpireRPCStore = require('app/js/stores/rpc/empire');
+var BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
+var BoostsTab = require('app/js/components/window/essentia/boostsTab');
+var GetEssentiaTab = require('app/js/components/window/essentia/getEssentiaTab');
 
-var { Tabs, Tab } = require('js/components/tabber');
+var { Tabs, Tab } = require('app/js/components/tabber');
 
 class Essentia extends React.Component {
     static options = {

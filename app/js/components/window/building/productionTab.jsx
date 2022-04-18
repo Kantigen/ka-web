@@ -6,16 +6,16 @@ var React = require('react');
 var { observer } = require('mobx-react');
 var _ = require('lodash');
 
-var BodyRPCStore = require('js/stores/rpc/body');
-var GenericBuildingRPCStore = require('js/stores/rpc/genericBuilding');
+var BodyRPCStore = require('app/js/stores/rpc/body');
+var GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
 
-var ActionButton = require('js/components/window/building/actionButton');
-var ResourceProduction = require('js/components/window/building/resourceProduction');
-var ResourceCost = require('js/components/window/building/resourceCost');
-var ResourceLine = require('js/components/window/building/resourceLine');
+var ActionButton = require('app/js/components/window/building/actionButton');
+var ResourceProduction = require('app/js/components/window/building/resourceProduction');
+var ResourceCost = require('app/js/components/window/building/resourceCost');
+var ResourceLine = require('app/js/components/window/building/resourceLine');
 
-var util = require('js/util');
-var vex = require('js/vex');
+var util = require('app/js/util');
+var vex = require('app/js/vex');
 
 class ProductionTab extends React.Component {
     onDemolishClick() {

@@ -91,14 +91,14 @@ if (typeof YAHOO.lacuna.CreateSpecies == 'undefined' || !YAHOO.lacuna.CreateSpec
             },
 
             _found: function() {
-                require('js/stores/menu').showLoader();
+                require('app/js/stores/menu').showLoader();
                 var EmpireServ = Game.Services.Empire;
                 EmpireServ.found(
                     { empire_id: this.empireId, api_key: Lib.ApiKey },
                     {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'CreateSpecies._found.success');
-                            require('js/stores/menu').hideLoader();
+                            require('app/js/stores/menu').hideLoader();
                             this.hide(); //hide species
                             this.fireEvent('onCreateSuccessful', o);
                         },

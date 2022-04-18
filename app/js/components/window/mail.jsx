@@ -2,7 +2,7 @@
 
 var React = require('react');
 var { observer } = require('mobx-react');
-var MailWindowStore = require('js/stores/window/mail');
+var MailWindowStore = require('app/js/stores/window/mail');
 
 class MailWindow extends React.Component {
     render() {

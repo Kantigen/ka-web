@@ -1,7 +1,7 @@
 'use strict';
 
-const CreditsRPCStore = require('js/stores/rpc/stats/credits');
-const server = require('js/server');
+const CreditsRPCStore = require('app/js/stores/rpc/stats/credits');
+const server = require('app/js/server');
 
 class StatsService {
     getCredits() {

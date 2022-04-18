@@ -1,14 +1,14 @@
 const React = require('react');
 const ReactTooltip = require('react-tooltip');
 
-const LeftSidebar = require('js/components/menu/leftSidebar');
-const RightSidebar = require('js/components/menu/rightSidebar');
-const Map = require('js/components/menu/map');
-const Menu = require('js/components/menu');
-const WindowManager = require('js/components/windowManager');
-const MailWindow = require('js/components/window/mail');
-const StatsWindow = require('js/components/window/stats');
-const OptionsWindow = require('js/components/window/options');
+const LeftSidebar = require('app/js/components/menu/leftSidebar');
+const RightSidebar = require('app/js/components/menu/rightSidebar');
+const Map = require('app/js/components/menu/map');
+const Menu = require('app/js/components/menu');
+const WindowManager = require('app/js/components/windowManager');
+const MailWindow = require('app/js/components/window/mail');
+const StatsWindow = require('app/js/components/window/stats');
+const OptionsWindow = require('app/js/components/window/options');
 
 //
 // This React component will be the main container of everything that appears on the screen.
