@@ -1,19 +1,17 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
+import GenericBuildingStore from 'app/js/stores/rpc/genericBuilding';
 
-var StandardTabs = require('app/js/components/window/building/standardTabs');
-var BuildingInformation = require('app/js/components/window/building/information');
-var SpyTrainingStatus = require('app/js/components/window/spyTraining/spyTrainingStatus');
+import StandardTabs from 'app/js/components/window/building/standardTabs';
+import BuildingInformation from 'app/js/components/window/building/information';
+import SpyTrainingStatus from 'app/js/components/window/spyTraining/spyTrainingStatus';
 
-var Tabber = require('app/js/components/tabber');
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+import { Tab, Tabs } from 'app/js/components/tabber';
 
 var PoliticsTraining = createReactClass({
     displayName: 'PoliticsTraining',
@@ -67,4 +65,4 @@ var PoliticsTraining = createReactClass({
     },
 });
 
-module.exports = PoliticsTraining;
+export default PoliticsTraining;

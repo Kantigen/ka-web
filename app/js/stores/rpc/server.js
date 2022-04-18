@@ -1,10 +1,10 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var _ = require('lodash');
-var moment = require('moment');
-var util = require('app/js/util');
-var constants = require('app/js/constants');
+import { makeAutoObservable } from 'mobx';
+import _ from 'lodash';
+import moment from 'moment';
+import * as util from 'app/js/util';
+import constants from 'app/js/constants';
 
 class ServerRPCStore {
     time = '01 31 2010 13:09:05 +0600';
@@ -82,4 +82,4 @@ class ServerRPCStore {
     }
 }
 
-module.exports = new ServerRPCStore();
+export default new ServerRPCStore();

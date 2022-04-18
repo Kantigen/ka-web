@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
-var EmpireService = require('app/js/services/empire');
+import React from 'react';
+import { observer } from 'mobx-react';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import BoostsRPCStore from 'app/js/stores/rpc/empire/boosts';
+import EmpireService from 'app/js/services/empire';
 
-var Boost = require('app/js/components/window/essentia/boost');
+import Boost from 'app/js/components/window/essentia/boost';
 
 class BoostsTab extends React.Component {
     componentDidMount() {
@@ -89,4 +89,4 @@ class BoostsTab extends React.Component {
     }
 }
 
-module.exports = observer(BoostsTab);
+export default observer(BoostsTab);

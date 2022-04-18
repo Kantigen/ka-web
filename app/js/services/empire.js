@@ -1,9 +1,10 @@
 'use strict';
 
-const BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
-const InviteRPCStore = require('app/js/stores/rpc/empire/invite');
-const server = require('app/js/server');
-const vex = require('app/js/vex');
+import ReactTooltip from 'react-tooltip';
+import BoostsRPCStore from 'app/js/stores/rpc/empire/boosts';
+import InviteRPCStore from 'app/js/stores/rpc/empire/invite';
+import server from 'app/js/server';
+import * as vex from 'app/js/vex';
 
 class EmpireService {
     getBoosts() {
@@ -62,4 +63,4 @@ class EmpireService {
     }
 }
 
-module.exports = new EmpireService();
+export default new EmpireService();

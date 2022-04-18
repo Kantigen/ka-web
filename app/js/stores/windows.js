@@ -1,7 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
-const { makeAutoObservable } = require('mobx');
+import _ from 'lodash';
+import { makeAutoObservable } from 'mobx';
 
 var findWindowByType = function(windows, type) {
     var index = _.findIndex(windows, function(o) {
@@ -99,4 +99,4 @@ class WindowsStore {
     }
 }
 
-module.exports = new WindowsStore();
+export default new WindowsStore();

@@ -1,9 +1,9 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
-var PLANET_MAP_MODE = 'planetMap';
-var STAR_MAP_MODE = 'starMap';
+export const PLANET_MAP_MODE = 'planetMap';
+export const STAR_MAP_MODE = 'starMap';
 
 class MenuStore {
     menuShown = false;
@@ -68,6 +68,4 @@ class MenuStore {
     }
 }
 
-module.exports = new MenuStore();
-module.exports.PLANET_MAP_MODE = PLANET_MAP_MODE;
-module.exports.STAR_MAP_MODE = STAR_MAP_MODE;
+export default new MenuStore();

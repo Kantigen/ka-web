@@ -1,15 +1,12 @@
 'use strict';
 
-var React = require('react');
-var PropTypes = require('prop-types');
-var server = require('app/js/server');
-var util = require('app/js/util');
+import React from 'react';
+import PropTypes from 'prop-types';
+import server from 'app/js/server';
+import * as util from 'app/js/util';
 
-var PlanetDetailsTab = require('app/js/components/window/planetPanel/planetDetailsTab');
-var Tabber = require('app/js/components/tabber');
-
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+import PlanetDetailsTab from 'app/js/components/window/planetPanel/planetDetailsTab';
+import { Tab, Tabs } from 'app/js/components/tabber';
 
 class PlanetPanel extends React.Component {
     static options = {
@@ -166,4 +163,4 @@ class PlanetPanel extends React.Component {
     }
 }
 
-module.exports = PlanetPanel;
+export default PlanetPanel;

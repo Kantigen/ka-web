@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react');
-var PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var PlanetDetails = require('app/js/components/window/planetPanel/planetDetails');
-var PlanetOre = require('app/js/components/window/planetPanel/planetOre');
+import PlanetDetails from 'app/js/components/window/planetPanel/planetDetails';
+import PlanetOre from 'app/js/components/window/planetPanel/planetOre';
 
 class PlanetDetailsTab extends React.Component {
     static propTypes = {
@@ -50,4 +50,4 @@ class PlanetDetailsTab extends React.Component {
     }
 }
 
-module.exports = PlanetDetailsTab;
+export default PlanetDetailsTab;

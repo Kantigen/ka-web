@@ -1,8 +1,8 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
 class SubsidizeButton extends React.Component {
     static propTypes = {
@@ -19,4 +19,4 @@ class SubsidizeButton extends React.Component {
     }
 }
 
-module.exports = SubsidizeButton;
+export default SubsidizeButton;

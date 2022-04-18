@@ -1,6 +1,6 @@
 'use strict';
 
-var { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
 class MailWindowStore {
     shown = false;
@@ -18,4 +18,4 @@ class MailWindowStore {
     }
 }
 
-module.exports = new MailWindowStore();
+export default new MailWindowStore();

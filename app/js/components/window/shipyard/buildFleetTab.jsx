@@ -1,14 +1,14 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
-var _ = require('lodash');
+import React from 'react';
+import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
-var GetBuildableShipyardRPCStore = require('app/js/stores/rpc/shipyard/getBuildable');
+import GetBuildableShipyardRPCStore from 'app/js/stores/rpc/shipyard/getBuildable';
 
-var BuildFleetItem = require('app/js/components/window/shipyard/buildFleet/item');
+import BuildFleetItem from 'app/js/components/window/shipyard/buildFleet/item';
 
 var BuildFleetTab = createReactClass({
     displayName: 'BuildFleetTab',
@@ -154,4 +154,4 @@ var BuildFleetTab = createReactClass({
     },
 });
 
-module.exports = BuildFleetTab;
+export default BuildFleetTab;

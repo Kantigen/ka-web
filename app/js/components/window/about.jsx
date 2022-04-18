@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
-var AboutTab = require('app/js/components/window/about/aboutTab');
-var CreditsTab = require('app/js/components/window/about/creditsTab');
+import AboutTab from 'app/js/components/window/about/aboutTab';
+import CreditsTab from 'app/js/components/window/about/creditsTab';
 
-var { Tabs, Tab } = require('app/js/components/tabber');
+import { Tabs, Tab } from 'app/js/components/tabber';
 
-var WindowsStore = require('app/js/stores/windows');
+import WindowsStore from 'app/js/stores/windows';
 
 class AboutWindow extends React.Component {
     static options = {
@@ -35,4 +35,4 @@ class AboutWindow extends React.Component {
     }
 }
 
-module.exports = AboutWindow;
+export default AboutWindow;

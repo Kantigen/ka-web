@@ -1,15 +1,15 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var _ = require('lodash');
-const { observer } = require('mobx-react');
+import React from 'react';
+import _ from 'lodash';
+import { observer } from 'mobx-react';
 
-var classNames = require('classnames');
+import classnames from 'classnames';
 
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var MenuStore = require('app/js/stores/menu');
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import MenuStore from 'app/js/stores/menu';
 
 class PlanetListItem extends React.Component {
     static propTypes = {
@@ -44,7 +44,7 @@ class PlanetListItem extends React.Component {
     };
 
     render() {
-        var classStr = classNames({
+        var classStr = classnames({
             'ui large teal label': this.isCurrentWorld(),
             item: !this.isCurrentWorld(),
         });
@@ -316,4 +316,4 @@ class RightSidebar extends React.Component {
     }
 }
 
-module.exports = observer(RightSidebar);
+export default observer(RightSidebar);

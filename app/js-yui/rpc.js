@@ -2,7 +2,7 @@
  * Code taken from inputEx's  (http://javascript.neyric.com/inputex/) rpc library and slightly modified
  */
 
-var server = require('app/js/server');
+import server from 'app/js/server';
 
 YAHOO.namespace('rpc');
 

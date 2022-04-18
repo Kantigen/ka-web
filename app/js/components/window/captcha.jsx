@@ -1,11 +1,11 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var CaptchaRPCStore = require('app/js/stores/rpc/captcha');
+import CaptchaRPCStore from 'app/js/stores/rpc/captcha';
 
 var Captcha = createReactClass({
     displayName: 'Captcha',
@@ -120,4 +120,4 @@ var Captcha = createReactClass({
     },
 });
 
-module.exports = Captcha;
+export default Captcha;

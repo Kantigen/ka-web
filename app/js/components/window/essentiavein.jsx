@@ -1,18 +1,18 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
+import GenericBuildingStore from 'app/js/stores/rpc/genericBuilding';
 
-var StandardTabs = require('app/js/components/window/building/standardTabs');
+import StandardTabs from 'app/js/components/window/building/standardTabs';
 
-var BuildingInformation = require('app/js/components/window/building/information');
-var DrainTab = require('app/js/components/window/essentiavein/drainTab');
+import BuildingInformation from 'app/js/components/window/building/information';
+import DrainTab from 'app/js/components/window/essentiavein/drainTab';
 
-var { Tabs, Tab } = require('app/js/components/tabber');
+import { Tabs, Tab } from 'app/js/components/tabber';
 
 var EssentiaVein = createReactClass({
     displayName: 'EssentiaVein',
@@ -61,4 +61,4 @@ var EssentiaVein = createReactClass({
     },
 });
 
-module.exports = EssentiaVein;
+export default EssentiaVein;

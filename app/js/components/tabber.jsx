@@ -1,6 +1,4 @@
-'use strict';
+import Tab from 'app/js/components/tabber/tab';
+import Tabs from 'app/js/components/tabber/tabs';
 
-module.exports = {
-    Tab: require('app/js/components/tabber/tab'),
-    Tabs: require('app/js/components/tabber/tabs'),
-};
+export { Tab, Tabs };

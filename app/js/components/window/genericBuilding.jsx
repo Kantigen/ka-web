@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
-var PropTypes = require('prop-types');
-var { observer } = require('mobx-react');
+import React from 'react';
+import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
 
-var BuildingInformation = require('app/js/components/window/building/information');
-var RepairTab = require('app/js/components/window/building/repairTab');
-var ProductionTab = require('app/js/components/window/building/productionTab');
+import BuildingInformation from 'app/js/components/window/building/information';
+import RepairTab from 'app/js/components/window/building/repairTab';
+import ProductionTab from 'app/js/components/window/building/productionTab';
 
-var { Tabs, Tab } = require('app/js/components/tabber');
-var GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
-var GenericBuildingService = require('app/js/services/genericBuilding');
+import { Tabs, Tab } from 'app/js/components/tabber';
+import GenericBuildingRPCStore from 'app/js/stores/rpc/genericBuilding';
+import GenericBuildingService from 'app/js/services/genericBuilding';
 
 class GenericBuilding extends React.Component {
     static options = {
@@ -65,4 +65,4 @@ class GenericBuilding extends React.Component {
     }
 }
 
-module.exports = observer(GenericBuilding);
+export default observer(GenericBuilding);

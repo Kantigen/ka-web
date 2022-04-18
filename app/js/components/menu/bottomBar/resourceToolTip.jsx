@@ -1,11 +1,11 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var classnames = require('classnames');
+import React from 'react';
+import classnames from 'classnames';
 
-var util = require('app/js/util');
+import * as util from 'app/js/util';
 
 class ResourceToolTip extends React.Component {
     static propTypes = {
@@ -104,4 +104,4 @@ class ResourceToolTip extends React.Component {
     }
 }
 
-module.exports = ResourceToolTip;
+export default ResourceToolTip;

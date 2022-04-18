@@ -4057,4 +4057,4 @@ throw new Error("You must supply an onSuccess handler for your sandbox");
 })();
 
 YAHOO.register("yuiloader", YAHOO.util.YUILoader, {version: "@VERSION@", build: "@BUILD@"});
-module.exports = YAHOO;
+window.YAHOO = YAHOO;

@@ -1,21 +1,19 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
-var _ = require('lodash');
+import React from 'react';
+import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
-var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
+import GenericBuildingStore from 'app/js/stores/rpc/genericBuilding';
 
-var StandardTabs = require('app/js/components/window/building/standardTabs');
-var BuildingInformation = require('app/js/components/window/building/information');
-var BuildFleetTab = require('app/js/components/window/shipyard/buildFleetTab');
-var BuildQueueTab = require('app/js/components/window/shipyard/buildQueueTab');
+import StandardTabs from 'app/js/components/window/building/standardTabs';
+import BuildingInformation from 'app/js/components/window/building/information';
+import BuildFleetTab from 'app/js/components/window/shipyard/buildFleetTab';
+import BuildQueueTab from 'app/js/components/window/shipyard/buildQueueTab';
 
-var Tabber = require('app/js/components/tabber');
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+import { Tab, Tabs } from 'app/js/components/tabber';
 
 var Shipyard = createReactClass({
     displayName: 'Shipyard',
@@ -90,4 +88,4 @@ var Shipyard = createReactClass({
     },
 });
 
-module.exports = Shipyard;
+export default Shipyard;

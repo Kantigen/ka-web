@@ -1,15 +1,15 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
-var ResourceAttribute = require('app/js/components/window/shipyard/resourceAttribute');
-var SubsidizeButton = require('app/js/components/window/shipyard/buildQueue/subsidizeButton');
-var CountdownTimer = require('app/js/components/countdownTimer');
+import ResourceAttribute from 'app/js/components/window/shipyard/resourceAttribute';
+import SubsidizeButton from 'app/js/components/window/shipyard/buildQueue/subsidizeButton';
+import CountdownTimer from 'app/js/components/countdownTimer';
 
-var util = require('app/js/util');
-var constants = require('app/js/constants');
+import * as util from 'app/js/util';
+import constants from 'app/js/constants';
 
 class BuildQueueItem extends React.Component {
     static propTypes = {
@@ -79,4 +79,4 @@ class BuildQueueItem extends React.Component {
     }
 }
 
-module.exports = BuildQueueItem;
+export default BuildQueueItem;

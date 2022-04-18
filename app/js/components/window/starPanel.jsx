@@ -1,11 +1,8 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
-var Tabber = require('app/js/components/tabber');
-
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+import { Tab, Tabs } from 'app/js/components/tabber';
 
 class StarPanel extends React.Component {
     static options = {
@@ -46,4 +43,4 @@ class StarPanel extends React.Component {
     }
 }
 
-module.exports = StarPanel;
+export default StarPanel;

@@ -1,9 +1,9 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var classnames = require('classnames');
+import React from 'react';
+import classnames from 'classnames';
 
 class ActionButton extends React.Component {
     static propTypes = {
@@ -39,12 +39,8 @@ class ActionButton extends React.Component {
             elementAttributes['data-type'] = 'error';
         }
 
-        return React.createElement(
-            'div',
-            elementAttributes,
-            <span>{this.props.actionName}</span>
-        );
+        return React.createElement('div', elementAttributes, <span>{this.props.actionName}</span>);
     }
 }
 
-module.exports = ActionButton;
+export default ActionButton;

@@ -1,6 +1,6 @@
 'use strict';
 
-var { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
 class OptionsWindowStore {
     shown = false;
@@ -18,4 +18,4 @@ class OptionsWindowStore {
     }
 }
 
-module.exports = new OptionsWindowStore();
+export default new OptionsWindowStore();

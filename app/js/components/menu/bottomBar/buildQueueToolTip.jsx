@@ -1,8 +1,8 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
 class RPCCountToolTip extends React.Component {
     static propTypes = {
@@ -13,8 +13,8 @@ class RPCCountToolTip extends React.Component {
         if (this.props.body.type === 'space station') {
             return (
                 <div>
-                    How many modules are queued to be built. Space stations do
-                    not have a build queue limit.
+                    How many modules are queued to be built. Space stations do not have a build
+                    queue limit.
                 </div>
             );
         } else {
@@ -34,4 +34,4 @@ class RPCCountToolTip extends React.Component {
     }
 }
 
-module.exports = RPCCountToolTip;
+export default RPCCountToolTip;

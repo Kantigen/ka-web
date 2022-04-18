@@ -1,9 +1,9 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
 
 class DrainTab extends React.Component {
     static propTypes = {
@@ -55,4 +55,4 @@ class DrainTab extends React.Component {
     }
 }
 
-module.exports = DrainTab;
+export default DrainTab;

@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');
-var PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var PlanetDetailLine = require('app/js/components/window/planetPanel/line');
+import PlanetDetailLine from 'app/js/components/window/planetPanel/line';
 
-var constants = require('app/js/constants');
+import constants from 'app/js/constants';
 class PlanetOre extends React.Component {
     static propTypes = {
         status: PropTypes.object.isRequired,
@@ -32,4 +32,4 @@ class PlanetOre extends React.Component {
     }
 }
 
-module.exports = PlanetOre;
+export default PlanetOre;

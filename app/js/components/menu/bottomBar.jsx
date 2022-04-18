@@ -1,22 +1,22 @@
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ReactDOMServer = require('react-dom/server');
-var { observer } = require('mobx-react');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
+import { observer } from 'mobx-react';
 
-var BodyRPCStore = require('app/js/stores/rpc/body');
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
+import BodyRPCStore from 'app/js/stores/rpc/body';
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
 
-var BottomBarSection = require('app/js/components/menu/bottomBar/bottomBarSection');
+import BottomBarSection from 'app/js/components/menu/bottomBar/bottomBarSection';
 
-var BuildingCountToolTip = require('app/js/components/menu/bottomBar/buildingCountToolTip');
-var BuildQueueToolTip = require('app/js/components/menu/bottomBar/buildQueueToolTip');
-var ResourceToolTip = require('app/js/components/menu/bottomBar/resourceToolTip');
-var RPCCountToolTip = require('app/js/components/menu/bottomBar/rpcCountToolTip');
+import BuildingCountToolTip from 'app/js/components/menu/bottomBar/buildingCountToolTip';
+import BuildQueueToolTip from 'app/js/components/menu/bottomBar/buildQueueToolTip';
+import ResourceToolTip from 'app/js/components/menu/bottomBar/resourceToolTip';
+import RPCCountToolTip from 'app/js/components/menu/bottomBar/rpcCountToolTip';
 
-var util = require('app/js/util');
+import * as util from 'app/js/util';
 var rn = util.reduceNumber;
 
 class BottomBar extends React.Component {
@@ -278,4 +278,4 @@ class BottomBar extends React.Component {
     }
 }
 
-module.exports = observer(BottomBar);
+export default observer(BottomBar);

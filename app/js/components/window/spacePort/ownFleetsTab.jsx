@@ -1,15 +1,15 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var constants = require('app/js/constants');
+import constants from 'app/js/constants';
 
-var ViewAllFleetsSpacePortRPCStore = require('app/js/stores/rpc/spacePort/viewAllFleets');
+import ViewAllFleetsSpacePortRPCStore from 'app/js/stores/rpc/spacePort/viewAllFleets';
 
-var OwnFleetItem = require('app/js/components/window/spacePort/ownFleets/item');
+import OwnFleetItem from 'app/js/components/window/spacePort/ownFleets/item';
 
 var OwnFleetsTab = createReactClass({
     displayName: 'OwnFleetsTab',
@@ -162,4 +162,4 @@ var OwnFleetsTab = createReactClass({
     },
 });
 
-module.exports = OwnFleetsTab;
+export default OwnFleetsTab;

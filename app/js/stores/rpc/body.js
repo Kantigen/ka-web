@@ -1,9 +1,9 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var _ = require('lodash');
-var util = require('app/js/util');
+import { makeAutoObservable } from 'mobx';
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import _ from 'lodash';
+import * as util from 'app/js/util';
 var int = util.int;
 
 class BodyRPCStore {
@@ -258,4 +258,4 @@ class BodyRPCStore {
     }
 }
 
-module.exports = new BodyRPCStore();
+export default new BodyRPCStore();

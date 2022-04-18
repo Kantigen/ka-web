@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var ServerRPCStore = require('app/js/stores/rpc/server');
+import ServerRPCStore from 'app/js/stores/rpc/server';
 
 class AboutTab extends React.Component {
     render() {
@@ -22,4 +22,4 @@ class AboutTab extends React.Component {
     }
 }
 
-module.exports = observer(AboutTab);
+export default observer(AboutTab);

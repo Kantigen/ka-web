@@ -1,12 +1,12 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
-var _ = require('lodash');
+import React from 'react';
+import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
-var ServerRPCStore = require('app/js/stores/rpc/server');
+import ServerRPCStore from 'app/js/stores/rpc/server';
 
 class Promotion extends React.Component {
     static propTypes = {
@@ -71,4 +71,4 @@ var PromotionsWindow = createReactClass({
     },
 });
 
-module.exports = PromotionsWindow;
+export default PromotionsWindow;

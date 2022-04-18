@@ -1,14 +1,13 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
-var BoostsTab = require('app/js/components/window/essentia/boostsTab');
-var GetEssentiaTab = require('app/js/components/window/essentia/getEssentiaTab');
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import BoostsTab from 'app/js/components/window/essentia/boostsTab';
+import GetEssentiaTab from 'app/js/components/window/essentia/getEssentiaTab';
 
-var { Tabs, Tab } = require('app/js/components/tabber');
+import { Tabs, Tab } from 'app/js/components/tabber';
 
 class Essentia extends React.Component {
     static options = {
@@ -39,4 +38,4 @@ class Essentia extends React.Component {
     }
 }
 
-module.exports = observer(Essentia);
+export default observer(Essentia);

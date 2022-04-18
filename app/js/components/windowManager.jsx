@@ -1,18 +1,26 @@
-var React = require('react');
-var { observer } = require('mobx-react');
-var _ = require('lodash');
+import React from 'react';
+import { observer } from 'mobx-react';
+import _ from 'lodash';
 
-var WindowsStore = require('app/js/stores/windows');
-var Panel = require('app/js/components/window/panel');
+import WindowsStore from 'app/js/stores/windows';
+import Panel from 'app/js/components/window/panel';
+
+import AboutWindow from 'app/js/components/window/about';
+import EssentiaWindow from 'app/js/components/window/essentia';
+import GenericBuildingWindow from 'app/js/components/window/genericBuilding';
+import InviteWindow from 'app/js/components/window/invite';
+import PlanetPanelWindow from 'app/js/components/window/planetPanel';
+import ServerClockWindow from 'app/js/components/window/serverClock';
+import StarPanelWindow from 'app/js/components/window/starPanel';
 
 const WINDOW_MAP = {
-    about: require('app/js/components/window/about'),
-    essentia: require('app/js/components/window/essentia'),
-    genericBuilding: require('app/js/components/window/genericBuilding'),
-    invite: require('app/js/components/window/invite'),
-    planetPanel: require('app/js/components/window/planetPanel'),
-    serverClock: require('app/js/components/window/serverClock'),
-    starPanel: require('app/js/components/window/starPanel'),
+    about: AboutWindow,
+    essentia: EssentiaWindow,
+    genericBuilding: GenericBuildingWindow,
+    invite: InviteWindow,
+    planetPanel: PlanetPanelWindow,
+    serverClock: ServerClockWindow,
+    starPanel: StarPanelWindow,
 };
 
 class WindowManager extends React.Component {
@@ -35,4 +43,4 @@ class WindowManager extends React.Component {
     }
 }
 
-module.exports = observer(WindowManager);
+export default observer(WindowManager);

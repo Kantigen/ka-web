@@ -1,11 +1,12 @@
 'use strict';
 
-var MailWindowStore = require('app/js/stores/window/mail');
+import MailWindowStore from 'app/js/stores/window/mail';
 
-var constants = require('app/js/constants');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
+import constants from 'app/js/constants';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import MenuStore from 'app/js/stores/menu';
 
-var _ = require('lodash');
+import _ from 'lodash';
 
 YAHOO.namespace('lacuna');
 
@@ -533,12 +534,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
 
                             this.processMessages(o.result, { inbox: 1 });
                             this.fireEvent('onPageLoaded', o);
-                            require('app/js/stores/menu').hideLoader();
+                            MenuStore.hideLoader();
                         },
                         scope: this,
                     };
 
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 if (this.tag && this.tag == 'Unread') {
                     InboxServ.view_unread(data, cb);
                 } else {
@@ -559,7 +560,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_sent(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -583,7 +584,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { sent: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -599,7 +600,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_archived(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -623,7 +624,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { archive: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -639,7 +640,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: 1 },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_trashed(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
@@ -663,7 +664,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         }
 
                         this.processMessages(o.result, { trash: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -679,11 +680,11 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         success: function(o) {
                             this.fireEvent('onRpc', o.result);
                             this.processMessages(o.result, { inbox: 1 });
-                            require('app/js/stores/menu').hideLoader();
+                            MenuStore.hideLoader();
                         },
                         scope: this,
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 if (this.tag && this.tag == 'Unread') {
                     InboxServ.view_unread(data, cb);
                 } else {
@@ -702,12 +703,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_sent(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { sent: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -721,12 +722,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_archived(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { archive: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -740,12 +741,12 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                         session_id: Game.GetSession(''),
                         options: { page_number: newState.page },
                     };
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 InboxServ.view_trashed(data, {
                     success: function(o) {
                         this.fireEvent('onRpc', o.result);
                         this.processMessages(o.result, { trash: 1 });
-                        require('app/js/stores/menu').hideLoader();
+                        MenuStore.hideLoader();
                     },
                     scope: this,
                 });
@@ -867,7 +868,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             message_id: msg.id,
                         };
 
-                    require('app/js/stores/menu').showLoader();
+                    MenuStore.showLoader();
                     InboxServ.read_message(data, {
                         success: function(o) {
                             var message = matchedEl.parentNode;
@@ -877,7 +878,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                             Dom.removeClass(matchedEl.parentNode, 'unread');
                             this.fireEvent('onRpc', o.result);
                             this.displayMessage(o.result.message);
-                            require('app/js/stores/menu').hideLoader();
+                            MenuStore.hideLoader();
                         },
                         scope: this,
                     });
@@ -1302,7 +1303,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
                 Event.stopEvent(e);
                 var res = el.href.match(/\#(-?\d+)$/);
                 this.hide();
-                require('app/js/stores/menu').changePlanet(res[1]);
+                MenuStore.changePlanet(res[1]);
                 //Game.PlanetJump(planet);
             },
             handleAllianceLink: function(e, el) {

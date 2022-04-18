@@ -2,15 +2,15 @@
 
 import constants from 'app/js/constants';
 
-var _ = require('lodash');
-var util = require('app/js/util');
+import _ from 'lodash';
+import * as util from 'app/js/util';
 
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var BodyRPCStore = require('app/js/stores/rpc/body');
-var MenuStore = require('app/js/stores/menu');
-var SessionStore = require('app/js/stores/session');
-var Captcha = require('app/js/components/window/captcha');
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import BodyRPCStore from 'app/js/stores/rpc/body';
+import MenuStore from 'app/js/stores/menu';
+import SessionStore from 'app/js/stores/session';
+import Captcha from 'app/js/components/window/captcha';
 
 var defaults = {
     module: '',
@@ -173,5 +173,4 @@ var splitStatus = function(status) {
     }
 };
 
-module.exports.call = call;
-module.exports.splitStatus = splitStatus;
+export default { call, splitStatus };

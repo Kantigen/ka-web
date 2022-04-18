@@ -1,21 +1,21 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var _ = require('lodash');
+import React from 'react';
+import { observer } from 'mobx-react';
+import _ from 'lodash';
 
-var BodyRPCStore = require('app/js/stores/rpc/body');
-var GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
+import BodyRPCStore from 'app/js/stores/rpc/body';
+import GenericBuildingRPCStore from 'app/js/stores/rpc/genericBuilding';
 
-var ActionButton = require('app/js/components/window/building/actionButton');
-var ResourceProduction = require('app/js/components/window/building/resourceProduction');
-var ResourceCost = require('app/js/components/window/building/resourceCost');
-var ResourceLine = require('app/js/components/window/building/resourceLine');
+import ActionButton from 'app/js/components/window/building/actionButton';
+import ResourceProduction from 'app/js/components/window/building/resourceProduction';
+import ResourceCost from 'app/js/components/window/building/resourceCost';
+import ResourceLine from 'app/js/components/window/building/resourceLine';
 
-var util = require('app/js/util');
-var vex = require('app/js/vex');
+import * as util from 'app/js/util';
+import * as vex from 'app/js/vex';
 
 class ProductionTab extends React.Component {
     onDemolishClick() {
@@ -171,21 +171,21 @@ class ProductionTab extends React.Component {
                             <ActionButton
                                 color='red'
                                 actionName='Demolish'
-                                onClick={this.onDemolishClick}
+                                onClick={() => this.onDemolishClick()}
                             />
 
                             <ActionButton
                                 color='green'
                                 actionName='Upgrade'
                                 error={b.upgrade.can ? '' : b.upgrade.reason[1]}
-                                onClick={this.onUpgradeClick}
+                                onClick={() => this.onUpgradeClick()}
                             />
 
                             <ActionButton
                                 color='blue'
                                 actionName='Downgrade'
                                 error={b.downgrade.can ? '' : b.downgrade.reason[1]}
-                                onClick={this.onDowngradeClick}
+                                onClick={() => this.onDowngradeClick()}
                             />
                         </div>
                     </div>
@@ -195,4 +195,4 @@ class ProductionTab extends React.Component {
     }
 }
 
-module.exports = observer(ProductionTab);
+export default observer(ProductionTab);

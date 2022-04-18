@@ -2,10 +2,11 @@
 
 YAHOO.namespace('lacuna');
 
-var _ = require('lodash');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
+import _ from 'lodash';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import MenuStore from 'app/js/stores/menu';
 
-var OptionsWindowStore = require('app/js/stores/window/options');
+import OptionsWindowStore from 'app/js/stores/window/options';
 
 if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
     (function() {
@@ -810,13 +811,13 @@ if (typeof YAHOO.lacuna.Profile == 'undefined' || !YAHOO.lacuna.Profile) {
                     alert(e);
                     return;
                 }
-                require('app/js/actions/menu/loader').show();
+                MenuStore.showLoader();
                 Game.Services.Empire.redefine_species(
                     { session_id: Game.GetSession(''), params: data },
                     {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'Profile.redefine_species.success');
-                            require('app/js/actions/menu/loader').hide();
+                            MenuStore.hideLoader();
                             this.hasSpecies = false;
                             this.SpeciesDialog.hide();
                             this.fireEvent('onRpc', o.result);

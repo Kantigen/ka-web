@@ -1,23 +1,17 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 class BuildingCountToolTip extends React.Component {
     render() {
         return (
             <div>
                 Your current{' '}
-                <a
-                    target='_new'
-                    href='http://community.lacunaexpanse.com/wiki/plots'
-                >
+                <a target='_new' href='http://community.lacunaexpanse.com/wiki/plots'>
                     plot-using
                 </a>{' '}
                 building count, and how many{' '}
-                <a
-                    target='_new'
-                    href='http://community.lacunaexpanse.com/wiki/plots'
-                >
+                <a target='_new' href='http://community.lacunaexpanse.com/wiki/plots'>
                     plots
                 </a>{' '}
                 you have available.
@@ -26,4 +20,4 @@ class BuildingCountToolTip extends React.Component {
     }
 }
 
-module.exports = BuildingCountToolTip;
+export default BuildingCountToolTip;

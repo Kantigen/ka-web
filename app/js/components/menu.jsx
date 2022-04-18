@@ -1,17 +1,17 @@
 'use strict';
 
-const React = require('react');
-const { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var TopBar = require('app/js/components/menu/topBar');
-var BottomBar = require('app/js/components/menu/bottomBar');
+import TopBar from 'app/js/components/menu/topBar';
+import BottomBar from 'app/js/components/menu/bottomBar';
 
-var LeftSidebarButton = require('app/js/components/menu/leftSidebarButton');
-var RightSidebarButton = require('app/js/components/menu/rightSidebarButton');
+import LeftSidebarButton from 'app/js/components/menu/leftSidebarButton';
+import RightSidebarButton from 'app/js/components/menu/rightSidebarButton';
 
-var Loader = require('app/js/components/menu/loader');
+import Loader from 'app/js/components/menu/loader';
 
-var MenuStore = require('app/js/stores/menu');
+import MenuStore from 'app/js/stores/menu';
 
 class Menu extends React.Component {
     render() {
@@ -34,4 +34,4 @@ class Menu extends React.Component {
     }
 }
 
-module.exports = observer(Menu);
+export default observer(Menu);

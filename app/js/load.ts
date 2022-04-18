@@ -1,30 +1,30 @@
-require('app/shims/jquery');
-require('app/shims/yahoo');
+import 'app/shims/jquery';
+import 'app/shims/yahoo';
 
-require('app/vendor-css/semantic.css');
-require('app/vendor-css/vex.css');
-require('app/vendor-css/vex-theme-default.css');
-require('app/css/styles.css');
-require('react-tabs/style/react-tabs.css');
+import 'app/vendor-css/semantic.css';
+import 'app/vendor-css/vex.css';
+import 'app/vendor-css/vex-theme-default.css';
+import 'app/css/styles.css';
+import 'react-tabs/style/react-tabs.css';
 
-require('app/js-yui/library');
-require('app/js-yui/textboxList');
-require('app/js-yui/smd');
-require('app/js-yui/rpc');
-require('app/js/game');
-require('app/js-yui/announce');
-require('app/js-yui/speciesDesigner');
-require('app/js-yui/createSpecies');
-require('app/js-yui/createEmpire');
-require('app/js-yui/login');
-require('app/js-yui/mapper');
-require('app/js-yui/mapStar');
-require('app/js-yui/mapPlanet');
-require('app/js-yui/messaging');
-require('app/js-yui/profile');
-require('app/js-yui/stats');
-require('app/js-yui/notify');
-require('app/js/components/menu');
+import 'app/js-yui/library';
+import 'app/js-yui/textboxList';
+import 'app/js-yui/smd';
+import 'app/js-yui/rpc';
+import 'app/js/game';
+import 'app/js-yui/announce';
+import 'app/js-yui/speciesDesigner';
+import 'app/js-yui/createSpecies';
+import 'app/js-yui/createEmpire';
+import 'app/js-yui/login';
+import 'app/js-yui/mapper';
+import 'app/js-yui/mapStar';
+import 'app/js-yui/mapPlanet';
+import 'app/js-yui/messaging';
+import 'app/js-yui/profile';
+import 'app/js-yui/stats';
+import 'app/js-yui/notify';
+import 'app/js/components/menu';
 
 declare const YAHOO: any;
 

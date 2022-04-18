@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna');
 
+import MenuStore from 'app/js/stores/menu';
+
 if (typeof YAHOO.lacuna.CreateSpecies == 'undefined' || !YAHOO.lacuna.CreateSpecies) {
     (function() {
         var Util = YAHOO.util,
@@ -91,14 +93,14 @@ if (typeof YAHOO.lacuna.CreateSpecies == 'undefined' || !YAHOO.lacuna.CreateSpec
             },
 
             _found: function() {
-                require('app/js/stores/menu').showLoader();
+                MenuStore.showLoader();
                 var EmpireServ = Game.Services.Empire;
                 EmpireServ.found(
                     { empire_id: this.empireId, api_key: Lib.ApiKey },
                     {
                         success: function(o) {
                             YAHOO.log(o, 'info', 'CreateSpecies._found.success');
-                            require('app/js/stores/menu').hideLoader();
+                            MenuStore.hideLoader();
                             this.hide(); //hide species
                             this.fireEvent('onCreateSuccessful', o);
                         },

@@ -1,6 +1,6 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
 class CaptchaRPCStore {
     guid = '';
@@ -20,4 +20,4 @@ class CaptchaRPCStore {
     }
 }
 
-module.exports = new CaptchaRPCStore();
+export default new CaptchaRPCStore();

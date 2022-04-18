@@ -1,22 +1,19 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
-var _ = require('lodash');
+import React from 'react';
+import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
-var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
-var BodyRPCStore = require('app/js/stores/rpc/body');
+import GenericBuildingStore from 'app/js/stores/rpc/genericBuilding';
+import BodyRPCStore from 'app/js/stores/rpc/body';
 
-var StandardTabs = require('app/js/components/window/building/standardTabs');
-var BuildingInformation = require('app/js/components/window/building/information');
-var SpacePortOwnFleetsTab = require('app/js/components/window/spacePort/ownFleetsTab');
+import StandardTabs from 'app/js/components/window/building/standardTabs';
+import BuildingInformation from 'app/js/components/window/building/information';
+import SpacePortOwnFleetsTab from 'app/js/components/window/spacePort/ownFleetsTab';
 
-var Tabber = require('app/js/components/tabber');
-
-var Tabs = Tabber.Tabs;
-var Tab = Tabber.Tab;
+import { Tab, Tabs } from 'app/js/components/tabber';
 
 var SpacePort = createReactClass({
     displayName: 'SpacePort',
@@ -91,4 +88,4 @@ var SpacePort = createReactClass({
     },
 });
 
-module.exports = SpacePort;
+export default SpacePort;

@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var BodyRPCStore = require('app/js/stores/rpc/body');
-var MenuStore = require('app/js/stores/menu');
+import BodyRPCStore from 'app/js/stores/rpc/body';
+import MenuStore from 'app/js/stores/menu';
 
 class RightSidebarButton extends React.Component {
     click() {
@@ -30,4 +30,4 @@ class RightSidebarButton extends React.Component {
     }
 }
 
-module.exports = observer(RightSidebarButton);
+export default observer(RightSidebarButton);

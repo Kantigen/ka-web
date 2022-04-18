@@ -1,9 +1,8 @@
 'use strict';
 
+import moment from 'moment';
+import _ from 'lodash';
 import constants from 'app/js/constants';
-
-var moment = require('moment');
-var _ = require('lodash');
 
 var xPad = function(x, pad, r) {
     if (typeof r === 'undefined') {
@@ -15,7 +14,7 @@ var xPad = function(x, pad, r) {
     return x.toString();
 };
 
-module.exports.reduceNumber = function(number, always) {
+export const reduceNumber = function(number, always) {
     if (number >= 100000000000000000 || number <= -100000000000000000) {
         // 101Q
         return Math.floor(number / 1000000000000000) + 'Q';
@@ -52,7 +51,7 @@ module.exports.reduceNumber = function(number, always) {
     }
 };
 
-module.exports.serverDateToDateObj = function(serverDate) {
+export const serverDateToDateObj = function(serverDate) {
     // "23 03 2010 01:20:11 +0000"
     var pieces = serverDate.split(' '); // [day month year hr:min:sec timez
     var time = pieces[3].split(':');
@@ -67,15 +66,15 @@ module.exports.serverDateToDateObj = function(serverDate) {
     return dt;
 };
 
-module.exports.serverDateToMs = function(serverDate) {
+export const serverDateToMs = function(serverDate) {
     return module.exports.serverDateToDateObj(serverDate).getTime();
 };
 
-module.exports.int = function(number) {
+export const int = function(number) {
     return parseInt(number, 10);
 };
 
-module.exports.formatTime = function(totalSeconds) {
+export const formatTime = function(totalSeconds) {
     if (totalSeconds < 0) {
         return '';
     }
@@ -98,11 +97,11 @@ module.exports.formatTime = function(totalSeconds) {
     }
 };
 
-module.exports.formatMillisecondTime = function(ms) {
+export const formatMillisecondTime = function(ms) {
     return this.formatTime(ms / 1000);
 };
 
-module.exports.serverDateToMoment = function(str) {
+export const serverDateToMoment = function(str) {
     // There are currently two date formats beig used by the server.
     // This is to handle that.
 
@@ -118,15 +117,15 @@ module.exports.serverDateToMoment = function(str) {
     }
 };
 
-module.exports.formatMomentLong = function(theMoment) {
+export const formatMomentLong = function(theMoment) {
     return theMoment.format('dddd, Do MMMM HH:mm:ss ZZ');
 };
 
-module.exports.clone = function(obj) {
+export const clone = function(obj) {
     return $.extend(true, {}, obj);
 };
 
-module.exports.commify = function(num) {
+export const commify = function(num) {
     if (num === undefined) {
         return '';
     }
@@ -157,6 +156,6 @@ var handleObj = function(obj) {
     }
 };
 
-module.exports.fixNumbers = function(data) {
+export const fixNumbers = function(data) {
     return _.mapValues(data, handleObj);
 };

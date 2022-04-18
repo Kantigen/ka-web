@@ -1,13 +1,13 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var _ = require('lodash');
+import React from 'react';
+import { observer } from 'mobx-react';
+import _ from 'lodash';
 
-var CreditsRPCStore = require('app/js/stores/rpc/stats/credits');
-var StatsService = require('app/js/services/stats');
+import CreditsRPCStore from 'app/js/stores/rpc/stats/credits';
+import StatsService from 'app/js/services/stats';
 
-var CreditsSection = require('app/js/components/window/about/creditsSection');
+import CreditsSection from 'app/js/components/window/about/creditsSection';
 
 class CreditsTab extends React.Component {
     componentDidMount() {
@@ -27,4 +27,4 @@ class CreditsTab extends React.Component {
     }
 }
 
-module.exports = observer(CreditsTab);
+export default observer(CreditsTab);

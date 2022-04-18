@@ -1,8 +1,8 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
 class ProgressBar extends React.Component {
     static propTypes = {
@@ -29,4 +29,4 @@ class ProgressBar extends React.Component {
     }
 }
 
-module.exports = ProgressBar;
+export default ProgressBar;

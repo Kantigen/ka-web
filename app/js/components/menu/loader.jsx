@@ -1,16 +1,16 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var MenuStore = require('app/js/stores/menu');
+import React from 'react';
+import { observer } from 'mobx-react';
+import MenuStore from 'app/js/stores/menu';
 
-var classNames = require('classnames');
+import classnames from 'classnames';
 
 class Loader extends React.Component {
     render() {
         return (
             <div
-                className={classNames('ui large loader', {
+                className={classnames('ui large loader', {
                     active: MenuStore.loaderShown,
                 })}
                 style={{
@@ -22,4 +22,4 @@ class Loader extends React.Component {
     }
 }
 
-module.exports = observer(Loader);
+export default observer(Loader);

@@ -1,11 +1,10 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-var React = require('react');
-
-var constants = require('app/js/constants');
-var resources = require('app/js/resources');
+import constants from 'app/js/constants';
+import resources from 'app/json/resources';
 
 class BuildingInformation extends React.Component {
     static propTypes = {
@@ -63,4 +62,4 @@ class BuildingInformation extends React.Component {
     }
 }
 
-module.exports = BuildingInformation;
+export default BuildingInformation;

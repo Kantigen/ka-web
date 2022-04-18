@@ -1,14 +1,14 @@
-const React = require('react');
-const ReactTooltip = require('react-tooltip');
+import React from 'react';
+import ReactTooltip from 'react-tooltip';
 
-const LeftSidebar = require('app/js/components/menu/leftSidebar');
-const RightSidebar = require('app/js/components/menu/rightSidebar');
-const Map = require('app/js/components/menu/map');
-const Menu = require('app/js/components/menu');
-const WindowManager = require('app/js/components/windowManager');
-const MailWindow = require('app/js/components/window/mail');
-const StatsWindow = require('app/js/components/window/stats');
-const OptionsWindow = require('app/js/components/window/options');
+import LeftSidebar from 'app/js/components/menu/leftSidebar';
+import RightSidebar from 'app/js/components/menu/rightSidebar';
+import Map from 'app/js/components/menu/map';
+import Menu from 'app/js/components/menu';
+import WindowManager from 'app/js/components/windowManager';
+import MailWindow from 'app/js/components/window/mail';
+import StatsWindow from 'app/js/components/window/stats';
+import OptionsWindow from 'app/js/components/window/options';
 
 //
 // This React component will be the main container of everything that appears on the screen.
@@ -46,4 +46,4 @@ const GameWindow = () => (
     </div>
 );
 
-module.exports = GameWindow;
+export default GameWindow;

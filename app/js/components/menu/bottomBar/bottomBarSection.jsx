@@ -1,11 +1,11 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var classnames = require('classnames');
+import React from 'react';
+import classnames from 'classnames';
 
-var ProgressBar = require('app/js/components/menu/bottomBar/progressBar');
+import ProgressBar from 'app/js/components/menu/bottomBar/progressBar';
 
 class BottomBarSection extends React.Component {
     static propTypes = {
@@ -47,4 +47,4 @@ class BottomBarSection extends React.Component {
     }
 }
 
-module.exports = BottomBarSection;
+export default BottomBarSection;

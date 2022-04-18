@@ -1,9 +1,9 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var classnames = require('classnames');
+import React from 'react';
+import classnames from 'classnames';
 
 class ResourceLine extends React.Component {
     static propTypes = {
@@ -39,4 +39,4 @@ class ResourceLine extends React.Component {
     }
 }
 
-module.exports = ResourceLine;
+export default ResourceLine;

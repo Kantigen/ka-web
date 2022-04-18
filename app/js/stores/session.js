@@ -1,6 +1,6 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
 class SessionStore {
     session = '';
@@ -14,4 +14,4 @@ class SessionStore {
     }
 }
 
-module.exports = new SessionStore();
+export default new SessionStore();

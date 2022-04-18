@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react');
-var classNames = require('classnames');
-var { observer } = require('mobx-react');
-var _ = require('lodash');
+import React from 'react';
+import classnames from 'classnames';
+import { observer } from 'mobx-react';
+import _ from 'lodash';
 
-var EmpireService = require('app/js/services/empire');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var MenuStore = require('app/js/stores/menu');
-var WindowsStore = require('app/js/stores/windows');
-var MailWindowStore = require('app/js/stores/window/mail');
-var StatsWindowStore = require('app/js/stores/window/stats');
+import EmpireService from 'app/js/services/empire';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import MenuStore from 'app/js/stores/menu';
+import WindowsStore from 'app/js/stores/windows';
+import MailWindowStore from 'app/js/stores/window/mail';
+import StatsWindowStore from 'app/js/stores/window/stats';
 
 class TopBar extends React.Component {
     mapButtonTip() {
@@ -23,7 +23,7 @@ class TopBar extends React.Component {
     }
 
     render() {
-        var barClass = classNames('ui inverted compact small menu', {
+        var barClass = classnames('ui inverted compact small menu', {
             red: EmpireRPCStore.self_destruct_active,
             blue: !EmpireRPCStore.self_destruct_active,
         });
@@ -110,4 +110,4 @@ class TopBar extends React.Component {
     }
 }
 
-module.exports = observer(TopBar);
+export default observer(TopBar);

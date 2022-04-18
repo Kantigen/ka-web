@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var GenericBuildingStore = require('app/js/stores/rpc/genericBuilding');
-var BodyRPCStore = require('app/js/stores/rpc/body');
+import GenericBuildingStore from 'app/js/stores/rpc/genericBuilding';
+import BodyRPCStore from 'app/js/stores/rpc/body';
 
-var ResourceCost = require('app/js/components/window/building/resourceCost');
+import ResourceCost from 'app/js/components/window/building/resourceCost';
 
 var RepairTab = createReactClass({
     displayName: 'RepairTab',
@@ -82,4 +82,4 @@ var RepairTab = createReactClass({
     },
 });
 
-module.exports = RepairTab;
+export default RepairTab;

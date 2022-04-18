@@ -1,13 +1,13 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var createReactClass = require('create-react-class');
+import React from 'react';
+import createReactClass from 'create-react-class';
 
-var BuildQueueShipyardRPCStore = require('app/js/stores/rpc/shipyard/buildQueue');
+import BuildQueueShipyardRPCStore from 'app/js/stores/rpc/shipyard/buildQueue';
 
-var BuildQueueItem = require('app/js/components/window/shipyard/buildQueue/item');
+import BuildQueueItem from 'app/js/components/window/shipyard/buildQueue/item';
 
 var BuildQueueTab = createReactClass({
     displayName: 'BuildQueueTab',
@@ -60,4 +60,4 @@ var BuildQueueTab = createReactClass({
     },
 });
 
-module.exports = BuildQueueTab;
+export default BuildQueueTab;

@@ -1,8 +1,8 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var _ = require('lodash');
-var util = require('app/js/util');
+import { makeAutoObservable } from 'mobx';
+import _ from 'lodash';
+import * as util from 'app/js/util';
 var int = util.int;
 var clone = util.clone;
 
@@ -121,4 +121,4 @@ class EmpireRPCStore {
     }
 }
 
-module.exports = new EmpireRPCStore();
+export default new EmpireRPCStore();

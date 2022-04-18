@@ -1,7 +1,7 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var _ = require('lodash');
+import { makeAutoObservable } from 'mobx';
+import _ from 'lodash';
 
 class GenericBuildingRPCStore {
     id = '';
@@ -202,4 +202,4 @@ class GenericBuildingRPCStore {
     }
 }
 
-module.exports = new GenericBuildingRPCStore();
+export default new GenericBuildingRPCStore();

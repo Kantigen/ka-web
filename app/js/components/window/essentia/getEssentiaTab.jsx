@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var vex = require('app/js/vex');
-var WindowsStore = require('app/js/stores/windows');
+import React from 'react';
+import { observer } from 'mobx-react';
+import * as vex from 'app/js/vex';
+import WindowsStore from 'app/js/stores/windows';
 
 class GetEssentiaTab extends React.Component {
     purchase() {
@@ -67,4 +67,4 @@ class GetEssentiaTab extends React.Component {
     }
 }
 
-module.exports = observer(GetEssentiaTab);
+export default observer(GetEssentiaTab);

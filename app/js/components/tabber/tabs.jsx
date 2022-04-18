@@ -1,10 +1,10 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var _ = require('lodash');
-var ReactTabs = require('react-tabs');
+import React from 'react';
+import _ from 'lodash';
+import * as ReactTabs from 'react-tabs';
 
 class Tabs extends React.Component {
     static propTypes = {
@@ -84,4 +84,4 @@ class Tabs extends React.Component {
     }
 }
 
-module.exports = Tabs;
+export default Tabs;

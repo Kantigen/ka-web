@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react');
-const { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var vex = require('app/js/vex');
-var util = require('app/js/util');
+import * as vex from 'app/js/vex';
+import * as util from 'app/js/util';
 
-var MenuStore = require('app/js/stores/menu');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var WindowsStore = require('app/js/stores/windows');
-var OptionsWindowStore = require('app/js/stores/window/options');
+import MenuStore from 'app/js/stores/menu';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import WindowsStore from 'app/js/stores/windows';
+import OptionsWindowStore from 'app/js/stores/window/options';
 
 // Because there's a bit of special logic going on here, this is in a separate component.
 const SelfDestruct = observer(
@@ -222,4 +222,4 @@ class LeftSidebar extends React.Component {
     }
 }
 
-module.exports = observer(LeftSidebar);
+export default observer(LeftSidebar);

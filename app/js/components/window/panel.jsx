@@ -1,14 +1,14 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var WindowsStore = require('app/js/stores/windows');
+import WindowsStore from 'app/js/stores/windows';
 
-var React = require('react');
-var Draggable = require('react-draggable');
+import React from 'react';
+import Draggable from 'react-draggable';
 
-var PanelHeader = require('app/js/components/window/panel/panelHeader');
-var PanelContent = require('app/js/components/window/panel/panelContent');
+import PanelHeader from 'app/js/components/window/panel/panelHeader';
+import PanelContent from 'app/js/components/window/panel/panelContent';
 
 class Panel extends React.Component {
     static propTypes = {
@@ -65,4 +65,4 @@ class Panel extends React.Component {
     }
 }
 
-module.exports = Panel;
+export default Panel;

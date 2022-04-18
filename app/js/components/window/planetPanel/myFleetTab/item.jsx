@@ -1,14 +1,14 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
-var ResourceLine = require('app/js/components/window/shipyard/resourceLine');
-var ResourceAttribute = require('app/js/components/window/shipyard/resourceAttribute');
-var BuildButton = require('app/js/components/window/shipyard/buildFleet/button');
+import ResourceLine from 'app/js/components/window/shipyard/resourceLine';
+import ResourceAttribute from 'app/js/components/window/shipyard/resourceAttribute';
+import BuildButton from 'app/js/components/window/shipyard/buildFleet/button';
 
-var constants = require('app/js/constants');
+import constants from 'app/js/constants';
 
 class BuildFleetItem extends React.Component {
     static propTypes = {
@@ -105,4 +105,4 @@ class BuildFleetItem extends React.Component {
     }
 }
 
-module.exports = BuildFleetItem;
+export default BuildFleetItem;

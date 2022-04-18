@@ -1,7 +1,7 @@
 'use strict';
 
-var PropTypes = require('prop-types');
-var React = require('react');
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class Line extends React.Component {
     static propTypes = {
@@ -25,4 +25,4 @@ class Line extends React.Component {
     }
 }
 
-module.exports = Line;
+export default Line;

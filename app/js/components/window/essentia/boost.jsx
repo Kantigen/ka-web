@@ -1,15 +1,15 @@
 'use strict';
 
-var vex = require('app/js/vex');
+import * as vex from 'app/js/vex';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var classnames = require('classnames');
-var validator = require('validator');
-var EmpireRPCStore = require('app/js/stores/rpc/empire');
-var util = require('app/js/util');
+import React from 'react';
+import { observer } from 'mobx-react';
+import classnames from 'classnames';
+import validator from 'validator';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import * as util from 'app/js/util';
 
 class Boost extends React.Component {
     static propTypes = {
@@ -107,4 +107,4 @@ class Boost extends React.Component {
     }
 }
 
-module.exports = observer(Boost);
+export default observer(Boost);

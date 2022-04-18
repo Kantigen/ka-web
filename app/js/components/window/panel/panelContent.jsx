@@ -1,19 +1,13 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
 class PanelContent extends React.Component {
     static propTypes = {
-        panelHeight: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.string,
-        ]),
-        panelWidth: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.string,
-        ]),
+        panelHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        panelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         children: PropTypes.element,
     };
 
@@ -45,4 +39,4 @@ class PanelContent extends React.Component {
     }
 }
 
-module.exports = PanelContent;
+export default PanelContent;

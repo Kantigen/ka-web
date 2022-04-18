@@ -6,12 +6,12 @@
 // server clock or menu bars that show resource changes.
 //
 
-const { makeAutoObservable } = require('mobx');
-const _ = require('lodash');
-const BoostsRPCStore = require('app/js/stores/rpc/empire/boosts');
-const EmpireRPCStore = require('app/js/stores/rpc/empire');
-const ServerRPCStore = require('app/js/stores/rpc/server');
-const BodyRPCStore = require('app/js/stores/rpc/body');
+import { makeAutoObservable } from 'mobx';
+import _ from 'lodash';
+import BoostsRPCStore from 'app/js/stores/rpc/empire/boosts';
+import EmpireRPCStore from 'app/js/stores/rpc/empire';
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import BodyRPCStore from 'app/js/stores/rpc/body';
 
 const INTERVAL_TIME = 1000;
 
@@ -47,4 +47,4 @@ class TickerStore {
     }
 }
 
-module.exports = new TickerStore();
+export default new TickerStore();

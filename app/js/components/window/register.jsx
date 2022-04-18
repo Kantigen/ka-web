@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 class RegisterWindow extends React.Component {
     static options = {
@@ -34,4 +34,4 @@ class RegisterWindow extends React.Component {
     }
 }
 
-module.exports = RegisterWindow;
+export default RegisterWindow;

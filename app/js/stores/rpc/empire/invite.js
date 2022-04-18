@@ -1,6 +1,6 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
+import { makeAutoObservable } from 'mobx';
 
 class InviteRPCStore {
     referral_url = '';
@@ -14,4 +14,4 @@ class InviteRPCStore {
     }
 }
 
-module.exports = new InviteRPCStore();
+export default new InviteRPCStore();

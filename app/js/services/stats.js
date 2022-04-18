@@ -1,7 +1,7 @@
 'use strict';
 
-const CreditsRPCStore = require('app/js/stores/rpc/stats/credits');
-const server = require('app/js/server');
+import CreditsRPCStore from 'app/js/stores/rpc/stats/credits';
+import server from 'app/js/server';
 
 class StatsService {
     getCredits() {
@@ -16,4 +16,4 @@ class StatsService {
     }
 }
 
-module.exports = new StatsService();
+export default new StatsService();

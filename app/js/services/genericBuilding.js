@@ -1,7 +1,7 @@
 'use strict';
 
-const server = require('app/js/server');
-const GenericBuildingRPCStore = require('app/js/stores/rpc/genericBuilding');
+import server from 'app/js/server';
+import GenericBuildingRPCStore from 'app/js/stores/rpc/genericBuilding';
 
 class GenericBuildingService {
     view(url, id) {
@@ -17,4 +17,4 @@ class GenericBuildingService {
     }
 }
 
-module.exports = new GenericBuildingService();
+export default new GenericBuildingService();

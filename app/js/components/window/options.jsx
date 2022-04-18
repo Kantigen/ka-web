@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var OptionsWindowStore = require('app/js/stores/window/options');
+import React from 'react';
+import { observer } from 'mobx-react';
+import OptionsWindowStore from 'app/js/stores/window/options';
 
 class OptionsWindow extends React.Component {
     render() {
@@ -14,4 +14,4 @@ class OptionsWindow extends React.Component {
     }
 }
 
-module.exports = observer(OptionsWindow);
+export default observer(OptionsWindow);

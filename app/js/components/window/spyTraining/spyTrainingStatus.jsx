@@ -1,10 +1,10 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
+import React from 'react';
 
-var util = require('app/js/util');
+import * as util from 'app/js/util';
 
 class SpyTrainingStatus extends React.Component {
     static propTypes = {
@@ -44,4 +44,4 @@ class SpyTrainingStatus extends React.Component {
     }
 }
 
-module.exports = SpyTrainingStatus;
+export default SpyTrainingStatus;

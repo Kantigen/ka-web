@@ -1,9 +1,9 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var util = require('app/js/util');
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var server = require('app/js/server');
+import { makeAutoObservable } from 'mobx';
+import * as util from 'app/js/util';
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import server from 'app/js/server';
 
 class BoostsEmpireRPCStore {
     foodMsRemaining = 0;
@@ -43,4 +43,4 @@ class BoostsEmpireRPCStore {
     }
 }
 
-module.exports = new BoostsEmpireRPCStore();
+export default new BoostsEmpireRPCStore();

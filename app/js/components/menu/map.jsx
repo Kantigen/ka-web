@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var BodyRPCStore = require('app/js/stores/rpc/body');
-var MenuStore = require('app/js/stores/menu');
+import BodyRPCStore from 'app/js/stores/rpc/body';
+import MenuStore from 'app/js/stores/menu';
 
 // TODO: factor out all this glue code
 
@@ -81,4 +81,4 @@ class Map extends React.Component {
     }
 }
 
-module.exports = observer(Map);
+export default observer(Map);

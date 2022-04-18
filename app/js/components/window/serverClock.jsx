@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
+import React from 'react';
+import { observer } from 'mobx-react';
 
-var ServerRPCStore = require('app/js/stores/rpc/server');
-var TickerStore = require('app/js/stores/ticker');
-var WindowsStore = require('app/js/stores/windows');
+import ServerRPCStore from 'app/js/stores/rpc/server';
+import TickerStore from 'app/js/stores/ticker';
+import WindowsStore from 'app/js/stores/windows';
 
 class ServerClock extends React.Component {
     static options = {
@@ -21,29 +21,29 @@ class ServerClock extends React.Component {
     render() {
         return (
             <div>
-                <div class='ui row' style={{ marginBottom: 10 }}>
-                    <div class='four wide column'>
+                <div className='ui row' style={{ marginBottom: 10 }}>
+                    <div className='four wide column'>
                         <strong>Server</strong>
                     </div>
-                    <div class='ten wide column'>{ServerRPCStore.serverTimeFormatted}</div>
+                    <div className='ten wide column'>{ServerRPCStore.serverTimeFormatted}</div>
                 </div>
 
-                <div class='ui row' style={{ marginBottom: 10 }}>
-                    <div class='four wide column'>
+                <div className='ui row' style={{ marginBottom: 10 }}>
+                    <div className='four wide column'>
                         <strong>Client</strong>
                     </div>
-                    <div class='ten wide column'>{ServerRPCStore.clientTimeFormatted}</div>
+                    <div className='ten wide column'>{ServerRPCStore.clientTimeFormatted}</div>
                 </div>
 
-                <div class='ui row' style={{ marginBottom: 10 }}>
-                    <div class='four wide column'>
+                <div className='ui row' style={{ marginBottom: 10 }}>
+                    <div className='four wide column'>
                         <strong>Tick Count</strong>
                     </div>
-                    <div class='ten wide column'>{TickerStore.clockTicks}</div>
+                    <div className='ten wide column'>{TickerStore.clockTicks}</div>
                 </div>
             </div>
         );
     }
 }
 
-module.exports = observer(ServerClock);
+export default observer(ServerClock);

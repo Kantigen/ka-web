@@ -1,8 +1,8 @@
 'use strict';
 
-const { makeAutoObservable } = require('mobx');
-var _ = require('lodash');
-var server = require('app/js/server');
+import { makeAutoObservable } from 'mobx';
+import _ from 'lodash';
+import server from 'app/js/server';
 
 class CreditsRPCStore {
     credits = [];
@@ -41,4 +41,4 @@ class CreditsRPCStore {
     }
 }
 
-module.exports = new CreditsRPCStore();
+export default new CreditsRPCStore();

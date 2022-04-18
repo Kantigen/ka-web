@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 class LoginWindow extends React.Component {
     static options = {
@@ -44,4 +44,4 @@ class LoginWindow extends React.Component {
     }
 }
 
-module.exports = LoginWindow;
+export default LoginWindow;

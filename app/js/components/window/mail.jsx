@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var MailWindowStore = require('app/js/stores/window/mail');
+import React from 'react';
+import { observer } from 'mobx-react';
+import MailWindowStore from 'app/js/stores/window/mail';
 
 class MailWindow extends React.Component {
     render() {
@@ -14,4 +14,4 @@ class MailWindow extends React.Component {
     }
 }
 
-module.exports = observer(MailWindow);
+export default observer(MailWindow);

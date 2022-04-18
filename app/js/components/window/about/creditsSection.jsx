@@ -1,9 +1,9 @@
 'use strict';
 
-var PropTypes = require('prop-types');
+import PropTypes from 'prop-types';
 
-var React = require('react');
-var _ = require('lodash');
+import React from 'react';
+import _ from 'lodash';
 
 class CreditsSection extends React.Component {
     static propTypes = {
@@ -43,4 +43,4 @@ class CreditsSection extends React.Component {
     }
 }
 
-module.exports = CreditsSection;
+export default CreditsSection;

@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 
 class Tab extends React.Component {
     render() {
-        // This is a dunmmy component. Everything passed into here is read by the parent `Tabs`
+        // This is a dummy component. Everything passed into here is read by the parent `Tabs`
         // and handled accordingly.
     }
 }
 
-module.exports = Tab;
+export default Tab;

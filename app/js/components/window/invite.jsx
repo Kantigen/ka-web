@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react');
-var { observer } = require('mobx-react');
-var InviteRPCStore = require('app/js/stores/rpc/empire/invite');
-var EmpireService = require('app/js/services/empire');
-var WindowsStore = require('app/js/stores/windows');
+import React from 'react';
+import { observer } from 'mobx-react';
+import InviteRPCStore from 'app/js/stores/rpc/empire/invite';
+import EmpireService from 'app/js/services/empire';
+import WindowsStore from 'app/js/stores/windows';
 
 class InviteWindow extends React.Component {
     static options = {
@@ -74,4 +74,4 @@ class InviteWindow extends React.Component {
     }
 }
 
-module.exports = observer(InviteWindow);
+export default observer(InviteWindow);
