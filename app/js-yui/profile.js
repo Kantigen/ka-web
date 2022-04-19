@@ -1,5 +1,3 @@
-'use strict';
-
 YAHOO.namespace('lacuna');
 
 import _ from 'lodash';

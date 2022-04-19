@@ -1,5 +1,3 @@
-'use strict';
-
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
 import server from 'app/js/server';

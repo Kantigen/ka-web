@@ -1,5 +1,3 @@
-'use strict';
-
 import { makeAutoObservable } from 'mobx';
 import * as util from 'app/js/util';
 import ServerRPCStore from 'app/js/stores/rpc/server';

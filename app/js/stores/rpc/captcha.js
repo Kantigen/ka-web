@@ -1,5 +1,3 @@
-'use strict';
-
 import { makeAutoObservable } from 'mobx';
 
 class CaptchaRPCStore {

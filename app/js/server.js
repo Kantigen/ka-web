@@ -1,5 +1,3 @@
-'use strict';
-
 import constants from 'app/js/constants';
 
 import _ from 'lodash';

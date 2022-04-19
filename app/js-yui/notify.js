@@ -1,5 +1,3 @@
-'use strict';
-
 import BodyRPCStore from 'app/js/stores/rpc/body';
 
 if (typeof YAHOO.lacuna.Notify == 'undefined' || !YAHOO.lacuna.Notify) {

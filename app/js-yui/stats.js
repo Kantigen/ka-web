@@ -1,5 +1,3 @@
-'use strict';
-
 import StatsWindowStore from 'app/js/stores/window/stats';
 
 import _ from 'lodash';

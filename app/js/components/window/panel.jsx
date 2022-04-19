@@ -1,5 +1,3 @@
-'use strict';
-
 import PropTypes from 'prop-types';
 
 import WindowsStore from 'app/js/stores/windows';

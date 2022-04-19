@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 
 import { Tab, Tabs } from 'app/js/components/tabber';

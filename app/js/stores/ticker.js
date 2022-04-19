@@ -1,5 +1,3 @@
-'use strict';
-
 //
 // This is just a basic store that updates once a second.
 // Useful for views which require a frequent update, e.g

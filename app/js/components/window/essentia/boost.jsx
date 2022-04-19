@@ -1,5 +1,3 @@
-'use strict';
-
 import * as vex from 'app/js/vex';
 
 import PropTypes from 'prop-types';

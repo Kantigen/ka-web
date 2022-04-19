@@ -1,5 +1,3 @@
-'use strict';
-
 // var util = require('app/js/util');
 
 // var StatefulMixinsStore = require('app/js/stores/mixins/stateful');

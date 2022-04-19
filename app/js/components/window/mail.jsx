@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import { observer } from 'mobx-react';
 import MailWindowStore from 'app/js/stores/window/mail';

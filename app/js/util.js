@@ -1,5 +1,3 @@
-'use strict';
-
 import moment from 'moment';
 import _ from 'lodash';
 import constants from 'app/js/constants';

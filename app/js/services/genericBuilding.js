@@ -1,5 +1,3 @@
-'use strict';
-
 import server from 'app/js/server';
 import GenericBuildingRPCStore from 'app/js/stores/rpc/genericBuilding';
 

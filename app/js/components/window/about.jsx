@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 
 import AboutTab from 'app/js/components/window/about/aboutTab';

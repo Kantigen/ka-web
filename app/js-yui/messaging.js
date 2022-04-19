@@ -1,5 +1,3 @@
-'use strict';
-
 import MailWindowStore from 'app/js/stores/window/mail';
 
 import constants from 'app/js/constants';

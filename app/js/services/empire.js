@@ -1,5 +1,3 @@
-'use strict';
-
 import ReactTooltip from 'react-tooltip';
 import BoostsRPCStore from 'app/js/stores/rpc/empire/boosts';
 import InviteRPCStore from 'app/js/stores/rpc/empire/invite';

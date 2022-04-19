@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 
 class RPCCountToolTip extends React.Component {

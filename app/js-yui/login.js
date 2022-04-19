@@ -1,5 +1,3 @@
-'use strict';
-
 import Fingerprint2 from 'fingerprintjs2';
 
 import _ from 'lodash';

@@ -1,5 +1,3 @@
-'use strict';
-
 import { makeAutoObservable } from 'mobx';
 
 export const PLANET_MAP_MODE = 'planetMap';

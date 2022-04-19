@@ -1,5 +1,3 @@
-'use strict';
-
 import CreditsRPCStore from 'app/js/stores/rpc/stats/credits';
 import server from 'app/js/server';
 
