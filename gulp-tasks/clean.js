@@ -1,9 +1,7 @@
-'use strict';
+import del from 'del';
 
-var del = require('del');
-
-module.exports = function() {
+export default function() {
     var files = ['lacuna/*.js', 'lacuna/*.css'];
 
     return del(files);
-};
+}

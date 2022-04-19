@@ -1,28 +1,30 @@
-'use strict';
+import browserify from 'browserify';
+import watchify from 'watchify';
+import tsify from 'tsify';
 
-var browserify = require('browserify');
-var watchify = require('watchify');
-var tsify = require('tsify');
+import path, { dirname } from 'path';
+import fs from 'fs';
+import _ from 'lodash';
+import { fileURLToPath } from 'url';
+import ansi from 'ansi-colors';
 
-var gutil = require('gulp-util');
-
-var path = require('path');
-var fs = require('fs');
-var _ = require('lodash');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function handleBundle(b, options) {
     return b
         .bundle()
         .on('error', function(err) {
-            gutil.log(gutil.colors.red('Browserify compile error:'), err.message);
+            console.error(ansi.red('Compile error:'), err.message);
         })
         .pipe(fs.createWriteStream(path.join(options.rootDir, 'bundle.js')));
 }
 
 function getConfigJson(name) {
-    try {
-        return require(path.join(__dirname, '..', 'config', name + '.json'));
-    } catch (e) {
+    const jsonPath = path.join(__dirname, '..', 'config', name + '.json');
+
+    if (fs.existsSync(jsonPath)) {
+        return JSON.parse(fs.readFileSync(jsonPath));
+    } else {
         throw 'Unknown KA_ENV: ' + name;
     }
 }
@@ -39,7 +41,7 @@ function loadConfig(env) {
     return config;
 }
 
-module.exports = function(options) {
+export default function(options) {
     const plugins = [tsify];
 
     if (options.watch) {
@@ -67,14 +69,14 @@ module.exports = function(options) {
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {
         b.on('update', function() {
-            gutil.log('Something changed - rebuilding.');
+            console.log('Something changed - rebuilding.');
             handleBundle(b, options);
         });
 
         b.on('log', function(msg) {
-            gutil.log(msg);
+            console.log(msg);
         });
     }
 
     return handleBundle(b, options);
-};
+}

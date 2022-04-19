@@ -1,9 +1,10 @@
-'use strict';
+import express from 'express';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-var express = require('express');
-var path = require('path');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-module.exports = function(done) {
+export default function(done) {
     var app = express();
     var port = process.env.PORT || 80;
     var dir = path.join(__dirname, '..');
@@ -14,4 +15,4 @@ module.exports = function(done) {
         console.log(`Listening on http://localhost:${port}/ for requests.`);
         done();
     });
-};
+}

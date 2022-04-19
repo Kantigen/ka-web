@@ -1,35 +1,33 @@
-'use strict';
+import gulp from 'gulp';
+import * as gulpTasks from './gulp-tasks/index.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const { series } = require('gulp');
-const gulpTasks = require('./gulp-tasks');
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function browserify() {
+export function browserify() {
     return gulpTasks.browserify({
         rootDir: __dirname,
         watch: true,
     });
 }
 
-function browserifyWithoutWatch() {
+export function browserifyWithoutWatch() {
     return gulpTasks.browserify({
         rootDir: __dirname,
         watch: false,
     });
 }
 
-function clean() {
+export function clean() {
     return gulpTasks.clean();
 }
 
-function server(done) {
+export function server(done) {
     return gulpTasks.server(done);
 }
 
-module.exports.server = server;
-module.exports.devWithServer = series(browserify, server);
-module.exports.dev = series(browserify);
-module.exports.clean = clean;
-module.exports.build = series(browserifyWithoutWatch);
-module.exports.browserify = browserify;
-module.exports.browserifyWithoutWatch = browserifyWithoutWatch;
-module.exports.default = module.exports.build;
+export const devWithServer = gulp.series(browserify, server);
+export const dev = gulp.series(browserify);
+export const build = gulp.series(browserifyWithoutWatch);
+export default build;

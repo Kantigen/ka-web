@@ -1,7 +1,5 @@
-'use strict';
+import browserify from './browserify.js';
+import clean from './clean.js';
+import server from './server.js';
 
-module.exports = {
-    browserify: require('./browserify'),
-    clean: require('./clean'),
-    server: require('./server'),
-};
+export { browserify, clean, server };
