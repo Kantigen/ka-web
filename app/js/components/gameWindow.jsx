@@ -9,6 +9,7 @@ import WindowManager from 'app/js/components/windowManager';
 import MailWindow from 'app/js/components/window/mail';
 import StatsWindow from 'app/js/components/window/stats';
 import OptionsWindow from 'app/js/components/window/options';
+import ErrorBoundary from 'app/js/components/errorBoundary';
 
 //
 // This React component will be the main container of everything that appears on the screen.
@@ -25,8 +26,10 @@ const GameWindow = () => (
             height: '100%',
         }}
     >
-        <LeftSidebar />
-        <RightSidebar />
+        <ErrorBoundary>
+            <LeftSidebar />
+            <RightSidebar />
+        </ErrorBoundary>
 
         {/* One container to rule them all... */}
         <div className='pusher'>
@@ -35,13 +38,17 @@ const GameWindow = () => (
                         See http://npmjs.org/package/react-tooltip for usage.
                     */}
             <ReactTooltip effect='solid' place='bottom' type='dark' />
-            <Menu />
-            <Map />
+            <ErrorBoundary>
+                <Menu />
+                <Map />
+            </ErrorBoundary>
             <div id='content'></div> {/* This div is used by map. */}
-            <WindowManager />
-            <MailWindow />
-            <StatsWindow />
-            <OptionsWindow />
+            <ErrorBoundary>
+                <WindowManager />
+                <MailWindow />
+                <StatsWindow />
+                <OptionsWindow />
+            </ErrorBoundary>
         </div>
     </div>
 );
