@@ -6,14 +6,14 @@ import _ from 'lodash';
 import EmpireService from 'app/js/services/empire';
 import EmpireRPCStore from 'app/js/stores/rpc/empire';
 import ServerRPCStore from 'app/js/stores/rpc/server';
-import MenuStore from 'app/js/stores/menu';
+import MenuStore, { PLANET_MAP_MODE } from 'app/js/stores/menu';
 import WindowsStore from 'app/js/stores/windows';
 import MailWindowStore from 'app/js/stores/window/mail';
 import StatsWindowStore from 'app/js/stores/window/stats';
 
 class TopBar extends React.Component {
     mapButtonTip() {
-        if (MenuStore.mapMode === MenuStore.PLANET_MAP_MODE) {
+        if (MenuStore.mapMode === PLANET_MAP_MODE) {
             return 'To Star Map';
         } else {
             return 'To Planet Map';

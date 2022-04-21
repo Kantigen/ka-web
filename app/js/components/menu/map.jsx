@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 import BodyRPCStore from 'app/js/stores/rpc/body';
-import MenuStore from 'app/js/stores/menu';
+import MenuStore, { PLANET_MAP_MODE, STAR_MAP_MODE } from 'app/js/stores/menu';
 
 // TODO: factor out all this glue code
 
@@ -14,7 +14,7 @@ class Map extends React.Component {
         // Do nothing if the menu isn't shown.
         if (MenuStore.menuShown === false) {
             // Reset these values because we're *probably* logged out.
-            this.previousMapMode = MenuStore.PLANET_MAP_MODE;
+            this.previousMapMode = PLANET_MAP_MODE;
             this.previousPlanetId = '';
         }
 
@@ -32,16 +32,11 @@ class Map extends React.Component {
             // Render if the planet id has changed... OR...
             this.previousPlanetId !== MenuStore.planetId ||
             // Render if we've changed from the starMap to the planetMap
-            (this.previousMapMode !== MenuStore.mapMode &&
-                MenuStore.mapMode === MenuStore.PLANET_MAP_MODE)
+            (this.previousMapMode !== MenuStore.mapMode && MenuStore.mapMode === PLANET_MAP_MODE)
         ) {
             Lacuna.MapStar.MapVisible(false);
             Lacuna.MapPlanet.MapVisible(true);
-            Lacuna.MapPlanet.Load(
-                MenuStore.planetId,
-                true,
-                MenuStore.mapMode === MenuStore.STAR_MAP_MODE
-            );
+            Lacuna.MapPlanet.Load(MenuStore.planetId, true, MenuStore.mapMode === STAR_MAP_MODE);
 
             this.previousPlanetId = MenuStore.planetId;
             this.previousMapMode = MenuStore.mapMode;
@@ -49,10 +44,7 @@ class Map extends React.Component {
             return;
         }
 
-        if (
-            MenuStore.mapMode !== this.previousMapMode &&
-            MenuStore.mapMode === MenuStore.STAR_MAP_MODE
-        ) {
+        if (MenuStore.mapMode !== this.previousMapMode && MenuStore.mapMode === STAR_MAP_MODE) {
             // Render star map view.
             Lacuna.MapPlanet.MapVisible(false);
             Lacuna.MapStar.MapVisible(true);
