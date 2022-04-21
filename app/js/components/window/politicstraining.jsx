@@ -11,7 +11,7 @@ import SpyTrainingStatus from 'app/js/components/window/spyTraining/spyTrainingS
 
 import { Tab, Tabs } from 'app/js/components/tabber';
 
-var PoliticsTraining = createReactClass({
+let PoliticsTraining = createReactClass({
     displayName: 'PoliticsTraining',
 
     statics: {
@@ -28,18 +28,18 @@ var PoliticsTraining = createReactClass({
 
     // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         BuildingWindowActions.buildingWindowClear();
         PoliticsTrainingRPCActions.requestPoliticsTrainingRPCView(this.props.options.id);
     },
 
-    closeWindow: function() {
+    closeWindow: function () {
         WindowActions.windowCloseByType('building');
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let tabs = StandardTabs.tabs(this.props.options, building);
         if (building.extraViewData.spies) {
             tabs.push(
                 <Tab title='Spy Training' key='Spy Training'>

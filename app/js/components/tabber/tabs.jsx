@@ -31,10 +31,10 @@ class Tabs extends React.Component {
     };
 
     getCallbacks = () => {
-        var obj = {};
-        var i = 0;
+        let obj = {};
+        let i = 0;
 
-        React.Children.forEach(this.props.children, function(child) {
+        React.Children.forEach(this.props.children, function (child) {
             if (child && child.props && typeof child.props.onSelect === 'function') {
                 obj[i] = child.props.onSelect;
             }
@@ -46,7 +46,7 @@ class Tabs extends React.Component {
     };
 
     handleCallbacks = (index) => {
-        var callbacks = this.getCallbacks();
+        let callbacks = this.getCallbacks();
 
         if (callbacks && typeof callbacks[index] === 'function') {
             callbacks[index]();
@@ -54,10 +54,10 @@ class Tabs extends React.Component {
     };
 
     render() {
-        var tabTitles = [];
-        var tabContents = [];
+        let tabTitles = [];
+        let tabContents = [];
 
-        React.Children.forEach(this.props.children, function(child) {
+        React.Children.forEach(this.props.children, function (child) {
             if (child && child.props && child.props.title && child.props.children) {
                 tabTitles.push(child.props.title);
                 tabContents.push(child.props.children);
@@ -67,13 +67,13 @@ class Tabs extends React.Component {
         return (
             <ReactTabs.Tabs selectedIndex={this.state.selectedTab} onSelect={this.handleSelect}>
                 <ReactTabs.TabList>
-                    {_.map(tabTitles, function(title) {
+                    {_.map(tabTitles, function (title) {
                         return <ReactTabs.Tab key={title}>{title}</ReactTabs.Tab>;
                     })}
                 </ReactTabs.TabList>
 
-                {_.map(tabContents, function(tabContent, i) {
-                    var title = tabTitles[i];
+                {_.map(tabContents, function (tabContent, i) {
+                    let title = tabTitles[i];
 
                     return <ReactTabs.TabPanel key={title}>{tabContent}</ReactTabs.TabPanel>;
                 })}

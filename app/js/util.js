@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import constants from 'app/js/constants';
 
-var xPad = function(x, pad, r) {
+let xPad = function (x, pad, r) {
     if (typeof r === 'undefined') {
         r = 10;
     }
@@ -12,7 +12,7 @@ var xPad = function(x, pad, r) {
     return x.toString();
 };
 
-export const reduceNumber = function(number, always) {
+export const reduceNumber = function (number, always) {
     if (number >= 100000000000000000 || number <= -100000000000000000) {
         // 101Q
         return Math.floor(number / 1000000000000000) + 'Q';
@@ -49,11 +49,11 @@ export const reduceNumber = function(number, always) {
     }
 };
 
-export const serverDateToDateObj = function(serverDate) {
+export const serverDateToDateObj = function (serverDate) {
     // "23 03 2010 01:20:11 +0000"
-    var pieces = serverDate.split(' '); // [day month year hr:min:sec timez
-    var time = pieces[3].split(':');
-    var dt = new Date();
+    let pieces = serverDate.split(' '); // [day month year hr:min:sec timez
+    let time = pieces[3].split(':');
+    let dt = new Date();
 
     dt.setUTCFullYear(pieces[2] * 1);
     dt.setUTCMonth(pieces[1] * 1 - 1, pieces[0] * 1);
@@ -64,27 +64,27 @@ export const serverDateToDateObj = function(serverDate) {
     return dt;
 };
 
-export const serverDateToMs = function(serverDate) {
+export const serverDateToMs = function (serverDate) {
     return module.exports.serverDateToDateObj(serverDate).getTime();
 };
 
-export const int = function(number) {
+export const int = function (number) {
     return parseInt(number, 10);
 };
 
-export const formatTime = function(totalSeconds) {
+export const formatTime = function (totalSeconds) {
     if (totalSeconds < 0) {
         return '';
     }
 
-    var secondsInDay = 60 * 60 * 24;
-    var secondsInHour = 60 * 60;
-    var day = Math.floor(totalSeconds / secondsInDay);
-    var hleft = totalSeconds % secondsInDay;
-    var hour = Math.floor(hleft / secondsInHour);
-    var sleft = hleft % secondsInHour;
-    var min = Math.floor(sleft / 60);
-    var seconds = Math.floor(sleft % 60);
+    let secondsInDay = 60 * 60 * 24;
+    let secondsInHour = 60 * 60;
+    let day = Math.floor(totalSeconds / secondsInDay);
+    let hleft = totalSeconds % secondsInDay;
+    let hour = Math.floor(hleft / secondsInHour);
+    let sleft = hleft % secondsInHour;
+    let min = Math.floor(sleft / 60);
+    let seconds = Math.floor(sleft % 60);
 
     if (day > 0) {
         return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(':');
@@ -95,16 +95,16 @@ export const formatTime = function(totalSeconds) {
     }
 };
 
-export const formatMillisecondTime = function(ms) {
+export const formatMillisecondTime = function (ms) {
     return this.formatTime(ms / 1000);
 };
 
-export const serverDateToMoment = function(str) {
+export const serverDateToMoment = function (str) {
     // There are currently two date formats beig used by the server.
     // This is to handle that.
 
-    var usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
-    var usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT);
+    let usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
+    let usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT);
 
     if (usingNewFormat.isValid()) {
         return usingNewFormat;
@@ -115,15 +115,15 @@ export const serverDateToMoment = function(str) {
     }
 };
 
-export const formatMomentLong = function(theMoment) {
+export const formatMomentLong = function (theMoment) {
     return theMoment.format('dddd, Do MMMM HH:mm:ss ZZ');
 };
 
-export const clone = function(obj) {
+export const clone = function (obj) {
     return $.extend(true, {}, obj);
 };
 
-export const commify = function(num) {
+export const commify = function (num) {
     if (num === undefined) {
         return '';
     }
@@ -131,7 +131,7 @@ export const commify = function(num) {
     return Number(num).toLocaleString();
 };
 
-var handleString = function(string) {
+let handleString = function (string) {
     if (window.isNaN(string)) {
         return string;
     } else {
@@ -139,7 +139,7 @@ var handleString = function(string) {
     }
 };
 
-var handleObj = function(obj) {
+let handleObj = function (obj) {
     if (_.isString(obj)) {
         return handleString(obj);
     } else if (_.isObject(obj)) {
@@ -154,6 +154,6 @@ var handleObj = function(obj) {
     }
 };
 
-export const fixNumbers = function(data) {
+export const fixNumbers = function (data) {
     return _.mapValues(data, handleObj);
 };

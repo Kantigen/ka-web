@@ -30,12 +30,12 @@ declare const YAHOO: any;
 
 const init = () => {
     // TODO this code can be improved.
-    var l = window.location;
-    var query = {};
-    var vars = l.hash.substring(1).split('&');
+    let l = window.location;
+    let query = {};
+    let vars = l.hash.substring(1).split('&');
     if (vars.length > 0) {
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split('=');
+        for (let i = 0; i < vars.length; i++) {
+            let pair = vars[i].split('=');
             query[pair[0]] = decodeURIComponent(pair[1]);
         }
     }

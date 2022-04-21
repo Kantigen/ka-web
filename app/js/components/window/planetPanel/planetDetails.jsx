@@ -11,8 +11,8 @@ class PlanetDetails extends React.Component {
     };
 
     render() {
-        var bodyStatus = this.props.status;
-        var location = bodyStatus.x + 'x : ' + bodyStatus.y + 'y';
+        let bodyStatus = this.props.status;
+        let location = bodyStatus.x + 'x : ' + bodyStatus.y + 'y';
 
         return (
             <div className='ui grid'>

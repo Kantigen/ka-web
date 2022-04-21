@@ -16,8 +16,8 @@ class InviteWindow extends React.Component {
     }
 
     handleInvite() {
-        var email = this.refs.email.value;
-        var message = this.refs.message.value;
+        let email = this.refs.email.value;
+        let message = this.refs.message.value;
         EmpireService.inviteFriend(email, message);
     }
 
@@ -26,15 +26,15 @@ class InviteWindow extends React.Component {
     }
 
     componentDidUpdate() {
-        var $el = $(this.refs.referral);
+        let $el = $(this.refs.referral);
 
-        $el.off().click(function() {
+        $el.off().click(function () {
             $(this).select();
         });
     }
 
     render() {
-        var defaultMessage = [
+        let defaultMessage = [
             "I'm having a great time with this new game called 'Kenó Antigen'.",
             'Come play with me!',
         ].join(' ');

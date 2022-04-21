@@ -27,17 +27,17 @@ const SelfDestruct = observer(
         }
 
         render() {
-            var destructMs = EmpireRPCStore.self_destruct_ms;
-            var destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
-            var formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
+            let destructMs = EmpireRPCStore.self_destruct_ms;
+            let destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
+            let formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
 
-            var itemStyle = destructActive
+            let itemStyle = destructActive
                 ? {
                       color: 'red',
                   }
                 : {};
 
-            var verb = destructActive ? 'Disable' : 'Enable';
+            let verb = destructActive ? 'Disable' : 'Enable';
 
             return (
                 <a className='item' style={itemStyle} onClick={this.handleDestructClick}>
@@ -93,7 +93,7 @@ class LeftSidebar extends React.Component {
 
                 <a
                     className='item'
-                    onClick={function() {
+                    onClick={function () {
                         MenuStore.hideLeftSidebar();
                         WindowsStore.add('invite');
                     }}
@@ -103,7 +103,7 @@ class LeftSidebar extends React.Component {
                 </a>
                 <a
                     className='item'
-                    onClick={function() {
+                    onClick={function () {
                         MenuStore.hideLeftSidebar();
                         YAHOO.lacuna.MapPlanet.Refresh();
                     }}
@@ -203,7 +203,7 @@ class LeftSidebar extends React.Component {
                 </a>
                 <a
                     className='item'
-                    onClick={function() {
+                    onClick={function () {
                         MenuStore.hideLeftSidebar();
                         WindowsStore.add('serverClock');
                     }}

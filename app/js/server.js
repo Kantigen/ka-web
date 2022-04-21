@@ -10,7 +10,7 @@ import MenuStore from 'app/js/stores/menu';
 import SessionStore from 'app/js/stores/session';
 import Captcha from 'app/js/components/window/captcha';
 
-var defaults = {
+let defaults = {
     module: '',
     method: '',
     params: {},
@@ -20,14 +20,14 @@ var defaults = {
     scope: window,
 };
 
-var handleDefaults = function(options) {
+let handleDefaults = function (options) {
     // NOTE: we merge this into `{}` so as to avoid leaking stuff into `defaults`.
     // The Lo-dash docs are not clear about this, so we just need to make sure.
     return _.merge({}, defaults, options || {});
 };
 
-var addSession = function(options) {
-    var sessionId = SessionStore.session;
+let addSession = function (options) {
+    let sessionId = SessionStore.session;
 
     if (options.addSession === true && sessionId) {
         if (_.isArray(options.params)) {
@@ -40,7 +40,7 @@ var addSession = function(options) {
     return options;
 };
 
-var handleParams = function(options) {
+let handleParams = function (options) {
     // If there was only one parameter passed and it's an object, it's fine. Otherwise make it into
     // an array to be sent off.
     if (!_.isObject(options.params) && !_.isArray(options.params)) {
@@ -50,12 +50,12 @@ var handleParams = function(options) {
     return addSession(options);
 };
 
-var handleConfig = function(options) {
+let handleConfig = function (options) {
     options = handleDefaults(options);
     return handleParams(options);
 };
 
-var createData = function(options) {
+let createData = function (options) {
     return JSON.stringify({
         jsonrpc: '2.0',
         id: 1,
@@ -64,11 +64,11 @@ var createData = function(options) {
     });
 };
 
-var createUrl = function(options) {
+let createUrl = function (options) {
     return constants.RPC_BASE + options.module;
 };
 
-var handleSuccess = function(options, result) {
+let handleSuccess = function (options, result) {
     if (result) {
         if (result.status) {
             splitStatus(result.status);
@@ -82,7 +82,7 @@ var handleSuccess = function(options, result) {
     }
 };
 
-var handleError = function(options, error) {
+let handleError = function (options, error) {
     window.alert(error.message + ' (' + error.code + ')');
     console.error('Request error: ', error);
 
@@ -91,7 +91,7 @@ var handleError = function(options, error) {
     }
 };
 
-var sendRequest = function(url, data, options, retry) {
+let sendRequest = function (url, data, options, retry) {
     console.log('Calling', options.module + '/' + options.method, options.params);
 
     $.ajax({
@@ -101,19 +101,19 @@ var sendRequest = function(url, data, options, retry) {
         contentType: 'application/json',
         url: url,
 
-        success: function(data, textStatus, jqXHR) {
+        success: function (data, textStatus, jqXHR) {
             MenuStore.showLoader();
 
-            var dataToEmit = util.fixNumbers(data.result);
+            let dataToEmit = util.fixNumbers(data.result);
 
             if (textStatus === 'success' && jqXHR.status === 200) {
                 handleSuccess(options, dataToEmit);
             }
         },
 
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             MenuStore.hideLoader();
-            var error = {};
+            let error = {};
 
             if (typeof jqXHR.responseJSON === 'undefined') {
                 error = {
@@ -124,7 +124,7 @@ var sendRequest = function(url, data, options, retry) {
                 error = jqXHR.responseJSON.error;
             }
 
-            var fail = function() {
+            let fail = function () {
                 handleError(options, error);
             };
 
@@ -139,14 +139,14 @@ var sendRequest = function(url, data, options, retry) {
     });
 };
 
-var call = function(obj) {
+let call = function (obj) {
     MenuStore.showLoader();
 
-    var options = handleConfig(obj);
-    var data = createData(options);
-    var url = createUrl(options);
+    let options = handleConfig(obj);
+    let data = createData(options);
+    let url = createUrl(options);
 
-    var retry = function() {
+    let retry = function () {
         call(obj);
     };
 
@@ -156,17 +156,17 @@ var call = function(obj) {
 // Split the status message into server, body, empire
 // and call the corresponding actions
 //
-var splitStatus = function(status) {
+let splitStatus = function (status) {
     if (status.server) {
-        var serverStatus = util.fixNumbers(_.cloneDeep(status.server));
+        let serverStatus = util.fixNumbers(_.cloneDeep(status.server));
         ServerRPCStore.update(serverStatus);
     }
     if (status.empire) {
-        var empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
+        let empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
         EmpireRPCStore.update(empireStatus);
     }
     if (status.body) {
-        var bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
+        let bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
         BodyRPCStore.update(bodyStatus);
     }
 };

@@ -17,11 +17,11 @@ import * as vex from 'app/js/vex';
 
 class ProductionTab extends React.Component {
     onDemolishClick() {
-        var name = this.props.building.name + ' ' + this.props.building.level;
+        let name = this.props.building.name + ' ' + this.props.building.level;
 
         vex.confirm(
             'Are you sure you want to demolish your ' + name + '?',
-            _.bind(function() {
+            _.bind(function () {
                 GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(
                     this.props.building.url,
                     { building_id: this.props.building.id }
@@ -31,11 +31,11 @@ class ProductionTab extends React.Component {
     }
 
     onDowngradeClick() {
-        var name = this.props.building.name + ' ' + this.props.building.level;
+        let name = this.props.building.name + ' ' + this.props.building.level;
 
         vex.confirm(
             'Are you sure you want to downgrade your ' + name + '?',
-            _.bind(function() {
+            _.bind(function () {
                 GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(
                     this.props.building.url,
                     this.props.building.id
@@ -52,8 +52,8 @@ class ProductionTab extends React.Component {
     }
 
     render() {
-        var b = GenericBuildingRPCStore;
-        var body = BodyRPCStore;
+        let b = GenericBuildingRPCStore;
+        let body = BodyRPCStore;
 
         // Don't let the user downgrade a level 1 building. They should demolish it instead.
         if (b.level === 1) {

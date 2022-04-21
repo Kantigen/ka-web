@@ -6,7 +6,7 @@ import BodyRPCStore from 'app/js/stores/rpc/body';
 
 import ResourceCost from 'app/js/components/window/building/resourceCost';
 
-var RepairTab = createReactClass({
+let RepairTab = createReactClass({
     displayName: 'RepairTab',
 
     mixins: [
@@ -14,16 +14,16 @@ var RepairTab = createReactClass({
         // Reflux.connect(BodyRPCStore, 'body'),
     ],
 
-    handleClick: function() {
+    handleClick: function () {
         GenericBuildingRPCActions.requestGenericBuildingRPCRepair(
             this.state.genericBuildingStore.url,
             this.state.genericBuildingStore.id
         );
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var body = BodyRPCStore;
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let body = BodyRPCStore;
 
         return (
             <div className='ui grid'>

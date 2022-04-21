@@ -36,17 +36,17 @@ class ServerRPCStore {
     }
 
     tick() {
-        var now = Date.now();
+        let now = Date.now();
 
         this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
 
         this.promotions = _.chain(this.promotions)
-            .filter(function(promotion) {
+            .filter(function (promotion) {
                 // Note: date objects can be compared numerically,
                 // see: http://stackoverflow.com/a/493018/1978973
                 return now < util.serverDateToDateObj(promotion.end_date);
             })
-            .map(function(promotion) {
+            .map(function (promotion) {
                 promotion.header = promotion.title;
                 promotion.ends = moment().to(util.serverDateToMoment(promotion.end_date));
 

@@ -12,7 +12,7 @@ import DrainTab from 'app/js/components/window/essentiavein/drainTab';
 
 import { Tabs, Tab } from 'app/js/components/tabber';
 
-var EssentiaVein = createReactClass({
+let EssentiaVein = createReactClass({
     displayName: 'EssentiaVein',
 
     statics: {
@@ -29,18 +29,18 @@ var EssentiaVein = createReactClass({
 
     // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         BuildingWindowActions.buildingWindowClear();
         EssentiaVeinRPCActions.requestEssentiaVeinRPCView(this.props.options.id);
     },
 
-    closeWindow: function() {
+    closeWindow: function () {
         WindowActions.windowCloseByType('building');
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let tabs = StandardTabs.tabs(this.props.options, building);
 
         tabs.push(
             <Tab title='Drain' key='Drain'>

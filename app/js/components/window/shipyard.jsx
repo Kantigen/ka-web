@@ -13,7 +13,7 @@ import BuildQueueTab from 'app/js/components/window/shipyard/buildQueueTab';
 
 import { Tab, Tabs } from 'app/js/components/tabber';
 
-var Shipyard = createReactClass({
+let Shipyard = createReactClass({
     displayName: 'Shipyard',
 
     statics: {
@@ -30,18 +30,18 @@ var Shipyard = createReactClass({
 
     // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         BuildingWindowActions.buildingWindowClear();
         ShipyardRPCActions.requestShipyardRPCView(this.props.options.id);
     },
 
-    closeWindow: function() {
+    closeWindow: function () {
         WindowActions.windowCloseByType('building');
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let tabs = StandardTabs.tabs(this.props.options, building);
         tabs.push(
             <Tab title='Build Queue' key='Build Queue'>
                 <BuildQueueTab buildingId={building.id} />

@@ -26,7 +26,7 @@ class Map extends React.Component {
         // console.log('mapMode = ' + MenuStore.mapMode + '(' + this.previousMapMode + ')');
         // console.log('planet = ' + MenuStore.planetId + '(' + this.previousPlanetId + ')');
 
-        var Lacuna = YAHOO.lacuna;
+        let Lacuna = YAHOO.lacuna;
 
         if (
             // Render if the planet id has changed... OR...

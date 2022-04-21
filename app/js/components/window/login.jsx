@@ -8,8 +8,8 @@ class LoginWindow extends React.Component {
     };
 
     clickLogin = () => {
-        var username = this.refs.username.value;
-        var password = this.refs.password.value;
+        let username = this.refs.username.value;
+        let password = this.refs.password.value;
 
         UserWSActions.requestUserWSLoginWithPassword({
             username: username,

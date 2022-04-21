@@ -7,14 +7,14 @@ import BuildQueueShipyardRPCStore from 'app/js/stores/rpc/shipyard/buildQueue';
 
 import BuildQueueItem from 'app/js/components/window/shipyard/buildQueue/item';
 
-var BuildQueueTab = createReactClass({
+let BuildQueueTab = createReactClass({
     displayName: 'BuildQueueTab',
 
     propTypes: {
         buildingId: PropTypes.number.isRequired,
     },
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         ShipyardRPCActions.requestShipyardRPCViewBuildQueue({
             building_id: this.props.buildingId,
         });
@@ -22,13 +22,13 @@ var BuildQueueTab = createReactClass({
 
     // mixins: [Reflux.connect(BuildQueueShipyardRPCStore, 'buildQueueStore')],
 
-    render: function() {
-        var fleetsBuilding = this.state.buildQueueStore.fleets_building;
+    render: function () {
+        let fleetsBuilding = this.state.buildQueueStore.fleets_building;
 
-        var buildQueueLen = fleetsBuilding.length;
-        var fleetItems = [];
+        let buildQueueLen = fleetsBuilding.length;
+        let fleetItems = [];
 
-        for (var i = 0; i < buildQueueLen; i++) {
+        for (let i = 0; i < buildQueueLen; i++) {
             fleetItems.push(
                 <BuildQueueItem obj={fleetsBuilding[i]} buildingId={this.props.buildingId} />
             );

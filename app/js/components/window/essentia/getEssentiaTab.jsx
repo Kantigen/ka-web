@@ -6,7 +6,7 @@ import WindowsStore from 'app/js/stores/windows';
 class GetEssentiaTab extends React.Component {
     purchase() {
         vex.alert('Not available at the moment.');
-        // var url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
+        // let url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
         // window.open(
         //     url,
         //     'essentiaPayment',
@@ -16,7 +16,7 @@ class GetEssentiaTab extends React.Component {
 
     redeem() {
         vex.alert('Not available at the moment.');
-        // var node = this.refs.code;
+        // let node = this.refs.code;
         // EmpireRPCActions.requestEmpireRPCRedeemEssentiaCode({
         //     code: node.value,
         // });

@@ -29,7 +29,7 @@ class Panel extends React.Component {
     }
 
     render() {
-        var subPanel = React.createElement(this.props.window, {
+        let subPanel = React.createElement(this.props.window, {
             zIndex: this.props.zIndex,
             options: this.props.options,
         });

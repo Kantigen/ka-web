@@ -10,7 +10,7 @@ import BuildingInformation from 'app/js/components/window/building/information';
 
 import { Tab, Tabs } from 'app/js/components/tabber';
 
-var Trade = createReactClass({
+let Trade = createReactClass({
     displayName: 'Trade',
 
     statics: {
@@ -27,18 +27,18 @@ var Trade = createReactClass({
 
     // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         BuildingWindowActions.buildingWindowClear();
         TradeRPCActions.requestTradeRPCView(this.props.options.id);
     },
 
-    closeWindow: function() {
+    closeWindow: function () {
         WindowActions.windowCloseByType('building');
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let tabs = StandardTabs.tabs(this.props.options, building);
         tabs.push(
             <Tab title='Push' key='Push'>
                 <p>Not Yet Implemented!</p>

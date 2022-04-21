@@ -42,7 +42,7 @@ class PlanetListItem extends React.Component {
     };
 
     render() {
-        var classStr = classnames({
+        let classStr = classnames({
             'ui large teal label': this.isCurrentWorld(),
             item: !this.isCurrentWorld(),
         });
@@ -135,7 +135,7 @@ class AccordionItem extends React.Component {
                 >
                     {_.map(
                         this.props.list,
-                        _.bind(function(planet) {
+                        _.bind(function (planet) {
                             return (
                                 <PlanetListItem
                                     key={planet.id}
@@ -162,7 +162,7 @@ class BodiesAccordion extends React.Component {
     };
 
     render() {
-        var items = [
+        let items = [
             {
                 title: 'My Colonies',
                 key: 'colonies',
@@ -187,7 +187,7 @@ class BodiesAccordion extends React.Component {
         _.chain(this.props.bodies.babies || {})
             .keys()
             .sortBy()
-            .each(function(babyName) {
+            .each(function (babyName) {
                 items.push({
                     title: babyName + "'s Colonies",
                     key: babyName,
@@ -201,8 +201,8 @@ class BodiesAccordion extends React.Component {
             <div>
                 {_.map(
                     items,
-                    _.bind(function(item) {
-                        var list = [];
+                    _.bind(function (item) {
+                        let list = [];
 
                         if (item.isBaby) {
                             list = _.values(this.props.bodies.babies[item.key].planets) || [];

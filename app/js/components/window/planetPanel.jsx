@@ -134,7 +134,7 @@ class PlanetPanel extends React.Component {
     render() {
         console.log('Rendering...', this.state.status);
 
-        var tabs = [];
+        let tabs = [];
         tabs.push(
             <Tab title='Planet Details' key='Planet Details'>
                 <PlanetDetailsTab status={this.state.status} />

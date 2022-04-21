@@ -2,7 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import ServerRPCStore from 'app/js/stores/rpc/server';
 import _ from 'lodash';
 import * as util from 'app/js/util';
-var int = util.int;
+let int = util.int;
 
 class BodyRPCStore {
     id = 0;
@@ -179,7 +179,7 @@ class BodyRPCStore {
         this.alliance = body.alliance;
         this.influence = body.influence;
 
-        var updateShip = function(ship) {
+        let updateShip = function (ship) {
             ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - ServerRPCStore.serverTimeMs;
             return ship;
         };
@@ -190,7 +190,7 @@ class BodyRPCStore {
     }
 
     tick() {
-        var tickIncoming = function(ship) {
+        let tickIncoming = function (ship) {
             ship.arrival_ms -= 1000;
             return ship;
         };
@@ -199,9 +199,9 @@ class BodyRPCStore {
         _.map(this.incoming_ally_ships, tickIncoming);
         _.map(this.incoming_enemy_ships, tickIncoming);
 
-        var tickResource = function(production, capacity, stored, stopAtZero) {
-            var amount = production / 60 / 60;
-            var rv = stored + amount;
+        let tickResource = function (production, capacity, stored, stopAtZero) {
+            let amount = production / 60 / 60;
+            let rv = stored + amount;
 
             if (typeof capacity !== 'undefined' && rv > capacity) {
                 return int(capacity);

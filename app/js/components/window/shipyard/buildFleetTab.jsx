@@ -8,14 +8,14 @@ import GetBuildableShipyardRPCStore from 'app/js/stores/rpc/shipyard/getBuildabl
 
 import BuildFleetItem from 'app/js/components/window/shipyard/buildFleet/item';
 
-var BuildFleetTab = createReactClass({
+let BuildFleetTab = createReactClass({
     displayName: 'BuildFleetTab',
 
     propTypes: {
         buildingId: PropTypes.number.isRequired,
     },
 
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             show: 'now',
             filter: 'all',
@@ -25,57 +25,57 @@ var BuildFleetTab = createReactClass({
 
     // mixins: [Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')],
 
-    handleShowChange: function(e) {
+    handleShowChange: function (e) {
         this.setState({
             show: e.target.value,
         });
     },
 
-    handleFilterChange: function(e) {
+    handleFilterChange: function (e) {
         this.setState({
             filter: e.target.value,
         });
     },
 
-    handleAutoSelectChange: function(e) {
+    handleAutoSelectChange: function (e) {
         this.setState({
             autoSelect: e.target.value,
         });
     },
 
-    render: function() {
-        var buildQueueAvailable =
+    render: function () {
+        let buildQueueAvailable =
             this.state.getBuildableStore.build_queue_max -
             this.state.getBuildableStore.build_queue_used;
-        var fleetItems = [];
-        var buildable = this.state.getBuildableStore.buildable;
-        var fleetTypes = Object.keys(buildable);
+        let fleetItems = [];
+        let buildable = this.state.getBuildableStore.buildable;
+        let fleetTypes = Object.keys(buildable);
 
         // Filter based on buildable now or later.
         if (this.state.show === 'now') {
-            fleetTypes = _.filter(fleetTypes, function(fleetType) {
+            fleetTypes = _.filter(fleetTypes, function (fleetType) {
                 return buildable[fleetType].can;
             });
         } else if (this.state.show === 'later') {
-            fleetTypes = _.filter(fleetTypes, function(fleetType) {
+            fleetTypes = _.filter(fleetTypes, function (fleetType) {
                 return !buildable[fleetType].can;
             });
         }
 
         // Filter based on ship type
         if (this.state.filter !== 'all') {
-            var filter = this.state.filter;
-            fleetTypes = _.filter(fleetTypes, function(fleetType) {
-                return _.find(buildable[fleetType].tags, function(o) {
+            let filter = this.state.filter;
+            fleetTypes = _.filter(fleetTypes, function (fleetType) {
+                return _.find(buildable[fleetType].tags, function (o) {
                     return o === filter;
                 });
             });
         }
 
         fleetTypes.sort();
-        var fleetTypesLen = fleetTypes.length;
+        let fleetTypesLen = fleetTypes.length;
 
-        for (var i = 0; i < fleetTypesLen; i++) {
+        for (let i = 0; i < fleetTypesLen; i++) {
             fleetItems.push(
                 <BuildFleetItem
                     fleetType={fleetTypes[i]}

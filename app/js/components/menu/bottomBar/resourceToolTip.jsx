@@ -61,14 +61,14 @@ class ResourceToolTip extends React.Component {
     };
 
     render() {
-        var body = this.props.body;
+        let body = this.props.body;
 
-        var hour = body[this.props.type + '_hour'];
-        var stored = body[this.props.type + '_stored'] || body[this.props.type] || 0;
-        var capicity = body[this.props.type + '_capacity'];
+        let hour = body[this.props.type + '_hour'];
+        let stored = body[this.props.type + '_stored'] || body[this.props.type] || 0;
+        let capicity = body[this.props.type + '_capacity'];
 
         // Some resources (happiness) do not have a storage limit.
-        var hasCapicity = typeof capicity !== 'undefined';
+        let hasCapicity = typeof capicity !== 'undefined';
 
         return (
             <div

@@ -11,7 +11,7 @@ class ResourceAttribute extends React.Component {
     };
 
     render() {
-        var title = this.props.attr;
+        let title = this.props.attr;
 
         if (!window.isNaN(title)) {
             title = util.commify(title);

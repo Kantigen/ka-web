@@ -27,10 +27,10 @@ class CreditsRPCStore {
     // }
 
     update(result) {
-        var credits = {};
+        let credits = {};
 
-        _.each(result, function(foo) {
-            _.each(foo, function(names, header) {
+        _.each(result, function (foo) {
+            _.each(foo, function (names, header) {
                 credits[header] = names;
             });
         });

@@ -37,7 +37,7 @@ class Promotion extends React.Component {
     }
 }
 
-var PromotionsWindow = createReactClass({
+let PromotionsWindow = createReactClass({
     displayName: 'PromotionsWindow',
     // mixins: [Reflux.connect(ServerRPCStore, 'server')],
 
@@ -49,7 +49,7 @@ var PromotionsWindow = createReactClass({
         },
     },
 
-    render: function() {
+    render: function () {
         return (
             <div
                 className='ui vertical menu'
@@ -59,7 +59,7 @@ var PromotionsWindow = createReactClass({
             >
                 {_.map(
                     ServerRPCStore.promotions,
-                    function(promotion) {
+                    function (promotion) {
                         return <Promotion promotion={promotion} />;
                     },
                     this

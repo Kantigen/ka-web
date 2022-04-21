@@ -15,7 +15,7 @@ import ResourceToolTip from 'app/js/components/menu/bottomBar/resourceToolTip';
 import RPCCountToolTip from 'app/js/components/menu/bottomBar/rpcCountToolTip';
 
 import * as util from 'app/js/util';
-var rn = util.reduceNumber;
+let rn = util.reduceNumber;
 
 class BottomBar extends React.Component {
     constructor(props) {
@@ -118,7 +118,7 @@ class BottomBar extends React.Component {
     }
 
     showBuildQueueToolTip() {
-        var body = BodyRPCStore;
+        let body = BodyRPCStore;
 
         $(ReactDOM.findDOMNode(this.buildQueueSection.current)).popup({
             html: ReactDOMServer.renderToStaticMarkup(<BuildQueueToolTip body={body} />),

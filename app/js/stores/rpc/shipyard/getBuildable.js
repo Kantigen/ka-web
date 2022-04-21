@@ -1,16 +1,16 @@
-// var util = require('app/js/util');
+// let util = require('app/js/util');
 
-// var StatefulMixinsStore = require('app/js/stores/mixins/stateful');
+// let StatefulMixinsStore = require('app/js/stores/mixins/stateful');
 
-// var clone = util.clone;
+// let clone = util.clone;
 
-// var GetBuildableShipyardRPCStore = Reflux.createStore({
+// let GetBuildableShipyardRPCStore = Reflux.createStore({
 //     listenables: [ShipyardRPCActions],
 
 //     mixins: [StatefulMixinsStore],
 
 //     getDefaultData: function() {
-//         var state = {
+//         let state = {
 //             buildable: {},
 //             docks_available: 0,
 //             build_queue_max: 0,
@@ -20,7 +20,7 @@
 //     },
 
 //     handleNewData: function(result) {
-//         var state = clone(this.state);
+//         let state = clone(this.state);
 
 //         state.buildable = result.buildable;
 //         state.docks_available = result.docks_available + 0;

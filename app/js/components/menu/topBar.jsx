@@ -21,7 +21,7 @@ class TopBar extends React.Component {
     }
 
     render() {
-        var barClass = classnames('ui inverted compact small menu', {
+        let barClass = classnames('ui inverted compact small menu', {
             red: EmpireRPCStore.self_destruct_active,
             blue: !EmpireRPCStore.self_destruct_active,
         });
@@ -83,7 +83,7 @@ class TopBar extends React.Component {
                                         ? 'Active Promotions'
                                         : 'Active Promotion'
                                 }
-                                onClick={function() {
+                                onClick={function () {
                                     WindowsStore.add('promotions');
                                 }}
                             >

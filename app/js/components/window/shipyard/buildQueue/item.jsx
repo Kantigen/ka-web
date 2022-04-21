@@ -16,7 +16,7 @@ class BuildQueueItem extends React.Component {
     };
 
     render() {
-        var starfieldStyle = {
+        let starfieldStyle = {
             width: 100,
             height: 100,
             background:
@@ -25,8 +25,8 @@ class BuildQueueItem extends React.Component {
                 'star_system/field.png) no-repeat center',
         };
 
-        var obj = this.props.obj;
-        var shipImage = constants.ASSETS_URL + 'ships/' + this.props.obj.type + '.png';
+        let obj = this.props.obj;
+        let shipImage = constants.ASSETS_URL + 'ships/' + this.props.obj.type + '.png';
 
         return (
             <div>

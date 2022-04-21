@@ -13,8 +13,8 @@ class DrainTab extends React.Component {
     }
 
     handleDrain = () => {
-        var times = parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
-        var id = this.props.building.id;
+        let times = parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
+        let id = this.props.building.id;
 
         EssentiaVeinRPCActions.requestEssentiaVeinRPCDrain({
             id: id,
@@ -30,12 +30,12 @@ class DrainTab extends React.Component {
                     <div className='text'>30 days</div>
                     <i className='dropdown icon'></i>
                     <div className='menu'>
-                        {_.times(this.props.building.drain_capable, function(num) {
+                        {_.times(this.props.building.drain_capable, function (num) {
                             // Num starts on 0.
                             num += 1;
 
-                            var days = num * 30;
-                            var str = days + ' days';
+                            let days = num * 30;
+                            let str = days + ' days';
 
                             return (
                                 <div className='item' data-text={str} key={days}>

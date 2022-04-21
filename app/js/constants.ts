@@ -8,15 +8,15 @@ interface AppConfig {
     FLEET_TASKS: any;
     FLEET_TYPES: any;
     ORES: any;
-};
+}
 
-const constants:AppConfig = {
+const constants: AppConfig = {
     ASSETS_URL: process.env.KA_ASSETS_URL,
     NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
     OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
-    RPC_BASE: (function(): string {
-        var url = process.env.KA_SERVER_URL;
-        var lastChar = url.slice(-1);
+    RPC_BASE: (function (): string {
+        let url = process.env.KA_SERVER_URL;
+        let lastChar = url.slice(-1);
 
         // Ensure the URL has a trailing '/' character.
         if (lastChar === '/') {

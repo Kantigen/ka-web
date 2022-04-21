@@ -1,16 +1,16 @@
-// var util = require('app/js/util');
+// let util = require('app/js/util');
 
-// var StatefulMixinsStore = require('app/js/stores/mixins/stateful');
+// let StatefulMixinsStore = require('app/js/stores/mixins/stateful');
 
-// var clone = util.clone;
+// let clone = util.clone;
 
-// var ViewAllFleetsSpacePortRPCStore = Reflux.createStore({
+// let ViewAllFleetsSpacePortRPCStore = Reflux.createStore({
 //     listenables: [SpacePortRPCActions],
 
 //     mixins: [StatefulMixinsStore],
 
 //     getDefaultData: function() {
-//         var state = {
+//         let state = {
 //             fleets: [],
 //             number_of_fleets: 0,
 //         };
@@ -18,7 +18,7 @@
 //     },
 
 //     handleNewData: function(result) {
-//         var state = clone(this.state);
+//         let state = clone(this.state);
 
 //         state.fleets = result.fleets;
 //         state.number_of_fleets = result.number_of_fleets * 1;

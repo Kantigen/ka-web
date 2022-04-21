@@ -19,7 +19,7 @@ class BuildFleetItem extends React.Component {
     handleQuantity = (o) => {};
 
     render() {
-        var starfieldStyle = {
+        let starfieldStyle = {
             width: 100,
             height: 100,
             background:
@@ -28,10 +28,10 @@ class BuildFleetItem extends React.Component {
                 'star_system/field.png) no-repeat center',
         };
 
-        var obj = this.props.obj;
-        var shipImage = constants.ASSETS_URL + 'ships/' + this.props.fleetType + '.png';
-        var reason = '';
-        var canBuild = 1;
+        let obj = this.props.obj;
+        let shipImage = constants.ASSETS_URL + 'ships/' + this.props.fleetType + '.png';
+        let reason = '';
+        let canBuild = 1;
 
         if (obj.reason) {
             reason = obj.reason[1];

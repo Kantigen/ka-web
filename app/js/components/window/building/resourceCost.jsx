@@ -14,7 +14,7 @@ class ResourceCost extends React.Component {
     };
 
     render() {
-        var red = false;
+        let red = false;
 
         if (typeof this.props.stored === 'number' && this.props.number > this.props.stored) {
             red = true;

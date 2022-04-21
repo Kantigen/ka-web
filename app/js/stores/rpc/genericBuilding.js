@@ -124,7 +124,7 @@ class GenericBuildingRPCStore {
 
         // // Any 'view' call that returns extra data (say, the Planetary Command Center) has that
         // // data put into 'building.extraViewData' so that it is accessible from the store.
-        // var extraViewData = {};
+        // let extraViewData = {};
         // _.each(result, function(value, key) {
         //     if (key === 'status' || key === 'building') {
         //         return;

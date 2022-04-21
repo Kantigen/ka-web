@@ -25,8 +25,8 @@ class Boost extends React.Component {
     };
 
     handleBoost = () => {
-        var type = this.props.type;
-        var weeks = this.refs.weeks.value;
+        let type = this.props.type;
+        let weeks = this.refs.weeks.value;
 
         if (
             !validator.isInt(weeks, {
@@ -44,7 +44,7 @@ class Boost extends React.Component {
     };
 
     renderButton = () => {
-        var iconClassName = classnames('icon', this.props.iconName);
+        let iconClassName = classnames('icon', this.props.iconName);
 
         return (
             <div
@@ -61,7 +61,7 @@ class Boost extends React.Component {
 
     tagClassNames() {
         if (this.props.ms > 0) {
-            var day = 1000 * 60 * 60 * 24; // Milliseconds per day
+            let day = 1000 * 60 * 60 * 24; // Milliseconds per day
 
             // Change the color of the tags as the countdown gets closer to zero.
             return classnames('ui left pointing label', {

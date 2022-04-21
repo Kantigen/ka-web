@@ -5,7 +5,7 @@ import createReactClass from 'create-react-class';
 
 import CaptchaRPCStore from 'app/js/stores/rpc/captcha';
 
-var Captcha = createReactClass({
+let Captcha = createReactClass({
     displayName: 'Captcha',
 
     statics: {
@@ -22,12 +22,12 @@ var Captcha = createReactClass({
 
     // mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         CaptchaRPCActions.requestCaptchaRPCFetch();
     },
 
-    componentWillUnmount: function() {
-        var success = this.props.options.success;
+    componentWillUnmount: function () {
+        let success = this.props.options.success;
         if (typeof success === 'function') {
             if (this.state.captchaRPCStore.solved) {
                 success();
@@ -35,26 +35,26 @@ var Captcha = createReactClass({
         }
     },
 
-    componentDidUpdate: function(prevProps, prevState) {
+    componentDidUpdate: function (prevProps, prevState) {
         if (prevState.captchaRPCStore.url !== this.state.captchaRPCStore.url) {
             this.clearSolutionField();
         }
     },
 
-    onWindowShow: function() {
+    onWindowShow: function () {
         this.clearSolutionField();
         CaptchaRPCActions.requestCaptchaRPCFetch();
     },
 
-    handleEnterKey: function(event) {
+    handleEnterKey: function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
             this.onClickSolve();
         }
     },
 
-    onClickSolve: function() {
-        var solution = this.refs.solution.value;
+    onClickSolve: function () {
+        let solution = this.refs.solution.value;
 
         CaptchaRPCActions.requestCaptchaRPCSolve({
             guid: this.state.captchaRPCStore.guid,
@@ -62,21 +62,21 @@ var Captcha = createReactClass({
         });
     },
 
-    onClickRefresh: function() {
+    onClickRefresh: function () {
         this.clearSolutionField();
         CaptchaWindowActions.captchaWindowRefresh();
     },
 
-    onClickClose: function() {
+    onClickClose: function () {
         this.clearSolutionField();
         WindowActions.windowCloseByType('captcha');
     },
 
-    clearSolutionField: function() {
+    clearSolutionField: function () {
         this.refs.solution.value = '';
     },
 
-    render: function() {
+    render: function () {
         return (
             <div>
                 <div

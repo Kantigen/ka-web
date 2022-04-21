@@ -10,7 +10,7 @@ import BuildingInformation from 'app/js/components/window/building/information';
 import SpyTrainingStatus from 'app/js/components/window/spyTraining/spyTrainingStatus';
 import { Tabs, Tab } from 'app/js/components/tabber';
 
-var IntelTraining = createReactClass({
+let IntelTraining = createReactClass({
     displayName: 'IntelTraining',
 
     statics: {
@@ -27,18 +27,18 @@ var IntelTraining = createReactClass({
 
     // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-    componentWillMount: function() {
+    componentWillMount: function () {
         BuildingWindowActions.buildingWindowClear();
         IntelTrainingRPCActions.requestIntelTrainingRPCView(this.props.options.id);
     },
 
-    closeWindow: function() {
+    closeWindow: function () {
         WindowActions.windowCloseByType('building');
     },
 
-    render: function() {
-        var building = this.state.genericBuildingStore;
-        var tabs = StandardTabs.tabs(this.props.options, building);
+    render: function () {
+        let building = this.state.genericBuildingStore;
+        let tabs = StandardTabs.tabs(this.props.options, building);
         if (building.extraViewData.spies) {
             tabs.push(
                 <Tab title='Spy Training' key='Spy Training'>

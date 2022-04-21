@@ -13,7 +13,7 @@ class BuildFleetItem extends React.Component {
     };
 
     render() {
-        var starfieldStyle = {
+        let starfieldStyle = {
             width: 100,
             height: 100,
             background:
@@ -22,8 +22,8 @@ class BuildFleetItem extends React.Component {
                 'star_system/field.png) no-repeat center',
         };
 
-        var obj = this.props.obj;
-        var shipImage = constants.ASSETS_URL + 'ships/' + obj.details.type + '.png';
+        let obj = this.props.obj;
+        let shipImage = constants.ASSETS_URL + 'ships/' + obj.details.type + '.png';
 
         return (
             <div>

@@ -13,11 +13,11 @@ class ResourceLine extends React.Component {
     };
 
     render() {
-        var iconClass = classnames(this.props.icon, 'large icon', {
+        let iconClass = classnames(this.props.icon, 'large icon', {
             red: this.props.red,
         });
-        var content = util.reduceNumber(this.props.cost);
-        var title = util.commify(this.props.cost);
+        let content = util.reduceNumber(this.props.cost);
+        let title = util.commify(this.props.cost);
 
         return (
             <div

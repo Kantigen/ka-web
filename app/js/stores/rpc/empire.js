@@ -1,12 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
 import * as util from 'app/js/util';
-var int = util.int;
-var clone = util.clone;
+let int = util.int;
+let clone = util.clone;
 
 function bodyObjectToArray(bodyObj) {
-    var arr = [];
-    _.each(bodyObj, function(value, key) {
+    let arr = [];
+    _.each(bodyObj, function (value, key) {
         arr.push({
             id: key,
             name: value,
