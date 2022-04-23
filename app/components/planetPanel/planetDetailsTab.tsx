@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import PlanetDetails from 'app/components/planetPanel/planetDetails';
 import PlanetOre from 'app/components/planetPanel/planetOre';
 
-class PlanetDetailsTab extends React.Component {
+type Props = {
+    status: any;
+};
+
+class PlanetDetailsTab extends React.Component<Props> {
     static propTypes = {
         status: PropTypes.object.isRequired,
     };

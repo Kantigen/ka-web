@@ -1,26 +1,22 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { observer } from 'mobx-react';
+
+import React from 'react';
 
 import BuildingInformation from 'app/components/building/information';
+import DrainTab from 'app/components/essentiavein/drainTab';
 import RepairTab from 'app/components/building/repairTab';
 import ProductionTab from 'app/components/building/productionTab';
+import GenericBuildingService from 'app/services/genericBuilding';
+import GenericBuildingRPCStore from 'app/stores/rpc/genericBuilding';
 
 import { Tabs, Tab } from 'app/components/tabber';
-import GenericBuildingRPCStore from 'app/stores/rpc/genericBuilding';
-import GenericBuildingService from 'app/services/genericBuilding';
-
 import { WindowOptions } from 'app/interfaces';
 
 type Props = {
     options: WindowOptions;
 };
 
-class GenericBuilding extends React.Component<Props> {
-    static propTypes = {
-        options: PropTypes.object,
-    };
-
+class EssentiaVein extends React.Component<Props> {
     componentDidMount() {
         GenericBuildingService.view(this.props.options.url, this.props.options.id);
     }
@@ -34,11 +30,8 @@ class GenericBuilding extends React.Component<Props> {
         }
     }
 
-    closeWindow() {
-        WindowsStore.close('genericBuilding');
-    }
-
     render() {
+        const building = {};
         return (
             <div>
                 <BuildingInformation options={this.props.options} />
@@ -56,6 +49,10 @@ class GenericBuilding extends React.Component<Props> {
                         <Tab title='Production' key='Production'>
                             <ProductionTab />
                         </Tab>
+
+                        <Tab title='Drain' key='Drain'>
+                            <DrainTab building={building} />
+                        </Tab>
                     </Tabs>
                 </div>
             </div>
@@ -63,4 +60,4 @@ class GenericBuilding extends React.Component<Props> {
     }
 }
 
-export default observer(GenericBuilding);
+export default EssentiaVein;

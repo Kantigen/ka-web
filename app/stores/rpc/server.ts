@@ -1,12 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
 import moment from 'moment';
-import * as util from 'app/util';
+import { serverDateToMoment, formatMomentLong, serverDateToDateObj } from 'app/util';
 import constants from 'app/constants';
 
 class ServerRPCStore {
     time = '01 31 2010 13:09:05 +0600';
-    version = 1.0;
+    version = '1.0';
     announcement = 0;
     promotions = [];
     rpc_limit = 10000;
@@ -20,7 +20,7 @@ class ServerRPCStore {
         makeAutoObservable(this);
     }
 
-    update(server) {
+    update(server: any) {
         // TODO: show announcement window if needed.
 
         this.time = server.time;
@@ -44,11 +44,11 @@ class ServerRPCStore {
             .filter(function (promotion) {
                 // Note: date objects can be compared numerically,
                 // see: http://stackoverflow.com/a/493018/1978973
-                return now < util.serverDateToDateObj(promotion.end_date);
+                return now < serverDateToDateObj(promotion.end_date);
             })
             .map(function (promotion) {
                 promotion.header = promotion.title;
-                promotion.ends = moment().to(util.serverDateToMoment(promotion.end_date));
+                promotion.ends = moment().to(serverDateToMoment(promotion.end_date));
 
                 return promotion;
             })
@@ -56,27 +56,27 @@ class ServerRPCStore {
     }
 
     get serverTimeMoment() {
-        return util.serverDateToMoment(this.time).utcOffset(0);
+        return serverDateToMoment(this.time).utcOffset(0);
     }
 
     get clientTimeMoment() {
-        return util.serverDateToMoment(this.time);
+        return serverDateToMoment(this.time);
     }
 
     get serverTimeFormatted() {
-        return util.formatMomentLong(this.serverTimeMoment);
+        return formatMomentLong(this.serverTimeMoment);
     }
 
     get clientTimeFormatted() {
-        return util.formatMomentLong(this.clientTimeMoment);
+        return formatMomentLong(this.clientTimeMoment);
     }
 
     get serverTimeMs() {
-        return this.serverMoment.valueOf();
+        return this.serverTimeMoment.valueOf();
     }
 
     get clientTimeMs() {
-        return this.clientMoment.valueOf();
+        return this.clientTimeMoment.valueOf();
     }
 }
 

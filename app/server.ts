@@ -11,13 +11,13 @@ import SessionStore from 'app/stores/session';
 import WindowsStore from 'app/stores/windows';
 
 interface ServerRequest {
-    module: string,
-    method: string,
-    params: object,
-    success?: Function,
-    error?: Function,
-    addSession: boolean,
-};
+    module: string;
+    method: string;
+    params?: object;
+    success?: Function;
+    error?: Function;
+    addSession?: boolean;
+}
 
 const addSession = function (options: ServerRequest): ServerRequest {
     let sessionId = SessionStore.session;
@@ -34,6 +34,15 @@ const addSession = function (options: ServerRequest): ServerRequest {
 };
 
 let handleParams = function (options: ServerRequest) {
+    options = _.merge({ addSession: true, params: [] }, options);
+    if (typeof options.addSession === 'undefined') {
+        options.addSession = true;
+    }
+
+    if (typeof options.params === 'undefined') {
+        options.params = [];
+    }
+
     // If there was only one parameter passed and it's an object, it's fine. Otherwise make it into
     // an array to be sent off.
     if (!_.isObject(options.params) && !_.isArray(options.params)) {

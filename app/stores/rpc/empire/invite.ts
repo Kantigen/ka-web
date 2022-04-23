@@ -7,7 +7,7 @@ class InviteRPCStore {
         makeAutoObservable(this);
     }
 
-    update(result) {
+    update(result: any) {
         this.referral_url = result.referral_url;
     }
 }

@@ -46,6 +46,7 @@ class GenericBuildingRPCStore {
             waste: 0,
             ore: 0,
             time: 0,
+            halls: 0,
         },
         production: {
             food_hour: 0,
@@ -67,7 +68,7 @@ class GenericBuildingRPCStore {
         makeAutoObservable(this);
     }
 
-    update(result) {
+    update(result: any) {
         this.id = result.building.id;
         this.name = result.building.name;
         this.image = result.building.image;
@@ -181,6 +182,7 @@ class GenericBuildingRPCStore {
                 waste: 0,
                 ore: 0,
                 time: 0,
+                halls: 0,
             },
             production: {
                 food_hour: 0,

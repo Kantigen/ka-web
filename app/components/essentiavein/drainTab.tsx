@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import _ from 'lodash';
 
-class DrainTab extends React.Component {
-    static propTypes = {
-        building: PropTypes.object.isRequired,
-    };
+type Props = {
+    building: any;
+};
+
+class DrainTab extends React.Component<Props> {
+    dropdown = React.createRef<HTMLSelectElement>();
 
     componentDidMount() {
         $(this.refs.dropdown).dropdown();

@@ -82,11 +82,6 @@ class BodyRPCStore {
     incoming_enemy_ships = [];
     incoming_ally_ships = [];
     incoming_own_ships = [];
-    food_percent_full = 0;
-    ore_percent_full = 0;
-    water_percent_full = 0;
-    energy_percent_full = 0;
-    waste_percent_full = 0;
     alliance = {
         id: '',
         name: '',
@@ -102,7 +97,7 @@ class BodyRPCStore {
 
     clear() {}
 
-    update(body) {
+    update(body: any) {
         this.id = body.id;
         this.x = int(body.x);
         this.y = int(body.y);
@@ -179,7 +174,7 @@ class BodyRPCStore {
         this.alliance = body.alliance;
         this.influence = body.influence;
 
-        let updateShip = function (ship) {
+        let updateShip = function (ship: any) {
             ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - ServerRPCStore.serverTimeMs;
             return ship;
         };
@@ -190,7 +185,7 @@ class BodyRPCStore {
     }
 
     tick() {
-        let tickIncoming = function (ship) {
+        let tickIncoming = function (ship: any) {
             ship.arrival_ms -= 1000;
             return ship;
         };
@@ -199,60 +194,65 @@ class BodyRPCStore {
         _.map(this.incoming_ally_ships, tickIncoming);
         _.map(this.incoming_enemy_ships, tickIncoming);
 
-        let tickResource = function (production, capacity, stored, stopAtZero) {
+        let tickResource = function (
+            production: number,
+            capacity: number | undefined,
+            stored: number,
+            stopAtZero: boolean
+        ) {
             let amount = production / 60 / 60;
             let rv = stored + amount;
 
             if (typeof capacity !== 'undefined' && rv > capacity) {
-                return int(capacity);
+                return Math.floor(capacity);
             } else if (rv < 0 && stopAtZero) {
                 return 0;
             } else {
-                return int(rv);
+                return Math.floor(rv);
             }
         };
 
-        this.food_stored = tickResource(this.food_hour, this.food_capacity, this.food_stored, 1);
-        this.ore_stored = tickResource(this.ore_hour, this.ore_capacity, this.ore_stored, 1);
+        this.food_stored = tickResource(this.food_hour, this.food_capacity, this.food_stored, true);
+        this.ore_stored = tickResource(this.ore_hour, this.ore_capacity, this.ore_stored, true);
         this.water_stored = tickResource(
             this.water_hour,
             this.water_capacity,
             this.water_stored,
-            1
+            true
         );
         this.energy_stored = tickResource(
             this.energy_hour,
             this.energy_capacity,
             this.energy_stored,
-            1
+            true
         );
         this.waste_stored = tickResource(
             this.waste_hour,
             this.waste_capacity,
             this.waste_stored,
-            1
+            true
         );
-        this.happiness = tickResource(this.happiness_hour, undefined, this.happiness, undefined);
+        this.happiness = tickResource(this.happiness_hour, undefined, this.happiness, false);
     }
 
     get food_percent_full() {
-        return int((this.food_stored / this.food_capacity) * 100);
+        return Math.floor((this.food_stored / this.food_capacity) * 100);
     }
 
     get ore_percent_full() {
-        return int((this.ore_stored / this.ore_capacity) * 100);
+        return Math.floor((this.ore_stored / this.ore_capacity) * 100);
     }
 
     get water_percent_full() {
-        return int((this.water_stored / this.water_capacity) * 100);
+        return Math.floor((this.water_stored / this.water_capacity) * 100);
     }
 
     get energy_percent_full() {
-        return int((this.energy_stored / this.energy_capacity) * 100);
+        return Math.floor((this.energy_stored / this.energy_capacity) * 100);
     }
 
     get waste_percent_full() {
-        return int((this.waste_stored / this.waste_capacity) * 100);
+        return Math.floor((this.waste_stored / this.waste_capacity) * 100);
     }
 }
 

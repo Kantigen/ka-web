@@ -1,9 +1,12 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
-import server from 'app/server';
+
+interface Credits {
+    [index: string]: string[];
+}
 
 class CreditsRPCStore {
-    credits = [];
+    credits: Credits = {};
 
     constructor() {
         makeAutoObservable(this);
@@ -26,8 +29,8 @@ class CreditsRPCStore {
     //     'Play Testers' : ['John Ottinger', 'Jamie Vrbsky']
     // }
 
-    update(result) {
-        let credits = {};
+    update(result: any) {
+        const credits: Credits = {};
 
         _.each(result, function (foo) {
             _.each(foo, function (names, header) {

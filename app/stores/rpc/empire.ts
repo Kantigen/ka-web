@@ -1,8 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
-import * as util from 'app/util';
-let int = util.int;
-let clone = util.clone;
+import { int, serverDateToMs } from 'app/util';
+import ServerRPCStore from 'app/stores/rpc/server';
 
 function bodyObjectToArray(bodyObj) {
     let arr = [];
@@ -42,6 +41,7 @@ class EmpireRPCStore {
     rpc_count = 0;
     self_destruct_active = 0;
     self_destruct_date = '';
+    self_destruct_ms = 0;
     stations = [];
     status_message = '';
     tech_level = 0;
@@ -56,7 +56,7 @@ class EmpireRPCStore {
         }
     }
 
-    update(empire) {
+    update(empire: any) {
         this.has_new_messages = empire.has_new_messages;
         this.home_planet_id = empire.home_planet_id;
         this.id = empire.id;
@@ -81,7 +81,7 @@ class EmpireRPCStore {
         this.essentia = int(empire.essentia);
         if (empire.self_destruct_active) {
             this.self_destruct_ms =
-                util.serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment;
+                serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment;
         }
 
         // Fix up all the planet lists.
@@ -113,6 +113,7 @@ class EmpireRPCStore {
         this.rpc_count = 0;
         this.self_destruct_active = 0;
         this.self_destruct_date = '';
+        this.self_destruct_ms = 0;
         this.stations = [];
         this.status_message = '';
         this.tech_level = 0;

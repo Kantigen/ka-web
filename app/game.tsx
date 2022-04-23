@@ -104,6 +104,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     return;
                 } else if (query.session_id) {
                     Game.SetSession(query.session_id);
+                    SessionStore.update(query.session_id);
                 } else if (query.empire_id) {
                     Game.InitLogin();
                     Game.LoginDialog.initEmpireCreator();
@@ -114,13 +115,15 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     return;
                 }
 
+                SessionStore.update(session);
+
                 server.call({
                     module: 'empire',
                     method: 'get_status',
                     success: () => {
                         Game.Run();
                     },
-                    failure: () => {
+                    error: () => {
                         Game.Reset();
                         Game.DoLogin();
                     },

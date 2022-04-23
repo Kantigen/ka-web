@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx';
-import * as util from 'app/util';
+import { serverDateToMoment } from 'app/util';
 import ServerRPCStore from 'app/stores/rpc/server';
-import server from 'app/server';
 
 class BoostsEmpireRPCStore {
     foodMsRemaining = 0;
@@ -17,16 +16,16 @@ class BoostsEmpireRPCStore {
         makeAutoObservable(this);
     }
 
-    update(result) {
+    update(result: any) {
         const now = ServerRPCStore.serverTimeMoment;
-        this.buildingMsRemaining = util.serverDateToMoment(result.boosts.building) - now;
-        this.energyMsRemaining = util.serverDateToMoment(result.boosts.energy) - now;
-        this.foodMsRemaining = util.serverDateToMoment(result.boosts.food) - now;
-        this.happinessMsRemaining = util.serverDateToMoment(result.boosts.happiness) - now;
-        this.oreMsRemaining = util.serverDateToMoment(result.boosts.ore) - now;
-        this.spyTrainingMsRemaining = util.serverDateToMoment(result.boosts.spy_training) - now;
-        this.storageMsRemaining = util.serverDateToMoment(result.boosts.storage) - now;
-        this.waterMsRemaining = util.serverDateToMoment(result.boosts.water) - now;
+        this.buildingMsRemaining = serverDateToMoment(result.boosts.building).diff(now);
+        this.energyMsRemaining = serverDateToMoment(result.boosts.energy).diff(now);
+        this.foodMsRemaining = serverDateToMoment(result.boosts.food).diff(now);
+        this.happinessMsRemaining = serverDateToMoment(result.boosts.happiness).diff(now);
+        this.oreMsRemaining = serverDateToMoment(result.boosts.ore).diff(now);
+        this.spyTrainingMsRemaining = serverDateToMoment(result.boosts.spy_training).diff(now);
+        this.storageMsRemaining = serverDateToMoment(result.boosts.storage).diff(now);
+        this.waterMsRemaining = serverDateToMoment(result.boosts.water).diff(now);
     }
 
     tick() {

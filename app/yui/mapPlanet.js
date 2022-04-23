@@ -7,6 +7,8 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import BodyRPCStore from 'app/stores/rpc/body';
 import MenuStore from 'app/stores/menu';
 
+import { WindowMap } from 'app/components/menu/windowManager';
+
 if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
     (function () {
         var Lang = YAHOO.lang,
@@ -17,18 +19,6 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
             Lacuna = YAHOO.lacuna,
             Game = Lacuna.Game,
             Lib = Lacuna.Library;
-
-        var ReactFactoryMap = {
-            // '/essentiavein': require('app/components/essentiavein'),
-            // '/inteltraining': require('app/components/inteltraining'),
-            // '/mayhemtraining': require('app/components/mayhemtraining'),
-            // '/politicstraining': require('app/components/politicstraining'),
-            // '/thefttraining': require('app/components/thefttraining'),
-            // '/shipyard': require('app/components/shipyard'),
-            // '/spaceport': require('app/components/spaceport'),
-            // '/trade': require('app/components/trade'),
-            // '/transporter': require('app/components/transporter'),
-        };
 
         var FactoryMap = {};
 
@@ -997,14 +987,8 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
                 if (!FactoryMap[tile.data.url]) {
                     // Pass this off to the new React stuff.
 
-                    if (ReactFactoryMap[tile.data.url]) {
-                        debugger;
-                        console.error('Not implemented yet');
-                        // WindowActions.windowAdd(
-                        //     ReactFactoryMap[tile.data.url],
-                        //     'building',
-                        //     tile.data
-                        // );
+                    if (WindowMap[tile.data.url.substring(1)]) {
+                        WindowsStore.add(tile.data.url.substring(1), tile.data);
                     } else {
                         WindowsStore.add('genericBuilding', tile.data);
                     }

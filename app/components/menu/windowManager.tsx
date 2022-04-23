@@ -6,6 +6,7 @@ import WindowsStore from 'app/stores/windows';
 import Panel from 'app/components/menu/panel';
 
 import AboutWindow from 'app/components/about';
+import EssentiaVeinWindow from 'app/components/essentiavein';
 import EssentiaWindow from 'app/components/essentia';
 import GenericBuildingWindow from 'app/components/genericBuilding';
 import InviteWindow from 'app/components/invite';
@@ -19,13 +20,22 @@ interface WindowMap {
     [index: string]: WindowDefinition;
 }
 
-const map: WindowMap = {
+export const WindowMap: WindowMap = {
     about: {
         component: AboutWindow,
         config: {
             title: 'About',
             width: 450,
             height: 400,
+        },
+    },
+
+    essentiavein: {
+        component: EssentiaVeinWindow,
+        config: {
+            title: 'Essentia Vein',
+            width: 700,
+            height: 420,
         },
     },
 
@@ -89,7 +99,7 @@ const WindowManager: React.FunctionComponent = () => (
         {_.map(WindowsStore.windows, function (row, index) {
             return (
                 <Panel
-                    window={map[row.type]}
+                    window={WindowMap[row.type]}
                     type={row.type}
                     options={row.options}
                     zIndex={row.zIndex}

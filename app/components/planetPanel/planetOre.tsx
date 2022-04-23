@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import PlanetDetailLine from 'app/components/planetPanel/line';
 
 import constants from 'app/constants';
-class PlanetOre extends React.Component {
+
+type Props = {
+    status: any;
+};
+
+class PlanetOre extends React.Component<Props> {
     static propTypes = {
         status: PropTypes.object.isRequired,
     };

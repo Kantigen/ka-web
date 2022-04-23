@@ -62,7 +62,7 @@ export const serverDateToDateObj = function (serverDate: string) {
 };
 
 export const serverDateToMs = function (serverDate: string) {
-    return module.exports.serverDateToDateObj(serverDate).getTime();
+    return serverDateToDateObj(serverDate).getTime();
 };
 
 export const int = function (number: string) {
@@ -109,6 +109,7 @@ export const serverDateToMoment = function (str: string) {
         return usingOldFormat;
     } else {
         console.error('Cannot parse server date: ' + str);
+        return moment();
     }
 };
 

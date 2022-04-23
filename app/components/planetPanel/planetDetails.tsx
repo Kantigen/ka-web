@@ -5,7 +5,11 @@ import PlanetPanelLine from 'app/components/planetPanel/line';
 
 import constants from 'app/constants';
 
-class PlanetDetails extends React.Component {
+type Props = {
+    status: any;
+};
+
+class PlanetDetails extends React.Component<Props> {
     static propTypes = {
         status: PropTypes.object.isRequired,
     };
