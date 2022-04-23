@@ -1,9 +1,9 @@
 import 'app/shims/jquery';
 import 'app/shims/yahoo';
 
-import 'app/vendor-css/semantic.css';
-import 'app/vendor-css/vex.css';
-import 'app/vendor-css/vex-theme-default.css';
+import 'fomantic-ui/dist/semantic.css';
+import 'vex-js/dist/css/vex.css';
+import 'vex-js/dist/css/vex-theme-default.css';
 import 'app/css/styles.css';
 import 'react-tabs/style/react-tabs.css';
 

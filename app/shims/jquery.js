@@ -1,2 +1,2 @@
 window.$ = window.jQuery = require('jquery');
-require('app/vendor-js/semantic');
+require('fomantic-ui/dist/semantic');

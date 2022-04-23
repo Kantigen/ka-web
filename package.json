@@ -30,6 +30,7 @@
         "classnames": "^2.3.1",
         "create-react-class": "^15.6.3",
         "fingerprintjs2": "^2.1.0",
+        "fomantic-ui": "^2.8.8",
         "jquery": "^3.5.0",
         "lodash": "^4.17.15",
         "mobx": "^6.3.7",
@@ -41,7 +42,8 @@
         "react-draggable": "^4.0.3",
         "react-tabs": "^4.0.0",
         "react-tooltip": "^4.x.x",
-        "validator": "^13.0.0"
+        "validator": "^13.0.0",
+        "vex-js": "^4.1.0"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",
