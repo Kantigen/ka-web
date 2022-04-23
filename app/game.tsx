@@ -122,7 +122,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     },
                     failure: () => {
                         Game.Reset();
-                        Game.DoLogin(o.error);
+                        Game.DoLogin();
                     },
                 });
             },
@@ -162,8 +162,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         },
                         function () {
                             Dom.get('internalErrorMessageText').value = o.error.data;
-                        },
-                        undefined
+                        }
                     );
                 } else {
                     fail();
@@ -173,7 +172,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 if (!Lacuna.Game.LoginDialog) {
                     console.log('Creating login dialog');
                     Lacuna.Game.LoginDialog = new Lacuna.Login();
-                    Lacuna.Game.LoginDialog.subscribe('onLoginSuccessful', function (oArgs) {
+                    Lacuna.Game.LoginDialog.subscribe('onLoginSuccessful', function (oArgs: any) {
                         let result = oArgs.result;
                         // remember session
                         Game.SetSession(result.session_id);
@@ -184,41 +183,35 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                         Lacuna.Game.Run();
 
                         if (result.welcome_message_id) {
-                            Game.QuickDialog(
-                                {
-                                    width: '400px',
-                                    text: [
-                                        'Welcome to the Lacuna Expanse.  It is recommended that you play through the in game tutorial to familiarize yourself with the game, and to get some free resources to build up your empire.',
-                                        '<p>If you choose to skip the tutorial now you may find it by clicking <img src=",Lib.AssetUrl,"ui/s/inbox.png" title="Inbox" style="width:19px;height:22px;vertical-align:middle;margin:-5px 0 -4px -2px" /> at the top of the interface and find the message with the subject `Welcome`.</p>',
-                                        '<p>Thanks for playing!</p>',
-                                    ].join(''),
-                                    buttons: [
-                                        {
-                                            text: 'View Tutorial',
-                                            handler: function () {
-                                                this.hide();
-                                                Lacuna.Messaging.showMessage(
-                                                    result.welcome_message_id
-                                                );
-                                            },
-                                            isDefault: true,
+                            Game.QuickDialog({
+                                width: '400px',
+                                text: [
+                                    'Welcome to the Lacuna Expanse.  It is recommended that you play through the in game tutorial to familiarize yourself with the game, and to get some free resources to build up your empire.',
+                                    '<p>If you choose to skip the tutorial now you may find it by clicking <img src=",Lib.AssetUrl,"ui/s/inbox.png" title="Inbox" style="width:19px;height:22px;vertical-align:middle;margin:-5px 0 -4px -2px" /> at the top of the interface and find the message with the subject `Welcome`.</p>',
+                                    '<p>Thanks for playing!</p>',
+                                ].join(''),
+                                buttons: [
+                                    {
+                                        text: 'View Tutorial',
+                                        handler: function () {
+                                            this.hide();
+                                            Lacuna.Messaging.showMessage(result.welcome_message_id);
                                         },
-                                        {
-                                            text: 'Skip Tutorial',
-                                            handler: function () {
-                                                this.hide();
-                                            },
+                                        isDefault: true,
+                                    },
+                                    {
+                                        text: 'Skip Tutorial',
+                                        handler: function () {
+                                            this.hide();
                                         },
-                                    ],
-                                },
-                                undefined,
-                                undefined
-                            );
+                                    },
+                                ],
+                            });
                         }
                     });
                 }
             },
-            DoLogin: function (error = undefined) {
+            DoLogin: function (error?: any) {
                 Dom.setStyle(
                     document.body,
                     'background',
@@ -337,11 +330,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 };
                 return func;
             },
-            QuickDialog: function (
-                config: any,
-                afterRender: Function | undefined,
-                afterHide: Function | undefined
-            ) {
+            QuickDialog: function (config: any, afterRender?: Function, afterHide?: Function) {
                 let container = document.createElement('div');
                 if (config.id) {
                     container.id = config.id;
@@ -378,7 +367,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 Game.OverlayManager.register(dialog);
             },
 
-            GetSession: function (replace: string | undefined = undefined) {
+            GetSession: function (replace: string = '') {
                 if (!this._session) {
                     this._session = Game.GetCookie('session');
                 }
@@ -475,11 +464,11 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             },
 
             // Cookie helpers functions
-            GetCookie: function (key: string, defaultValue: any = undefined) {
+            GetCookie: function (key: string, defaultValue?: any) {
                 let chip = Cookie.getSub('lacuna', key);
                 return chip || defaultValue;
             },
-            SetCookie: function (key: string, value: any, expiresDate: any = undefined) {
+            SetCookie: function (key: string, value: any, expiresDate?: any) {
                 let opts = {
                     domain: Game.domain,
                 };

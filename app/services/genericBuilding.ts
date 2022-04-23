@@ -2,13 +2,13 @@ import server from 'app/server';
 import GenericBuildingRPCStore from 'app/stores/rpc/genericBuilding';
 
 class GenericBuildingService {
-    view(url, id) {
+    view(url: string, id: string) {
         GenericBuildingRPCStore.clear();
         server.call({
             module: url.replace(/^\//, ''),
             method: 'view',
             params: [id],
-            success: (result) => {
+            success: (result: any) => {
                 GenericBuildingRPCStore.update(result);
             },
         });

@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
 class SessionStore {
-    session = '';
+    session: string = '';
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    update(session) {
+    update(session: string) {
         this.session = session;
     }
 }

@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 
 import React from 'react';
 
-class PanelHeader extends React.Component {
+type Props = {
+    panelWidth: number;
+    onClose: Function;
+    title: string;
+};
+
+class PanelHeader extends React.Component<Props> {
     static propTypes = {
         panelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
@@ -38,7 +44,7 @@ class PanelHeader extends React.Component {
                 <span className='drag-handle'>{this.props.title}</span>
 
                 <span
-                    onClick={this.props.onClose}
+                    onClick={(e) => this.props.onClose(e)}
                     style={{
                         position: 'absolute',
                         right: 30,

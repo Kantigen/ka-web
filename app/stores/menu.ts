@@ -1,15 +1,17 @@
 import { makeAutoObservable } from 'mobx';
 
+type MapMode = 'planetMap' | 'starMap';
+
 export const PLANET_MAP_MODE = 'planetMap';
 export const STAR_MAP_MODE = 'starMap';
 
 class MenuStore {
-    menuShown = false;
-    leftSidebarShown = false;
-    rightSidebarShown = false;
-    loaderShwon = false;
-    mapMode = PLANET_MAP_MODE;
-    planetId = 0;
+    menuShown: boolean = false;
+    leftSidebarShown: boolean = false;
+    rightSidebarShown: boolean = false;
+    loaderShwon: boolean = false;
+    mapMode: MapMode = PLANET_MAP_MODE;
+    planetId: number = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -35,7 +37,7 @@ class MenuStore {
         this.mapMode = this.mapMode == PLANET_MAP_MODE ? STAR_MAP_MODE : PLANET_MAP_MODE;
     }
 
-    changePlanet(id) {
+    changePlanet(id: number) {
         console.log('Changing to planet (#' + id + ').');
         this.mapMode = PLANET_MAP_MODE;
         this.planetId = id;

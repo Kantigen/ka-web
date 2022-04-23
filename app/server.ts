@@ -8,25 +8,18 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import BodyRPCStore from 'app/stores/rpc/body';
 import MenuStore from 'app/stores/menu';
 import SessionStore from 'app/stores/session';
-import Captcha from 'app/components/captcha';
+import WindowsStore from 'app/stores/windows';
 
-let defaults = {
-    module: '',
-    method: '',
-    params: {},
-    addSession: true,
-    success: _.noop,
-    error: _.noop,
-    scope: window,
+interface ServerRequest {
+    module: string,
+    method: string,
+    params: object,
+    success?: Function,
+    error?: Function,
+    addSession: boolean,
 };
 
-let handleDefaults = function (options) {
-    // NOTE: we merge this into `{}` so as to avoid leaking stuff into `defaults`.
-    // The Lo-dash docs are not clear about this, so we just need to make sure.
-    return _.merge({}, defaults, options || {});
-};
-
-let addSession = function (options) {
+const addSession = function (options: ServerRequest): ServerRequest {
     let sessionId = SessionStore.session;
 
     if (options.addSession === true && sessionId) {
@@ -40,7 +33,7 @@ let addSession = function (options) {
     return options;
 };
 
-let handleParams = function (options) {
+let handleParams = function (options: ServerRequest) {
     // If there was only one parameter passed and it's an object, it's fine. Otherwise make it into
     // an array to be sent off.
     if (!_.isObject(options.params) && !_.isArray(options.params)) {
@@ -50,12 +43,7 @@ let handleParams = function (options) {
     return addSession(options);
 };
 
-let handleConfig = function (options) {
-    options = handleDefaults(options);
-    return handleParams(options);
-};
-
-let createData = function (options) {
+let createData = function (options: ServerRequest) {
     return JSON.stringify({
         jsonrpc: '2.0',
         id: 1,
@@ -64,11 +52,11 @@ let createData = function (options) {
     });
 };
 
-let createUrl = function (options) {
+let createUrl = function (options: ServerRequest) {
     return constants.RPC_BASE + options.module;
 };
 
-let handleSuccess = function (options, result) {
+let handleSuccess = function (options: ServerRequest, result: any) {
     if (result) {
         if (result.status) {
             splitStatus(result.status);
@@ -78,20 +66,20 @@ let handleSuccess = function (options, result) {
     }
 
     if (typeof options.success === 'function') {
-        options.success.call(options.scope, result);
+        options.success(result);
     }
 };
 
-let handleError = function (options, error) {
+let handleError = function (options: ServerRequest, error: any) {
     window.alert(error.message + ' (' + error.code + ')');
     console.error('Request error: ', error);
 
     if (typeof options.error === 'function') {
-        options.error.call(options.scope, error);
+        options.error(error);
     }
 };
 
-let sendRequest = function (url, data, options, retry) {
+let sendRequest = function (url: string, data: any, options: ServerRequest, retry: Function) {
     console.log('Calling', options.module + '/' + options.method, options.params);
 
     $.ajax({
@@ -111,7 +99,7 @@ let sendRequest = function (url, data, options, retry) {
             }
         },
 
-        error: function (jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR) {
             MenuStore.hideLoader();
             let error = {};
 
@@ -129,7 +117,7 @@ let sendRequest = function (url, data, options, retry) {
             };
 
             if (error.code === 1016) {
-                WindowActions.windowAdd(Captcha, 'captcha', {
+                WindowsStore.add('captcha', {
                     success: retry,
                 });
             } else {
@@ -139,24 +127,25 @@ let sendRequest = function (url, data, options, retry) {
     });
 };
 
-let call = function (obj) {
+export const call = function (obj: ServerRequest) {
     MenuStore.showLoader();
 
-    let options = handleConfig(obj);
-    let data = createData(options);
-    let url = createUrl(options);
+    const options = handleParams(obj);
+    const data = createData(options);
+    const url = createUrl(options);
 
-    let retry = function () {
+    const retry = function () {
         call(obj);
     };
 
     sendRequest(url, data, options, retry);
 };
 
+//
 // Split the status message into server, body, empire
 // and call the corresponding actions
 //
-let splitStatus = function (status) {
+export const splitStatus = function (status: any) {
     if (status.server) {
         let serverStatus = util.fixNumbers(_.cloneDeep(status.server));
         ServerRPCStore.update(serverStatus);

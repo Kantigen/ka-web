@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import constants from 'app/constants';
 
-let xPad = function (x, pad, r) {
+let xPad = function (x: any, pad: string, r: any) {
     if (typeof r === 'undefined') {
         r = 10;
     }
@@ -12,7 +12,7 @@ let xPad = function (x, pad, r) {
     return x.toString();
 };
 
-export const reduceNumber = function (number, always) {
+export const reduceNumber = function (number: number) {
     if (number >= 100000000000000000 || number <= -100000000000000000) {
         // 101Q
         return Math.floor(number / 1000000000000000) + 'Q';
@@ -40,39 +40,36 @@ export const reduceNumber = function (number, always) {
     } else if (number >= 10000 || number <= -10000) {
         // 123k
         return Math.floor(number / 1000) + 'k';
-    } else if (always) {
-        // 8765
-        return Math.floor(number).toString();
     } else {
         // 8765
         return Math.floor(number).toString() || '0';
     }
 };
 
-export const serverDateToDateObj = function (serverDate) {
+export const serverDateToDateObj = function (serverDate: string) {
     // "23 03 2010 01:20:11 +0000"
     let pieces = serverDate.split(' '); // [day month year hr:min:sec timez
     let time = pieces[3].split(':');
     let dt = new Date();
 
-    dt.setUTCFullYear(pieces[2] * 1);
-    dt.setUTCMonth(pieces[1] * 1 - 1, pieces[0] * 1);
-    dt.setUTCHours(time[0] * 1);
-    dt.setUTCMinutes(time[1] * 1);
-    dt.setUTCSeconds(time[2] * 1);
+    dt.setUTCFullYear(int(pieces[2]));
+    dt.setUTCMonth(int(pieces[1]) - 1, int(pieces[0]));
+    dt.setUTCHours(int(time[0]));
+    dt.setUTCMinutes(int(time[1]));
+    dt.setUTCSeconds(int(time[2]));
 
     return dt;
 };
 
-export const serverDateToMs = function (serverDate) {
+export const serverDateToMs = function (serverDate: string) {
     return module.exports.serverDateToDateObj(serverDate).getTime();
 };
 
-export const int = function (number) {
+export const int = function (number: string) {
     return parseInt(number, 10);
 };
 
-export const formatTime = function (totalSeconds) {
+export const formatTime = function (totalSeconds: number) {
     if (totalSeconds < 0) {
         return '';
     }
@@ -95,12 +92,12 @@ export const formatTime = function (totalSeconds) {
     }
 };
 
-export const formatMillisecondTime = function (ms) {
-    return this.formatTime(ms / 1000);
+export const formatMillisecondTime = function (ms: number) {
+    return formatTime(ms / 1000);
 };
 
-export const serverDateToMoment = function (str) {
-    // There are currently two date formats beig used by the server.
+export const serverDateToMoment = function (str: string) {
+    // There are currently two date formats being used by the server.
     // This is to handle that.
 
     let usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
@@ -115,15 +112,15 @@ export const serverDateToMoment = function (str) {
     }
 };
 
-export const formatMomentLong = function (theMoment) {
+export const formatMomentLong = function (theMoment: moment.Moment) {
     return theMoment.format('dddd, Do MMMM HH:mm:ss ZZ');
 };
 
-export const clone = function (obj) {
+export const clone = function (obj: object) {
     return $.extend(true, {}, obj);
 };
 
-export const commify = function (num) {
+export const commify = function (num: number) {
     if (num === undefined) {
         return '';
     }
@@ -131,7 +128,7 @@ export const commify = function (num) {
     return Number(num).toLocaleString();
 };
 
-let handleString = function (string) {
+let handleString = function (string: any) {
     if (window.isNaN(string)) {
         return string;
     } else {
@@ -139,7 +136,7 @@ let handleString = function (string) {
     }
 };
 
-let handleObj = function (obj) {
+let handleObj = function (obj: any): any {
     if (_.isString(obj)) {
         return handleString(obj);
     } else if (_.isObject(obj)) {
@@ -154,6 +151,6 @@ let handleObj = function (obj) {
     }
 };
 
-export const fixNumbers = function (data) {
+export const fixNumbers = function (data: any) {
     return _.mapValues(data, handleObj);
 };

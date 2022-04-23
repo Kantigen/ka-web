@@ -24,6 +24,7 @@ export interface WindowDefinition {
 }
 
 export type WindowType = 'about' |
+    'captcha' |
     'essentia' |
     'genericBuilding' |
     'invite' |

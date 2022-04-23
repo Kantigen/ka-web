@@ -14,9 +14,9 @@ import BodyRPCStore from 'app/stores/rpc/body';
 const INTERVAL_TIME = 1000;
 
 class TickerStore {
-    ticking = false;
-    interval = _.noop;
-    clockTicks = 0;
+    ticking: boolean = false;
+    interval: number = 0;
+    clockTicks: number = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -32,14 +32,14 @@ class TickerStore {
 
     start() {
         if (!this.ticking) {
-            this.interval = setInterval(() => this.tick(), INTERVAL_TIME);
+            this.interval = window.setInterval(() => this.tick(), INTERVAL_TIME);
             this.ticking = true;
         }
     }
 
     stop() {
         if (this.ticking) {
-            clearInterval(this.interval);
+            window.clearInterval(this.interval);
             this.ticking = false;
         }
     }

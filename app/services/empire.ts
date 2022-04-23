@@ -4,13 +4,15 @@ import InviteRPCStore from 'app/stores/rpc/empire/invite';
 import server from 'app/server';
 import * as vex from 'app/vex';
 
+declare const YAHOO: any;
+
 class EmpireService {
     getBoosts() {
         server.call({
             module: 'empire',
             method: 'get_boosts',
             params: [],
-            success: (result) => {
+            success: (result: any) => {
                 BoostsRPCStore.update(result);
             },
         });
@@ -21,13 +23,13 @@ class EmpireService {
             module: 'empire',
             method: 'invite_friend',
             params: [],
-            success: (result) => {
+            success: (result: any) => {
                 InviteRPCStore.update(result);
             },
         });
     }
 
-    inviteFriend(email, message) {
+    inviteFriend(email: string, message: string) {
         server.call({
             module: 'empire',
             method: 'get_invite_friend_url',

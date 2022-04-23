@@ -7,11 +7,11 @@ vex.registerPlugin(vexDialog);
 
 vex.defaultOptions.className = 'vex-theme-default';
 
-export const alert = function (message) {
+export const alert = function (message: string) {
     vex.dialog.alert(message);
 };
 
-export const confirm = function (message, yesCallback, noCallback) {
+export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
     vex.dialog.confirm({
         message: message,
         callback: function (value) {
@@ -24,7 +24,7 @@ export const confirm = function (message, yesCallback, noCallback) {
     });
 };
 
-export const prompt = function (message, placeholder, callback) {
+export const prompt = function (message: string, placeholder: string, callback: Function) {
     vex.dialog.prompt({
         message: message,
         placeholder: placeholder,

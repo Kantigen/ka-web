@@ -2,7 +2,13 @@ import PropTypes from 'prop-types';
 
 import React from 'react';
 
-class PanelContent extends React.Component {
+type Props = {
+    panelHeight: number | 'auto';
+    panelWidth: number;
+    children: React.ReactNode;
+};
+
+class PanelContent extends React.Component<Props> {
     static propTypes = {
         panelHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         panelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
