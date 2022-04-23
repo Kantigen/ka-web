@@ -7,12 +7,6 @@ import PlanetDetailsTab from 'app/js/components/window/planetPanel/planetDetails
 import { Tab, Tabs } from 'app/js/components/tabber';
 
 class PlanetPanel extends React.Component {
-    static options = {
-        title: 'Planet Details',
-        width: 700,
-        height: 450,
-    };
-
     static propTypes = {
         options: PropTypes.object,
     };

@@ -4,7 +4,22 @@ import React from 'react';
 import _ from 'lodash';
 import * as ReactTabs from 'react-tabs';
 
-class Tabs extends React.Component {
+import { TabProps } from 'app/js/components/tabber/tab';
+
+interface CallbackMap {
+    [index: number]: Function;
+}
+
+type Props = {
+    initialTab: number;
+    children: React.ReactElement<TabProps> | Array<React.ReactElement<TabProps>>;
+};
+
+type State = {
+    selectedTab: number;
+};
+
+class Tabs extends React.Component<Props, State> {
     static propTypes = {
         initialTab: PropTypes.number,
         onSelect: PropTypes.object,
@@ -23,19 +38,19 @@ class Tabs extends React.Component {
         this.handleCallbacks(this.state.selectedTab);
     }
 
-    handleSelect = (index) => {
+    handleSelect(index: number) {
         this.handleCallbacks(index);
         this.setState({
             selectedTab: index,
         });
-    };
+    }
 
-    getCallbacks = () => {
-        let obj = {};
+    getCallbacks(): CallbackMap {
+        let obj: CallbackMap = {};
         let i = 0;
 
         React.Children.forEach(this.props.children, function (child) {
-            if (child && child.props && typeof child.props.onSelect === 'function') {
+            if (child?.props?.onSelect) {
                 obj[i] = child.props.onSelect;
             }
 
@@ -43,19 +58,19 @@ class Tabs extends React.Component {
         });
 
         return obj;
-    };
+    }
 
-    handleCallbacks = (index) => {
-        let callbacks = this.getCallbacks();
+    handleCallbacks(index: number): void {
+        const callbacks: CallbackMap = this.getCallbacks();
 
-        if (callbacks && typeof callbacks[index] === 'function') {
+        if (callbacks[index]) {
             callbacks[index]();
         }
-    };
+    }
 
     render() {
-        let tabTitles = [];
-        let tabContents = [];
+        let tabTitles: string[] = [];
+        let tabContents: React.ReactNode[] = [];
 
         React.Children.forEach(this.props.children, function (child) {
             if (child && child.props && child.props.title && child.props.children) {
@@ -65,7 +80,10 @@ class Tabs extends React.Component {
         });
 
         return (
-            <ReactTabs.Tabs selectedIndex={this.state.selectedTab} onSelect={this.handleSelect}>
+            <ReactTabs.Tabs
+                selectedIndex={this.state.selectedTab}
+                onSelect={(index: number) => this.handleSelect(index)}
+            >
                 <ReactTabs.TabList>
                     {_.map(tabTitles, function (title) {
                         return <ReactTabs.Tab key={title}>{title}</ReactTabs.Tab>;

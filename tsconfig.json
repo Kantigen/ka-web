@@ -8,6 +8,7 @@
         "forceConsistentCasingInFileNames": true,
         "noEmitOnError": false,
         "jsx": "react",
-        "baseUrl": "."
+        "baseUrl": ".",
+        "allowSyntheticDefaultImports": true
     }
 }

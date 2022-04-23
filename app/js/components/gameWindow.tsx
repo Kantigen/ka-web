@@ -15,7 +15,7 @@ import ErrorBoundary from 'app/js/components/errorBoundary';
 // This React component will be the main container of everything that appears on the screen.
 //
 
-const GameWindow = () => (
+const GameWindow: React.FunctionComponent = () => (
     <div
         id='sidebarContainer'
         style={{

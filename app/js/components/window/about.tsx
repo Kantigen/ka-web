@@ -8,12 +8,6 @@ import { Tabs, Tab } from 'app/js/components/tabber';
 import WindowsStore from 'app/js/stores/windows';
 
 class AboutWindow extends React.Component {
-    static options = {
-        title: 'About',
-        width: 450,
-        height: 400,
-    };
-
     closeWindow() {
         WindowsStore.close('about');
     }

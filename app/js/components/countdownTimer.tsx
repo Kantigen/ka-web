@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class CountdownTimer extends React.Component {
+type Props = {
+    endDate: string;
+}
+
+class CountdownTimer extends React.Component<Props> {
+    static propTypes = {
+        endDate: PropTypes.string,
+    }
+
     render() {
         return <div>{this.props.endDate}</div>;
     }
 }
-
-CountdownTimer.propTypes = {
-    endDate: PropTypes.string,
-};
 
 export default CountdownTimer;

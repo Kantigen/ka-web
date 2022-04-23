@@ -10,13 +10,13 @@ import { Tabs, Tab } from 'app/js/components/tabber';
 import GenericBuildingRPCStore from 'app/js/stores/rpc/genericBuilding';
 import GenericBuildingService from 'app/js/services/genericBuilding';
 
-class GenericBuilding extends React.Component {
-    static options = {
-        title: 'Building',
-        width: 700,
-        height: 'auto',
-    };
+import { WindowOptions } from 'app/js/interfaces';
 
+type Props = {
+    options: WindowOptions;
+};
+
+class GenericBuilding extends React.Component<Props> {
     static propTypes = {
         options: PropTypes.object,
     };
@@ -25,7 +25,7 @@ class GenericBuilding extends React.Component {
         GenericBuildingService.view(this.props.options.url, this.props.options.id);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         if (
             prevProps.options.url != this.props.options.url ||
             prevProps.options.id != this.props.options.id
@@ -50,7 +50,7 @@ class GenericBuilding extends React.Component {
                                 <RepairTab />
                             </Tab>
                         ) : (
-                            undefined
+                            <></>
                         )}
 
                         <Tab title='Production' key='Production'>

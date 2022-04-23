@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'lodash';
 
-class CreditsSection extends React.Component {
+type Props = {
+    header: string;
+    names: string[];
+};
+
+class CreditsSection extends React.Component<Props> {
     static propTypes = {
         header: PropTypes.string.isRequired,
         names: PropTypes.arrayOf(PropTypes.string),
@@ -20,7 +25,7 @@ class CreditsSection extends React.Component {
                 <strong>{this.props.header}</strong>
 
                 <ul>
-                    {_.map(this.props.names, function(name) {
+                    {_.map(this.props.names, function (name) {
                         return (
                             <li
                                 key={name}

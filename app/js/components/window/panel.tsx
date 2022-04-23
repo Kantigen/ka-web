@@ -8,12 +8,21 @@ import Draggable from 'react-draggable';
 import PanelHeader from 'app/js/components/window/panel/panelHeader';
 import PanelContent from 'app/js/components/window/panel/panelContent';
 
-class Panel extends React.Component {
+import { WindowType, WindowOptions, WindowDefinition } from 'app/js/interfaces';
+
+type Props = {
+    zIndex: number;
+    type: WindowType;
+    options: WindowOptions;
+    window: WindowDefinition;
+};
+
+class Panel extends React.Component<Props> {
     static propTypes = {
         type: PropTypes.string,
         zIndex: PropTypes.number,
         options: PropTypes.object,
-        window: PropTypes.func,
+        window: PropTypes.object,
     };
 
     onBringToTop() {
@@ -25,11 +34,11 @@ class Panel extends React.Component {
     }
 
     handleCentering() {
-        return ($(window.document).width() - this.props.window.options.width) / 2;
+        return ($(window.document).width() - this.props.window.config.width) / 2;
     }
 
     render() {
-        let subPanel = React.createElement(this.props.window, {
+        let subPanel = React.createElement(this.props.window.component, {
             zIndex: this.props.zIndex,
             options: this.props.options,
         });
@@ -46,14 +55,14 @@ class Panel extends React.Component {
                     onClick={() => this.onBringToTop()}
                 >
                     <PanelHeader
-                        title={this.props.window.options.title}
-                        panelWidth={this.props.window.options.width}
+                        title={this.props.window.config.title}
+                        panelWidth={this.props.window.config.width}
                         onClose={() => this.closeWindow()}
                     />
 
                     <PanelContent
-                        panelWidth={this.props.window.options.width}
-                        panelHeight={this.props.window.options.height}
+                        panelWidth={this.props.window.config.width}
+                        panelHeight={this.props.window.config.height}
                     >
                         {subPanel}
                     </PanelContent>

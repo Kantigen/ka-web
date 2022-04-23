@@ -5,32 +5,23 @@ import EmpireService from 'app/js/services/empire';
 import WindowsStore from 'app/js/stores/windows';
 
 class InviteWindow extends React.Component {
-    static options = {
-        title: 'Invite a Friend',
-        width: 450,
-        height: 400,
-    };
+    emailInput = React.createRef<HTMLInputElement>();
+    messageInput = React.createRef<HTMLTextAreaElement>();
 
     closeWindow() {
         WindowsStore.close('invite');
     }
 
     handleInvite() {
-        let email = this.refs.email.value;
-        let message = this.refs.message.value;
-        EmpireService.inviteFriend(email, message);
+        if (this.emailInput.current && this.messageInput.current) {
+            const email = this.emailInput.current.value;
+            const message = this.messageInput.current.value;
+            EmpireService.inviteFriend(email, message);
+        }
     }
 
     componentDidMount() {
         EmpireService.getInviteFriendUrl();
-    }
-
-    componentDidUpdate() {
-        let $el = $(this.refs.referral);
-
-        $el.off().click(function () {
-            $(this).select();
-        });
     }
 
     render() {
@@ -44,12 +35,16 @@ class InviteWindow extends React.Component {
                 <div className='ui form'>
                     <div className='field'>
                         <label style={{ color: '#ffffff' }}>Email</label>
-                        <input type='text' placeholder='someone@example.com' ref='email'></input>
+                        <input
+                            type='text'
+                            placeholder='someone@example.com'
+                            ref={this.emailInput}
+                        ></input>
                     </div>
 
                     <div className='field'>
                         <label style={{ color: '#ffffff' }}>Message</label>
-                        <textarea ref='message' defaultValue={defaultMessage}></textarea>
+                        <textarea ref={this.messageInput} defaultValue={defaultMessage}></textarea>
                     </div>
 
                     <div className='ui green button' onClick={() => this.handleInvite()}>
@@ -59,12 +54,12 @@ class InviteWindow extends React.Component {
 
                 <div className='ui divider'></div>
 
-                <div className='ui fluid action input' ref='referralContainer'>
+                <div className='ui fluid action input'>
                     <input
                         type='text'
                         readOnly
                         placeholder='Referral link'
-                        value={InviteRPCStore.referral_url}
+                        defaultValue={InviteRPCStore.referral_url}
                     />
                 </div>
             </div>

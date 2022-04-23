@@ -8,16 +8,6 @@ import GetEssentiaTab from 'app/js/components/window/essentia/getEssentiaTab';
 import { Tabs, Tab } from 'app/js/components/tabber';
 
 class Essentia extends React.Component {
-    static options = {
-        title: 'Essentia',
-        width: 600,
-        height: 350,
-    };
-
-    closeWindow() {
-        WindowsStore.close('essentia');
-    }
-
     render() {
         return (
             <Tabs>
@@ -36,4 +26,4 @@ class Essentia extends React.Component {
     }
 }
 
-export default observer(Essentia);
+export default Essentia;

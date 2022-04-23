@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import { makeAutoObservable } from 'mobx';
+import { Window, WindowType, WindowOptions } from 'app/js/interfaces';
 
-let findWindowByType = function (windows, type) {
+let findWindowByType = function (windows: Window[], type: WindowType) {
     let index = _.findIndex(windows, function (o) {
         if (o) {
             return o.type === type;
@@ -23,7 +24,7 @@ let findWindowByType = function (windows, type) {
 };
 
 class WindowsStore {
-    windows = [];
+    windows: Window[] = [];
     zIndex = 2000000;
 
     constructor() {
@@ -33,7 +34,7 @@ class WindowsStore {
     //
     // We only allow one window of each type (e.g. 'about' or 'building')
     //
-    add(type, options = {}) {
+    add(type: WindowType, options: WindowOptions = {}) {
         let index = this.windows.length;
 
         // However, if there is an existing window type, we replace it because we only want
@@ -47,6 +48,7 @@ class WindowsStore {
             type: type,
             zIndex: this.zIndex,
             options: options,
+            index: index,
         };
 
         this.zIndex += 1;
@@ -55,7 +57,7 @@ class WindowsStore {
     //
     // Close window by type, e.g. 'captcha'
     //
-    close(type) {
+    close(type: WindowType) {
         let existingWindow = findWindowByType(this.windows, type);
         if (!existingWindow) return;
         this.windows.splice(existingWindow.index, 1);
@@ -69,6 +71,7 @@ class WindowsStore {
         this.zIndex = 2000000;
     }
 
+    //
     // Close the window on top when user hits the escape key.
     //
     onEscKey() {
@@ -80,7 +83,7 @@ class WindowsStore {
     //
     // Bring a window to the top of the stack by type.
     //
-    bringToTop(type) {
+    bringToTop(type: WindowType) {
         let toBringToTop = findWindowByType(this.windows, type);
         if (!toBringToTop) return;
 

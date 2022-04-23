@@ -6,12 +6,6 @@ import TickerStore from 'app/js/stores/ticker';
 import WindowsStore from 'app/js/stores/windows';
 
 class ServerClock extends React.Component {
-    static options = {
-        title: 'Server Clock',
-        width: 330,
-        height: 'auto',
-    };
-
     closeWindow() {
         WindowsStore.close('serverClock');
     }
