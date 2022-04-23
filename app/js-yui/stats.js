@@ -7,7 +7,7 @@ import MenuStore from 'app/js/stores/menu';
 YAHOO.namespace('lacuna');
 
 if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
-    (function() {
+    (function () {
         var Lang = YAHOO.lang,
             Util = YAHOO.util,
             Dom = Util.Dom,
@@ -17,9 +17,9 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             Game = Lacuna.Game,
             Lib = Lacuna.Library;
 
-        var Stats = function() {};
+        var Stats = function () {};
         Stats.prototype = {
-            build: _.once(function() {
+            build: _.once(function () {
                 this.id = 'stats';
 
                 var container = document.createElement('div');
@@ -39,7 +39,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     zIndex: 9999,
                 });
                 this.Panel.renderEvent.subscribe(
-                    function() {
+                    function () {
                         Dom.removeClass(this.id, Lib.Styles.HIDDEN);
                         this.tabView = new YAHOO.widget.TabView('statsTabs');
                         this.tabView.set('activeIndex', 0);
@@ -47,7 +47,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         //subscribe after adding so active doesn't fire
                         this.tabView.getTab(1).subscribe(
                             'activeChange',
-                            function(e) {
+                            function (e) {
                                 if (e.newValue) {
                                     this.AllianceStats();
                                 }
@@ -57,7 +57,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         );
                         this.tabView.getTab(2).subscribe(
                             'activeChange',
-                            function(e) {
+                            function (e) {
                                 if (e.newValue) {
                                     this.ColonyStats();
                                 }
@@ -67,7 +67,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         );
                         this.tabView.getTab(3).subscribe(
                             'activeChange',
-                            function(e) {
+                            function (e) {
                                 if (e.newValue) {
                                     this.SpyStats();
                                 }
@@ -77,7 +77,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         );
                         this.tabView.getTab(4).subscribe(
                             'activeChange',
-                            function(e) {
+                            function (e) {
                                 if (e.newValue) {
                                     this.WeeklyMedalStats();
                                 }
@@ -87,7 +87,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         );
                         this.tabView.getTab(5).subscribe(
                             'activeChange',
-                            function(e) {
+                            function (e) {
                                 if (e.newValue) {
                                     this.getServerStats();
                                 }
@@ -120,7 +120,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 this.Panel.render();
                 Game.OverlayManager.register(this.Panel);
             }),
-            _getHtml: function() {
+            _getHtml: function () {
                 return [
                     '    <div class="hd">Universe Stats</div>',
                     '    <div class="bd">',
@@ -178,10 +178,10 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 ].join('');
             },
 
-            getServerStats: function() {
+            getServerStats: function () {
                 MenuStore.showLoader();
-                Util.Connect.asyncRequest('GET', 'server_overview.json', {
-                    success: function(o) {
+                Util.Connect.asyncRequest('GET', constants.RPC_BASE + 'server_overview.json', {
+                    success: function (o) {
                         YAHOO.log(o, 'info', 'Stats.populateServerStats.success');
                         MenuStore.hideLoader();
                         try {
@@ -194,7 +194,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     scope: this,
                 });
             },
-            populateServerStats: function() {
+            populateServerStats: function () {
                 var data = this._serverOverview;
 
                 Event.purgeElement(this.statsGeneralBodies);
@@ -256,11 +256,11 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 ["Orbit 1 Inhabited", "Orbit 2 Inhabited", "Orbit 3 Inhabited", "Orbit 4 Inhabited", "Orbit 5 Inhabited", "Orbit 6 Inhabited", "Orbit 7 Inhabited", "Orbit 8 Inhabited"]
             ],true);*/
             },
-            expander: function(e, matchedEl, container) {
+            expander: function (e, matchedEl, container) {
                 var ul = Sel.query('ul', matchedEl.parentNode, true);
                 Dom.setStyle(ul, 'display', Dom.getStyle(ul, 'display') == 'none' ? '' : 'none');
             },
-            _getBodiesHtml: function() {
+            _getBodiesHtml: function () {
                 var data = this._serverOverview.bodies;
                 return [
                     '<ul class="statsList">',
@@ -353,7 +353,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     '</ul>',
                 ].join('');
             },
-            _getBuildingsHtml: function() {
+            _getBuildingsHtml: function () {
                 var data = this._serverOverview.buildings,
                     output = [
                         '<ul class="statsList">',
@@ -397,7 +397,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 output.push('</ul></li></ul>');
                 return output.join('');
             },
-            _getEmpiresHtml: function() {
+            _getEmpiresHtml: function () {
                 var data = this._serverOverview.empires;
                 return [
                     '<ul class="statsList">',
@@ -428,7 +428,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     '</ul>',
                 ].join('');
             },
-            _getOrbitsHtml: function() {
+            _getOrbitsHtml: function () {
                 var data = this._serverOverview.orbits;
 
                 return [
@@ -517,7 +517,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     '</ul></li></ul>',
                 ].join('');
             },
-            _getShipsHtml: function() {
+            _getShipsHtml: function () {
                 var data = this._serverOverview.ships,
                     output = [
                         '<ul class="statsList">',
@@ -566,7 +566,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 output.push('</ul></li></ul>');
                 return output.join('');
             },
-            _getSpiesHtml: function() {
+            _getSpiesHtml: function () {
                 var data = this._serverOverview.spies;
                 return [
                     '<ul class="statsList">',
@@ -666,7 +666,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     '</ul>',
                 ].join('');
             },
-            _getStarsHtml: function() {
+            _getStarsHtml: function () {
                 var data = this._serverOverview.stars;
                 return [
                     '<ul class="statsList">',
@@ -685,7 +685,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     '</ul>',
                 ].join('');
             },
-            _getGlyphsHtml: function() {
+            _getGlyphsHtml: function () {
                 var data = this._serverOverview.glyphs,
                     output = ['<ul class="statsList">'];
                 var glyphs = new Array();
@@ -694,7 +694,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     glyphs[i] = { type: bt, count: data.types[bt] };
                     i++;
                 }
-                glyphs.sort(function(a, b) {
+                glyphs.sort(function (a, b) {
                     return a.count - b.count;
                 });
                 for (var i = 0; i < glyphs.length; i++) {
@@ -711,13 +711,13 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 return output.join('');
             },
 
-            formatPercent: function(el, oRecord, oColumn, oData) {
+            formatPercent: function (el, oRecord, oColumn, oData) {
                 el.innerHTML = Util.Number.format(Math.round(oData * 100), {
                     thousandsSeparator: ',',
                     suffix: '%',
                 });
             },
-            EmpireStats: function() {
+            EmpireStats: function () {
                 if (this.EmpireTable) {
                     this.EmpireTable.requery();
                 } else {
@@ -727,7 +727,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'rank',
                             label: 'Rank',
-                            formatter: function(el, oRecord, oColumn, oData) {
+                            formatter: function (el, oRecord, oColumn, oData) {
                                 var oState = this.getState();
                                 el.innerHTML = Math.floor(
                                     oState.pagination.recordOffset + this.rankCounter++
@@ -852,7 +852,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoverEvent',
                         this.EmpireTable.onEventHighlightCell
                     );
-                    this.EmpireTable.subscribe('cellHighlightEvent', function(oArgs) {
+                    this.EmpireTable.subscribe('cellHighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name' || oArgs.key == 'alliance_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'help');
                         }
@@ -861,12 +861,12 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoutEvent',
                         this.EmpireTable.onEventUnhighlightCell
                     );
-                    this.EmpireTable.subscribe('cellUnhighlightEvent', function(oArgs) {
+                    this.EmpireTable.subscribe('cellUnhighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name' || oArgs.key == 'alliance_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'auto');
                         }
                     });
-                    this.EmpireTable.subscribe('cellClickEvent', function(ev) {
+                    this.EmpireTable.subscribe('cellClickEvent', function (ev) {
                         var target = Event.getTarget(ev),
                             column = this.getColumn(target),
                             record;
@@ -878,14 +878,14 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                             Lacuna.Info.Alliance.Load(record.getData('alliance_id'));
                         }
                     });
-                    this.EmpireTable.subscribe('postRenderEvent', function() {
+                    this.EmpireTable.subscribe('postRenderEvent', function () {
                         var els = this.getSelectedTrEls();
                         if (els && els.length > 0) {
                             this._elBdContainer.scrollTop = els[els.length - 1].offsetTop;
                         }
                     });
 
-                    this.EmpireTable.handleDataReturnPayload = function(
+                    this.EmpireTable.handleDataReturnPayload = function (
                         oRequest,
                         oResponse,
                         oPayload
@@ -898,7 +898,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         };
                         return oPayload;
                     };
-                    this.EmpireTable.requery = function(page) {
+                    this.EmpireTable.requery = function (page) {
                         // Get the current state
                         var oState = this.getState();
 
@@ -923,7 +923,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         };
                         this._oDataSource.sendRequest(request, callback);
                     };
-                    this.EmpireTable.find = function(id, page) {
+                    this.EmpireTable.find = function (id, page) {
                         // Get the current state
                         var oState = this.getState(),
                             sort = oState.sortedBy
@@ -957,7 +957,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         this._oDataSource.sendRequest(request, callback);
                     };
                     //overriding generateRequest to send the correct column name back
-                    this.EmpireTable.set('generateRequest', function(oState, oSelf) {
+                    this.EmpireTable.set('generateRequest', function (oState, oSelf) {
                         // Set defaults
                         oState = oState || { pagination: null, sortedBy: null };
                         var sort = encodeURIComponent(
@@ -982,7 +982,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                             params: [Game.GetSession(''), sort + '_rank', page],
                         });
                     });
-                    this.EmpireTable.set('formatRow', function(elTr, oRecord) {
+                    this.EmpireTable.set('formatRow', function (elTr, oRecord) {
                         if (
                             this.selectedEmpireId &&
                             oRecord.getData('empire_id') == this.selectedEmpireId
@@ -993,7 +993,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     });
                 }
             },
-            EmpireFindCreate: function() {
+            EmpireFindCreate: function () {
                 var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
@@ -1013,7 +1013,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     formatResultColumnKeys: ['empire_name'],
                     useIndicator: true,
                 });
-                oTextboxList.generateRequest = function(sQuery) {
+                oTextboxList.generateRequest = function (sQuery) {
                     var state = Lacuna.Stats.EmpireTable.getState(),
                         s = Lang.JSON.stringify({
                             id: YAHOO.rpc.Service._requestId++,
@@ -1027,7 +1027,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         });
                     return s;
                 };
-                oTextboxList.itemSelectEvent.subscribe(function(e, oArgs) {
+                oTextboxList.itemSelectEvent.subscribe(function (e, oArgs) {
                     oArgs[0]._elTextbox.value = '';
                     var data = oArgs[2];
                     Lacuna.Stats.EmpireTable.find(data.empire_id, data.page_number);
@@ -1035,7 +1035,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
 
                 this.empireFind = oTextboxList;
             },
-            AllianceStats: function() {
+            AllianceStats: function () {
                 if (this.AllianceTable) {
                     this.AllianceTable.requery();
                 } else {
@@ -1045,7 +1045,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'rank',
                             label: 'Rank',
-                            formatter: function(el, oRecord, oColumn, oData) {
+                            formatter: function (el, oRecord, oColumn, oData) {
                                 var oState = this.getState();
                                 el.innerHTML = Math.floor(
                                     oState.pagination.recordOffset + this.rankCounter++
@@ -1191,7 +1191,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoverEvent',
                         this.AllianceTable.onEventHighlightCell
                     );
-                    this.AllianceTable.subscribe('cellHighlightEvent', function(oArgs) {
+                    this.AllianceTable.subscribe('cellHighlightEvent', function (oArgs) {
                         if (oArgs.key == 'alliance_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'help');
                         }
@@ -1200,12 +1200,12 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoutEvent',
                         this.AllianceTable.onEventUnhighlightCell
                     );
-                    this.AllianceTable.subscribe('cellUnhighlightEvent', function(oArgs) {
+                    this.AllianceTable.subscribe('cellUnhighlightEvent', function (oArgs) {
                         if (oArgs.key == 'alliance_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'auto');
                         }
                     });
-                    this.AllianceTable.subscribe('cellClickEvent', function(ev) {
+                    this.AllianceTable.subscribe('cellClickEvent', function (ev) {
                         var target = Event.getTarget(ev),
                             column = this.getColumn(target);
                         if (column.key == 'alliance_name') {
@@ -1213,14 +1213,14 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                             Lacuna.Info.Alliance.Load(record.getData('alliance_id'));
                         }
                     });
-                    this.AllianceTable.subscribe('postRenderEvent', function() {
+                    this.AllianceTable.subscribe('postRenderEvent', function () {
                         var els = this.getSelectedTrEls();
                         if (els && els.length > 0) {
                             this._elBdContainer.scrollTop = els[els.length - 1].offsetTop;
                         }
                     });
 
-                    this.AllianceTable.handleDataReturnPayload = function(
+                    this.AllianceTable.handleDataReturnPayload = function (
                         oRequest,
                         oResponse,
                         oPayload
@@ -1233,7 +1233,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         };
                         return oPayload;
                     };
-                    this.AllianceTable.requery = function(page) {
+                    this.AllianceTable.requery = function (page) {
                         // Get the current state
                         var oState = this.getState();
 
@@ -1258,7 +1258,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         };
                         this._oDataSource.sendRequest(request, callback);
                     };
-                    this.AllianceTable.find = function(id, page) {
+                    this.AllianceTable.find = function (id, page) {
                         // Get the current state
                         var oState = this.getState(),
                             sort = oState.sortedBy
@@ -1292,7 +1292,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         this._oDataSource.sendRequest(request, callback);
                     };
                     //overriding generateRequest to send the correct column name back
-                    this.AllianceTable.set('generateRequest', function(oState, oSelf) {
+                    this.AllianceTable.set('generateRequest', function (oState, oSelf) {
                         // Set defaults
                         oState = oState || { pagination: null, sortedBy: null };
                         var sort = encodeURIComponent(
@@ -1317,7 +1317,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                             params: [Game.GetSession(''), sort + '_rank', page],
                         });
                     });
-                    this.AllianceTable.set('formatRow', function(elTr, oRecord) {
+                    this.AllianceTable.set('formatRow', function (elTr, oRecord) {
                         if (
                             this.selectedAllianceId &&
                             oRecord.getData('alliance_id') == this.selectedAllianceId
@@ -1328,7 +1328,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     });
                 }
             },
-            AllianceFindCreate: function() {
+            AllianceFindCreate: function () {
                 var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
                 dataSource.connMethodPost = 'POST';
                 dataSource.maxCacheEntries = 2;
@@ -1348,7 +1348,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     formatResultColumnKeys: ['alliance_name'],
                     useIndicator: true,
                 });
-                oTextboxList.generateRequest = function(sQuery) {
+                oTextboxList.generateRequest = function (sQuery) {
                     var state = Lacuna.Stats.AllianceTable.getState(),
                         s = Lang.JSON.stringify({
                             id: YAHOO.rpc.Service._requestId++,
@@ -1358,7 +1358,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         });
                     return s.replace(/%20/g, ' ');
                 };
-                oTextboxList.itemSelectEvent.subscribe(function(e, oArgs) {
+                oTextboxList.itemSelectEvent.subscribe(function (e, oArgs) {
                     oArgs[0]._elTextbox.value = '';
                     var data = oArgs[2];
                     Lacuna.Stats.AllianceTable.find(data.alliance_id, data.page_number);
@@ -1366,7 +1366,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
 
                 this.allianceFind = oTextboxList;
             },
-            ColonyStats: function() {
+            ColonyStats: function () {
                 if (this.ColonyTable) {
                     this.ColonyTable.requery();
                 } else {
@@ -1374,7 +1374,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'rank',
                             label: 'Rank',
-                            formatter: function(el, oRecord, oColumn, oData) {
+                            formatter: function (el, oRecord, oColumn, oData) {
                                 el.innerHTML = this.rankCounter++;
                             },
                         },
@@ -1447,7 +1447,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoverEvent',
                         this.ColonyTable.onEventHighlightCell
                     );
-                    this.ColonyTable.subscribe('cellHighlightEvent', function(oArgs) {
+                    this.ColonyTable.subscribe('cellHighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'help');
                         }
@@ -1456,12 +1456,12 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoutEvent',
                         this.ColonyTable.onEventUnhighlightCell
                     );
-                    this.ColonyTable.subscribe('cellUnhighlightEvent', function(oArgs) {
+                    this.ColonyTable.subscribe('cellUnhighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'auto');
                         }
                     });
-                    this.ColonyTable.subscribe('cellClickEvent', function(ev) {
+                    this.ColonyTable.subscribe('cellClickEvent', function (ev) {
                         var target = Event.getTarget(ev),
                             column = this.getColumn(target);
                         if (column.key == 'empire_name') {
@@ -1470,7 +1470,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         }
                     });
 
-                    this.ColonyTable.requery = function() {
+                    this.ColonyTable.requery = function () {
                         // Get the current state
                         var oState = this.getState();
 
@@ -1496,7 +1496,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         this._oDataSource.sendRequest(request, callback);
                     };
                     //overriding generateRequest to send the correct column name back
-                    this.ColonyTable.set('generateRequest', function(oState, oSelf) {
+                    this.ColonyTable.set('generateRequest', function (oState, oSelf) {
                         // Set defaults
                         oState = oState || { pagination: null, sortedBy: null };
                         var sort = encodeURIComponent(
@@ -1522,7 +1522,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     });
                 }
             },
-            SpyStats: function() {
+            SpyStats: function () {
                 if (this.SpyTable) {
                     this.SpyTable.requery();
                 } else {
@@ -1530,7 +1530,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'rank',
                             label: 'Rank',
-                            formatter: function(el, oRecord, oColumn, oData) {
+                            formatter: function (el, oRecord, oColumn, oData) {
                                 el.innerHTML = this.rankCounter++;
                             },
                         },
@@ -1539,7 +1539,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'age',
                             label: 'Age',
-                            formatter: function(el, oRecord, oColumn, oData) {
+                            formatter: function (el, oRecord, oColumn, oData) {
                                 el.innerHTML = Lib.formatTime(oData);
                             },
                         },
@@ -1608,7 +1608,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoverEvent',
                         this.SpyTable.onEventHighlightCell
                     );
-                    this.SpyTable.subscribe('cellHighlightEvent', function(oArgs) {
+                    this.SpyTable.subscribe('cellHighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'help');
                         }
@@ -1617,12 +1617,12 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoutEvent',
                         this.SpyTable.onEventUnhighlightCell
                     );
-                    this.SpyTable.subscribe('cellUnhighlightEvent', function(oArgs) {
+                    this.SpyTable.subscribe('cellUnhighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'auto');
                         }
                     });
-                    this.SpyTable.subscribe('cellClickEvent', function(ev) {
+                    this.SpyTable.subscribe('cellClickEvent', function (ev) {
                         var target = Event.getTarget(ev),
                             column = this.getColumn(target);
                         if (column.key == 'empire_name') {
@@ -1631,7 +1631,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         }
                     });
 
-                    this.SpyTable.requery = function() {
+                    this.SpyTable.requery = function () {
                         // Get the current state
                         var oState = this.getState();
 
@@ -1657,7 +1657,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         this._oDataSource.sendRequest(request, callback);
                     };
                     //overriding generateRequest to send the correct column name back
-                    this.SpyTable.set('generateRequest', function(oState, oSelf) {
+                    this.SpyTable.set('generateRequest', function (oState, oSelf) {
                         // Set defaults
                         oState = oState || { pagination: null, sortedBy: null };
                         var sort = encodeURIComponent(
@@ -1683,7 +1683,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                     });
                 }
             },
-            WeeklyMedalStats: function() {
+            WeeklyMedalStats: function () {
                 if (this.WeeklyMedalTable) {
                     this.WeeklyMedalTable.requery();
                 } else {
@@ -1694,7 +1694,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         {
                             key: 'medal_image',
                             label: 'Medal',
-                            formatter: function(elLiner, oRecord, oColumn, oData) {
+                            formatter: function (elLiner, oRecord, oColumn, oData) {
                                 var name = oRecord.getData('medal_name');
                                 elLiner.innerHTML = [
                                     '<img src="',
@@ -1767,7 +1767,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoverEvent',
                         this.WeeklyMedalTable.onEventHighlightCell
                     );
-                    this.WeeklyMedalTable.subscribe('cellHighlightEvent', function(oArgs) {
+                    this.WeeklyMedalTable.subscribe('cellHighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'help');
                         }
@@ -1776,12 +1776,12 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         'cellMouseoutEvent',
                         this.WeeklyMedalTable.onEventUnhighlightCell
                     );
-                    this.WeeklyMedalTable.subscribe('cellUnhighlightEvent', function(oArgs) {
+                    this.WeeklyMedalTable.subscribe('cellUnhighlightEvent', function (oArgs) {
                         if (oArgs.key == 'empire_name') {
                             Dom.setStyle(oArgs.el, 'cursor', 'auto');
                         }
                     });
-                    this.WeeklyMedalTable.subscribe('cellClickEvent', function(ev) {
+                    this.WeeklyMedalTable.subscribe('cellClickEvent', function (ev) {
                         var target = Event.getTarget(ev),
                             column = this.getColumn(target);
                         if (column.key == 'empire_name') {
@@ -1790,7 +1790,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         }
                     });
 
-                    this.WeeklyMedalTable.requery = function() {
+                    this.WeeklyMedalTable.requery = function () {
                         // Get the current state
                         var oState = this.getState();
 
@@ -1816,7 +1816,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                         this._oDataSource.sendRequest(request, callback);
                     };
                     //overriding generateRequest to send the correct column name back
-                    this.WeeklyMedalTable.set('generateRequest', function(oState, oSelf) {
+                    this.WeeklyMedalTable.set('generateRequest', function (oState, oSelf) {
                         // Set defaults
                         oState = oState || { pagination: null, sortedBy: null };
                         var sort = encodeURIComponent(
@@ -1841,7 +1841,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 }
             },
 
-            show: function() {
+            show: function () {
                 Lacuna.Stats.build();
                 //this is called out of scope so make sure to pass the correct scope in
                 Lacuna.Stats.EmpireStats();
@@ -1858,10 +1858,10 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
                 Lacuna.Stats.Panel.show();
                 Lacuna.Stats.Panel.center();
             },
-            hide: function() {
+            hide: function () {
                 this.Panel.hide();
             },
-            Reset: function() {
+            Reset: function () {
                 if (this.AllianceTable) {
                     this.AllianceTable.requery(1);
                 }
