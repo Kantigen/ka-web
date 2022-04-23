@@ -4,7 +4,7 @@ docker run -d \
     -v ${PWD}/gulp-tasks:/src/gulp-tasks                \
     -v ${PWD}/index.html:/src/index.html                \
     -v ${PWD}/app/css/styles.css:/src/lacuna/styles.css \
-    -v ${PWD}/app/js/load.js:/src/lacuna/load.js        \
+    -v ${PWD}/app/load.js:/src/lacuna/load.js        \
     --name=ka-web                                       \
     --network kaserver_default                          \
     -e DEBUG=express:*                                  \

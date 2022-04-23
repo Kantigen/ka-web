@@ -13,7 +13,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 function handleBundle(b, options) {
     return b
         .bundle()
-        .on('error', function(err) {
+        .on('error', function (err) {
             console.error(ansi.red('Compile error:'), err.message);
         })
         .pipe(fs.createWriteStream(path.join(options.rootDir, 'bundle.js')));
@@ -41,14 +41,14 @@ function loadConfig(env) {
     return config;
 }
 
-export default function(options) {
+export default function (options) {
     const plugins = [tsify];
 
     if (options.watch) {
         plugins.push(watchify);
     }
 
-    var b = browserify(['./app/js/load.ts'], {
+    var b = browserify(['./app/load.ts'], {
         extensions: ['.jsx', '.tsx'],
         paths: [path.join(options.rootDir)],
         ignoreMissing: true,
@@ -68,12 +68,12 @@ export default function(options) {
 
     // Watchify emits 'update' events when a file has been changed and the build should run again.
     if (options.watch) {
-        b.on('update', function() {
+        b.on('update', function () {
             console.log('Something changed - rebuilding.');
             handleBundle(b, options);
         });
 
-        b.on('log', function(msg) {
+        b.on('log', function (msg) {
             console.log(msg);
         });
     }
