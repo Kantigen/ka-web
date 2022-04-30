@@ -4,41 +4,41 @@ import React from 'react';
 import classnames from 'classnames';
 
 class ActionButton extends React.Component {
-    static propTypes = {
-        actionName: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
-        error: PropTypes.string,
-        onClick: PropTypes.func.isRequired,
-    };
+  static propTypes = {
+    actionName: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    onClick: PropTypes.func.isRequired,
+  };
 
-    handleClick = () => {
-        if (!this.props.error) {
-            this.props.onClick();
-        }
-    };
-
-    render() {
-        let hasError = !!this.props.error;
-
-        let elementAttributes = {
-            className: classnames(
-                'ui button',
-                {
-                    disabled: hasError,
-                },
-                this.props.color
-            ),
-            onClick: this.handleClick,
-        };
-
-        if (hasError) {
-            elementAttributes['data-tip'] = this.props.error;
-            elementAttributes['data-place'] = 'top';
-            elementAttributes['data-type'] = 'error';
-        }
-
-        return React.createElement('div', elementAttributes, <span>{this.props.actionName}</span>);
+  handleClick = () => {
+    if (!this.props.error) {
+      this.props.onClick();
     }
+  };
+
+  render() {
+    let hasError = !!this.props.error;
+
+    let elementAttributes = {
+      className: classnames(
+        'ui button',
+        {
+          disabled: hasError,
+        },
+        this.props.color
+      ),
+      onClick: this.handleClick,
+    };
+
+    if (hasError) {
+      elementAttributes['data-tip'] = this.props.error;
+      elementAttributes['data-place'] = 'top';
+      elementAttributes['data-type'] = 'error';
+    }
+
+    return React.createElement('div', elementAttributes, <span>{this.props.actionName}</span>);
+  }
 }
 
 export default ActionButton;

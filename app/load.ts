@@ -28,30 +28,30 @@ import 'app/yui/notify';
 declare const YAHOO: any;
 
 const init = () => {
-    // TODO this code can be improved.
-    let l = window.location;
-    let query = {};
-    let vars = l.hash.substring(1).split('&');
-    if (vars.length > 0) {
-        for (let i = 0; i < vars.length; i++) {
-            let pair = vars[i].split('=');
-            query[pair[0]] = decodeURIComponent(pair[1]);
-        }
+  // TODO this code can be improved.
+  let l = window.location;
+  let query = {};
+  let vars = l.hash.substring(1).split('&');
+  if (vars.length > 0) {
+    for (let i = 0; i < vars.length; i++) {
+      let pair = vars[i].split('=');
+      query[pair[0]] = decodeURIComponent(pair[1]);
     }
-    if (window.history.replaceState) {
-        window.history.replaceState(
-            {},
-            document.title,
-            l.protocol + '//' + l.host + l.pathname + l.search
-        );
-    } else if (l.hash !== '') {
-        l.hash = '';
-    }
+  }
+  if (window.history.replaceState) {
+    window.history.replaceState(
+      {},
+      document.title,
+      l.protocol + '//' + l.host + l.pathname + l.search
+    );
+  } else if (l.hash !== '') {
+    l.hash = '';
+  }
 
-    // Start everything!
-    YAHOO.util.Event.throwErrors = true;
-    YAHOO.widget.Logger.enableBrowserConsole();
-    YAHOO.lacuna.Game.Start(query);
+  // Start everything!
+  YAHOO.util.Event.throwErrors = true;
+  YAHOO.widget.Logger.enableBrowserConsole();
+  YAHOO.lacuna.Game.Start(query);
 };
 
 $(init);

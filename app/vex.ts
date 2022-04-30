@@ -8,26 +8,26 @@ vex.registerPlugin(vexDialog);
 vex.defaultOptions.className = 'vex-theme-default';
 
 export const alert = function (message: string) {
-    vex.dialog.alert(message);
+  vex.dialog.alert(message);
 };
 
 export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
-    vex.dialog.confirm({
-        message: message,
-        callback: function (value) {
-            if (value && typeof yesCallback === 'function') {
-                yesCallback();
-            } else if (!value && typeof noCallback === 'function') {
-                noCallback();
-            }
-        },
-    });
+  vex.dialog.confirm({
+    message: message,
+    callback: function (value) {
+      if (value && typeof yesCallback === 'function') {
+        yesCallback();
+      } else if (!value && typeof noCallback === 'function') {
+        noCallback();
+      }
+    },
+  });
 };
 
 export const prompt = function (message: string, placeholder: string, callback: Function) {
-    vex.dialog.prompt({
-        message: message,
-        placeholder: placeholder,
-        callback: callback,
-    });
+  vex.dialog.prompt({
+    message: message,
+    placeholder: placeholder,
+    callback: callback,
+  });
 };

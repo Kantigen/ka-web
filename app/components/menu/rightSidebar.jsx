@@ -10,308 +10,305 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import MenuStore from 'app/stores/menu';
 
 class PlanetListItem extends React.Component {
-    static propTypes = {
-        name: PropTypes.string.isRequired,
-        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-        currentBody: PropTypes.number.isRequired,
-        zone: PropTypes.string.isRequired,
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    currentBody: PropTypes.number.isRequired,
+    zone: PropTypes.string.isRequired,
+  };
+
+  getInitialProps = () => {
+    return {
+      name: '',
+      id: 0,
+      currentBody: 0,
+      zone: '',
     };
+  };
 
-    getInitialProps = () => {
-        return {
-            name: '',
-            id: 0,
-            currentBody: 0,
-            zone: '',
-        };
-    };
+  // Returns true if this list item is the the currently selected planet.
+  isCurrentWorld = () => {
+    return this.props.currentBody === this.props.id;
+  };
 
-    // Returns true if this list item is the the currently selected planet.
-    isCurrentWorld = () => {
-        return this.props.currentBody === this.props.id;
-    };
+  handleClick = () => {
+    MenuStore.hideRightSidebar();
 
-    handleClick = () => {
-        MenuStore.hideRightSidebar();
-
-        if (this.isCurrentWorld()) {
-            YAHOO.lacuna.MapPlanet.Refresh();
-        } else {
-            MenuStore.changePlanet(this.props.id);
-        }
-    };
-
-    render() {
-        let classStr = classnames({
-            'ui large teal label': this.isCurrentWorld(),
-            item: !this.isCurrentWorld(),
-        });
-
-        return (
-            <a
-                className={classStr}
-                onClick={this.handleClick}
-                style={{
-                    // For some reason this doesn't get set on the items (by Semantic) when it should.
-                    cursor: 'pointer',
-                }}
-            >
-                {this.props.name} ({this.props.zone})
-            </a>
-        );
+    if (this.isCurrentWorld()) {
+      YAHOO.lacuna.MapPlanet.Refresh();
+    } else {
+      MenuStore.changePlanet(this.props.id);
     }
+  };
+
+  render() {
+    let classStr = classnames({
+      'ui large teal label': this.isCurrentWorld(),
+      item: !this.isCurrentWorld(),
+    });
+
+    return (
+      <a
+        className={classStr}
+        onClick={this.handleClick}
+        style={{
+          // For some reason this doesn't get set on the items (by Semantic) when it should.
+          cursor: 'pointer',
+        }}
+      >
+        {this.props.name} ({this.props.zone})
+      </a>
+    );
+  }
 }
 
 class AccordionItem extends React.Component {
-    static propTypes = {
-        list: PropTypes.arrayOf(PropTypes.object).isRequired,
-        currentBody: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        initiallyOpen: PropTypes.bool.isRequired,
+  static propTypes = {
+    list: PropTypes.arrayOf(PropTypes.object).isRequired,
+    currentBody: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    initiallyOpen: PropTypes.bool.isRequired,
+  };
+
+  state = {
+    open: this.props.initiallyOpen,
+  };
+
+  getInitialProps = () => {
+    return {
+      list: [],
+      currentBody: 0,
+      title: '',
+      initiallyOpen: false,
     };
+  };
 
-    state = {
-        open: this.props.initiallyOpen,
-    };
+  componentDidMount() {
+    // RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
+    // RightSidebarActions.rightSidebarExpand.listen(this.showList);
+  }
 
-    getInitialProps = () => {
-        return {
-            list: [],
-            currentBody: 0,
-            title: '',
-            initiallyOpen: false,
-        };
-    };
+  showList = () => {
+    this.setState({
+      open: true,
+    });
+  };
 
-    componentDidMount() {
-        // RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
-        // RightSidebarActions.rightSidebarExpand.listen(this.showList);
-    }
+  hideList = () => {
+    this.setState({
+      open: false,
+    });
+  };
 
-    showList = () => {
-        this.setState({
-            open: true,
-        });
-    };
+  toggleList = () => {
+    this.setState({
+      open: !this.state.open,
+    });
+  };
 
-    hideList = () => {
-        this.setState({
-            open: false,
-        });
-    };
-
-    toggleList = () => {
-        this.setState({
-            open: !this.state.open,
-        });
-    };
-
-    render() {
-        return (
-            <div>
-                <div
-                    className='ui horizontal inverted divider'
-                    title={
-                        this.state.open
-                            ? 'Click to hide ' + this.props.title.toLowerCase()
-                            : 'Click to show ' + this.props.title.toLowerCase()
-                    }
-                    onClick={this.toggleList}
-                    style={{
-                        cursor: 'pointer',
-                    }}
-                >
-                    {this.state.open ? (
-                        <i className='angle down icon'></i>
-                    ) : (
-                        <i className='angle right icon'></i>
-                    )}{' '}
-                    {this.props.title}
-                </div>
-                <div
-                    style={{
-                        display: this.state.open ? '' : 'none',
-                    }}
-                >
-                    {_.map(
-                        this.props.list,
-                        _.bind(function (planet) {
-                            return (
-                                <PlanetListItem
-                                    key={planet.id}
-                                    name={planet.name}
-                                    id={planet.id}
-                                    x={planet.x}
-                                    y={planet.y}
-                                    zone={planet.zone}
-                                    currentBody={this.props.currentBody}
-                                />
-                            );
-                        }, this)
-                    )}
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div
+          className='ui horizontal inverted divider'
+          title={
+            this.state.open
+              ? 'Click to hide ' + this.props.title.toLowerCase()
+              : 'Click to show ' + this.props.title.toLowerCase()
+          }
+          onClick={this.toggleList}
+          style={{
+            cursor: 'pointer',
+          }}
+        >
+          {this.state.open ? (
+            <i className='angle down icon'></i>
+          ) : (
+            <i className='angle right icon'></i>
+          )}{' '}
+          {this.props.title}
+        </div>
+        <div
+          style={{
+            display: this.state.open ? '' : 'none',
+          }}
+        >
+          {_.map(
+            this.props.list,
+            _.bind(function (planet) {
+              return (
+                <PlanetListItem
+                  key={planet.id}
+                  name={planet.name}
+                  id={planet.id}
+                  x={planet.x}
+                  y={planet.y}
+                  zone={planet.zone}
+                  currentBody={this.props.currentBody}
+                />
+              );
+            }, this)
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 class BodiesAccordion extends React.Component {
-    static propTypes = {
-        bodies: PropTypes.object.isRequired,
-        currentBody: PropTypes.number.isRequired,
-    };
+  static propTypes = {
+    bodies: PropTypes.object.isRequired,
+    currentBody: PropTypes.number.isRequired,
+  };
 
-    render() {
-        let items = [
-            {
-                title: 'My Colonies',
-                key: 'colonies',
-                initiallyOpen: true,
-                isBaby: false,
-            },
-            {
-                title: 'My Stations',
-                key: 'mystations',
-                initiallyOpen: false,
-                isBaby: false,
-            },
-            {
-                title: 'Our Stations',
-                key: 'ourstations',
-                initiallyOpen: false,
-                isBaby: false,
-            },
-        ];
+  render() {
+    let items = [
+      {
+        title: 'My Colonies',
+        key: 'colonies',
+        initiallyOpen: true,
+        isBaby: false,
+      },
+      {
+        title: 'My Stations',
+        key: 'mystations',
+        initiallyOpen: false,
+        isBaby: false,
+      },
+      {
+        title: 'Our Stations',
+        key: 'ourstations',
+        initiallyOpen: false,
+        isBaby: false,
+      },
+    ];
 
-        // Handle all the babies.
-        _.chain(this.props.bodies.babies || {})
-            .keys()
-            .sortBy()
-            .each(function (babyName) {
-                items.push({
-                    title: babyName + "'s Colonies",
-                    key: babyName,
-                    initiallyOpen: false,
-                    isBaby: true,
-                });
-            })
-            .value();
+    // Handle all the babies.
+    _.chain(this.props.bodies.babies || {})
+      .keys()
+      .sortBy()
+      .each(function (babyName) {
+        items.push({
+          title: babyName + "'s Colonies",
+          key: babyName,
+          initiallyOpen: false,
+          isBaby: true,
+        });
+      })
+      .value();
 
-        return (
-            <div>
-                {_.map(
-                    items,
-                    _.bind(function (item) {
-                        let list = [];
+    return (
+      <div>
+        {_.map(
+          items,
+          _.bind(function (item) {
+            let list = [];
 
-                        if (item.isBaby) {
-                            list = _.values(this.props.bodies.babies[item.key].planets) || [];
-                        } else {
-                            list = _.values(this.props.bodies[item.key]) || [];
-                        }
+            if (item.isBaby) {
+              list = _.values(this.props.bodies.babies[item.key].planets) || [];
+            } else {
+              list = _.values(this.props.bodies[item.key]) || [];
+            }
 
-                        if (list.length > 0) {
-                            return (
-                                <AccordionItem
-                                    title={item.title}
-                                    list={list}
-                                    initiallyOpen={item.initiallyOpen}
-                                    currentBody={this.props.currentBody}
-                                    key={item.title}
-                                />
-                            );
-                        }
-                    }, this)
-                )}
-            </div>
-        );
-    }
+            if (list.length > 0) {
+              return (
+                <AccordionItem
+                  title={item.title}
+                  list={list}
+                  initiallyOpen={item.initiallyOpen}
+                  currentBody={this.props.currentBody}
+                  key={item.title}
+                />
+              );
+            }
+          }, this)
+        )}
+      </div>
+    );
+  }
 }
 
 class RightSidebar extends React.Component {
-    componentDidMount() {
-        $('#right-sidebar').sidebar({
-            context: $('#sidebarContainer'),
-            duration: 300,
-            transition: 'overlay',
-            onHidden: () => {
-                MenuStore.hideRightSidebar();
-            },
-        });
-    }
-
-    componentDidUpdate() {
-        $('#right-sidebar').sidebar(MenuStore.rightSidebarShown ? 'show' : 'hide');
-    }
-
-    homePlanet() {
+  componentDidMount() {
+    $('#right-sidebar').sidebar({
+      context: $('#sidebarContainer'),
+      duration: 300,
+      transition: 'overlay',
+      onHidden: () => {
         MenuStore.hideRightSidebar();
-        MenuStore.changePlanet(EmpireRPCStore.home_planet_id);
-    }
+      },
+    });
+  }
 
-    expand() {
-        // RightSidebarActions.rightSidebarExpand();
-    }
+  componentDidUpdate() {
+    $('#right-sidebar').sidebar(MenuStore.rightSidebarShown ? 'show' : 'hide');
+  }
 
-    collapse() {
-        // RightSidebarActions.rightSidebarCollapse();
-    }
+  homePlanet() {
+    MenuStore.hideRightSidebar();
+    MenuStore.changePlanet(EmpireRPCStore.home_planet_id);
+  }
 
-    render() {
-        const shown = MenuStore.rightSidebarShown;
-        return (
-            <div className='ui right vertical inverted sidebar menu' id='right-sidebar'>
-                <div style={{ paddingTop: 7 }}>
-                    <a
-                        title='Go to home planet'
-                        className='item'
-                        onClick={this.homePlanet}
-                        style={{
-                            display: 'inline',
-                        }}
-                    >
-                        Home
-                    </a>
+  expand() {
+    // RightSidebarActions.rightSidebarExpand();
+  }
 
-                    <div style={{ float: 'right' }}>
-                        <a
-                            title='Expand all'
-                            className='item'
-                            onClick={this.expand}
-                            style={{
-                                display: 'inline',
-                            }}
-                        >
-                            [+]
-                        </a>
+  collapse() {
+    // RightSidebarActions.rightSidebarCollapse();
+  }
 
-                        <a
-                            title='Collapse all'
-                            className='item'
-                            onClick={this.collapse}
-                            style={{
-                                display: 'inline',
-                            }}
-                        >
-                            [-]
-                        </a>
-                    </div>
-                </div>
+  render() {
+    const shown = MenuStore.rightSidebarShown;
+    return (
+      <div className='ui right vertical inverted sidebar menu' id='right-sidebar'>
+        <div style={{ paddingTop: 7 }}>
+          <a
+            title='Go to home planet'
+            className='item'
+            onClick={this.homePlanet}
+            style={{
+              display: 'inline',
+            }}
+          >
+            Home
+          </a>
 
-                <div
-                    style={{
-                        overflow: 'auto',
-                        overflowX: 'hidden',
-                    }}
-                >
-                    <BodiesAccordion
-                        bodies={EmpireRPCStore.bodies}
-                        currentBody={MenuStore.planetId}
-                    />
-                </div>
-            </div>
-        );
-    }
+          <div style={{ float: 'right' }}>
+            <a
+              title='Expand all'
+              className='item'
+              onClick={this.expand}
+              style={{
+                display: 'inline',
+              }}
+            >
+              [+]
+            </a>
+
+            <a
+              title='Collapse all'
+              className='item'
+              onClick={this.collapse}
+              style={{
+                display: 'inline',
+              }}
+            >
+              [-]
+            </a>
+          </div>
+        </div>
+
+        <div
+          style={{
+            overflow: 'auto',
+            overflowX: 'hidden',
+          }}
+        >
+          <BodiesAccordion bodies={EmpireRPCStore.bodies} currentBody={MenuStore.planetId} />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default observer(RightSidebar);

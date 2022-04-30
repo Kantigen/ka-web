@@ -1,14 +1,14 @@
 {
-    "compilerOptions": {
-        "target": "ES2015",
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmitOnError": false,
-        "jsx": "react",
-        "baseUrl": ".",
-        "allowSyntheticDefaultImports": true
-    }
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmitOnError": false,
+    "jsx": "react",
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true
+  }
 }

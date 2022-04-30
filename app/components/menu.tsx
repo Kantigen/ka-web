@@ -12,24 +12,24 @@ import Loader from 'app/components/menu/loader';
 import MenuStore from 'app/stores/menu';
 
 class Menu extends React.Component {
-    render() {
-        if (MenuStore.menuShown) {
-            return (
-                <div>
-                    <LeftSidebarButton />
-                    <RightSidebarButton />
-                    <TopBar />
+  render() {
+    if (MenuStore.menuShown) {
+      return (
+        <div>
+          <LeftSidebarButton />
+          <RightSidebarButton />
+          <TopBar />
 
-                    <div id='oldYUIPanelContainer'></div>
+          <div id='oldYUIPanelContainer'></div>
 
-                    <Loader />
-                    <BottomBar />
-                </div>
-            );
-        } else {
-            return <div></div>;
-        }
+          <Loader />
+          <BottomBar />
+        </div>
+      );
+    } else {
+      return <div></div>;
     }
+  }
 }
 
 export default observer(Menu);

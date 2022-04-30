@@ -8,21 +8,21 @@ import StatsService from 'app/services/stats';
 import CreditsSection from 'app/components/about/creditsSection';
 
 class CreditsTab extends React.Component {
-    componentDidMount() {
-        StatsService.getCredits();
-    }
+  componentDidMount() {
+    StatsService.getCredits();
+  }
 
-    render() {
-        return (
-            <div>
-                <h1>Credits</h1>
+  render() {
+    return (
+      <div>
+        <h1>Credits</h1>
 
-                {_.map(CreditsRPCStore.credits, function (names, header) {
-                    return <CreditsSection key={header} header={header} names={names} />;
-                })}
-            </div>
-        );
-    }
+        {_.map(CreditsRPCStore.credits, function (names, header) {
+          return <CreditsSection key={header} header={header} names={names} />;
+        })}
+      </div>
+    );
+  }
 }
 
 export default observer(CreditsTab);

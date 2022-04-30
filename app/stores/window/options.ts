@@ -1,19 +1,19 @@
 import { makeAutoObservable } from 'mobx';
 
 class OptionsWindowStore {
-    shown = false;
+  shown = false;
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    show() {
-        this.shown = true;
-    }
+  show() {
+    this.shown = true;
+  }
 
-    hide() {
-        this.shown = false;
-    }
+  hide() {
+    this.shown = false;
+  }
 }
 
 export default new OptionsWindowStore();

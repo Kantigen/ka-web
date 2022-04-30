@@ -7,97 +7,97 @@ import * as ReactTabs from 'react-tabs';
 import { TabProps } from 'app/components/tabber/tab';
 
 interface CallbackMap {
-    [index: number]: Function;
+  [index: number]: Function;
 }
 
 type Props = {
-    initialTab: number;
-    children: React.ReactElement<TabProps> | Array<React.ReactElement<TabProps>>;
+  initialTab: number;
+  children: React.ReactElement<TabProps> | Array<React.ReactElement<TabProps>>;
 };
 
 type State = {
-    selectedTab: number;
+  selectedTab: number;
 };
 
 class Tabs extends React.Component<Props, State> {
-    static propTypes = {
-        initialTab: PropTypes.number,
-        onSelect: PropTypes.object,
-        children: PropTypes.node,
-    };
+  static propTypes = {
+    initialTab: PropTypes.number,
+    onSelect: PropTypes.object,
+    children: PropTypes.node,
+  };
 
-    static defaultProps = {
-        initialTab: 0,
-    };
+  static defaultProps = {
+    initialTab: 0,
+  };
 
-    state = {
-        selectedTab: this.props.initialTab,
-    };
+  state = {
+    selectedTab: this.props.initialTab,
+  };
 
-    componentDidMount() {
-        this.handleCallbacks(this.state.selectedTab);
+  componentDidMount() {
+    this.handleCallbacks(this.state.selectedTab);
+  }
+
+  handleSelect(index: number) {
+    this.handleCallbacks(index);
+    this.setState({
+      selectedTab: index,
+    });
+  }
+
+  getCallbacks(): CallbackMap {
+    let obj: CallbackMap = {};
+    let i = 0;
+
+    React.Children.forEach(this.props.children, function (child) {
+      if (child?.props?.onSelect) {
+        obj[i] = child.props.onSelect;
+      }
+
+      i += 1;
+    });
+
+    return obj;
+  }
+
+  handleCallbacks(index: number): void {
+    const callbacks: CallbackMap = this.getCallbacks();
+
+    if (callbacks[index]) {
+      callbacks[index]();
     }
+  }
 
-    handleSelect(index: number) {
-        this.handleCallbacks(index);
-        this.setState({
-            selectedTab: index,
-        });
-    }
+  render() {
+    let tabTitles: string[] = [];
+    let tabContents: React.ReactNode[] = [];
 
-    getCallbacks(): CallbackMap {
-        let obj: CallbackMap = {};
-        let i = 0;
+    React.Children.forEach(this.props.children, function (child) {
+      if (child && child.props && child.props.title && child.props.children) {
+        tabTitles.push(child.props.title);
+        tabContents.push(child.props.children);
+      }
+    });
 
-        React.Children.forEach(this.props.children, function (child) {
-            if (child?.props?.onSelect) {
-                obj[i] = child.props.onSelect;
-            }
+    return (
+      <ReactTabs.Tabs
+        selectedIndex={this.state.selectedTab}
+        onSelect={(index: number) => this.handleSelect(index)}
+      >
+        <ReactTabs.TabList>
+          {_.map(tabTitles, function (title) {
+            return <ReactTabs.Tab key={title}>{title}</ReactTabs.Tab>;
+          })}
+        </ReactTabs.TabList>
 
-            i += 1;
-        });
+        {_.map(tabContents, function (tabContent, i) {
+          let title = tabTitles[i];
 
-        return obj;
-    }
-
-    handleCallbacks(index: number): void {
-        const callbacks: CallbackMap = this.getCallbacks();
-
-        if (callbacks[index]) {
-            callbacks[index]();
-        }
-    }
-
-    render() {
-        let tabTitles: string[] = [];
-        let tabContents: React.ReactNode[] = [];
-
-        React.Children.forEach(this.props.children, function (child) {
-            if (child && child.props && child.props.title && child.props.children) {
-                tabTitles.push(child.props.title);
-                tabContents.push(child.props.children);
-            }
-        });
-
-        return (
-            <ReactTabs.Tabs
-                selectedIndex={this.state.selectedTab}
-                onSelect={(index: number) => this.handleSelect(index)}
-            >
-                <ReactTabs.TabList>
-                    {_.map(tabTitles, function (title) {
-                        return <ReactTabs.Tab key={title}>{title}</ReactTabs.Tab>;
-                    })}
-                </ReactTabs.TabList>
-
-                {_.map(tabContents, function (tabContent, i) {
-                    let title = tabTitles[i];
-
-                    return <ReactTabs.TabPanel key={title}>{tabContent}</ReactTabs.TabPanel>;
-                })}
-            </ReactTabs.Tabs>
-        );
-    }
+          return <ReactTabs.TabPanel key={title}>{tabContent}</ReactTabs.TabPanel>;
+        })}
+      </ReactTabs.Tabs>
+    );
+  }
 }
 
 export default Tabs;

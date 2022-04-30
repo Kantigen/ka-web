@@ -5,79 +5,79 @@ import { serverDateToMoment, formatMomentLong, serverDateToDateObj } from 'app/u
 import constants from 'app/constants';
 
 class ServerRPCStore {
-    time = '01 31 2010 13:09:05 +0600';
-    version = '1.0';
-    announcement = 0;
-    promotions = [];
-    rpc_limit = 10000;
-    star_map_size = {
-        x: [-15, 15],
-        y: [-15, 15],
-        z: [-15, 15],
-    };
+  time = '01 31 2010 13:09:05 +0600';
+  version = '1.0';
+  announcement = 0;
+  promotions = [];
+  rpc_limit = 10000;
+  star_map_size = {
+    x: [-15, 15],
+    y: [-15, 15],
+    z: [-15, 15],
+  };
 
-    constructor() {
-        makeAutoObservable(this);
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  update(server: any) {
+    // TODO: show announcement window if needed.
+
+    this.time = server.time;
+    this.rpc_limit = server.rpc_limit;
+    this.star_map_size = server.star_map_size;
+    this.version = server.version;
+
+    // The server won't return the promotions block if there aren't any but components
+    // will expect it to exist.
+    if (!this.promotions) {
+      this.promotions = [];
     }
+  }
 
-    update(server: any) {
-        // TODO: show announcement window if needed.
+  tick() {
+    let now = Date.now();
 
-        this.time = server.time;
-        this.rpc_limit = server.rpc_limit;
-        this.star_map_size = server.star_map_size;
-        this.version = server.version;
+    this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
 
-        // The server won't return the promotions block if there aren't any but components
-        // will expect it to exist.
-        if (!this.promotions) {
-            this.promotions = [];
-        }
-    }
+    this.promotions = _.chain(this.promotions)
+      .filter(function (promotion) {
+        // Note: date objects can be compared numerically,
+        // see: http://stackoverflow.com/a/493018/1978973
+        return now < serverDateToDateObj(promotion.end_date);
+      })
+      .map(function (promotion) {
+        promotion.header = promotion.title;
+        promotion.ends = moment().to(serverDateToMoment(promotion.end_date));
 
-    tick() {
-        let now = Date.now();
+        return promotion;
+      })
+      .value();
+  }
 
-        this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
+  get serverTimeMoment() {
+    return serverDateToMoment(this.time).utcOffset(0);
+  }
 
-        this.promotions = _.chain(this.promotions)
-            .filter(function (promotion) {
-                // Note: date objects can be compared numerically,
-                // see: http://stackoverflow.com/a/493018/1978973
-                return now < serverDateToDateObj(promotion.end_date);
-            })
-            .map(function (promotion) {
-                promotion.header = promotion.title;
-                promotion.ends = moment().to(serverDateToMoment(promotion.end_date));
+  get clientTimeMoment() {
+    return serverDateToMoment(this.time);
+  }
 
-                return promotion;
-            })
-            .value();
-    }
+  get serverTimeFormatted() {
+    return formatMomentLong(this.serverTimeMoment);
+  }
 
-    get serverTimeMoment() {
-        return serverDateToMoment(this.time).utcOffset(0);
-    }
+  get clientTimeFormatted() {
+    return formatMomentLong(this.clientTimeMoment);
+  }
 
-    get clientTimeMoment() {
-        return serverDateToMoment(this.time);
-    }
+  get serverTimeMs() {
+    return this.serverTimeMoment.valueOf();
+  }
 
-    get serverTimeFormatted() {
-        return formatMomentLong(this.serverTimeMoment);
-    }
-
-    get clientTimeFormatted() {
-        return formatMomentLong(this.clientTimeMoment);
-    }
-
-    get serverTimeMs() {
-        return this.serverTimeMoment.valueOf();
-    }
-
-    get clientTimeMs() {
-        return this.clientTimeMoment.valueOf();
-    }
+  get clientTimeMs() {
+    return this.clientTimeMoment.valueOf();
+  }
 }
 
 export default new ServerRPCStore();

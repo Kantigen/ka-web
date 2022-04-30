@@ -14,35 +14,35 @@ import BodyRPCStore from 'app/stores/rpc/body';
 const INTERVAL_TIME = 1000;
 
 class TickerStore {
-    ticking: boolean = false;
-    interval: number = 0;
-    clockTicks: number = 0;
+  ticking: boolean = false;
+  interval: number = 0;
+  clockTicks: number = 0;
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    tick() {
-        this.clockTicks += 1;
-        BoostsRPCStore.tick();
-        BodyRPCStore.tick();
-        EmpireRPCStore.tick();
-        ServerRPCStore.tick();
-    }
+  tick() {
+    this.clockTicks += 1;
+    BoostsRPCStore.tick();
+    BodyRPCStore.tick();
+    EmpireRPCStore.tick();
+    ServerRPCStore.tick();
+  }
 
-    start() {
-        if (!this.ticking) {
-            this.interval = window.setInterval(() => this.tick(), INTERVAL_TIME);
-            this.ticking = true;
-        }
+  start() {
+    if (!this.ticking) {
+      this.interval = window.setInterval(() => this.tick(), INTERVAL_TIME);
+      this.ticking = true;
     }
+  }
 
-    stop() {
-        if (this.ticking) {
-            window.clearInterval(this.interval);
-            this.ticking = false;
-        }
+  stop() {
+    if (this.ticking) {
+      window.clearInterval(this.interval);
+      this.ticking = false;
     }
+  }
 }
 
 export default new TickerStore();

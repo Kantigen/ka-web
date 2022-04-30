@@ -8,23 +8,23 @@ import { Tabs, Tab } from 'app/components/tabber';
 import WindowsStore from 'app/stores/windows';
 
 class AboutWindow extends React.Component {
-    closeWindow() {
-        WindowsStore.close('about');
-    }
+  closeWindow() {
+    WindowsStore.close('about');
+  }
 
-    render() {
-        return (
-            <Tabs>
-                <Tab title='About'>
-                    <AboutTab />
-                </Tab>
+  render() {
+    return (
+      <Tabs>
+        <Tab title='About'>
+          <AboutTab />
+        </Tab>
 
-                <Tab title='Credits'>
-                    <CreditsTab />
-                </Tab>
-            </Tabs>
-        );
-    }
+        <Tab title='Credits'>
+          <CreditsTab />
+        </Tab>
+      </Tabs>
+    );
+  }
 }
 
 export default AboutWindow;

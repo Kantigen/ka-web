@@ -13,51 +13,50 @@ import { Tabs, Tab } from 'app/components/tabber';
 import { WindowOptions } from 'app/interfaces';
 
 type Props = {
-    options: WindowOptions;
+  options: WindowOptions;
 };
 
 class EssentiaVein extends React.Component<Props> {
-    componentDidMount() {
-        GenericBuildingService.view(this.props.options.url, this.props.options.id);
+  componentDidMount() {
+    GenericBuildingService.view(this.props.options.url, this.props.options.id);
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      prevProps.options.url != this.props.options.url ||
+      prevProps.options.id != this.props.options.id
+    ) {
+      GenericBuildingService.view(this.props.options.url, this.props.options.id);
     }
+  }
 
-    componentDidUpdate(prevProps: Props) {
-        if (
-            prevProps.options.url != this.props.options.url ||
-            prevProps.options.id != this.props.options.id
-        ) {
-            GenericBuildingService.view(this.props.options.url, this.props.options.id);
-        }
-    }
+  render() {
+    const building = {};
+    return (
+      <div>
+        <BuildingInformation options={this.props.options} />
+        <div>
+          <Tabs>
+            {GenericBuildingRPCStore.efficiency !== 100 && GenericBuildingRPCStore.id ? (
+              <Tab title='Repair' key='Repair'>
+                <RepairTab />
+              </Tab>
+            ) : (
+              <></>
+            )}
 
-    render() {
-        const building = {};
-        return (
-            <div>
-                <BuildingInformation options={this.props.options} />
-                <div>
-                    <Tabs>
-                        {GenericBuildingRPCStore.efficiency !== 100 &&
-                        GenericBuildingRPCStore.id ? (
-                            <Tab title='Repair' key='Repair'>
-                                <RepairTab />
-                            </Tab>
-                        ) : (
-                            <></>
-                        )}
+            <Tab title='Production' key='Production'>
+              <ProductionTab />
+            </Tab>
 
-                        <Tab title='Production' key='Production'>
-                            <ProductionTab />
-                        </Tab>
-
-                        <Tab title='Drain' key='Drain'>
-                            <DrainTab building={building} />
-                        </Tab>
-                    </Tabs>
-                </div>
-            </div>
-        );
-    }
+            <Tab title='Drain' key='Drain'>
+              <DrainTab building={building} />
+            </Tab>
+          </Tabs>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default EssentiaVein;

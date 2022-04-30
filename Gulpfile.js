@@ -6,25 +6,25 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export function browserify() {
-    return gulpTasks.browserify({
-        rootDir: __dirname,
-        watch: true,
-    });
+  return gulpTasks.browserify({
+    rootDir: __dirname,
+    watch: true,
+  });
 }
 
 export function browserifyWithoutWatch() {
-    return gulpTasks.browserify({
-        rootDir: __dirname,
-        watch: false,
-    });
+  return gulpTasks.browserify({
+    rootDir: __dirname,
+    watch: false,
+  });
 }
 
 export function clean() {
-    return gulpTasks.clean();
+  return gulpTasks.clean();
 }
 
 export function server(done) {
-    return gulpTasks.server(done);
+  return gulpTasks.server(done);
 }
 
 export const devWithServer = gulp.series(browserify, server);

@@ -1,20 +1,20 @@
 import { makeAutoObservable } from 'mobx';
 
 class StatsWindowStore {
-    shown = false;
+  shown = false;
 
-    constructor() {
-        makeAutoObservable(this);
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    show() {
-        console.log('shown got called');
-        this.shown = true;
-    }
+  show() {
+    console.log('shown got called');
+    this.shown = true;
+  }
 
-    hide() {
-        this.shown = false;
-    }
+  hide() {
+    this.shown = false;
+  }
 }
 
 export default new StatsWindowStore();

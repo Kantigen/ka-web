@@ -17,97 +17,97 @@ import StarPanelWindow from 'app/components/starPanel';
 import { WindowDefinition } from 'app/interfaces';
 
 interface WindowMap {
-    [index: string]: WindowDefinition;
+  [index: string]: WindowDefinition;
 }
 
 export const WindowMap: WindowMap = {
-    about: {
-        component: AboutWindow,
-        config: {
-            title: 'About',
-            width: 450,
-            height: 400,
-        },
+  about: {
+    component: AboutWindow,
+    config: {
+      title: 'About',
+      width: 450,
+      height: 400,
     },
+  },
 
-    essentiavein: {
-        component: EssentiaVeinWindow,
-        config: {
-            title: 'Essentia Vein',
-            width: 700,
-            height: 420,
-        },
+  essentiavein: {
+    component: EssentiaVeinWindow,
+    config: {
+      title: 'Essentia Vein',
+      width: 700,
+      height: 420,
     },
+  },
 
-    essentia: {
-        component: EssentiaWindow,
-        config: {
-            title: 'Essentia',
-            width: 600,
-            height: 350,
-        },
+  essentia: {
+    component: EssentiaWindow,
+    config: {
+      title: 'Essentia',
+      width: 600,
+      height: 350,
     },
+  },
 
-    genericBuilding: {
-        component: GenericBuildingWindow,
-        config: {
-            title: 'Building',
-            width: 700,
-            height: 'auto',
-        },
+  genericBuilding: {
+    component: GenericBuildingWindow,
+    config: {
+      title: 'Building',
+      width: 700,
+      height: 'auto',
     },
+  },
 
-    invite: {
-        component: InviteWindow,
-        config: {
-            title: 'Invite a Friend',
-            width: 450,
-            height: 400,
-        },
+  invite: {
+    component: InviteWindow,
+    config: {
+      title: 'Invite a Friend',
+      width: 450,
+      height: 400,
     },
+  },
 
-    planetPanel: {
-        component: PlanetPanelWindow,
-        config: {
-            title: 'Planet Details',
-            width: 700,
-            height: 450,
-        },
+  planetPanel: {
+    component: PlanetPanelWindow,
+    config: {
+      title: 'Planet Details',
+      width: 700,
+      height: 450,
     },
+  },
 
-    serverClock: {
-        component: ServerClockWindow,
-        config: {
-            title: 'Server Clock',
-            width: 330,
-            height: 'auto',
-        },
+  serverClock: {
+    component: ServerClockWindow,
+    config: {
+      title: 'Server Clock',
+      width: 330,
+      height: 'auto',
     },
+  },
 
-    starPanel: {
-        component: StarPanelWindow,
-        config: {
-            title: 'Star Details',
-            width: 700,
-            height: 420,
-        },
+  starPanel: {
+    component: StarPanelWindow,
+    config: {
+      title: 'Star Details',
+      width: 700,
+      height: 420,
     },
+  },
 };
 
 const WindowManager: React.FunctionComponent = () => (
-    <>
-        {_.map(WindowsStore.windows, function (row, index) {
-            return (
-                <Panel
-                    window={WindowMap[row.type]}
-                    type={row.type}
-                    options={row.options}
-                    zIndex={row.zIndex}
-                    key={index}
-                />
-            );
-        })}
-    </>
+  <>
+    {_.map(WindowsStore.windows, function (row, index) {
+      return (
+        <Panel
+          window={WindowMap[row.type]}
+          type={row.type}
+          options={row.options}
+          zIndex={row.zIndex}
+          key={index}
+        />
+      );
+    })}
+  </>
 );
 
 export default observer(WindowManager);
