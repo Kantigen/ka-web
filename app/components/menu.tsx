@@ -20,15 +20,14 @@ class Menu extends React.Component {
           <RightSidebarButton />
           <TopBar />
 
-          <div id='oldYUIPanelContainer'></div>
+          <div id='oldYUIPanelContainer' />
 
           <Loader />
           <BottomBar />
         </div>
       );
-    } else {
-      return <div></div>;
     }
+    return <div />;
   }
 }
 

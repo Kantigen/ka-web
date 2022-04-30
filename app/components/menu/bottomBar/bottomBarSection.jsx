@@ -25,7 +25,7 @@ class BottomBarSection extends React.Component {
       <div className='item' onMouseEnter={this.handleToolTip}>
         {this.props.progressPercent ? <ProgressBar percent={this.props.progressPercent} /> : ''}
 
-        <i className={classnames(this.props.iconName, 'large icon')}></i>
+        <i className={classnames(this.props.iconName, 'large icon')} />
 
         <p
           style={{

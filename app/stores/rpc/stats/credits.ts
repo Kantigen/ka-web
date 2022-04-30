@@ -32,8 +32,8 @@ class CreditsRPCStore {
   update(result: any) {
     const credits: Credits = {};
 
-    _.each(result, function (foo) {
-      _.each(foo, function (names, header) {
+    _.each(result, (foo) => {
+      _.each(foo, (names, header) => {
         credits[header] = names;
       });
     });

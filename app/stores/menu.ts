@@ -6,12 +6,17 @@ export const PLANET_MAP_MODE = 'planetMap';
 export const STAR_MAP_MODE = 'starMap';
 
 class MenuStore {
-  menuShown: boolean = false;
-  leftSidebarShown: boolean = false;
-  rightSidebarShown: boolean = false;
-  loaderShwon: boolean = false;
+  menuShown = false;
+
+  leftSidebarShown = false;
+
+  rightSidebarShown = false;
+
+  loaderShwon = false;
+
   mapMode: MapMode = PLANET_MAP_MODE;
-  planetId: number = 0;
+
+  planetId = 0;
 
   constructor() {
     makeAutoObservable(this);
@@ -38,7 +43,7 @@ class MenuStore {
   }
 
   changePlanet(id: number) {
-    console.log('Changing to planet (#' + id + ').');
+    console.log(`Changing to planet (#${id}).`);
     this.mapMode = PLANET_MAP_MODE;
     this.planetId = id;
   }

@@ -5,7 +5,6 @@
 //
 
 import { makeAutoObservable } from 'mobx';
-import _ from 'lodash';
 import BoostsRPCStore from 'app/stores/rpc/empire/boosts';
 import EmpireRPCStore from 'app/stores/rpc/empire';
 import ServerRPCStore from 'app/stores/rpc/server';
@@ -14,9 +13,11 @@ import BodyRPCStore from 'app/stores/rpc/body';
 const INTERVAL_TIME = 1000;
 
 class TickerStore {
-  ticking: boolean = false;
-  interval: number = 0;
-  clockTicks: number = 0;
+  ticking = false;
+
+  interval = 0;
+
+  clockTicks = 0;
 
   constructor() {
     makeAutoObservable(this);

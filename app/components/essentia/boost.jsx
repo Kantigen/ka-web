@@ -25,8 +25,8 @@ class Boost extends React.Component {
   };
 
   handleBoost = () => {
-    let type = this.props.type;
-    let weeks = this.refs.weeks.value;
+    const { type } = this.props;
+    const weeks = this.refs.weeks.value;
 
     if (
       !validator.isInt(weeks, {
@@ -36,15 +36,16 @@ class Boost extends React.Component {
     ) {
       vex.alert('Number of weeks must be an integer between 1 and 100.');
       return;
-    } else if (weeks * 5 > EmpireRPCStore.essentia) {
+    }
+    if (weeks * 5 > EmpireRPCStore.essentia) {
       vex.alert('Insufficient Essentia.');
       return;
     }
-    EmpireRPCActions.requestEmpireRPCBoost({ type: type, weeks: weeks });
+    EmpireRPCActions.requestEmpireRPCBoost({ type, weeks });
   };
 
   renderButton = () => {
-    let iconClassName = classnames('icon', this.props.iconName);
+    const iconClassName = classnames('icon', this.props.iconName);
 
     return (
       <div
@@ -53,7 +54,7 @@ class Boost extends React.Component {
         data-tip={this.props.description}
         data-place='top'
       >
-        <i className={iconClassName}></i>
+        <i className={iconClassName} />
         Boost
       </div>
     );
@@ -61,7 +62,7 @@ class Boost extends React.Component {
 
   tagClassNames() {
     if (this.props.ms > 0) {
-      let day = 1000 * 60 * 60 * 24; // Milliseconds per day
+      const day = 1000 * 60 * 60 * 24; // Milliseconds per day
 
       // Change the color of the tags as the countdown gets closer to zero.
       return classnames('ui left pointing label', {
@@ -96,7 +97,7 @@ class Boost extends React.Component {
         {this.props.ms > 0 ? (
           <div className={this.tagClassNames()}>{util.formatMillisecondTime(this.props.ms)}</div>
         ) : (
-          <div></div>
+          <div />
         )}
       </div>
     );

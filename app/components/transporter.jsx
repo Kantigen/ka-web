@@ -10,7 +10,7 @@ import BuildingInformation from 'app/components/building/information';
 
 import { Tab, Tabs } from 'app/components/tabber';
 
-let Transporter = createReactClass({
+const Transporter = createReactClass({
   displayName: 'Transporter',
 
   statics: {
@@ -27,18 +27,18 @@ let Transporter = createReactClass({
 
   // mixins: [Reflux.connect(GenericBuildingStore, 'genericBuildingStore')],
 
-  componentWillMount: function () {
+  componentWillMount() {
     BuildingWindowActions.buildingWindowClear();
     TransporterRPCActions.requestTransporterRPCView(this.props.options.id);
   },
 
-  closeWindow: function () {
+  closeWindow() {
     WindowActions.windowCloseByType('building');
   },
 
-  render: function () {
-    let building = this.state.genericBuildingStore;
-    let tabs = StandardTabs.tabs(this.props.options, building);
+  render() {
+    const building = this.state.genericBuildingStore;
+    const tabs = StandardTabs.tabs(this.props.options, building);
 
     tabs.push(
       <Tab title='One For One' key='One For One'>

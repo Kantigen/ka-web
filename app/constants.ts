@@ -15,15 +15,14 @@ const constants: AppConfig = {
   NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
   OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
   RPC_BASE: (function (): string {
-    let url = process.env.KA_SERVER_URL;
-    let lastChar = url.slice(-1);
+    const url = process.env.KA_SERVER_URL;
+    const lastChar = url.slice(-1);
 
     // Ensure the URL has a trailing '/' character.
     if (lastChar === '/') {
       return url;
-    } else {
-      return url + '/';
     }
+    return `${url}/`;
   })(),
   WS_BASE: process.env.KA_WS_SERVER_URL,
 

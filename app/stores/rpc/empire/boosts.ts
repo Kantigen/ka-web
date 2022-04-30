@@ -4,12 +4,19 @@ import ServerRPCStore from 'app/stores/rpc/server';
 
 class BoostsEmpireRPCStore {
   foodMsRemaining = 0;
+
   oreMsRemaining = 0;
+
   waterMsRemaining = 0;
+
   energyMsRemaining = 0;
+
   happinessMsRemaining = 0;
+
   storageMsRemaining = 0;
+
   buildingMsRemaining = 0;
+
   spyTrainingMsRemaining = 0;
 
   constructor() {

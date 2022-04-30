@@ -3,23 +3,41 @@ import _ from 'lodash';
 
 class GenericBuildingRPCStore {
   id = '';
+
   name = '';
+
   image = '';
+
   level = 0;
+
   x = 0;
+
   y = 0;
+
   food_hour = 0;
+
   food_capacity = 0;
+
   energy_hour = 0;
+
   energy_capacity = 0;
+
   ore_hour = 0;
+
   ore_capacity = 0;
+
   water_hour = 0;
+
   water_capacity = 0;
+
   waste_hour = 0;
+
   waste_capacity = 0;
+
   happiness_hour = 0;
+
   efficiency = 0;
+
   extraViewData = {};
 
   repair_costs = {

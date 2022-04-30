@@ -96,17 +96,15 @@ export const WindowMap: WindowMap = {
 
 const WindowManager: React.FunctionComponent = () => (
   <>
-    {_.map(WindowsStore.windows, function (row, index) {
-      return (
-        <Panel
-          window={WindowMap[row.type]}
-          type={row.type}
-          options={row.options}
-          zIndex={row.zIndex}
-          key={index}
-        />
-      );
-    })}
+    {_.map(WindowsStore.windows, (row, index) => (
+      <Panel
+        window={WindowMap[row.type]}
+        type={row.type}
+        options={row.options}
+        zIndex={row.zIndex}
+        key={index}
+      />
+    ))}
   </>
 );
 

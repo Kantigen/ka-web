@@ -3,6 +3,7 @@
 
 import vex from 'vex-js';
 import vexDialog from 'vex-dialog';
+
 vex.registerPlugin(vexDialog);
 
 vex.defaultOptions.className = 'vex-theme-default';
@@ -13,8 +14,8 @@ export const alert = function (message: string) {
 
 export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
   vex.dialog.confirm({
-    message: message,
-    callback: function (value) {
+    message,
+    callback(value) {
       if (value && typeof yesCallback === 'function') {
         yesCallback();
       } else if (!value && typeof noCallback === 'function') {
@@ -26,8 +27,8 @@ export const confirm = function (message: string, yesCallback?: Function, noCall
 
 export const prompt = function (message: string, placeholder: string, callback: Function) {
   vex.dialog.prompt({
-    message: message,
-    placeholder: placeholder,
-    callback: callback,
+    message,
+    placeholder,
+    callback,
   });
 };

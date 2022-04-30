@@ -8,14 +8,14 @@ import GetBuildableShipyardRPCStore from 'app/stores/rpc/shipyard/getBuildable';
 
 import BuildFleetItem from 'app/components/shipyard/buildFleet/item';
 
-let BuildFleetTab = createReactClass({
+const BuildFleetTab = createReactClass({
   displayName: 'BuildFleetTab',
 
   propTypes: {
     buildingId: PropTypes.number.isRequired,
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       show: 'now',
       filter: 'all',
@@ -25,54 +25,48 @@ let BuildFleetTab = createReactClass({
 
   // mixins: [Reflux.connect(GetBuildableShipyardRPCStore, 'getBuildableStore')],
 
-  handleShowChange: function (e) {
+  handleShowChange(e) {
     this.setState({
       show: e.target.value,
     });
   },
 
-  handleFilterChange: function (e) {
+  handleFilterChange(e) {
     this.setState({
       filter: e.target.value,
     });
   },
 
-  handleAutoSelectChange: function (e) {
+  handleAutoSelectChange(e) {
     this.setState({
       autoSelect: e.target.value,
     });
   },
 
-  render: function () {
-    let buildQueueAvailable =
+  render() {
+    const buildQueueAvailable =
       this.state.getBuildableStore.build_queue_max - this.state.getBuildableStore.build_queue_used;
-    let fleetItems = [];
-    let buildable = this.state.getBuildableStore.buildable;
+    const fleetItems = [];
+    const { buildable } = this.state.getBuildableStore;
     let fleetTypes = Object.keys(buildable);
 
     // Filter based on buildable now or later.
     if (this.state.show === 'now') {
-      fleetTypes = _.filter(fleetTypes, function (fleetType) {
-        return buildable[fleetType].can;
-      });
+      fleetTypes = _.filter(fleetTypes, (fleetType) => buildable[fleetType].can);
     } else if (this.state.show === 'later') {
-      fleetTypes = _.filter(fleetTypes, function (fleetType) {
-        return !buildable[fleetType].can;
-      });
+      fleetTypes = _.filter(fleetTypes, (fleetType) => !buildable[fleetType].can);
     }
 
     // Filter based on ship type
     if (this.state.filter !== 'all') {
-      let filter = this.state.filter;
-      fleetTypes = _.filter(fleetTypes, function (fleetType) {
-        return _.find(buildable[fleetType].tags, function (o) {
-          return o === filter;
-        });
-      });
+      const { filter } = this.state;
+      fleetTypes = _.filter(fleetTypes, (fleetType) =>
+        _.find(buildable[fleetType].tags, (o) => o === filter)
+      );
     }
 
     fleetTypes.sort();
-    let fleetTypesLen = fleetTypes.length;
+    const fleetTypesLen = fleetTypes.length;
 
     for (let i = 0; i < fleetTypesLen; i++) {
       fleetItems.push(
@@ -135,7 +129,7 @@ let BuildFleetTab = createReactClass({
           </div>
         </div>
 
-        <div className='ui divider'></div>
+        <div className='ui divider' />
 
         <div>{fleetItems}</div>
       </div>

@@ -5,7 +5,7 @@ import createReactClass from 'create-react-class';
 
 import CaptchaRPCStore from 'app/stores/rpc/captcha';
 
-let Captcha = createReactClass({
+const Captcha = createReactClass({
   displayName: 'Captcha',
 
   statics: {
@@ -22,12 +22,12 @@ let Captcha = createReactClass({
 
   // mixins: [Reflux.connect(CaptchaRPCStore, 'captchaRPCStore')],
 
-  componentWillMount: function () {
+  componentWillMount() {
     CaptchaRPCActions.requestCaptchaRPCFetch();
   },
 
-  componentWillUnmount: function () {
-    let success = this.props.options.success;
+  componentWillUnmount() {
+    const { success } = this.props.options;
     if (typeof success === 'function') {
       if (this.state.captchaRPCStore.solved) {
         success();
@@ -35,53 +35,53 @@ let Captcha = createReactClass({
     }
   },
 
-  componentDidUpdate: function (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.captchaRPCStore.url !== this.state.captchaRPCStore.url) {
       this.clearSolutionField();
     }
   },
 
-  onWindowShow: function () {
+  onWindowShow() {
     this.clearSolutionField();
     CaptchaRPCActions.requestCaptchaRPCFetch();
   },
 
-  handleEnterKey: function (event) {
+  handleEnterKey(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
       this.onClickSolve();
     }
   },
 
-  onClickSolve: function () {
-    let solution = this.refs.solution.value;
+  onClickSolve() {
+    const solution = this.refs.solution.value;
 
     CaptchaRPCActions.requestCaptchaRPCSolve({
       guid: this.state.captchaRPCStore.guid,
-      solution: solution,
+      solution,
     });
   },
 
-  onClickRefresh: function () {
+  onClickRefresh() {
     this.clearSolutionField();
     CaptchaWindowActions.captchaWindowRefresh();
   },
 
-  onClickClose: function () {
+  onClickClose() {
     this.clearSolutionField();
     WindowActions.windowCloseByType('captcha');
   },
 
-  clearSolutionField: function () {
+  clearSolutionField() {
     this.refs.solution.value = '';
   },
 
-  render: function () {
+  render() {
     return (
       <div>
         <div
           style={{
-            backgroundImage: 'url(' + this.state.captchaRPCStore.url + ')',
+            backgroundImage: `url(${this.state.captchaRPCStore.url})`,
             width: 300,
             height: 80,
           }}
@@ -103,13 +103,13 @@ let Captcha = createReactClass({
 
           <div className='ui large icon buttons'>
             <div className='ui green button' onClick={this.onClickSolve}>
-              <i className='checkmark icon'></i>
+              <i className='checkmark icon' />
             </div>
             <div className='ui blue button' onClick={this.onClickRefresh}>
-              <i className='refresh icon'></i>
+              <i className='refresh icon' />
             </div>
             <div className='ui red button' onClick={this.onClickClose}>
-              <i className='remove icon'></i>
+              <i className='remove icon' />
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ class ResourceProduction extends React.Component {
     return (
       <ResourceLine
         icon={this.props.icon}
-        content={util.reduceNumber(this.props.number) + ' / hr'}
+        content={`${util.reduceNumber(this.props.number)} / hr`}
         title={util.commify(this.props.number)}
       />
     );

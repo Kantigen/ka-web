@@ -10,7 +10,7 @@ class MailWindow extends React.Component {
       YAHOO.lacuna.Messaging.show();
     }
 
-    return <div></div>;
+    return <div />;
   }
 }
 

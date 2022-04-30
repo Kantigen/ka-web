@@ -10,7 +10,7 @@ class OptionsWindow extends React.Component {
       YAHOO.lacuna.Profile.show();
     }
 
-    return <div></div>;
+    return <div />;
   }
 }
 

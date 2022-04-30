@@ -20,7 +20,7 @@ interface ServerRequest {
 }
 
 const addSession = function (options: ServerRequest): ServerRequest {
-  let sessionId = SessionStore.session;
+  const sessionId = SessionStore.session;
 
   if (options.addSession === true && sessionId) {
     if (_.isArray(options.params)) {
@@ -33,7 +33,7 @@ const addSession = function (options: ServerRequest): ServerRequest {
   return options;
 };
 
-let handleParams = function (options: ServerRequest) {
+const handleParams = function (options: ServerRequest) {
   options = _.merge({ addSession: true, params: [] }, options);
   if (typeof options.addSession === 'undefined') {
     options.addSession = true;
@@ -52,7 +52,7 @@ let handleParams = function (options: ServerRequest) {
   return addSession(options);
 };
 
-let createData = function (options: ServerRequest) {
+const createData = function (options: ServerRequest) {
   return JSON.stringify({
     jsonrpc: '2.0',
     id: 1,
@@ -61,11 +61,11 @@ let createData = function (options: ServerRequest) {
   });
 };
 
-let createUrl = function (options: ServerRequest) {
+const createUrl = function (options: ServerRequest) {
   return constants.RPC_BASE + options.module;
 };
 
-let handleSuccess = function (options: ServerRequest, result: any) {
+const handleSuccess = function (options: ServerRequest, result: any) {
   if (result) {
     if (result.status) {
       splitStatus(result.status);
@@ -79,8 +79,8 @@ let handleSuccess = function (options: ServerRequest, result: any) {
   }
 };
 
-let handleError = function (options: ServerRequest, error: any) {
-  window.alert(error.message + ' (' + error.code + ')');
+const handleError = function (options: ServerRequest, error: any) {
+  window.alert(`${error.message} (${error.code})`);
   console.error('Request error: ', error);
 
   if (typeof options.error === 'function') {
@@ -88,27 +88,27 @@ let handleError = function (options: ServerRequest, error: any) {
   }
 };
 
-let sendRequest = function (url: string, data: any, options: ServerRequest, retry: Function) {
-  console.log('Calling', options.module + '/' + options.method, options.params);
+const sendRequest = function (url: string, data: any, options: ServerRequest, retry: Function) {
+  console.log('Calling', `${options.module}/${options.method}`, options.params);
 
   $.ajax({
-    data: data,
+    data,
     dataType: 'json',
     type: 'POST',
     contentType: 'application/json',
-    url: url,
+    url,
 
-    success: function (data, textStatus, jqXHR) {
+    success(data, textStatus, jqXHR) {
       MenuStore.showLoader();
 
-      let dataToEmit = util.fixNumbers(data.result);
+      const dataToEmit = util.fixNumbers(data.result);
 
       if (textStatus === 'success' && jqXHR.status === 200) {
         handleSuccess(options, dataToEmit);
       }
     },
 
-    error: function (jqXHR) {
+    error(jqXHR) {
       MenuStore.hideLoader();
       let error = {};
 
@@ -121,7 +121,7 @@ let sendRequest = function (url: string, data: any, options: ServerRequest, retr
         error = jqXHR.responseJSON.error;
       }
 
-      let fail = function () {
+      const fail = function () {
         handleError(options, error);
       };
 
@@ -156,15 +156,15 @@ export const call = function (obj: ServerRequest) {
 //
 export const splitStatus = function (status: any) {
   if (status.server) {
-    let serverStatus = util.fixNumbers(_.cloneDeep(status.server));
+    const serverStatus = util.fixNumbers(_.cloneDeep(status.server));
     ServerRPCStore.update(serverStatus);
   }
   if (status.empire) {
-    let empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
+    const empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
     EmpireRPCStore.update(empireStatus);
   }
   if (status.body) {
-    let bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
+    const bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
     BodyRPCStore.update(bodyStatus);
   }
 };

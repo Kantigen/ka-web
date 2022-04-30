@@ -8,7 +8,7 @@ class StarPanel extends React.Component {
   }
 
   render() {
-    let tabs = [];
+    const tabs = [];
     tabs.push(
       <Tab title='Star Details' key='Star Details'>
         <p>Not Yet Implemented!</p>

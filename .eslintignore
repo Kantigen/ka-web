@@ -6,3 +6,4 @@ app/vendor-js/
 app/vendor-css/
 app/yui/
 bundle.js
+gulp-tasks/

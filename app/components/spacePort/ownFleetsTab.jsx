@@ -9,14 +9,14 @@ import ViewAllFleetsSpacePortRPCStore from 'app/stores/rpc/spacePort/viewAllFlee
 
 import OwnFleetItem from 'app/components/spacePort/ownFleets/item';
 
-let OwnFleetsTab = createReactClass({
+const OwnFleetsTab = createReactClass({
   displayName: 'OwnFleetsTab',
 
   propTypes: {
     buildingId: PropTypes.number.isRequired,
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       task: 'all',
       tag: 'all',
@@ -27,50 +27,50 @@ let OwnFleetsTab = createReactClass({
 
   // mixins: [Reflux.connect(ViewAllFleetsSpacePortRPCStore, 'viewAllFleetsStore')],
 
-  handleTaskChange: function (e) {
+  handleTaskChange(e) {
     this.setState({
       task: e.target.value,
     });
   },
 
-  handleTagChange: function (e) {
+  handleTagChange(e) {
     this.setState({
       tag: e.target.value,
     });
   },
 
-  handleTypeChange: function (e) {
+  handleTypeChange(e) {
     this.setState({
       type: e.target.value,
     });
   },
 
-  handleNameChange: function (e) {
+  handleNameChange(e) {
     this.setState({
       name: e.target.value,
     });
   },
 
-  render: function () {
-    let fleetTypes = constants.FLEET_TYPES;
-    let renderFleetTypes = [];
-    for (let prop in fleetTypes) {
+  render() {
+    const fleetTypes = constants.FLEET_TYPES;
+    const renderFleetTypes = [];
+    for (const prop in fleetTypes) {
       if (fleetTypes.hasOwnProperty(prop)) {
         renderFleetTypes.push(<option value={prop}>{fleetTypes[prop]}</option>);
       }
     }
 
-    let fleetTags = constants.FLEET_TAGS;
-    let renderFleetTags = [];
-    for (let prop2 in fleetTags) {
+    const fleetTags = constants.FLEET_TAGS;
+    const renderFleetTags = [];
+    for (const prop2 in fleetTags) {
       if (fleetTags.hasOwnProperty(prop2)) {
         renderFleetTags.push(<option value={prop2}>{fleetTags[prop2]}</option>);
       }
     }
 
-    let fleetTasks = constants.FLEET_TASKS;
-    let renderFleetTasks = [];
-    for (let prop3 in fleetTasks) {
+    const fleetTasks = constants.FLEET_TASKS;
+    const renderFleetTasks = [];
+    for (const prop3 in fleetTasks) {
       if (fleetTasks.hasOwnProperty(prop3)) {
         renderFleetTasks.push(<option value={prop3}>{fleetTasks[prop3]}</option>);
       }
@@ -94,12 +94,10 @@ let OwnFleetsTab = createReactClass({
 
     // Filter based on Tag
     if (this.state.tag !== 'all') {
-      fleetItems = $.grep(fleetItems, function (item, index) {
-        return 1;
-      });
+      fleetItems = $.grep(fleetItems, (item, index) => 1);
     }
 
-    let renderFleetItems = [];
+    const renderFleetItems = [];
 
     for (let i = 0; i < fleetItems.length; i++) {
       renderFleetItems.push(
@@ -140,7 +138,7 @@ let OwnFleetsTab = createReactClass({
           </div>
         </div>
 
-        <div className='ui divider'></div>
+        <div className='ui divider' />
 
         <div>{renderFleetItems}</div>
       </div>

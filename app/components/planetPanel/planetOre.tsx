@@ -15,11 +15,11 @@ class PlanetOre extends React.Component<Props> {
   };
 
   render() {
-    let ores = constants.ORES;
-    let bodyOre = this.props.status.ore;
+    const ores = constants.ORES;
+    const bodyOre = this.props.status.ore;
 
-    let renderOres = [];
-    for (let prop in ores) {
+    const renderOres = [];
+    for (const prop in ores) {
       if (ores.hasOwnProperty(prop)) {
         renderOres.push(
           <PlanetDetailLine title={ores[prop]} value={bodyOre[prop]} key={ores[prop]} />

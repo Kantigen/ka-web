@@ -18,9 +18,9 @@ class ActionButton extends React.Component {
   };
 
   render() {
-    let hasError = !!this.props.error;
+    const hasError = !!this.props.error;
 
-    let elementAttributes = {
+    const elementAttributes = {
       className: classnames(
         'ui button',
         {

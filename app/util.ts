@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import constants from 'app/constants';
 
-let xPad = function (x: any, pad: string, r: any) {
+const xPad = function (x: any, pad: string, r: any) {
   if (typeof r === 'undefined') {
     r = 10;
   }
@@ -15,42 +15,49 @@ let xPad = function (x: any, pad: string, r: any) {
 export const reduceNumber = function (number: number) {
   if (number >= 100000000000000000 || number <= -100000000000000000) {
     // 101Q
-    return Math.floor(number / 1000000000000000) + 'Q';
-  } else if (number >= 1000000000000000 || number <= -1000000000000000) {
-    // 75.3Q
-    return Math.floor(number / 100000000000000) / 10 + 'Q';
-  } else if (number >= 100000000000000 || number <= -100000000000000) {
-    // 101T
-    return Math.floor(number / 1000000000000) + 'T';
-  } else if (number >= 1000000000000 || number <= -1000000000000) {
-    // 75.3T
-    return Math.floor(number / 100000000000) / 10 + 'T';
-  } else if (number >= 100000000000 || number <= -100000000000) {
-    // 101B
-    return Math.floor(number / 1000000000) + 'B';
-  } else if (number >= 1000000000 || number <= -1000000000) {
-    // 75.3B
-    return Math.floor(number / 100000000) / 10 + 'B';
-  } else if (number >= 100000000 || number <= -100000000) {
-    // 101M
-    return Math.floor(number / 1000000) + 'M';
-  } else if (number >= 1000000 || number <= -1000000) {
-    // 75.3M
-    return Math.floor(number / 100000) / 10 + 'M';
-  } else if (number >= 10000 || number <= -10000) {
-    // 123k
-    return Math.floor(number / 1000) + 'k';
-  } else {
-    // 8765
-    return Math.floor(number).toString() || '0';
+    return `${Math.floor(number / 1000000000000000)}Q`;
   }
+  if (number >= 1000000000000000 || number <= -1000000000000000) {
+    // 75.3Q
+    return `${Math.floor(number / 100000000000000) / 10}Q`;
+  }
+  if (number >= 100000000000000 || number <= -100000000000000) {
+    // 101T
+    return `${Math.floor(number / 1000000000000)}T`;
+  }
+  if (number >= 1000000000000 || number <= -1000000000000) {
+    // 75.3T
+    return `${Math.floor(number / 100000000000) / 10}T`;
+  }
+  if (number >= 100000000000 || number <= -100000000000) {
+    // 101B
+    return `${Math.floor(number / 1000000000)}B`;
+  }
+  if (number >= 1000000000 || number <= -1000000000) {
+    // 75.3B
+    return `${Math.floor(number / 100000000) / 10}B`;
+  }
+  if (number >= 100000000 || number <= -100000000) {
+    // 101M
+    return `${Math.floor(number / 1000000)}M`;
+  }
+  if (number >= 1000000 || number <= -1000000) {
+    // 75.3M
+    return `${Math.floor(number / 100000) / 10}M`;
+  }
+  if (number >= 10000 || number <= -10000) {
+    // 123k
+    return `${Math.floor(number / 1000)}k`;
+  }
+  // 8765
+  return Math.floor(number).toString() || '0';
 };
 
 export const serverDateToDateObj = function (serverDate: string) {
   // "23 03 2010 01:20:11 +0000"
-  let pieces = serverDate.split(' '); // [day month year hr:min:sec timez
-  let time = pieces[3].split(':');
-  let dt = new Date();
+  const pieces = serverDate.split(' '); // [day month year hr:min:sec timez
+  const time = pieces[3].split(':');
+  const dt = new Date();
 
   dt.setUTCFullYear(int(pieces[2]));
   dt.setUTCMonth(int(pieces[1]) - 1, int(pieces[0]));
@@ -74,22 +81,22 @@ export const formatTime = function (totalSeconds: number) {
     return '';
   }
 
-  let secondsInDay = 60 * 60 * 24;
-  let secondsInHour = 60 * 60;
-  let day = Math.floor(totalSeconds / secondsInDay);
-  let hleft = totalSeconds % secondsInDay;
-  let hour = Math.floor(hleft / secondsInHour);
-  let sleft = hleft % secondsInHour;
-  let min = Math.floor(sleft / 60);
-  let seconds = Math.floor(sleft % 60);
+  const secondsInDay = 60 * 60 * 24;
+  const secondsInHour = 60 * 60;
+  const day = Math.floor(totalSeconds / secondsInDay);
+  const hleft = totalSeconds % secondsInDay;
+  const hour = Math.floor(hleft / secondsInHour);
+  const sleft = hleft % secondsInHour;
+  const min = Math.floor(sleft / 60);
+  const seconds = Math.floor(sleft % 60);
 
   if (day > 0) {
     return [day, xPad(hour, '0'), xPad(min, '0'), xPad(seconds, '0')].join(':');
-  } else if (hour > 0) {
-    return [hour, xPad(min, '0'), xPad(seconds, '0')].join(':');
-  } else {
-    return [min, xPad(seconds, '0')].join(':');
   }
+  if (hour > 0) {
+    return [hour, xPad(min, '0'), xPad(seconds, '0')].join(':');
+  }
+  return [min, xPad(seconds, '0')].join(':');
 };
 
 export const formatMillisecondTime = function (ms: number) {
@@ -100,17 +107,17 @@ export const serverDateToMoment = function (str: string) {
   // There are currently two date formats being used by the server.
   // This is to handle that.
 
-  let usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
-  let usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT);
+  const usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
+  const usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT);
 
   if (usingNewFormat.isValid()) {
     return usingNewFormat;
-  } else if (usingOldFormat.isValid()) {
-    return usingOldFormat;
-  } else {
-    console.error('Cannot parse server date: ' + str);
-    return moment();
   }
+  if (usingOldFormat.isValid()) {
+    return usingOldFormat;
+  }
+  console.error(`Cannot parse server date: ${str}`);
+  return moment();
 };
 
 export const formatMomentLong = function (theMoment: moment.Moment) {
@@ -129,27 +136,25 @@ export const commify = function (num: number) {
   return Number(num).toLocaleString();
 };
 
-let handleString = function (string: any) {
+const handleString = function (string: any) {
   if (window.isNaN(string)) {
     return string;
-  } else {
-    return string * 1;
   }
+  return string * 1;
 };
 
-let handleObj = function (obj: any): any {
+const handleObj = function (obj: any): any {
   if (_.isString(obj)) {
     return handleString(obj);
-  } else if (_.isObject(obj)) {
+  }
+  if (_.isObject(obj)) {
     // NOTE: isObject returns true for arrays.
     if (Array.isArray(obj)) {
       return _.forEach(obj, handleObj);
-    } else {
-      return _.mapValues(obj, handleObj);
     }
-  } else {
-    return obj;
+    return _.mapValues(obj, handleObj);
   }
+  return obj;
 };
 
 export const fixNumbers = function (data: any) {

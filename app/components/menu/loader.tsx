@@ -15,7 +15,7 @@ class Loader extends React.Component {
           zIndex: 9999999999,
           top: '40vh',
         }}
-      ></div>
+      />
     );
   }
 }

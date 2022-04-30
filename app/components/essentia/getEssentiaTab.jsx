@@ -31,7 +31,7 @@ class GetEssentiaTab extends React.Component {
     return (
       <div style={{ textAlign: 'center' }}>
         <div className='ui large green labeled icon button' onClick={() => this.purchase()}>
-          <i className='payment icon'></i>
+          <i className='payment icon' />
           Purchase Essentia
         </div>
 
@@ -56,7 +56,7 @@ class GetEssentiaTab extends React.Component {
         </p>
 
         <div className='ui large green labeled icon button' onClick={() => this.invite()}>
-          <i className='add user icon'></i>
+          <i className='add user icon' />
           Invite a Friend
         </div>
       </div>

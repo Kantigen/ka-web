@@ -1,7 +1,7 @@
 import gulp from 'gulp';
-import * as gulpTasks from './gulp-tasks/index.js';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import * as gulpTasks from './gulp-tasks/index.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

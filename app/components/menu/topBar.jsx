@@ -15,13 +15,12 @@ class TopBar extends React.Component {
   mapButtonTip() {
     if (MenuStore.mapMode === PLANET_MAP_MODE) {
       return 'To Star Map';
-    } else {
-      return 'To Planet Map';
     }
+    return 'To Planet Map';
   }
 
   render() {
-    let barClass = classnames('ui inverted compact small menu', {
+    const barClass = classnames('ui inverted compact small menu', {
       red: EmpireRPCStore.self_destruct_active,
       blue: !EmpireRPCStore.self_destruct_active,
     });
@@ -42,11 +41,11 @@ class TopBar extends React.Component {
               data-tip={this.mapButtonTip()}
               onClick={() => MenuStore.toggleMapMode()}
             >
-              <i className='map big icon'></i>
+              <i className='map big icon' />
             </a>
 
             <a className='item' data-tip='Mail' onClick={() => MailWindowStore.show()}>
-              <i className='mail big icon'></i>
+              <i className='mail big icon' />
               {EmpireRPCStore.has_new_messages > 0 ? (
                 <div className='ui yellow label'>{EmpireRPCStore.has_new_messages}</div>
               ) : (
@@ -61,7 +60,7 @@ class TopBar extends React.Component {
                 WindowsStore.add('essentia');
               }}
             >
-              <i className='money big icon'></i>
+              <i className='money big icon' />
               <div className='ui teal label'>{EmpireRPCStore.essentia}</div>
             </a>
 
@@ -70,7 +69,7 @@ class TopBar extends React.Component {
               data-tip='Universe Rankings'
               onClick={() => StatsWindowStore.show()}
             >
-              <i className='find big icon'></i>
+              <i className='find big icon' />
             </a>
 
             {ServerRPCStore.promotions.length > 0 ? (
@@ -83,7 +82,7 @@ class TopBar extends React.Component {
                   WindowsStore.add('promotions');
                 }}
               >
-                <i className='announcement big icon'></i>
+                <i className='announcement big icon' />
                 <div className='ui orange floated right circular label'>Event!</div>
               </a>
             ) : (
@@ -91,7 +90,7 @@ class TopBar extends React.Component {
             )}
 
             <a className='item' data-tip='Sign Out' onClick={() => EmpireService.logout()}>
-              <i className='power big icon'></i>
+              <i className='power big icon' />
             </a>
           </div>
         </div>

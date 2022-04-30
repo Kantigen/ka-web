@@ -16,15 +16,14 @@ class BuildQueueItem extends React.Component {
   };
 
   render() {
-    let starfieldStyle = {
+    const starfieldStyle = {
       width: 100,
       height: 100,
-      background:
-        'transparent url(' + constants.ASSETS_URL + 'star_system/field.png) no-repeat center',
+      background: `transparent url(${constants.ASSETS_URL}star_system/field.png) no-repeat center`,
     };
 
-    let obj = this.props.obj;
-    let shipImage = constants.ASSETS_URL + 'ships/' + this.props.obj.type + '.png';
+    const { obj } = this.props;
+    const shipImage = `${constants.ASSETS_URL}ships/${this.props.obj.type}.png`;
 
     return (
       <div>
@@ -44,13 +43,13 @@ class BuildQueueItem extends React.Component {
           </div>
 
           <div className='four wide column'>
-            <ResourceAttribute name={'Quantity'} attr={obj.quantity} />
-            <ResourceAttribute name={'Speed'} attr={obj.attributes.speed} />
-            <ResourceAttribute name={'Berth Level'} attr={obj.attributes.berth_level} />
-            <ResourceAttribute name={'Hold Size'} attr={obj.attributes.hold_size} />
-            <ResourceAttribute name={'Max Occupants'} attr={obj.attributes.max_occupants} />
-            <ResourceAttribute name={'Combat'} attr={obj.attributes.combat} />
-            <ResourceAttribute name={'Stealth'} attr={obj.attributes.stealth} />
+            <ResourceAttribute name='Quantity' attr={obj.quantity} />
+            <ResourceAttribute name='Speed' attr={obj.attributes.speed} />
+            <ResourceAttribute name='Berth Level' attr={obj.attributes.berth_level} />
+            <ResourceAttribute name='Hold Size' attr={obj.attributes.hold_size} />
+            <ResourceAttribute name='Max Occupants' attr={obj.attributes.max_occupants} />
+            <ResourceAttribute name='Combat' attr={obj.attributes.combat} />
+            <ResourceAttribute name='Stealth' attr={obj.attributes.stealth} />
           </div>
 
           <div className='four wide column'>

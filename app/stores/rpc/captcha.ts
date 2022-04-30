@@ -2,8 +2,11 @@ import { makeAutoObservable } from 'mobx';
 
 class CaptchaRPCStore {
   guid = '';
+
   url = '';
+
   solved = '';
+
   window = '';
 
   constructor() {

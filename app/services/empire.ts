@@ -34,7 +34,7 @@ class EmpireService {
       module: 'empire',
       method: 'get_invite_friend_url',
       params: {
-        email: email,
+        email,
         custom_message: message,
       },
       success: () => {

@@ -13,11 +13,11 @@ class ResourceLine extends React.Component {
   };
 
   render() {
-    let iconClass = classnames(this.props.icon, 'large icon', {
+    const iconClass = classnames(this.props.icon, 'large icon', {
       red: this.props.red,
     });
-    let content = util.reduceNumber(this.props.cost);
-    let title = util.commify(this.props.cost);
+    const content = util.reduceNumber(this.props.cost);
+    const title = util.commify(this.props.cost);
 
     return (
       <div
@@ -25,7 +25,7 @@ class ResourceLine extends React.Component {
           marginTop: 5,
         }}
       >
-        <i className={iconClass}></i>
+        <i className={iconClass} />
         <span
           style={{
             float: 'right',

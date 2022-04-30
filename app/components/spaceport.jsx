@@ -13,7 +13,7 @@ import SpacePortOwnFleetsTab from 'app/components/spacePort/ownFleetsTab';
 
 import { Tab, Tabs } from 'app/components/tabber';
 
-let SpacePort = createReactClass({
+const SpacePort = createReactClass({
   displayName: 'SpacePort',
 
   statics: {
@@ -33,18 +33,18 @@ let SpacePort = createReactClass({
     // Reflux.connect(BodyRPCStore, 'bodyStore'),
   ],
 
-  componentWillMount: function () {
+  componentWillMount() {
     BuildingWindowActions.buildingWindowClear();
     SpacePortRPCActions.requestSpacePortRPCView(this.props.options.id);
   },
 
-  closeWindow: function () {
+  closeWindow() {
     WindowActions.windowCloseByType('building');
   },
 
-  render: function () {
-    let building = this.state.genericBuildingStore;
-    let tabs = StandardTabs.tabs(this.props.options, building);
+  render() {
+    const building = this.state.genericBuildingStore;
+    const tabs = StandardTabs.tabs(this.props.options, building);
     tabs.push(
       <Tab
         title='Own Fleets'

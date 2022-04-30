@@ -29,12 +29,12 @@ declare const YAHOO: any;
 
 const init = () => {
   // TODO this code can be improved.
-  let l = window.location;
-  let query = {};
-  let vars = l.hash.substring(1).split('&');
+  const l = window.location;
+  const query = {};
+  const vars = l.hash.substring(1).split('&');
   if (vars.length > 0) {
     for (let i = 0; i < vars.length; i++) {
-      let pair = vars[i].split('=');
+      const pair = vars[i].split('=');
       query[pair[0]] = decodeURIComponent(pair[1]);
     }
   }
@@ -42,7 +42,7 @@ const init = () => {
     window.history.replaceState(
       {},
       document.title,
-      l.protocol + '//' + l.host + l.pathname + l.search
+      `${l.protocol}//${l.host}${l.pathname}${l.search}`
     );
   } else if (l.hash !== '') {
     l.hash = '';

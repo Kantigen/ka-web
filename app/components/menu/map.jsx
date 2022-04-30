@@ -8,6 +8,7 @@ import MenuStore, { PLANET_MAP_MODE, STAR_MAP_MODE } from 'app/stores/menu';
 
 class Map extends React.Component {
   previousMapMode = '';
+
   previousPlanetId = '';
 
   componentDidUpdate() {
@@ -26,7 +27,7 @@ class Map extends React.Component {
     // console.log('mapMode = ' + MenuStore.mapMode + '(' + this.previousMapMode + ')');
     // console.log('planet = ' + MenuStore.planetId + '(' + this.previousPlanetId + ')');
 
-    let Lacuna = YAHOO.lacuna;
+    const Lacuna = YAHOO.lacuna;
 
     if (
       // Render if the planet id has changed... OR...
@@ -53,8 +54,6 @@ class Map extends React.Component {
 
       this.previousPlanetId = MenuStore.planetId;
       this.previousMapMode = MenuStore.mapMode;
-
-      return;
     }
   }
 
@@ -64,10 +63,10 @@ class Map extends React.Component {
     // This component doesn't render anything so we need to be explicit about the values
     // we are using, allowing the framework to notify us appropriately.
     //
-    const mapMode = MenuStore.mapMode;
-    const planetId = MenuStore.planetId;
+    const { mapMode } = MenuStore;
+    const { planetId } = MenuStore;
 
-    return <div></div>;
+    return <div />;
   }
 }
 

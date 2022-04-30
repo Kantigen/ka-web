@@ -42,7 +42,7 @@ const GameWindow: React.FunctionComponent = () => (
         <Menu />
         <Map />
       </ErrorBoundary>
-      <div id='content'></div> {/* This div is used by map. */}
+      <div id='content' /> {/* This div is used by map. */}
       <ErrorBoundary>
         <WindowManager />
         <MailWindow />

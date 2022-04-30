@@ -25,50 +25,52 @@ class ResourceToolTip extends React.Component {
     if (stored === capicity) {
       return (
         <div>
-          <i className='large green thumbs up icon'></i>
+          <i className='large green thumbs up icon' />
           Full
         </div>
       );
-    } else if (hour < 0 && stored > 0) {
+    }
+    if (hour < 0 && stored > 0) {
       return (
         <div>
-          <i className='large red warning circle icon'></i>
+          <i className='large red warning circle icon' />
           Empty in {util.formatTime((-3600 * stored) / hour)}
         </div>
       );
-    } else if (hour > 0 && stored > 0 && hasCapicity) {
+    }
+    if (hour > 0 && stored > 0 && hasCapicity) {
       return (
         <div>
-          <i className='large wait icon'></i>
+          <i className='large wait icon' />
           Full in {util.formatTime((3600 * (capicity - stored)) / hour)}
         </div>
       );
-    } else if (hour > 0 && stored > 0 && !hasCapicity) {
+    }
+    if (hour > 0 && stored > 0 && !hasCapicity) {
       return (
         <div>
-          <i className='large green thumbs up icon'></i>
+          <i className='large green thumbs up icon' />
           Going up
         </div>
       );
-    } else {
-      return (
-        <div>
-          <i className='large red warning circle icon'></i>
-          <strong>Danger!</strong>
-        </div>
-      );
     }
+    return (
+      <div>
+        <i className='large red warning circle icon' />
+        <strong>Danger!</strong>
+      </div>
+    );
   };
 
   render() {
-    let body = this.props.body;
+    const { body } = this.props;
 
-    let hour = body[this.props.type + '_hour'];
-    let stored = body[this.props.type + '_stored'] || body[this.props.type] || 0;
-    let capicity = body[this.props.type + '_capacity'];
+    const hour = body[`${this.props.type}_hour`];
+    const stored = body[`${this.props.type}_stored`] || body[this.props.type] || 0;
+    const capicity = body[`${this.props.type}_capacity`];
 
     // Some resources (happiness) do not have a storage limit.
-    let hasCapicity = typeof capicity !== 'undefined';
+    const hasCapicity = typeof capicity !== 'undefined';
 
     return (
       <div
@@ -85,12 +87,12 @@ class ResourceToolTip extends React.Component {
         </div>
 
         <div>
-          <i className={classnames(this.props.icon, 'large icon')}></i>
-          {util.commify(stored)} {hasCapicity ? ' / ' + util.commify(capicity) : ''}
+          <i className={classnames(this.props.icon, 'large icon')} />
+          {util.commify(stored)} {hasCapicity ? ` / ${util.commify(capicity)}` : ''}
         </div>
 
         <div>
-          <i className='at large icon'></i>
+          <i className='at large icon' />
           {util.commify(hour)} / hr
         </div>
 

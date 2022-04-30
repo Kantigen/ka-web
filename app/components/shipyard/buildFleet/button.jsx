@@ -12,12 +12,12 @@ class BuildButton extends React.Component {
   };
 
   handleQuantity = (o) => {
-    let quantity = this.refs.quantity.value;
+    const quantity = this.refs.quantity.value;
 
     ShipyardRPCActions.requestShipyardRPCBuildFleet({
       building_ids: [this.props.buildingId],
       type: this.props.fleetType,
-      quantity: quantity,
+      quantity,
       autoselect: this.props.autoSelect,
     });
   };

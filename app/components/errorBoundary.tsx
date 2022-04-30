@@ -35,7 +35,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         buttons: [
           {
             text: 'Close',
-            handler: function () {
+            handler() {
               this.hide();
             },
           },
@@ -49,7 +49,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       // Returning any kind of response after an error keeps the rest of the document alive.
-      return <div></div>;
+      return <div />;
     }
 
     return this.props.children;

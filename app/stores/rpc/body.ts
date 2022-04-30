@@ -2,20 +2,32 @@ import { makeAutoObservable } from 'mobx';
 import ServerRPCStore from 'app/stores/rpc/server';
 import _ from 'lodash';
 import * as util from 'app/util';
-let int = util.int;
+
+const { int } = util;
 
 class BodyRPCStore {
   id = 0;
+
   x = 0;
+
   y = 0;
+
   star_id = '';
+
   star_name = '';
+
   orbit = 0;
+
   type = '';
+
   name = '';
+
   image = '';
+
   size = 0;
+
   water = 0;
+
   ore = {
     anthracite: 0,
     bauxite: 0,
@@ -38,54 +50,90 @@ class BodyRPCStore {
     uraninite: 0,
     zircon: 0,
   };
+
   empire = {
     id: '',
     name: '',
     alignment: '',
     is_isolationist: 0,
   };
+
   station = {
     id: 0,
     x: 0,
     y: 0,
     name: '',
   };
+
   needs_surface_refresh = 0;
+
   building_count = 0;
+
   build_queue_size = 0;
+
   build_queue_len = 0;
+
   plots_available = 0;
+
   happiness = 0;
+
   happiness_hour = 0;
+
   unhappy_date = '01 13 2014 16:11:21 +0600';
+
   neutral_entry = '01 13 2014 16:11:21 +0600';
+
   propaganda_boost = 0;
+
   food_stored = 0;
+
   food_capacity = 0;
+
   food_hour = 0;
+
   energy_stored = 0;
+
   energy_capacity = 0;
+
   energy_hour = 0;
+
   ore_hour = 0;
+
   ore_capacity = 0;
+
   ore_stored = 0;
+
   waste_hour = 0;
+
   waste_stored = 0;
+
   waste_capacity = 0;
+
   water_stored = 0;
+
   water_hour = 0;
+
   water_capacity = 0;
+
   skip_incoming_ships = 0;
+
   num_incoming_enemy = 0;
+
   num_incoming_ally = 0;
+
   num_incoming_own = 0;
+
   incoming_enemy_ships = [];
+
   incoming_ally_ships = [];
+
   incoming_own_ships = [];
+
   alliance = {
     id: '',
     name: '',
   };
+
   influence = {
     total: 0,
     spent: 0,
@@ -174,7 +222,7 @@ class BodyRPCStore {
     this.alliance = body.alliance;
     this.influence = body.influence;
 
-    let updateShip = function (ship: any) {
+    const updateShip = function (ship: any) {
       ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - ServerRPCStore.serverTimeMs;
       return ship;
     };
@@ -185,7 +233,7 @@ class BodyRPCStore {
   }
 
   tick() {
-    let tickIncoming = function (ship: any) {
+    const tickIncoming = function (ship: any) {
       ship.arrival_ms -= 1000;
       return ship;
     };
@@ -194,22 +242,22 @@ class BodyRPCStore {
     _.map(this.incoming_ally_ships, tickIncoming);
     _.map(this.incoming_enemy_ships, tickIncoming);
 
-    let tickResource = function (
+    const tickResource = function (
       production: number,
       capacity: number | undefined,
       stored: number,
       stopAtZero: boolean
     ) {
-      let amount = production / 60 / 60;
-      let rv = stored + amount;
+      const amount = production / 60 / 60;
+      const rv = stored + amount;
 
       if (typeof capacity !== 'undefined' && rv > capacity) {
         return Math.floor(capacity);
-      } else if (rv < 0 && stopAtZero) {
-        return 0;
-      } else {
-        return Math.floor(rv);
       }
+      if (rv < 0 && stopAtZero) {
+        return 0;
+      }
+      return Math.floor(rv);
     };
 
     this.food_stored = tickResource(this.food_hour, this.food_capacity, this.food_stored, true);

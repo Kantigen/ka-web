@@ -6,6 +6,7 @@ import WindowsStore from 'app/stores/windows';
 
 class InviteWindow extends React.Component {
   emailInput = React.createRef<HTMLInputElement>();
+
   messageInput = React.createRef<HTMLTextAreaElement>();
 
   closeWindow() {
@@ -25,7 +26,7 @@ class InviteWindow extends React.Component {
   }
 
   render() {
-    let defaultMessage = [
+    const defaultMessage = [
       "I'm having a great time with this new game called 'Kenó Antigen'.",
       'Come play with me!',
     ].join(' ');
@@ -35,12 +36,12 @@ class InviteWindow extends React.Component {
         <div className='ui form'>
           <div className='field'>
             <label style={{ color: '#ffffff' }}>Email</label>
-            <input type='text' placeholder='someone@example.com' ref={this.emailInput}></input>
+            <input type='text' placeholder='someone@example.com' ref={this.emailInput} />
           </div>
 
           <div className='field'>
             <label style={{ color: '#ffffff' }}>Message</label>
-            <textarea ref={this.messageInput} defaultValue={defaultMessage}></textarea>
+            <textarea ref={this.messageInput} defaultValue={defaultMessage} />
           </div>
 
           <div className='ui green button' onClick={() => this.handleInvite()}>
@@ -48,7 +49,7 @@ class InviteWindow extends React.Component {
           </div>
         </div>
 
-        <div className='ui divider'></div>
+        <div className='ui divider' />
 
         <div className='ui fluid action input'>
           <input

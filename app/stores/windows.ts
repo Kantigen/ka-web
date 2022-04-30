@@ -2,8 +2,8 @@ import _ from 'lodash';
 import { makeAutoObservable } from 'mobx';
 import { Window, WindowType, WindowOptions } from 'app/interfaces';
 
-let findWindowByType = function (windows: Window[], type: WindowType) {
-  let index = _.findIndex(windows, function (o) {
+const findWindowByType = function (windows: Window[], type: WindowType) {
+  const index = _.findIndex(windows, (o) => {
     if (o) {
       return o.type === type;
     }
@@ -12,19 +12,19 @@ let findWindowByType = function (windows: Window[], type: WindowType) {
   });
 
   if (index > -1) {
-    let obj = windows[index];
+    const obj = windows[index];
 
     // Add the index we found this at for convenience.
     obj.index = index;
 
     return obj;
-  } else {
-    return undefined;
   }
+  return undefined;
 };
 
 class WindowsStore {
   windows: Window[] = [];
+
   zIndex = 2000000;
 
   constructor() {
@@ -39,16 +39,16 @@ class WindowsStore {
 
     // However, if there is an existing window type, we replace it because we only want
     // one of each type of window on screen at a given time.
-    let existingWindow = findWindowByType(this.windows, type);
+    const existingWindow = findWindowByType(this.windows, type);
     if (existingWindow) {
       index = existingWindow.index;
     }
 
     this.windows[index] = {
-      type: type,
+      type,
       zIndex: this.zIndex,
-      options: options,
-      index: index,
+      options,
+      index,
     };
 
     this.zIndex += 1;
@@ -58,7 +58,7 @@ class WindowsStore {
   // Close window by type, e.g. 'captcha'
   //
   close(type: WindowType) {
-    let existingWindow = findWindowByType(this.windows, type);
+    const existingWindow = findWindowByType(this.windows, type);
     if (!existingWindow) return;
     this.windows.splice(existingWindow.index, 1);
   }
@@ -75,7 +75,7 @@ class WindowsStore {
   // Close the window on top when user hits the escape key.
   //
   onEscKey() {
-    let toClose = _.chain(this.windows).sortBy('zIndex').reverse().first().value();
+    const toClose = _.chain(this.windows).sortBy('zIndex').reverse().first().value();
     if (!toClose) return;
     this.close(toClose.type);
   }
@@ -84,7 +84,7 @@ class WindowsStore {
   // Bring a window to the top of the stack by type.
   //
   bringToTop(type: WindowType) {
-    let toBringToTop = findWindowByType(this.windows, type);
+    const toBringToTop = findWindowByType(this.windows, type);
     if (!toBringToTop) return;
 
     if (this.windows[toBringToTop.index].zIndex === this.zIndex - 1) {

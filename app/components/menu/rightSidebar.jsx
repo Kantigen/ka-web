@@ -17,19 +17,15 @@ class PlanetListItem extends React.Component {
     zone: PropTypes.string.isRequired,
   };
 
-  getInitialProps = () => {
-    return {
-      name: '',
-      id: 0,
-      currentBody: 0,
-      zone: '',
-    };
-  };
+  getInitialProps = () => ({
+    name: '',
+    id: 0,
+    currentBody: 0,
+    zone: '',
+  });
 
   // Returns true if this list item is the the currently selected planet.
-  isCurrentWorld = () => {
-    return this.props.currentBody === this.props.id;
-  };
+  isCurrentWorld = () => this.props.currentBody === this.props.id;
 
   handleClick = () => {
     MenuStore.hideRightSidebar();
@@ -42,7 +38,7 @@ class PlanetListItem extends React.Component {
   };
 
   render() {
-    let classStr = classnames({
+    const classStr = classnames({
       'ui large teal label': this.isCurrentWorld(),
       item: !this.isCurrentWorld(),
     });
@@ -74,14 +70,12 @@ class AccordionItem extends React.Component {
     open: this.props.initiallyOpen,
   };
 
-  getInitialProps = () => {
-    return {
-      list: [],
-      currentBody: 0,
-      title: '',
-      initiallyOpen: false,
-    };
-  };
+  getInitialProps = () => ({
+    list: [],
+    currentBody: 0,
+    title: '',
+    initiallyOpen: false,
+  });
 
   componentDidMount() {
     // RightSidebarActions.rightSidebarCollapse.listen(this.hideList);
@@ -113,19 +107,15 @@ class AccordionItem extends React.Component {
           className='ui horizontal inverted divider'
           title={
             this.state.open
-              ? 'Click to hide ' + this.props.title.toLowerCase()
-              : 'Click to show ' + this.props.title.toLowerCase()
+              ? `Click to hide ${this.props.title.toLowerCase()}`
+              : `Click to show ${this.props.title.toLowerCase()}`
           }
           onClick={this.toggleList}
           style={{
             cursor: 'pointer',
           }}
         >
-          {this.state.open ? (
-            <i className='angle down icon'></i>
-          ) : (
-            <i className='angle right icon'></i>
-          )}{' '}
+          {this.state.open ? <i className='angle down icon' /> : <i className='angle right icon' />}{' '}
           {this.props.title}
         </div>
         <div
@@ -162,7 +152,7 @@ class BodiesAccordion extends React.Component {
   };
 
   render() {
-    let items = [
+    const items = [
       {
         title: 'My Colonies',
         key: 'colonies',
@@ -187,9 +177,9 @@ class BodiesAccordion extends React.Component {
     _.chain(this.props.bodies.babies || {})
       .keys()
       .sortBy()
-      .each(function (babyName) {
+      .each((babyName) => {
         items.push({
-          title: babyName + "'s Colonies",
+          title: `${babyName}'s Colonies`,
           key: babyName,
           initiallyOpen: false,
           isBaby: true,

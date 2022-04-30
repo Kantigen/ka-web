@@ -10,7 +10,7 @@ class StatsWindow extends React.Component {
       YAHOO.lacuna.Stats.show();
     }
 
-    return <div></div>;
+    return <div />;
   }
 }
 

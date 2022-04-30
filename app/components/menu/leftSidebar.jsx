@@ -27,21 +27,21 @@ const SelfDestruct = observer(
     }
 
     render() {
-      let destructMs = EmpireRPCStore.self_destruct_ms;
-      let destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
-      let formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
+      const destructMs = EmpireRPCStore.self_destruct_ms;
+      const destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
+      const formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
 
-      let itemStyle = destructActive
+      const itemStyle = destructActive
         ? {
             color: 'red',
           }
         : {};
 
-      let verb = destructActive ? 'Disable' : 'Enable';
+      const verb = destructActive ? 'Disable' : 'Enable';
 
       return (
         <a className='item' style={itemStyle} onClick={this.handleDestructClick}>
-          <i className='bomb icon'></i>
+          <i className='bomb icon' />
           {verb} Self Destruct{' '}
           {destructActive ? (
             <span>
@@ -98,7 +98,7 @@ class LeftSidebar extends React.Component {
             WindowsStore.add('invite');
           }}
         >
-          <i className='add user icon'></i>
+          <i className='add user icon' />
           Invite a Friend
         </a>
         <a
@@ -108,7 +108,7 @@ class LeftSidebar extends React.Component {
             YAHOO.lacuna.MapPlanet.Refresh();
           }}
         >
-          <i className='refresh icon'></i>
+          <i className='refresh icon' />
           Refresh
         </a>
 
@@ -120,7 +120,7 @@ class LeftSidebar extends React.Component {
           href='/starmap/'
           onClick={() => MenuStore.hideLeftSidebar()}
         >
-          <i className='map icon'></i>
+          <i className='map icon' />
           Alliance Map
         </a>
         <a
@@ -129,7 +129,7 @@ class LeftSidebar extends React.Component {
           href='/changes.txt'
           onClick={() => MenuStore.hideLeftSidebar()}
         >
-          <i className='code icon'></i>
+          <i className='code icon' />
           Changes Log
         </a>
         <a
@@ -137,8 +137,9 @@ class LeftSidebar extends React.Component {
           target='_blank'
           href='http://community.lacunaexpanse.com/forums'
           onClick={() => MenuStore.hideLeftSidebar()}
+          rel='noreferrer'
         >
-          <i className='comments layout icon'></i>
+          <i className='comments layout icon' />
           Forums
         </a>
         <a
@@ -146,8 +147,9 @@ class LeftSidebar extends React.Component {
           target='_blank'
           href='http://www.lacunaexpanse.com/help/'
           onClick={() => MenuStore.hideLeftSidebar()}
+          rel='noreferrer'
         >
-          <i className='student icon'></i>
+          <i className='student icon' />
           Help
         </a>
         <a
@@ -155,8 +157,9 @@ class LeftSidebar extends React.Component {
           target='_blank'
           href='http://www.lacunaexpanse.com/terms/'
           onClick={() => MenuStore.hideLeftSidebar()}
+          rel='noreferrer'
         >
-          <i className='info circle icon'></i>
+          <i className='info circle icon' />
           Terms of Service
         </a>
         <a
@@ -164,8 +167,9 @@ class LeftSidebar extends React.Component {
           target='_blank'
           href='http://lacunaexpanse.com/tutorial/'
           onClick={() => MenuStore.hideLeftSidebar()}
+          rel='noreferrer'
         >
-          <i className='marker icon'></i>
+          <i className='marker icon' />
           Tutorial
         </a>
         <a
@@ -173,8 +177,9 @@ class LeftSidebar extends React.Component {
           target='_blank'
           href='http://community.lacunaexpanse.com/wiki'
           onClick={() => MenuStore.hideLeftSidebar()}
+          rel='noreferrer'
         >
-          <i className='share alternate icon'></i>
+          <i className='share alternate icon' />
           Wiki
         </a>
 
@@ -187,7 +192,7 @@ class LeftSidebar extends React.Component {
             WindowsStore.add('about');
           }}
         >
-          <i className='rocket icon'></i>
+          <i className='rocket icon' />
           About
         </a>
 
@@ -198,7 +203,7 @@ class LeftSidebar extends React.Component {
             OptionsWindowStore.show();
           }}
         >
-          <i className='options icon'></i>
+          <i className='options icon' />
           Options
         </a>
         <a
@@ -208,7 +213,7 @@ class LeftSidebar extends React.Component {
             WindowsStore.add('serverClock');
           }}
         >
-          <i className='wait icon'></i>
+          <i className='wait icon' />
           Server Clock
         </a>
 

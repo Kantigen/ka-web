@@ -15,21 +15,14 @@ class PlanetDetails extends React.Component<Props> {
   };
 
   render() {
-    let bodyStatus = this.props.status;
-    let location = bodyStatus.x + 'x : ' + bodyStatus.y + 'y';
+    const bodyStatus = this.props.status;
+    const location = `${bodyStatus.x}x : ${bodyStatus.y}y`;
 
     return (
       <div className='ui grid'>
         <div className='five wide column'>
           <img
-            src={
-              constants.ASSETS_URL +
-              'star_system/' +
-              bodyStatus.image +
-              '-' +
-              bodyStatus.orbit +
-              '.png'
-            }
+            src={`${constants.ASSETS_URL}star_system/${bodyStatus.image}-${bodyStatus.orbit}.png`}
             style={{
               width: 100,
               height: 100,
@@ -47,7 +40,7 @@ class PlanetDetails extends React.Component<Props> {
           <PlanetPanelLine title='Body ID' value={bodyStatus.id} />
           <PlanetPanelLine
             title='Star'
-            value={bodyStatus.star_name + '(ID: ' + bodyStatus.star_id + ')'}
+            value={`${bodyStatus.star_name}(ID: ${bodyStatus.star_id})`}
           />
           <PlanetPanelLine title='Orbit' value={bodyStatus.orbit} />
         </div>

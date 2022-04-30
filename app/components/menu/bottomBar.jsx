@@ -15,7 +15,8 @@ import ResourceToolTip from 'app/components/menu/bottomBar/resourceToolTip';
 import RPCCountToolTip from 'app/components/menu/bottomBar/rpcCountToolTip';
 
 import * as util from 'app/util';
-let rn = util.reduceNumber;
+
+const rn = util.reduceNumber;
 
 class BottomBar extends React.Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class BottomBar extends React.Component {
       html: ReactDOMServer.renderToStaticMarkup(
         <ResourceToolTip body={BodyRPCStore} icon='smile' type='happiness' title='Happiness'>
           <div>
-            <i className='large spy icon'></i>
+            <i className='large spy icon' />
             {BodyRPCStore.propaganda_boost}
           </div>
         </ResourceToolTip>
@@ -108,7 +109,7 @@ class BottomBar extends React.Component {
   }
 
   showBuildQueueToolTip() {
-    let body = BodyRPCStore;
+    const body = BodyRPCStore;
 
     $(ReactDOM.findDOMNode(this.buildQueueSection.current)).popup({
       html: ReactDOMServer.renderToStaticMarkup(<BuildQueueToolTip body={body} />),
@@ -147,8 +148,8 @@ class BottomBar extends React.Component {
               ref={this.foodSection}
               progressPercent={BodyRPCStore.food_percent_full}
               iconName='food'
-              topText={rn(BodyRPCStore.food_stored) + ' / ' + rn(BodyRPCStore.food_capacity)}
-              bottomText={rn(BodyRPCStore.food_hour) + ' / hr'}
+              topText={`${rn(BodyRPCStore.food_stored)} / ${rn(BodyRPCStore.food_capacity)}`}
+              bottomText={`${rn(BodyRPCStore.food_hour)} / hr`}
               toolTipShow={() => this.showFoodToolTip()}
             />
 
@@ -156,8 +157,8 @@ class BottomBar extends React.Component {
               ref={this.oreSection}
               progressPercent={BodyRPCStore.ore_percent_full}
               iconName='diamond'
-              topText={rn(BodyRPCStore.ore_stored) + ' / ' + rn(BodyRPCStore.ore_capacity)}
-              bottomText={rn(BodyRPCStore.ore_hour) + ' / hr'}
+              topText={`${rn(BodyRPCStore.ore_stored)} / ${rn(BodyRPCStore.ore_capacity)}`}
+              bottomText={`${rn(BodyRPCStore.ore_hour)} / hr`}
               toolTipShow={() => this.showOreToolTip()}
             />
 
@@ -165,8 +166,8 @@ class BottomBar extends React.Component {
               ref={this.waterSection}
               progressPercent={BodyRPCStore.water_percent_full}
               iconName='theme'
-              topText={rn(BodyRPCStore.water_stored) + ' / ' + rn(BodyRPCStore.water_capacity)}
-              bottomText={rn(BodyRPCStore.water_hour) + ' / hr'}
+              topText={`${rn(BodyRPCStore.water_stored)} / ${rn(BodyRPCStore.water_capacity)}`}
+              bottomText={`${rn(BodyRPCStore.water_hour)} / hr`}
               toolTipShow={() => this.showWaterToolTip()}
             />
 
@@ -174,8 +175,8 @@ class BottomBar extends React.Component {
               ref={this.energySection}
               progressPercent={BodyRPCStore.energy_percent_full}
               iconName='lightning'
-              topText={rn(BodyRPCStore.energy_stored) + ' / ' + rn(BodyRPCStore.energy_capacity)}
-              bottomText={rn(BodyRPCStore.energy_hour) + ' / hr'}
+              topText={`${rn(BodyRPCStore.energy_stored)} / ${rn(BodyRPCStore.energy_capacity)}`}
+              bottomText={`${rn(BodyRPCStore.energy_hour)} / hr`}
               toolTipShow={() => this.showEnergyToolTip()}
             />
 
@@ -184,8 +185,8 @@ class BottomBar extends React.Component {
                 ref={this.wasteSection}
                 progressPercent={BodyRPCStore.waste_percent_full}
                 iconName='trash'
-                topText={rn(BodyRPCStore.waste_stored) + ' / ' + rn(BodyRPCStore.waste_capacity)}
-                bottomText={rn(BodyRPCStore.waste_hour) + ' / hr'}
+                topText={`${rn(BodyRPCStore.waste_stored)} / ${rn(BodyRPCStore.waste_capacity)}`}
+                bottomText={`${rn(BodyRPCStore.waste_hour)} / hr`}
                 toolTipShow={() => this.showWasteToolTip()}
               />
             ) : (
@@ -197,7 +198,7 @@ class BottomBar extends React.Component {
                 ref={this.happinessSection}
                 iconName='smile'
                 topText={rn(BodyRPCStore.happiness)}
-                bottomText={rn(BodyRPCStore.happiness_hour) + ' / hr'}
+                bottomText={`${rn(BodyRPCStore.happiness_hour)} / hr`}
                 toolTipShow={() => this.showHappinessToolTip()}
               />
             ) : (
@@ -207,12 +208,10 @@ class BottomBar extends React.Component {
             <BottomBarSection
               ref={this.buildingCountSection}
               iconName='block layout'
-              topText={
-                BodyRPCStore.building_count +
-                ' / ' +
-                (BodyRPCStore.building_count + BodyRPCStore.plots_available)
-              }
-              bottomText={BodyRPCStore.plots_available + ' Available'}
+              topText={`${BodyRPCStore.building_count} / ${
+                BodyRPCStore.building_count + BodyRPCStore.plots_available
+              }`}
+              bottomText={`${BodyRPCStore.plots_available} Available`}
               toolTipShow={() => this.showBuildingCountToolTip()}
             />
 
@@ -221,7 +220,7 @@ class BottomBar extends React.Component {
               iconName='list'
               topText={
                 BodyRPCStore.build_queue_len +
-                (BodyRPCStore.type !== 'space station' ? ' / ' + BodyRPCStore.build_queue_size : '')
+                (BodyRPCStore.type !== 'space station' ? ` / ${BodyRPCStore.build_queue_size}` : '')
               }
               bottomText='Build Q'
               toolTipShow={() => this.showBuildQueueToolTip()}
@@ -230,7 +229,7 @@ class BottomBar extends React.Component {
             <BottomBarSection
               ref={this.rpcCountSection}
               iconName='exchange'
-              topText={EmpireRPCStore.rpc_count + ' / ' + rn(ServerRPCStore.rpc_limit)}
+              topText={`${EmpireRPCStore.rpc_count} / ${rn(ServerRPCStore.rpc_limit)}`}
               bottomText='Actions'
               toolTipShow={() => this.showRPCCountToolTip()}
             />

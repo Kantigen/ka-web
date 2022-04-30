@@ -17,9 +17,9 @@ class CreditsTab extends React.Component {
       <div>
         <h1>Credits</h1>
 
-        {_.map(CreditsRPCStore.credits, function (names, header) {
-          return <CreditsSection key={header} header={header} names={names} />;
-        })}
+        {_.map(CreditsRPCStore.credits, (names, header) => (
+          <CreditsSection key={header} header={header} names={names} />
+        ))}
       </div>
     );
   }

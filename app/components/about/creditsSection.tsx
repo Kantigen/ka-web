@@ -25,19 +25,17 @@ class CreditsSection extends React.Component<Props> {
         <strong>{this.props.header}</strong>
 
         <ul>
-          {_.map(this.props.names, function (name) {
-            return (
-              <li
-                key={name}
-                style={{
-                  listStyleType: 'disc',
-                  marginLeft: 40,
-                }}
-              >
-                {name}
-              </li>
-            );
-          })}
+          {_.map(this.props.names, (name) => (
+            <li
+              key={name}
+              style={{
+                listStyleType: 'disc',
+                marginLeft: 40,
+              }}
+            >
+              {name}
+            </li>
+          ))}
         </ul>
 
         <br />

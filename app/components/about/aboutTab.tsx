@@ -14,7 +14,10 @@ class AboutTab extends React.Component {
           forked from code provided by The Lacuna Expanse Corp copyright 2010.
         </p>
 
-        <p>Server Version: {ServerRPCStore.version}.</p>
+        <p>
+          Server Version:
+          {ServerRPCStore.version}.
+        </p>
       </div>
     );
   }

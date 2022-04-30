@@ -9,9 +9,7 @@ class BuildingInformation extends React.Component {
     options: PropTypes.object.isRequired,
   };
 
-  getImageUrl = () => {
-    return constants.ASSETS_URL + 'planet_side/100/' + this.props.options.image + '.png';
-  };
+  getImageUrl = () => `${constants.ASSETS_URL}planet_side/100/${this.props.options.image}.png`;
 
   render() {
     return (
@@ -25,7 +23,7 @@ class BuildingInformation extends React.Component {
           style={{
             width: 100,
             height: 100,
-            backgroundImage: 'url(' + this.getImageUrl() + ')',
+            backgroundImage: `url(${this.getImageUrl()})`,
             float: 'left',
           }}
         />
@@ -49,6 +47,7 @@ class BuildingInformation extends React.Component {
               target='_blank'
               href={resources.buildings[this.props.options.url].wiki}
               style={{ color: '#fff' }}
+              rel='noreferrer'
             >
               More information on Wiki.
             </a>

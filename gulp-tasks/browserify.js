@@ -13,25 +13,24 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 function handleBundle(b, options) {
   return b
     .bundle()
-    .on('error', function (err) {
+    .on('error', (err) => {
       console.error(ansi.red('Compile error:'), err.message);
     })
     .pipe(fs.createWriteStream(path.join(options.rootDir, 'bundle.js')));
 }
 
 function getConfigJson(name) {
-  const jsonPath = path.join(__dirname, '..', 'config', name + '.json');
+  const jsonPath = path.join(__dirname, '..', 'config', `${name}.json`);
 
   if (fs.existsSync(jsonPath)) {
     return JSON.parse(fs.readFileSync(jsonPath));
-  } else {
-    throw 'Unknown KA_ENV: ' + name;
   }
+  throw `Unknown KA_ENV: ${name}`;
 }
 
 function loadConfig(env) {
-  console.log('Loading config: ' + env);
-  var config = _.merge(
+  console.log(`Loading config: ${env}`);
+  const config = _.merge(
     {},
     { NODE_ENV: 'production' },
     getConfigJson('default'),
@@ -48,7 +47,7 @@ export default function (options) {
     plugins.push(watchify);
   }
 
-  var b = browserify(['./app/load.ts'], {
+  const b = browserify(['./app/load.ts'], {
     extensions: ['.jsx', '.tsx'],
     paths: [path.join(options.rootDir)],
     ignoreMissing: true,
@@ -68,12 +67,12 @@ export default function (options) {
 
   // Watchify emits 'update' events when a file has been changed and the build should run again.
   if (options.watch) {
-    b.on('update', function () {
+    b.on('update', () => {
       console.log('Something changed - rebuilding.');
       handleBundle(b, options);
     });
 
-    b.on('log', function (msg) {
+    b.on('log', (msg) => {
       console.log(msg);
     });
   }
