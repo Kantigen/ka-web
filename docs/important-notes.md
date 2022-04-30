@@ -7,7 +7,7 @@
 - No `index.js` or `index.jsx` files.
 - As always: **when in Rome, do as the Romans do.**
 
-You can run `npm run lint` to make sure everything passes. However, it would be much more effective to get ESLint/Prettier integrated with your editor so that you get live feedback.
+You can run `npm run format` to format everything. Getting live feedback via integrating Prettier with your editor is helpful as well.
 
 ## Removal of YUI
 
