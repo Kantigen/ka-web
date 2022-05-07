@@ -2,6 +2,7 @@ import ReactTooltip from 'react-tooltip';
 import BoostsRPCStore from 'app/stores/rpc/empire/boosts';
 import InviteRPCStore from 'app/stores/rpc/empire/invite';
 import server from 'app/server';
+import { Empire } from 'app/client';
 import * as vex from 'app/vex';
 
 declare const YAHOO: any;
@@ -47,19 +48,14 @@ class EmpireService {
     //
   }
 
-  logout() {
-    server.call({
-      module: 'empire',
-      method: 'logout',
-      success: () => {
-        YAHOO.lacuna.Game.Reset();
-        YAHOO.lacuna.MapPlanet.Reset();
-        YAHOO.lacuna.Game.DoLogin();
+  async logout() {
+    await Empire.logout();
+    YAHOO.lacuna.Game.Reset();
+    YAHOO.lacuna.MapPlanet.Reset();
+    YAHOO.lacuna.Game.DoLogin();
 
-        // Hide all our tooltips
-        ReactTooltip.hide();
-      },
-    });
+    // Hide all our tooltips
+    ReactTooltip.hide();
   }
 }
 

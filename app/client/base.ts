@@ -1,11 +1,33 @@
 import server from 'app/server';
-
-type Module = 'empire' | 'body';
-
-type Method = 'get_status';
+import {
+  BodyGetStatusParams,
+  BodyGetStatusResponse,
+  EmpireGetStatusParams,
+  EmpireGetStatusResponse,
+  EmpireLogoutParams,
+  EmpireLogoutResponse,
+} from 'app/interfaces';
 
 class ClientBase {
-  call(module: Module, method: Method, params: any, addSession = false): Promise<any> {
+  call(
+    module: 'body',
+    method: 'get_status',
+    params: BodyGetStatusParams
+  ): Promise<BodyGetStatusResponse>;
+
+  call(
+    module: 'empire',
+    method: 'get_status',
+    params: EmpireGetStatusParams
+  ): Promise<EmpireGetStatusResponse>;
+
+  call(
+    module: 'empire',
+    method: 'logout',
+    params: EmpireLogoutParams
+  ): Promise<EmpireLogoutResponse>;
+
+  call(module: string, method: string, params: any, addSession = true): Promise<any> {
     return new Promise((resolve, reject) => {
       server.call({
         module,

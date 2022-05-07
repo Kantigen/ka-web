@@ -10,8 +10,8 @@ import TickerStore from 'app/stores/ticker';
 import WindowsStore from 'app/stores/windows';
 
 import constants from 'app/constants';
-import server from 'app/server';
 import resources from 'app/json/resources';
+import { Empire } from 'app/client';
 
 declare const YAHOO: any;
 
@@ -118,17 +118,14 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
         SessionStore.update(session);
 
-        server.call({
-          module: 'empire',
-          method: 'get_status',
-          success: () => {
+        Empire.getStatus()
+          .then(() => {
             Game.Run();
-          },
-          error: () => {
+          })
+          .catch(() => {
             Game.Reset();
             Game.DoLogin();
-          },
-        });
+          });
       },
       Failure(o: any, retry: any, fail: any) {
         // session expired
