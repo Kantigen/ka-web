@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import server from 'app/server';
-import * as util from 'app/util';
+import { Body } from 'app/client';
 
 import PlanetDetailsTab from 'app/components/planetPanel/planetDetailsTab';
 import { Tab, Tabs } from 'app/components/tabber';
@@ -74,53 +73,46 @@ class PlanetPanel extends React.Component {
     },
   };
 
-  componentDidMount() {
-    server.call({
-      module: 'body',
-      method: 'get_status',
-      params: {
-        id: 1, // TODO
-      },
-      success: ({ body }) => {
-        this.setState({
-          status: {
-            id: body.id,
-            x: util.int(body.x),
-            y: util.int(body.y),
-            zone: body.zone,
-            star_id: body.star_id,
-            star_name: body.star_name,
-            orbit: util.int(body.orbit),
-            type: body.type,
-            name: body.name,
-            image: body.image,
-            size: body.size,
-            water: body.water,
+  async componentDidMount() {
+    const { body } = await Body.getStatus(1);
 
-            ore: {
-              anthracite: body.ore.anthracite,
-              bauxite: body.ore.bauxite,
-              beryl: body.ore.beryl,
-              chromite: body.ore.chromite,
-              chalcopyrite: body.ore.chalcopyrite,
-              fluorite: body.ore.fluorite,
-              galena: body.ore.galena,
-              goethite: body.ore.goethite,
-              gold: body.ore.gold,
-              gypsum: body.ore.gypsum,
-              halite: body.ore.halite,
-              kerogen: body.ore.kerogen,
-              magnetite: body.ore.magnetite,
-              methane: body.ore.methane,
-              monazite: body.ore.monazite,
-              rutile: body.ore.rutile,
-              sulfur: body.ore.sulfur,
-              trona: body.ore.trona,
-              uraninite: body.ore.uraninite,
-              zircon: body.ore.zircon,
-            },
-          },
-        });
+    this.setState({
+      status: {
+        id: body.id,
+        x: body.x,
+        y: body.y,
+        zone: body.zone,
+        star_id: body.star_id,
+        star_name: body.star_name,
+        orbit: body.orbit,
+        type: body.type,
+        name: body.name,
+        image: body.image,
+        size: body.size,
+        water: body.water,
+
+        ore: {
+          anthracite: body.ore.anthracite,
+          bauxite: body.ore.bauxite,
+          beryl: body.ore.beryl,
+          chromite: body.ore.chromite,
+          chalcopyrite: body.ore.chalcopyrite,
+          fluorite: body.ore.fluorite,
+          galena: body.ore.galena,
+          goethite: body.ore.goethite,
+          gold: body.ore.gold,
+          gypsum: body.ore.gypsum,
+          halite: body.ore.halite,
+          kerogen: body.ore.kerogen,
+          magnetite: body.ore.magnetite,
+          methane: body.ore.methane,
+          monazite: body.ore.monazite,
+          rutile: body.ore.rutile,
+          sulfur: body.ore.sulfur,
+          trona: body.ore.trona,
+          uraninite: body.ore.uraninite,
+          zircon: body.ore.zircon,
+        },
       },
     });
   }
