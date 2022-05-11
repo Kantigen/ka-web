@@ -384,7 +384,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
             Dom.setStyle('messagingReader', 'display', 'none');
             Dom.setStyle('messagingAnnouncement', 'display', '');
             Dom.get('messagingAnnounceFrame').src =
-              constants.RPC_BASE + '/announcement?session_id=' + Game.GetSession();
+              constants.RPC_BASE + 'announcement?session_id=' + Game.GetSession();
             break;
           default:
             this.viewingMessage = null;
