@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Body } from 'app/client';
 
 import PlanetDetailsTab from 'app/components/planetPanel/planetDetailsTab';
-import { Tab, Tabs } from 'app/components/tabber';
+import { Tabber } from 'app/components/tabber';
 
 class PlanetPanel extends React.Component {
   static propTypes = {
@@ -118,28 +118,24 @@ class PlanetPanel extends React.Component {
   }
 
   render() {
-    console.log('Rendering...', this.state.status);
-
-    const tabs = [];
-    tabs.push(
-      <Tab title='Planet Details' key='Planet Details'>
-        <PlanetDetailsTab status={this.state.status} />
-      </Tab>
+    return (
+      <Tabber
+        tabs={[
+          {
+            title: 'Planet Details',
+            component: () => <PlanetDetailsTab status={this.state.status} />,
+          },
+          {
+            title: 'My Fleets',
+            component: () => <p>Not Yet Implemented</p>,
+          },
+          {
+            title: 'Foreign Fleets',
+            component: () => <p>Not Yet Implemented</p>,
+          },
+        ]}
+      />
     );
-
-    tabs.push(
-      <Tab title='My Fleets' key='My Fleets'>
-        <p>Not Yet Implemented</p>
-      </Tab>
-    );
-
-    tabs.push(
-      <Tab title='Foreign Fleets' key='Foreign Fleets'>
-        <p>Not Yet Implemented</p>
-      </Tab>
-    );
-
-    return <Tabs>{tabs}</Tabs>;
   }
 }
 

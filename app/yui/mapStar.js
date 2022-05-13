@@ -1489,7 +1489,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
       },
       ShowStar: function (tile, keepOpen) {
         if (!keepOpen) {
-          Game.OverlayManager.hideAllBut(this.starDetails.id);
+          // Game.OverlayManager.hideAllBut(this.starDetails.id);
         }
 
         var data = tile.data,
@@ -1551,7 +1551,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
       },
       ShowPlanet: function (tile, keepOpen) {
         if (!keepOpen) {
-          Game.OverlayManager.hideAllBut(this.planetDetails.id);
+          // Game.OverlayManager.hideAllBut(this.planetDetails.id);
         }
         var panel = this.planetDetails;
 

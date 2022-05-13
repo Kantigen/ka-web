@@ -15,7 +15,7 @@ export const alert = function (message: string) {
 export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
   vex.dialog.confirm({
     message,
-    callback(value) {
+    callback(value: boolean) {
       if (value && typeof yesCallback === 'function') {
         yesCallback();
       } else if (!value && typeof noCallback === 'function') {

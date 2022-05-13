@@ -818,7 +818,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
 
         this._buildBuilderPanel();
 
-        Game.OverlayManager.hideAllBut(this.buildingBuilder.id);
+        // Game.OverlayManager.hideAllBut(this.buildingBuilder.id);
         this.buildingBuilder.resetDisplay(this);
         this.buildingBuilder.setTile(tile);
         this.buildingBuilder.show();
@@ -973,7 +973,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
         this._buildDetailsPanel();
 
         var panel = this.buildingDetails;
-        Game.OverlayManager.hideAllBut(panel.id);
+        // Game.OverlayManager.hideAllBut(panel.id);
         panel.resetDisplay(this);
         //clear values
         panel.name.innerHTML = 'Loading';

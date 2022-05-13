@@ -2,9 +2,6 @@ import React from 'react';
 import * as ReactTabs from 'react-tabs';
 import _ from 'lodash';
 
-import Tab from 'app/components/tabber/tab';
-import Tabs from 'app/components/tabber/tabs';
-
 interface ITab {
   title: string;
   component: Function;
@@ -36,4 +33,4 @@ class Tabber extends React.Component<Props> {
   }
 }
 
-export { Tab, Tabs, Tabber };
+export { Tabber };
