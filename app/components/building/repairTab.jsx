@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 
-import GenericBuildingStore from 'app/stores/rpc/genericBuilding';
 import BodyRPCStore from 'app/stores/rpc/body';
 
 import ResourceCost from 'app/components/building/resourceCost';

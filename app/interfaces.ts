@@ -44,6 +44,76 @@ export interface BodyGetStatusResponse {
   };
 }
 
+export interface Building {
+  id: number;
+  name: string;
+  image: string;
+  level: number;
+  x: number;
+  y: number;
+  food_hour: number;
+  food_capacity: number;
+  energy_hour: number;
+  energy_capacity: number;
+  ore_hour: number;
+  ore_capacity: number;
+  water_hour: number;
+  water_capacity: number;
+  waste_hour: number;
+  waste_capacity: number;
+  happiness_hour: number;
+  efficiency: number;
+
+  // Essentia Vein
+  drain_capable?: number;
+
+  repair_costs: {
+    food: number;
+    water: number;
+    energy: number;
+    ore: number;
+  };
+
+  downgrade: {
+    can: number;
+    reason: any[];
+    image: string;
+  };
+
+  upgrade: {
+    can: number;
+    reason: any[];
+
+    cost: {
+      food: number;
+      water: number;
+      energy: number;
+      waste: number;
+      ore: number;
+      time: number;
+      halls: number;
+    };
+    production: {
+      food_hour: number;
+      food_capacity: number;
+      energy_hour: number;
+      energy_capacity: number;
+      ore_hour: number;
+      ore_capacity: number;
+      water_hour: number;
+      water_capacity: number;
+      waste_hour: number;
+      waste_capacity: number;
+      happiness_hour: number;
+    };
+    image: string;
+  };
+}
+
+export interface BuildingsViewResponse {
+  building: Building;
+}
+
 export interface EmpireGetStatusParams {}
 
 export interface EmpireGetStatusResponse {
@@ -87,6 +157,15 @@ export interface EmpireLogoutResponse {
   logout: 0 | 1;
 }
 
+export interface EssentiaVeinDrainParams {
+  0: number;
+  1: number;
+}
+
+export interface EssentiaVeinDrainResponse {
+  building: Building;
+}
+
 export interface Window {
   type: WindowType;
   index: number;
@@ -97,6 +176,11 @@ export interface Window {
 export interface WindowOptions {
   id?: number | string;
   url?: string;
+}
+
+export interface BuildingWindowOptions {
+  id: number;
+  url: string;
 }
 
 export interface WindowConfig {

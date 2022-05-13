@@ -1,55 +1,58 @@
 import React from 'react';
 import _ from 'lodash';
+import { Building } from 'app/interfaces';
+import EssentiaVein from 'app/client/essentiaVein';
+import * as vex from 'app/vex';
 
 type Props = {
-  building: any;
+  building: Building;
 };
 
 class DrainTab extends React.Component<Props> {
   dropdown = React.createRef<HTMLSelectElement>();
 
   componentDidMount() {
-    $(this.refs.dropdown).dropdown();
+    $(this.dropdown.current).dropdown();
   }
 
-  handleDrain = () => {
-    const times = parseInt($(this.refs.dropdown).dropdown('get value'), 10) / 30;
+  async handleDrain() {
+    const times = parseInt($(this.dropdown.current).dropdown('get value'), 10) / 30;
     const { id } = this.props.building;
 
-    EssentiaVeinRPCActions.requestEssentiaVeinRPCDrain({
-      id,
-      times,
-    });
-  };
+    console.assert(typeof times === 'number', 'times should be a number');
+
+    const res = await EssentiaVein.drain(id, times);
+    if (res) {
+      vex.alert('Drain successful');
+    }
+  }
 
   render() {
-    return (
-      <div>
-        Drain{' '}
-        <div className='ui inline dropdown' ref='dropdown'>
-          <div className='text'>30 days</div>
-          <i className='dropdown icon' />
-          <div className='menu'>
+    if (this.props.building.drain_capable) {
+      return (
+        <div>
+          Drain{' '}
+          <select ref={this.dropdown}>
             {_.times(this.props.building.drain_capable, (num) => {
               // Num starts on 0.
               num += 1;
-
               const days = num * 30;
-              const str = `${days} days`;
 
               return (
-                <div className='item' data-text={str} key={days}>
-                  {days}
-                </div>
+                <option value={days} key={days}>
+                  {days} days
+                </option>
               );
             })}
+          </select>
+          <div className='ui green button' onClick={() => this.handleDrain()}>
+            Drain
           </div>
         </div>
-        <div className='ui green button' onClick={this.handleDrain}>
-          Drain
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return <></>;
+    }
   }
 }
 

@@ -5,17 +5,22 @@ import { observer } from 'mobx-react';
 import _ from 'lodash';
 
 import BodyRPCStore from 'app/stores/rpc/body';
-import GenericBuildingRPCStore from 'app/stores/rpc/genericBuilding';
 
 import ActionButton from 'app/components/building/actionButton';
 import ResourceProduction from 'app/components/building/resourceProduction';
 import ResourceCost from 'app/components/building/resourceCost';
 import ResourceLine from 'app/components/building/resourceLine';
 
+import { Building } from 'app/interfaces';
+
 import * as util from 'app/util';
 import * as vex from 'app/vex';
 
-class ProductionTab extends React.Component {
+type Props = {
+  building: Building;
+};
+
+class ProductionTab extends React.Component<Props> {
   onDemolishClick() {
     const name = `${this.props.building.name} ${this.props.building.level}`;
 
@@ -30,7 +35,7 @@ class ProductionTab extends React.Component {
   }
 
   onDowngradeClick() {
-    const name = `${this.props.building.name} ${this.props.building.level}`;
+    const name = `${this.props.building.name} to level ${this.props.building.level - 1}`;
 
     vex.confirm(
       `Are you sure you want to downgrade your ${name}?`,
@@ -51,7 +56,7 @@ class ProductionTab extends React.Component {
   }
 
   render() {
-    const b = GenericBuildingRPCStore;
+    const b = this.props.building;
     const body = BodyRPCStore;
 
     // Don't let the user downgrade a level 1 building. They should demolish it instead.

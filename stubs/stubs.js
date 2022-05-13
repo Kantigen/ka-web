@@ -3,6 +3,7 @@ import express from 'express';
 import Body from './body.js';
 import Buildings from './buildings.js';
 import Empire from './empire.js';
+import EssentiaVein from './essentiaVein.js';
 import Inbox from './inbox.js';
 import GenericBuilding from './genericBuilding.js';
 import Map from './map.js';
@@ -56,7 +57,7 @@ const modules = {
   energyreserve: GenericBuilding,
   entertainment: GenericBuilding,
   espionage: GenericBuilding,
-  essentiavein: GenericBuilding,
+  essentiavein: EssentiaVein,
   fission: GenericBuilding,
   fissure: GenericBuilding,
   foodreserve: GenericBuilding,

@@ -6,6 +6,8 @@ import {
   EmpireGetStatusResponse,
   EmpireLogoutParams,
   EmpireLogoutResponse,
+  EssentiaVeinDrainParams,
+  EssentiaVeinDrainResponse,
 } from 'app/interfaces';
 
 class ClientBase {
@@ -26,6 +28,12 @@ class ClientBase {
     method: 'logout',
     params: EmpireLogoutParams
   ): Promise<EmpireLogoutResponse>;
+
+  call(
+    module: 'essentiavein',
+    method: 'drain',
+    params: EssentiaVeinDrainParams
+  ): Promise<EssentiaVeinDrainResponse>;
 
   call(module: string, method: string, params: any, addSession = true): Promise<any> {
     return new Promise((resolve, reject) => {
