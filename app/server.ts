@@ -2,6 +2,7 @@ import constants from 'app/constants';
 
 import _ from 'lodash';
 import * as util from 'app/util';
+import * as vex from 'app/vex';
 
 import ServerRPCStore from 'app/stores/rpc/server';
 import EmpireRPCStore from 'app/stores/rpc/empire';
@@ -80,7 +81,7 @@ const handleSuccess = function (options: ServerRequest, result: any) {
 };
 
 const handleError = function (options: ServerRequest, error: any) {
-  window.alert(`${error.message} (${error.code})`);
+  vex.alert(`${error.message} ${error.code ? `(${error.code})` : ''}`);
   console.error('Request error: ', error);
 
   if (typeof options.error === 'function') {

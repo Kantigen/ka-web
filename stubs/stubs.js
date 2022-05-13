@@ -211,7 +211,7 @@ app.post('/:module', (req, res) => {
       result: result,
     });
   } else {
-    return res.json({
+    return res.status(500).json({
       jsonrpc: '2.0',
       id: 1,
       error: {
