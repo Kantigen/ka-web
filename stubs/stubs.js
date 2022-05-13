@@ -8,6 +8,7 @@ import Inbox from './inbox.js';
 import GenericBuilding from './genericBuilding.js';
 import Map from './map.js';
 import Server from './server.js';
+import Spaceport from './spaceport.js';
 import Stats from './stats.js';
 
 const modules = {
@@ -136,7 +137,7 @@ const modules = {
   singularity: GenericBuilding,
   soup: GenericBuilding,
   spacejunkpark: GenericBuilding,
-  spaceport: GenericBuilding,
+  spaceport: Spaceport,
   ssla: GenericBuilding,
   sslb: GenericBuilding,
   sslc: GenericBuilding,
