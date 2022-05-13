@@ -8,6 +8,7 @@ import Inbox from './inbox.js';
 import GenericBuilding from './genericBuilding.js';
 import Map from './map.js';
 import Server from './server.js';
+import Stats from './stats.js';
 
 const modules = {
   body: Body,
@@ -16,6 +17,7 @@ const modules = {
   inbox: Inbox,
   map: Map,
   server: Server,
+  stats: Stats,
 
   //
   // Buildings
@@ -140,7 +142,6 @@ const modules = {
   sslc: GenericBuilding,
   ssld: GenericBuilding,
   stationcommand: GenericBuilding,
-  stats: GenericBuilding,
   stockpile: GenericBuilding,
   subspacesupplydepot: GenericBuilding,
   supplypod: GenericBuilding,
