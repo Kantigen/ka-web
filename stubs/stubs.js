@@ -193,6 +193,10 @@ app.get('/announcement', (req, res) => {
   res.sendFile('announcement.html', { root: './stubs' });
 });
 
+app.get('/email_attachment.png', (req, res) => {
+  res.sendFile('email_attachment.png', { root: './stubs' });
+});
+
 app.get('/server_overview.json', (req, res) => {
   res.sendFile('server_overview.json', { root: './stubs' });
 });
@@ -203,7 +207,8 @@ app.post('/:module', (req, res) => {
 
   console.log(`${module} ${method} was called`);
 
-  const result = modules[module] && modules[module][method] ? modules[module][method]() : undefined;
+  const result =
+    modules[module] && modules[module][method] ? modules[module][method](req, res) : undefined;
 
   if (result) {
     console.log('Rendering result:', result);
