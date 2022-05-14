@@ -1,2 +1,3 @@
-window.$ = window.jQuery = require('jquery');
-require('fomantic-ui/dist/semantic');
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+export default $;

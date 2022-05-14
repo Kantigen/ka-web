@@ -1,5 +1,3 @@
-import Fingerprint2 from 'fingerprintjs2';
-
 import _ from 'lodash';
 import MenuStore from 'app/stores/menu';
 import WindowsStore from 'app/stores/windows';
@@ -131,58 +129,54 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
         MenuStore.showLoader();
         this.setMessage('');
         var EmpireServ = Game.Services.Empire;
-        Fingerprint2.get(
-          _.bind(function (result) {
-            console.log('browser: ' + result);
-            EmpireServ.login(
-              {
-                name: this.elName.value,
-                password: this.elPass.value,
-                api_key: Lib.ApiKey,
-                browser: result,
-              },
-              {
-                success: function (o) {
-                  YAHOO.log(o, 'info', 'Login.handleLogin.success');
-                  //clear the session just in case
-                  Game.RemoveCookie('session');
+        console.log('browser: ' + result);
+        EmpireServ.login(
+          {
+            name: this.elName.value,
+            password: this.elPass.value,
+            api_key: Lib.ApiKey,
+            browser: result,
+          },
+          {
+            success: function (o) {
+              YAHOO.log(o, 'info', 'Login.handleLogin.success');
+              //clear the session just in case
+              Game.RemoveCookie('session');
 
-                  if (this.elRemember.checked) {
-                    var now = new Date();
-                    Cookie.set('lacunaEmpireName', this.elName.value, {
-                      domain: Game.domain,
-                      expires: new Date(now.setFullYear(now.getFullYear() + 1)),
-                    });
-                  } else {
-                    Cookie.remove('lacunaEmpireName');
-                  }
-
-                  this.fireEvent('onLoginSuccessful', o);
-
-                  this.elForm.reset();
-                  this.hide();
-                },
-                failure: function (o) {
-                  if (o.error.code == 1100) {
-                    //haven't founded empire yet so take them to species
-                    this.hide();
-                    this.initEmpireCreator();
-                    Game.OverlayManager.hideAll();
-                    Game.SpeciesCreator.show(o.error.data.empire_id);
-                  } else if (o.error.code == 1200) {
-                    alert(o.error.message);
-                    window.location = o.error.data;
-                  } else {
-                    this.setMessage(
-                      o.error.message || 'There was a problem logging in.  Please try again.'
-                    );
-                  }
-                  return true;
-                },
-                scope: this,
+              if (this.elRemember.checked) {
+                var now = new Date();
+                Cookie.set('lacunaEmpireName', this.elName.value, {
+                  domain: Game.domain,
+                  expires: new Date(now.setFullYear(now.getFullYear() + 1)),
+                });
+              } else {
+                Cookie.remove('lacunaEmpireName');
               }
-            );
-          }, this)
+
+              this.fireEvent('onLoginSuccessful', o);
+
+              this.elForm.reset();
+              this.hide();
+            },
+            failure: function (o) {
+              if (o.error.code == 1100) {
+                //haven't founded empire yet so take them to species
+                this.hide();
+                this.initEmpireCreator();
+                Game.OverlayManager.hideAll();
+                Game.SpeciesCreator.show(o.error.data.empire_id);
+              } else if (o.error.code == 1200) {
+                alert(o.error.message);
+                window.location = o.error.data;
+              } else {
+                this.setMessage(
+                  o.error.message || 'There was a problem logging in.  Please try again.'
+                );
+              }
+              return true;
+            },
+            scope: this,
+          }
         );
       },
       show: function (error) {

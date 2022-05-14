@@ -19,18 +19,17 @@
   },
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write app/**/*.ts app/**/*.tsx app/yui/*.js app/components/**/*.jsx gulp-tasks/**/*.js stubs/**/*.js",
-    "dev": "concurrently \"npm run serve:app\" \"npm run serve:stubs\"",
-    "build": "gulp build",
-    "clean": "gulp clean",
-    "serve:app": "gulp devWithServer",
-    "serve:stubs": "nodemon --exec \"node stubs/stubs.js\" --watch stubs"
+    "format": "prettier --write app/**/*.ts app/**/*.tsx app/yui/*.js app/components/**/*.jsx stubs/**/*.js",
+    "dev": "concurrently \"npm run serve:app\" \"npm run serve:stubs\" \"npm run serve:assets\"",
+    "build": "vite build",
+    "serve:app": "vite",
+    "serve:stubs": "nodemon --exec \"node stubs/stubs.js\" --watch stubs",
+    "serve:assets": "http-server ./Lacuna-Assets --cors --port 4000"
   },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
     "classnames": "^2.3.1",
     "create-react-class": "^15.6.3",
-    "fingerprintjs2": "^2.1.0",
     "fomantic-ui": "^2.8.8",
     "formik": "^2.2.9",
     "jquery": "^3.5.0",
@@ -49,10 +48,6 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "@babel/preset-react": "^7.16.0",
-    "@babel/preset-typescript": "^7.16.7",
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.24",
@@ -60,26 +55,16 @@
     "@types/react-dom": "^17.x.x",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "ansi-colors": "^4.1.1",
-    "babel-eslint": "^10.0.3",
-    "babelify": "^10.0.0",
-    "browserify": "^17.0.0",
-    "browserify-css": "^0.15.0",
     "concurrently": "^7.1.0",
-    "del": "^6.0.0",
-    "envify": "^4.1.0",
     "eslint": "^8.14.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "express": "^4.18.1",
-    "gulp": "^4.x.x",
-    "gulp-typescript": "^6.0.0-alpha.1",
+    "http-server": "^14.1.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.0.0",
-    "tsify": "^5.0.4",
     "typescript": "^4.6.4",
-    "vinyl-source-stream": "^2.0.0",
-    "watchify": "^4.0.0"
+    "vite": "^2.9.9"
   }
 }

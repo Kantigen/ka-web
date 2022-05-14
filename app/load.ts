@@ -1,4 +1,5 @@
 import 'app/shims/jquery';
+import 'app/shims/fomantic';
 import 'app/shims/yahoo';
 
 import 'fomantic-ui/dist/semantic.css';

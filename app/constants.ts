@@ -1,3 +1,5 @@
+import * as util from 'app/util';
+
 interface AppConfig {
   ASSETS_URL: string;
   API_KEY: string;
@@ -12,21 +14,12 @@ interface AppConfig {
 }
 
 const constants: AppConfig = {
-  ASSETS_URL: process.env.KA_ASSETS_URL,
-  API_KEY: process.env.KA_API_KEY,
+  ASSETS_URL: util.ensureTrailingSlash(import.meta.env.KA_ASSETS_URL),
+  API_KEY: import.meta.env.KA_API_KEY,
   NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
   OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
-  RPC_BASE: (function (): string {
-    const url = process.env.KA_SERVER_URL;
-    const lastChar = url.slice(-1);
-
-    // Ensure the URL has a trailing '/' character.
-    if (lastChar === '/') {
-      return url;
-    }
-    return `${url}/`;
-  })(),
-  WS_BASE: process.env.KA_WS_SERVER_URL,
+  RPC_BASE: util.ensureTrailingSlash(import.meta.env.KA_SERVER_URL),
+  WS_BASE: '',
 
   FLEET_TAGS: {
     trade: 'Trade',
