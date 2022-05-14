@@ -22,13 +22,13 @@ class GenericBuilding extends React.Component<Props> {
         <Tabber
           tabs={[
             {
+              title: 'Production',
+              component: () => <ProductionTab building={this.props.building} />,
+            },
+            {
               title: 'Repair',
               shouldRender: this.props.building.efficiency !== 100 && !!this.props.building.id,
               component: () => <RepairTab building={this.props.building} />,
-            },
-            {
-              title: 'Production',
-              component: () => <ProductionTab building={this.props.building} />,
             },
           ]}
         />

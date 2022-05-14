@@ -21,12 +21,12 @@ const Buildings = {
         waste_hour: 33,
         waste_capacity: 500,
         happiness_hour: 0,
-        efficiency: 100,
+        efficiency: 95,
         repair_costs: {
-          food: 0,
-          water: 0,
-          energy: 0,
-          ore: 0,
+          food: 10,
+          water: 10,
+          energy: 10,
+          ore: 10,
         },
         // 'pending_build' : {
         //   'seconds_remaining' : 430,

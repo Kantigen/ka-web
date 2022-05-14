@@ -110,7 +110,7 @@ const Body = {
         },
         4979713: {
           y: '0',
-          efficiency: '100',
+          efficiency: '25',
           level: '30',
           name: 'Shield Against Weapons',
           url: '/saw',
@@ -137,7 +137,7 @@ const Body = {
         },
         4979712: {
           y: '0',
-          efficiency: '100',
+          efficiency: '50',
           level: '30',
           name: 'Shield Against Weapons',
           url: '/saw',
@@ -290,7 +290,7 @@ const Body = {
         },
         4979716: {
           y: '0',
-          efficiency: '100',
+          efficiency: '50',
           level: '30',
           name: 'Shield Against Weapons',
           url: '/saw',
@@ -299,7 +299,7 @@ const Body = {
         },
         4979714: {
           y: '0',
-          efficiency: '100',
+          efficiency: '75',
           level: '30',
           name: 'Shield Against Weapons',
           url: '/saw',
@@ -434,7 +434,7 @@ const Body = {
         },
         4979711: {
           y: '0',
-          efficiency: '100',
+          efficiency: '25',
           level: '30',
           name: 'Shield Against Weapons',
           url: '/saw',

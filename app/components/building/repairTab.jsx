@@ -1,27 +1,18 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 
 import BodyRPCStore from 'app/stores/rpc/body';
-
 import ResourceCost from 'app/components/building/resourceCost';
 
-const RepairTab = createReactClass({
-  displayName: 'RepairTab',
-
-  mixins: [
-    // Reflux.connect(GenericBuildingStore, 'genericBuildingStore'),
-    // Reflux.connect(BodyRPCStore, 'body'),
-  ],
-
+class RepairTab extends React.Component {
   handleClick() {
-    GenericBuildingRPCActions.requestGenericBuildingRPCRepair(
-      this.state.genericBuildingStore.url,
-      this.state.genericBuildingStore.id
-    );
-  },
+    // GenericBuildingRPCActions.requestGenericBuildingRPCRepair(
+    //   this.state.genericBuildingStore.url,
+    //   this.state.genericBuildingStore.id
+    // );
+  }
 
   render() {
-    const building = this.state.genericBuildingStore;
+    const building = this.props.building;
     const body = BodyRPCStore;
 
     return (
@@ -76,7 +67,7 @@ const RepairTab = createReactClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 export default RepairTab;

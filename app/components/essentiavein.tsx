@@ -23,13 +23,13 @@ class EssentiaVein extends React.Component<Props> {
         <Tabber
           tabs={[
             {
+              title: 'Production',
+              component: () => <ProductionTab building={this.props.building} />,
+            },
+            {
               title: 'Repair',
               component: () => <RepairTab building={this.props.building} />,
               shouldRender: this.props.building.efficiency !== 100 && !!this.props.building.id,
-            },
-            {
-              title: 'Production',
-              component: () => <ProductionTab building={this.props.building} />,
             },
             {
               title: 'Drain',
