@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 import React from 'react';
+import constants from 'app/constants';
 
 type Props = {
   panelHeight: number | 'auto';
@@ -22,7 +23,7 @@ class PanelContent extends React.Component<Props> {
           overflow: 'auto',
           width: this.props.panelWidth,
           border: '2px solid black',
-          backgroundColor: '#0268AC',
+          background: `#0268AC url(${constants.ASSETS_URL}ui/bkg.png)`,
           borderRadius: '10px',
           padding: '10px',
         }}

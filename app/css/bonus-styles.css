@@ -15,15 +15,28 @@ option {
   font-weight: normal;
 }
 
-.ui.form .grouped.fields > label {
-  color: white;
-}
+/* TODO: we can get rid of hacks like this by configuring Fomantic UI theme variables */
+.ui.form .grouped.fields > label,
 .ui.checkbox label,
-.ui.checkbox + label {
+.ui.checkbox + label,
+.ui.form .field > label,
+.ui.checkbox label:hover,
+.ui.checkbox + label:hover,
+.ui.checkbox input:focus ~ label {
   color: white;
+  cursor: pointer;
 }
-.ui.form .field > label {
+
+a {
+  cursor: pointer;
   color: white;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 /* Fix incoming ships position. */

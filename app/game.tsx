@@ -188,7 +188,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 width: '400px',
                 text: [
                   'Welcome to the Lacuna Expanse.  It is recommended that you play through the in game tutorial to familiarize yourself with the game, and to get some free resources to build up your empire.',
-                  '<p>If you choose to skip the tutorial now you may find it by clicking <img src=",Lib.AssetUrl,"ui/s/inbox.png" title="Inbox" style="width:19px;height:22px;vertical-align:middle;margin:-5px 0 -4px -2px" /> at the top of the interface and find the message with the subject `Welcome`.</p>',
+                  '<p>If you choose to skip the tutorial now you may find it by clicking <i class="mail icon"></i> at the top of the interface and find the message with the subject `Welcome`.</p>',
                   '<p>Thanks for playing!</p>',
                 ].join(''),
                 buttons: [
@@ -219,7 +219,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           `url(${Lib.AssetUrl}star_system/field.png) repeat scroll 0 0 black`
         );
         this.InitLogin();
-        Lacuna.Game.LoginDialog.show(error);
+        WindowsStore.closeAll();
+        WindowsStore.add('login');
         MenuStore.hideMenu();
         MenuStore.hideLoader();
       },

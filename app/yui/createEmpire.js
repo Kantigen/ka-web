@@ -1,6 +1,7 @@
 YAHOO.namespace('lacuna');
 
 import MenuStore from 'app/stores/menu';
+import WindowsStore from 'app/stores/windows';
 
 if (typeof YAHOO.lacuna.CreateEmpire == 'undefined' || !YAHOO.lacuna.CreateEmpire) {
   (function () {
@@ -204,6 +205,7 @@ if (typeof YAHOO.lacuna.CreateEmpire == 'undefined' || !YAHOO.lacuna.CreateEmpir
       handleCancel: function () {
         this.hide();
         this._login.show();
+        WindowsStore.add('login');
       },
       setMessage: function (str) {
         Dom.replaceClass(this.elMessage, Lib.Styles.HIDDEN, Lib.Styles.ALERT);

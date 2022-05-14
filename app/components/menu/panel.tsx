@@ -38,11 +38,6 @@ class Panel extends React.Component<Props> {
   }
 
   render() {
-    const subPanel = React.createElement(this.props.window.component, {
-      zIndex: this.props.zIndex,
-      options: this.props.options,
-    });
-
     return (
       <Draggable handle='.drag-handle' zIndex={this.props.zIndex}>
         <div
@@ -56,6 +51,11 @@ class Panel extends React.Component<Props> {
         >
           <PanelHeader
             title={this.props.window.config.title}
+            closable={
+              typeof this.props.window.config.closable === 'boolean'
+                ? this.props.window.config.closable
+                : true
+            }
             panelWidth={this.props.window.config.width}
             onClose={() => this.closeWindow()}
           />
@@ -64,7 +64,12 @@ class Panel extends React.Component<Props> {
             panelWidth={this.props.window.config.width}
             panelHeight={this.props.window.config.height}
           >
-            {subPanel}
+            <div style={{ marginTop: 10, marginBottom: 10 }}>
+              <this.props.window.component
+                zIndex={this.props.zIndex}
+                options={this.props.options}
+              />
+            </div>
           </PanelContent>
         </div>
       </Draggable>

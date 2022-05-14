@@ -114,6 +114,34 @@ export interface BuildingsViewResponse {
   building: Building;
 }
 
+export interface CaptchaFetchParams {}
+
+export interface CaptchaFetchResponse {
+  guid: string;
+  url: string;
+}
+
+export interface CaptchaSolveParams {
+  guid: string;
+  solution: string;
+}
+
+export interface CaptchaSolveResponse {}
+
+export interface EmpireCreateParams {
+  name: string;
+  password: string;
+  password1: string;
+  captcha_guid: string;
+  captcha_solution: string;
+  email: string;
+  invite_code?: string;
+}
+
+export interface EmpireCreateResponse {
+  empire_id: number;
+}
+
 export interface EmpireGetStatusParams {}
 
 export interface EmpireGetStatusResponse {
@@ -149,6 +177,24 @@ export interface EmpireGetStatusResponse {
     time: string;
     version: string;
   };
+}
+
+export interface EmpireFetchCaptchaParams {}
+
+export interface EmpireFetchCaptchaResponse {
+  guid: string;
+  url: string;
+}
+
+export interface EmpireLoginParams {
+  name: string;
+  password: string;
+  api_key: string;
+  browser: string;
+}
+
+export interface EmpireLoginResponse {
+  session_id: string;
 }
 
 export interface EmpireLogoutParams {}
@@ -187,6 +233,7 @@ export interface WindowConfig {
   title: string;
   width: number;
   height: number | 'auto';
+  closable?: boolean;
 }
 
 export interface WindowDefinition {
@@ -198,8 +245,11 @@ export type WindowType =
   | 'about'
   | 'captcha'
   | 'essentia'
+  | 'forgotPassword'
   | 'genericBuilding'
   | 'invite'
+  | 'login'
   | 'planetPanel'
+  | 'register'
   | 'serverClock'
   | 'starPanel';

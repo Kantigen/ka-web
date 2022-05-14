@@ -1861,6 +1861,10 @@ DualSlider.prototype = {
             maxt = this.maxSlider.thumb;
             dim  = this.isHoriz ? 'x' : 'y';
 
+            // 2022 species designer fix
+            if (!this.minSlider.thumbCenterPoint) { this.minSlider.setThumbCenterPoint(); }
+            if (!this.maxSlider.thumbCenterPoint) { this.maxSlider.setThumbCenterPoint(); }
+
             thumbInnerWidth = this.minSlider.thumbCenterPoint[dim] +
                               this.maxSlider.thumbCenterPoint[dim];
 

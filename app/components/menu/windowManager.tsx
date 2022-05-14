@@ -8,9 +8,12 @@ import Panel from 'app/components/menu/panel';
 import AboutWindow from 'app/components/about';
 import EssentiaVeinWindow from 'app/components/essentiavein';
 import EssentiaWindow from 'app/components/essentia';
+import ForgotPasswordWindow from 'app/components/forgotPassword';
 import GenericBuildingWindow from 'app/components/genericBuilding';
 import InviteWindow from 'app/components/invite';
+import LoginWindow from 'app/components/login';
 import PlanetPanelWindow from 'app/components/planetPanel';
+import RegisterWindow from 'app/components/register';
 import ServerClockWindow from 'app/components/serverClock';
 import StarPanelWindow from 'app/components/starPanel';
 
@@ -35,7 +38,7 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Essentia Vein',
       width: 700,
-      height: 420,
+      height: 440,
     },
   },
 
@@ -44,7 +47,16 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Essentia',
       width: 600,
-      height: 350,
+      height: 'auto',
+    },
+  },
+
+  forgotPassword: {
+    component: ForgotPasswordWindow,
+    config: {
+      title: 'Forgot Password',
+      width: 400,
+      height: 200,
     },
   },
 
@@ -62,7 +74,17 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Invite a Friend',
       width: 450,
-      height: 400,
+      height: 'auto',
+    },
+  },
+
+  login: {
+    component: LoginWindow,
+    config: {
+      title: 'Login',
+      width: 350,
+      height: 'auto',
+      closable: false,
     },
   },
 
@@ -71,7 +93,17 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Planet Details',
       width: 700,
-      height: 450,
+      height: 'auto',
+    },
+  },
+
+  register: {
+    component: RegisterWindow,
+    config: {
+      title: 'Create Empire',
+      width: 700,
+      height: 'auto',
+      closable: false,
     },
   },
 

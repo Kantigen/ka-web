@@ -2,6 +2,7 @@ import Fingerprint2 from 'fingerprintjs2';
 
 import _ from 'lodash';
 import MenuStore from 'app/stores/menu';
+import WindowsStore from 'app/stores/windows';
 
 YAHOO.namespace('lacuna');
 
@@ -422,7 +423,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
       hide: function () {
         this.EmailDialog.hide();
         this.ResetDialog.hide();
-        this._login.show();
+        WindowsStore.add('login');
       },
       sendEmail: function () {
         var empireName = this.elName.value;
@@ -480,6 +481,7 @@ if (typeof YAHOO.lacuna.Login == 'undefined' || !YAHOO.lacuna.Login) {
                 MenuStore.hideLoader();
                 this.fireEvent('onResetSuccessful', o);
                 this.hide();
+                WindowsStore.closeAll();
               },
               scope: this,
             }

@@ -1,13 +1,44 @@
 import Server from './server.js';
+import Captcha from './captcha.js';
 import moment from 'moment';
 import { DATE_FORMAT } from './constants.js';
 
 const Empire = {
+  create() {
+    return {
+      empire_id: 1,
+    };
+  },
+
+  update_species() {
+    return {
+      update_species: 1,
+    };
+  },
+
+  redefined_species() {
+    return {
+      status: Empire.get_status(),
+    };
+  },
+
+  found() {
+    return {
+      session_id: 'this-is-a-session-id',
+      welcome_message_id: 5,
+      status: Empire.get_status(),
+    };
+  },
+
   get_status() {
     return {
       empire: this.status_block(),
       server: Server.status_block(),
     };
+  },
+
+  fetch_captcha(req, res) {
+    return Captcha.fetch(req, res);
   },
 
   login() {
@@ -166,6 +197,16 @@ const Empire = {
 
   edit_profile() {
     return Empire.get_own_profile();
+  },
+
+  send_password_reset_message() {
+    return {
+      sent: 1,
+    };
+  },
+
+  reset_password() {
+    return Empire.login();
   },
 };
 

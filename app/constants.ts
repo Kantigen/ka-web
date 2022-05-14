@@ -1,5 +1,6 @@
 interface AppConfig {
   ASSETS_URL: string;
+  API_KEY: string;
   NEW_SERVER_DATE_FORMAT: string;
   OLD_SERVER_DATE_FORMAT: string;
   RPC_BASE: string;
@@ -12,6 +13,7 @@ interface AppConfig {
 
 const constants: AppConfig = {
   ASSETS_URL: process.env.KA_ASSETS_URL,
+  API_KEY: process.env.KA_API_KEY,
   NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
   OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
   RPC_BASE: (function (): string {

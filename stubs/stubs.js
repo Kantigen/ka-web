@@ -2,6 +2,7 @@ import express from 'express';
 
 import Body from './body.js';
 import Buildings from './buildings.js';
+import Captcha from './captcha.js';
 import Empire from './empire.js';
 import EssentiaVein from './essentiaVein.js';
 import Inbox from './inbox.js';
@@ -14,6 +15,7 @@ import Stats from './stats.js';
 const modules = {
   body: Body,
   buildings: Buildings,
+  captcha: Captcha,
   empire: Empire,
   inbox: Inbox,
   map: Map,
@@ -39,7 +41,6 @@ const modules = {
   bread: GenericBuilding,
   burger: GenericBuilding,
   capitol: GenericBuilding,
-  captcha: GenericBuilding,
   cheese: GenericBuilding,
   chip: GenericBuilding,
   cider: GenericBuilding,
@@ -191,6 +192,10 @@ app.get('/', (req, res) => {
 
 app.get('/announcement', (req, res) => {
   res.sendFile('announcement.html', { root: './stubs' });
+});
+
+app.get('/captcha.png', (req, res) => {
+  res.sendFile('captcha.png', { root: './stubs' });
 });
 
 app.get('/email_attachment.png', (req, res) => {

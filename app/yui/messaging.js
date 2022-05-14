@@ -1,4 +1,5 @@
 import MailWindowStore from 'app/stores/window/mail';
+import WindowsStore from 'app/stores/windows';
 
 import constants from 'app/constants';
 import EmpireRPCStore from 'app/stores/rpc/empire';
@@ -1317,7 +1318,9 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
       },
       showMessage: function (msg) {
         Game.OverlayManager.hideAll();
-        this.messagingPanel.show();
+        WindowsStore.closeAll();
+        MailWindowStore.show();
+        // this.messagingPanel.show();
         var InboxServ = Game.Services.Inbox,
           data = {
             session_id: Game.GetSession(''),

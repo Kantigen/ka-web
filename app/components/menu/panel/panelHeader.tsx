@@ -6,12 +6,13 @@ type Props = {
   panelWidth: number;
   onClose: Function;
   title: string;
+  closable: boolean;
 };
 
 class PanelHeader extends React.Component<Props> {
   static propTypes = {
     panelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
+    closable: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
   };
@@ -21,7 +22,7 @@ class PanelHeader extends React.Component<Props> {
       <div
         className='drag-handle'
         style={{
-          backgroundColor: '#184F82',
+          backgroundColor: '#1c2f50',
           border: '1px solid black',
           borderBottom: 0, // Avoid the border appearing thicker on the bottom edge.
           borderTopLeftRadius: 7,
@@ -43,17 +44,19 @@ class PanelHeader extends React.Component<Props> {
       >
         <span className='drag-handle'>{this.props.title}</span>
 
-        <span
-          onClick={(e) => this.props.onClose(e)}
-          style={{
-            position: 'absolute',
-            right: 30,
-            display: 'inline-block',
-            cursor: 'pointer',
-          }}
-        >
-          X
-        </span>
+        {this.props.closable ? (
+          <span
+            onClick={(e) => this.props.onClose(e)}
+            style={{
+              position: 'absolute',
+              right: 30,
+              display: 'inline-block',
+              cursor: 'pointer',
+            }}
+          >
+            X
+          </span>
+        ) : undefined}
       </div>
     );
   }
