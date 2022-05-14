@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import constants from 'app/constants';
 import resources from 'app/json/resources';
+import BodyRPCStore from 'app/stores/rpc/body';
 
 class BuildingInformation extends React.Component {
   static propTypes = {
@@ -21,12 +22,21 @@ class BuildingInformation extends React.Component {
       >
         <div
           style={{
-            width: 100,
-            height: 100,
-            backgroundImage: `url(${this.getImageUrl()})`,
+            width: 120,
+            height: 120,
             float: 'left',
+            backgroundImage: `url(${constants.ASSETS_URL}planet_side/surface-${BodyRPCStore.image}.jpg)`,
           }}
-        />
+        >
+          <div
+            style={{
+              width: 100,
+              height: 100,
+              margin: 10,
+              backgroundImage: `url(${this.getImageUrl()})`,
+            }}
+          ></div>
+        </div>
 
         <div
           style={{
