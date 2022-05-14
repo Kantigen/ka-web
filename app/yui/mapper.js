@@ -539,7 +539,7 @@ if (typeof YAHOO.lacuna.Mapper == 'undefined' || !YAHOO.lacuna.Mapper) {
         }
       },
       tick: function (e, oArgs) {
-        var tickSec = oArgs[0] / 1000,
+        var tickSec = 1,
           hasUpgrade,
           hasWork;
         if (this.data.pending_build) {

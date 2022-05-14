@@ -1,5 +1,7 @@
 import Server from './server.js';
 import Empire from './empire.js';
+import moment from 'moment';
+import { DATE_FORMAT } from './constants.js';
 
 const Body = {
   get_buildings() {
@@ -557,6 +559,11 @@ const Body = {
           y: '1',
           level: '30',
           url: '/shipyard',
+          work: {
+            seconds_remaining: 5 * 60 * 60,
+            start: moment().subtract(1, 'hour').format(DATE_FORMAT),
+            end: moment().add(5, 'hours').format(DATE_FORMAT),
+          },
         },
         'ship-2': {
           efficiency: '100',
@@ -566,6 +573,11 @@ const Body = {
           y: '1',
           level: '30',
           url: '/shipyard',
+          work: {
+            seconds_remaining: 5 * 60 * 60,
+            start: moment().subtract(1, 'hour').format(DATE_FORMAT),
+            end: moment().add(5, 'hours').format(DATE_FORMAT),
+          },
         },
         'ship-3': {
           efficiency: '100',
@@ -575,6 +587,11 @@ const Body = {
           y: '1',
           level: '30',
           url: '/shipyard',
+          work: {
+            seconds_remaining: 5 * 60 * 60,
+            start: moment().subtract(1, 'hour').format(DATE_FORMAT),
+            end: moment().add(5, 'hours').format(DATE_FORMAT),
+          },
         },
         'ship1-4': {
           efficiency: '100',
@@ -584,6 +601,11 @@ const Body = {
           y: '1',
           level: '30',
           url: '/shipyard',
+          work: {
+            seconds_remaining: 5 * 60 * 60,
+            start: moment().subtract(1, 'hour').format(DATE_FORMAT),
+            end: moment().add(5, 'hours').format(DATE_FORMAT),
+          },
         },
         'ship-5': {
           efficiency: '100',
@@ -593,6 +615,11 @@ const Body = {
           y: '1',
           level: '30',
           url: '/shipyard',
+          work: {
+            seconds_remaining: 5 * 60 * 60,
+            start: moment().subtract(1, 'hour').format(DATE_FORMAT),
+            end: moment().add(5, 'hours').format(DATE_FORMAT),
+          },
         },
         4944688: {
           y: '-1',

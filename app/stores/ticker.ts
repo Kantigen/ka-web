@@ -10,6 +10,8 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import ServerRPCStore from 'app/stores/rpc/server';
 import BodyRPCStore from 'app/stores/rpc/body';
 
+declare const YAHOO: any;
+
 const INTERVAL_TIME = 1000;
 
 class TickerStore {
@@ -29,6 +31,7 @@ class TickerStore {
     BodyRPCStore.tick();
     EmpireRPCStore.tick();
     ServerRPCStore.tick();
+    YAHOO.lacuna.Game.onTick.fire();
   }
 
   start() {
