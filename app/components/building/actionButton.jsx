@@ -22,7 +22,7 @@ class ActionButton extends React.Component {
 
     const elementAttributes = {
       className: classnames(
-        'ui button',
+        'fluid ui button',
         {
           disabled: hasError,
         },
@@ -37,7 +37,11 @@ class ActionButton extends React.Component {
       elementAttributes['data-type'] = 'error';
     }
 
-    return React.createElement('div', elementAttributes, <span>{this.props.actionName}</span>);
+    return (
+      <div {...elementAttributes}>
+        <span>{this.props.actionName}</span>
+      </div>
+    );
   }
 }
 

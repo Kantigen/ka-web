@@ -146,28 +146,30 @@ class ProductionTab extends React.Component<Props> {
         </div>
 
         <div className='ui centered row'>
-          <div className='fifteen wide column'>
-            <div className='3 ui medium fluid buttons'>
-              <ActionButton
-                color='red'
-                actionName='Demolish'
-                onClick={() => this.onDemolishClick()}
-              />
+          <div className='five wide column'>
+            <ActionButton
+              color='red'
+              actionName='Demolish'
+              onClick={() => this.onDemolishClick()}
+            />
+          </div>
 
-              <ActionButton
-                color='green'
-                actionName='Upgrade'
-                error={b.upgrade.can ? '' : b.upgrade.reason[1]}
-                onClick={() => this.onUpgradeClick()}
-              />
+          <div className='five wide column'>
+            <ActionButton
+              color='green'
+              actionName='Upgrade'
+              error={b.upgrade.can ? '' : b.upgrade.reason[1]}
+              onClick={() => this.onUpgradeClick()}
+            />
+          </div>
 
-              <ActionButton
-                color='blue'
-                actionName='Downgrade'
-                error={b.downgrade.can ? '' : b.downgrade.reason[1]}
-                onClick={() => this.onDowngradeClick()}
-              />
-            </div>
+          <div className='five wide column'>
+            <ActionButton
+              color='blue'
+              actionName='Downgrade'
+              error={b.downgrade.can ? '' : b.downgrade.reason[1]}
+              onClick={() => this.onDowngradeClick()}
+            />
           </div>
         </div>
       </div>
