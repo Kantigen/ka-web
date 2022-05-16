@@ -1,0 +1,11 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+workflows:
+  ka_test:
+    jobs:
+      - node/test:
+          version: '16.14'
+          pkg-manager: npm
