@@ -1,7 +1,7 @@
 import MailWindowStore from 'app/stores/window/mail';
 import WindowsStore from 'app/stores/windows';
 
-import constants from 'app/constants';
+import environment from 'app/environment';
 import EmpireRPCStore from 'app/stores/rpc/empire';
 import MenuStore from 'app/stores/menu';
 
@@ -314,7 +314,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
         Game.OverlayManager.register(this.attachmentPanel);
       }),
       _createToSelect: function () {
-        var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'empire');
+        var dataSource = new Util.XHRDataSource(environment.getServerUrl() + 'empire');
         dataSource.connMethodPost = 'POST';
         dataSource.maxCacheEntries = 2;
         dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -385,7 +385,7 @@ if (typeof YAHOO.lacuna.Messaging == 'undefined' || !YAHOO.lacuna.Messaging) {
             Dom.setStyle('messagingReader', 'display', 'none');
             Dom.setStyle('messagingAnnouncement', 'display', '');
             Dom.get('messagingAnnounceFrame').src =
-              constants.RPC_BASE + 'announcement?session_id=' + Game.GetSession();
+              environment.getServerUrl() + 'announcement?session_id=' + Game.GetSession();
             break;
           default:
             this.viewingMessage = null;

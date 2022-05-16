@@ -7,7 +7,7 @@ import ServerRPCStore from 'app/stores/rpc/server';
 import BodyRPCStore from 'app/stores/rpc/body';
 import MenuStore from 'app/stores/menu';
 
-import constants from 'app/constants';
+import environment from 'app/environment';
 
 if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
   (function () {
@@ -550,7 +550,7 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
           context: ['footer', 'bl', 'tl', ['beforeShow', 'windowResize'], [0, -5]],
         });
         this.starFind.createFind = function () {
-          var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'map');
+          var dataSource = new Util.XHRDataSource(environment.getServerUrl() + 'map');
           dataSource.connMethodPost = 'POST';
           dataSource.maxCacheEntries = 2;
           dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;

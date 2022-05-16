@@ -11,3 +11,5 @@ app/config/user.json
 .DS_Store
 
 dist/
+
+coverage/

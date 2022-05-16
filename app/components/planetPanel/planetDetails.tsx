@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import PlanetPanelLine from 'app/components/planetPanel/line';
 
-import constants from 'app/constants';
+import environment from 'app/environment';
 
 type Props = {
   status: any;
@@ -22,7 +22,9 @@ class PlanetDetails extends React.Component<Props> {
       <div className='ui grid'>
         <div className='five wide column'>
           <img
-            src={`${constants.ASSETS_URL}star_system/${bodyStatus.image}-${bodyStatus.orbit}.png`}
+            src={`${environment.getAssetsUrl()}star_system/${bodyStatus.image}-${
+              bodyStatus.orbit
+            }.png`}
             style={{
               width: 100,
               height: 100,

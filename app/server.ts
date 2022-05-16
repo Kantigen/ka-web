@@ -1,5 +1,3 @@
-import constants from 'app/constants';
-
 import _ from 'lodash';
 import * as util from 'app/util';
 import * as vex from 'app/vex';
@@ -10,6 +8,8 @@ import BodyRPCStore from 'app/stores/rpc/body';
 import MenuStore from 'app/stores/menu';
 import SessionStore from 'app/stores/session';
 import WindowsStore from 'app/stores/windows';
+
+import environment from 'app/environment';
 
 interface ServerRequest {
   module: string;
@@ -63,7 +63,7 @@ const createData = function (options: ServerRequest) {
 };
 
 const createUrl = function (options: ServerRequest) {
-  return constants.RPC_BASE + options.module;
+  return environment.getServerUrl() + options.module;
 };
 
 const handleSuccess = function (options: ServerRequest, result: any) {

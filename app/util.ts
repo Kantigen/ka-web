@@ -2,7 +2,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import constants from 'app/constants';
 
-const xPad = function (x: any, pad: string, r: any) {
+const xPad = function (x: any, pad: string, r?: any) {
   if (typeof r === 'undefined') {
     r = 10;
   }
@@ -64,6 +64,7 @@ export const serverDateToDateObj = function (serverDate: string) {
   dt.setUTCHours(int(time[0]));
   dt.setUTCMinutes(int(time[1]));
   dt.setUTCSeconds(int(time[2]));
+  dt.setUTCMilliseconds(0);
 
   return dt;
 };
@@ -107,8 +108,8 @@ export const serverDateToMoment = function (str: string) {
   // There are currently two date formats being used by the server.
   // This is to handle that.
 
-  const usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT);
-  const usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT);
+  const usingOldFormat = moment(str, constants.OLD_SERVER_DATE_FORMAT, true);
+  const usingNewFormat = moment(str, constants.NEW_SERVER_DATE_FORMAT, true);
 
   if (usingNewFormat.isValid()) {
     return usingNewFormat;
@@ -150,7 +151,7 @@ const handleObj = function (obj: any): any {
   if (_.isObject(obj)) {
     // NOTE: isObject returns true for arrays.
     if (Array.isArray(obj)) {
-      return _.forEach(obj, handleObj);
+      return _.map(obj, handleObj);
     }
     return _.mapValues(obj, handleObj);
   }

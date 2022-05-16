@@ -1,7 +1,7 @@
 import React from 'react';
 import Empire from 'app/client/empire';
 import WindowsStore from 'app/stores/windows';
-import constants from 'app/constants';
+import environment from 'app/environment';
 
 declare const YAHOO: any;
 
@@ -49,7 +49,7 @@ class LoginWindow extends React.Component {
         <div style={{ marginBottom: '2em' }}>
           <img
             className='ui fluid image'
-            src={constants.ASSETS_URL + 'ui/logo.png'}
+            src={environment.getAssetsUrl() + 'ui/logo.png'}
             alt='Lacuna Expanse logo'
           />
         </div>

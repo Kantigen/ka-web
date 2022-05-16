@@ -6,7 +6,7 @@ import WindowsStore from 'app/stores/windows';
 class GetEssentiaTab extends React.Component {
   purchase() {
     vex.alert('Not available at the moment.');
-    // let url = constants.RPC_BASE + 'pay?session_id=' + SessionStore.session;
+    // let url = environment.getServerUrl() + 'pay?session_id=' + SessionStore.session;
     // window.open(
     //     url,
     //     'essentiaPayment',

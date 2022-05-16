@@ -19,11 +19,11 @@ class BuildQueueItem extends React.Component {
     const starfieldStyle = {
       width: 100,
       height: 100,
-      background: `transparent url(${constants.ASSETS_URL}star_system/field.png) no-repeat center`,
+      background: `transparent url(${environment.getAssetsUrl()}star_system/field.png) no-repeat center`,
     };
 
     const { obj } = this.props;
-    const shipImage = `${constants.ASSETS_URL}ships/${this.props.obj.type}.png`;
+    const shipImage = `${environment.getAssetsUrl()}ships/${this.props.obj.type}.png`;
 
     return (
       <div>

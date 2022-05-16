@@ -1,7 +1,7 @@
 import StatsWindowStore from 'app/stores/window/stats';
 
 import _ from 'lodash';
-import constants from 'app/constants';
+import environment from 'app/environment';
 import MenuStore from 'app/stores/menu';
 
 YAHOO.namespace('lacuna');
@@ -180,7 +180,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
 
       getServerStats: function () {
         MenuStore.showLoader();
-        Util.Connect.asyncRequest('GET', constants.RPC_BASE + 'server_overview.json', {
+        Util.Connect.asyncRequest('GET', environment.getServerUrl() + 'server_overview.json', {
           success: function (o) {
             YAHOO.log(o, 'info', 'Stats.populateServerStats.success');
             MenuStore.hideLoader();
@@ -760,7 +760,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             },
           ];
 
-          this.EmpireData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+          this.EmpireData = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
           this.EmpireData.connMethodPost = 'POST';
           this.EmpireData.maxCacheEntries = 2;
           this.EmpireData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -948,7 +948,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
         }
       },
       EmpireFindCreate: function () {
-        var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+        var dataSource = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
         dataSource.connMethodPost = 'POST';
         dataSource.maxCacheEntries = 2;
         dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1065,7 +1065,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             },
           ];
 
-          this.AllianceData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+          this.AllianceData = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
           this.AllianceData.connMethodPost = 'POST';
           this.AllianceData.maxCacheEntries = 2;
           this.AllianceData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1262,7 +1262,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
         }
       },
       AllianceFindCreate: function () {
-        var dataSource = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+        var dataSource = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
         dataSource.connMethodPost = 'POST';
         dataSource.maxCacheEntries = 2;
         dataSource.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1322,7 +1322,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             },
           ];
 
-          this.ColonyData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+          this.ColonyData = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
           this.ColonyData.connMethodPost = 'POST';
           this.ColonyData.maxCacheEntries = 2;
           this.ColonyData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1471,7 +1471,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             { key: 'dirtiest', label: 'Dirtiest', sortable: true },
           ];
 
-          this.SpyData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+          this.SpyData = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
           this.SpyData.connMethodPost = 'POST';
           this.SpyData.maxCacheEntries = 2;
           this.SpyData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;
@@ -1617,7 +1617,7 @@ if (typeof YAHOO.lacuna.Stats == 'undefined' || !YAHOO.lacuna.Stats) {
             },
           ];
 
-          this.WeeklyMedalData = new Util.XHRDataSource(constants.RPC_BASE + 'stats');
+          this.WeeklyMedalData = new Util.XHRDataSource(environment.getServerUrl() + 'stats');
           this.WeeklyMedalData.connMethodPost = 'POST';
           this.WeeklyMedalData.maxCacheEntries = 2;
           this.WeeklyMedalData.responseType = YAHOO.util.XHRDataSource.TYPE_JSON;

@@ -9,7 +9,7 @@ import SessionStore from 'app/stores/session';
 import TickerStore from 'app/stores/ticker';
 import WindowsStore from 'app/stores/windows';
 
-import constants from 'app/constants';
+import environment from 'app/environment';
 import resources from 'app/json/resources';
 import { Empire } from 'app/client';
 
@@ -282,7 +282,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                     }
                   },
                 },
-                constants.RPC_BASE
+                environment.getServerUrl()
               );
             } else {
               serviceOut[sKey] = Game.InitServices(oSmd);

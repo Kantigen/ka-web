@@ -1,5 +1,5 @@
 import ClientBase from 'app/client/base';
-import constants from 'app/constants';
+import environment from 'app/environment';
 import { EmpireCreateParams } from 'app/interfaces';
 
 class Empire extends ClientBase {
@@ -23,7 +23,7 @@ class Empire extends ClientBase {
         name: empireName,
         password,
         browser: browserFingerprint,
-        api_key: constants.API_KEY,
+        api_key: environment.getApiKey(),
       },
       false
     );

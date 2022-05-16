@@ -6,7 +6,7 @@ import ResourceLine from 'app/components/shipyard/resourceLine';
 import ResourceAttribute from 'app/components/shipyard/resourceAttribute';
 import BuildButton from 'app/components/shipyard/buildFleet/button';
 
-import constants from 'app/constants';
+import environment from 'app/environment';
 
 class BuildFleetItem extends React.Component {
   static propTypes = {
@@ -22,11 +22,11 @@ class BuildFleetItem extends React.Component {
     const starfieldStyle = {
       width: 100,
       height: 100,
-      background: `transparent url(${constants.ASSETS_URL}star_system/field.png) no-repeat center`,
+      background: `transparent url(${environment.getAssetsUrl()}star_system/field.png) no-repeat center`,
     };
 
     const { obj } = this.props;
-    const shipImage = `${constants.ASSETS_URL}ships/${this.props.fleetType}.png`;
+    const shipImage = `${environment.getAssetsUrl()}ships/${this.props.fleetType}.png`;
     let reason = '';
     let canBuild = 1;
 

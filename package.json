@@ -2,8 +2,9 @@
   "name": "ka-web",
   "version": "0.0.1",
   "description": "Web client for the open source game Kenó Antigen.",
-  "type": "module",
-  "main": "app/load.js",
+  "workspaces": [
+    "stubs/"
+  ],
   "private": true,
   "repository": {
     "type": "git",
@@ -21,9 +22,11 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write app/**/*.ts app/**/*.tsx app/yui/*.js app/components/**/*.jsx stubs/**/*.js",
     "dev": "concurrently \"npm run serve:app\" \"npm run serve:stubs\" \"npm run serve:assets\"",
+    "test": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "vite build",
     "serve:app": "vite",
-    "serve:stubs": "nodemon --exec \"node stubs/stubs.js\" --watch stubs",
+    "serve:stubs": "nodemon --exec \"node stubs/server.js\" --watch stubs",
     "serve:assets": "http-server ./Lacuna-Assets --cors --port 4000"
   },
   "homepage": "https://github.com/Kantigen/ka-web",
@@ -48,8 +51,10 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/jest": "^27.5.1",
     "@types/jquery": "^3.5.14",
     "@types/lodash": "^4.14.182",
+    "@types/moment": "^2.13.0",
     "@types/node": "^17.0.24",
     "@types/react": "^17.x.x",
     "@types/react-dom": "^17.x.x",
@@ -60,10 +65,12 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
-    "express": "^4.18.1",
     "http-server": "^14.1.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "nodemon": "^2.0.16",
     "prettier": "^2.0.0",
+    "ts-jest": "^28.0.2",
     "typescript": "^4.6.4",
     "vite": "^2.9.9"
   }

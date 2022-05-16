@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import constants from 'app/constants';
 import resources from 'app/json/resources';
 import BodyRPCStore from 'app/stores/rpc/body';
 
@@ -10,7 +9,8 @@ class BuildingInformation extends React.Component {
     options: PropTypes.object.isRequired,
   };
 
-  getImageUrl = () => `${constants.ASSETS_URL}planet_side/100/${this.props.options.image}.png`;
+  getImageUrl = () =>
+    `${environment.getAssetsUrl()}planet_side/100/${this.props.options.image}.png`;
 
   render() {
     return (
@@ -25,7 +25,9 @@ class BuildingInformation extends React.Component {
             width: 120,
             height: 120,
             float: 'left',
-            backgroundImage: `url(${constants.ASSETS_URL}planet_side/surface-${BodyRPCStore.image}.jpg)`,
+            backgroundImage: `url(${environment.getAssetsUrl()}planet_side/surface-${
+              BodyRPCStore.image
+            }.jpg)`,
           }}
         >
           <div

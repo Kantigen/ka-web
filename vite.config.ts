@@ -2,7 +2,10 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   resolve: {
-    alias: [{ find: 'app', replacement: '/app' }],
+    alias: [
+      { find: 'app', replacement: '/app' },
+      { find: 'test', replacement: '/test' },
+    ],
   },
   envPrefix: 'KA_',
 });

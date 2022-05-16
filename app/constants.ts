@@ -1,12 +1,6 @@
-import * as util from 'app/util';
-
 interface AppConfig {
-  ASSETS_URL: string;
-  API_KEY: string;
   NEW_SERVER_DATE_FORMAT: string;
   OLD_SERVER_DATE_FORMAT: string;
-  RPC_BASE: string;
-  WS_BASE: string;
   FLEET_TAGS: any;
   FLEET_TASKS: any;
   FLEET_TYPES: any;
@@ -14,12 +8,8 @@ interface AppConfig {
 }
 
 const constants: AppConfig = {
-  ASSETS_URL: util.ensureTrailingSlash(import.meta.env.KA_ASSETS_URL),
-  API_KEY: import.meta.env.KA_API_KEY,
   NEW_SERVER_DATE_FORMAT: 'YYYY MM DD HH:mm:ss ZZ',
   OLD_SERVER_DATE_FORMAT: 'DD MM YYYY HH:mm:ss ZZ',
-  RPC_BASE: util.ensureTrailingSlash(import.meta.env.KA_SERVER_URL),
-  WS_BASE: '',
 
   FLEET_TAGS: {
     trade: 'Trade',

@@ -9,6 +9,10 @@
     "noEmitOnError": false,
     "jsx": "react",
     "baseUrl": ".",
-    "allowSyntheticDefaultImports": true
+    "paths": {
+      "app/*": ["app/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
   }
 }
