@@ -6,6 +6,18 @@ Web client for the up-and-coming community edition of The Lacuna Expanse, known 
 
 [![Kenó Antigen screenshot](docs/img/screenshot.png)](https://demo.kenoantigen.com/)
 
+# Running
+
+Requires Node and npm:
+
+```bash
+git clone https://github.com/Kantigen/ka-web
+cd ka-web
+git submodule update --init --recursive
+npm install --ignore-scripts
+npm run dev
+```
+
 # Ideas
 
 Got an idea? [Let us know!](https://github.com/Kantigen/ka-web/issues)
