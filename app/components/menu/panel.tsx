@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WindowsStore from 'app/stores/windows';
 
 import React from 'react';
+import $ from 'app/shims/jquery';
 import Draggable from 'react-draggable';
 
 import PanelHeader from 'app/components/menu/panel/panelHeader';

@@ -1,6 +1,5 @@
-import 'app/shims/jquery';
-import 'app/shims/fomantic';
-import 'app/shims/yahoo';
+import $ from 'app/shims/jquery';
+import YAHOO from 'app/shims/yahoo';
 
 import 'fomantic-ui/dist/semantic.css';
 import 'vex-js/dist/css/vex.css';
@@ -25,8 +24,6 @@ import 'app/yui/messaging';
 import 'app/yui/profile';
 import 'app/yui/stats';
 import 'app/yui/notify';
-
-declare const YAHOO: any;
 
 const init = () => {
   // TODO this code can be improved.

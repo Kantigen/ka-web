@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string, boolean, InferType } from 'yup';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 const empireSchema = object({
   empireName: string().min(3).required().label('Empire name'),

@@ -29,3 +29,6 @@ import 'app/vendor-js/yui2/build/slider/slider';
 import 'app/vendor-js/yui2/build/tabview/tabview';
 import 'app/vendor-js/yui2/build/tabview/assets/tabview.css';
 import 'app/vendor-js/yui2/build/yahoo/yahoo';
+
+const YAHOO = window.YAHOO;
+export default YAHOO;

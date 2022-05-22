@@ -13,7 +13,7 @@ import environment from 'app/environment';
 import resources from 'app/json/resources';
 import { Empire } from 'app/client';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 YAHOO.namespace('lacuna');
 

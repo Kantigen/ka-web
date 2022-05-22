@@ -10,7 +10,7 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import ServerRPCStore from 'app/stores/rpc/server';
 import BodyRPCStore from 'app/stores/rpc/body';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 const INTERVAL_TIME = 1000;
 

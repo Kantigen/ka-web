@@ -1,5 +1,6 @@
 import moment from 'moment';
 import _ from 'lodash';
+import $ from 'app/shims/jquery';
 import constants from 'app/constants';
 
 const xPad = function (x: any, pad: string, r?: any) {

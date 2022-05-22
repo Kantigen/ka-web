@@ -3,7 +3,7 @@ import Empire from 'app/client/empire';
 import WindowsStore from 'app/stores/windows';
 import environment from 'app/environment';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 class LoginWindow extends React.Component {
   empireNameField = React.createRef<HTMLInputElement>();

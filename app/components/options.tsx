@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import OptionsWindowStore from 'app/stores/window/options';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 class OptionsWindow extends React.Component {
   render() {

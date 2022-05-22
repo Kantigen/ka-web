@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import StatsWindowStore from 'app/stores/window/stats';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 class StatsWindow extends React.Component {
   render() {

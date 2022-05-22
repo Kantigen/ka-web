@@ -1,3 +1,4 @@
-import $ from 'jquery';
-window.$ = window.jQuery = $;
+import 'app/shims/globalize-jquery';
+import 'app/shims/fomantic';
+const $ = window.$;
 export default $;

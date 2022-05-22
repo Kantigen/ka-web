@@ -5,7 +5,7 @@ import server from 'app/server';
 import { Empire } from 'app/client';
 import * as vex from 'app/vex';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 class EmpireService {
   getBoosts() {

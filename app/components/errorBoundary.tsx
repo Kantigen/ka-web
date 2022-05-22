@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from 'react';
 
-declare const YAHOO: any;
+import YAHOO from 'app/shims/yahoo';
 
 type Props = {
   children: React.ReactNode;
