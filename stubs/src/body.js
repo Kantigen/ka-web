@@ -1111,6 +1111,45 @@ const Body = {
     };
   },
 
+  get_buildable() {
+    return {
+      max_items_in_build_queue: 6,
+      build_queue: {
+        max: 4,
+        current: 3,
+      },
+      buildable: {
+        'Wheat Farm': {
+          url: '/wheat',
+          build: {
+            can: 1,
+            no_plot_use: 0,
+            cost: {
+              food: 500,
+              water: 500,
+              energy: 500,
+              waste: 500, // is added to your storage, not spent like the other resources
+              ore: 1000,
+              time: 1200,
+            },
+            tags: ['Now', 'Resources', 'Food'],
+            reason: '',
+          },
+          image: 'wheat1',
+          production: {
+            food_hour: 1500,
+            energy_hour: -144,
+            ore_hour: -1310,
+            water_hour: -1100,
+            waste_hour: 133,
+            happiness_hour: 0,
+          },
+        },
+      },
+      status: Empire.get_status(),
+    };
+  },
+
   get_status() {
     return {
       server: Server.status_block(),
