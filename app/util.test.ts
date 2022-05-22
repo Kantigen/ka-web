@@ -1,4 +1,4 @@
-import * as util from './util';
+import * as util from 'app/util';
 
 test('util.reduceNumber', () => {
   expect(util.reduceNumber(1)).toBe('1');

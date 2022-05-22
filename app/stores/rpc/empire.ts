@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { int, serverDateToMs } from 'app/util';
 import ServerRPCStore from 'app/stores/rpc/server';
 
-function bodyObjectToArray(bodyObj) {
-  const arr = [];
+function bodyObjectToArray(bodyObj: any) {
+  const arr: any[] = [];
   _.each(bodyObj, (value, key) => {
     arr.push({
       id: key,
@@ -99,11 +99,11 @@ class EmpireRPCStore {
     // Possible things to do here:
     //  ~ Turn self_destruct_date into a Date object.
     this.self_destruct_active = int(empire.self_destruct_active);
-    this.exactEssentia = parseFloat(empire.essentia, 10);
+    this.exactEssentia = parseFloat(empire.essentia);
     this.essentia = int(empire.essentia);
     if (empire.self_destruct_active) {
       this.self_destruct_ms =
-        serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment;
+        serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment.valueOf();
     }
 
     // Fix up all the planet lists.

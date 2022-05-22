@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import $ from 'jquery';
 import * as util from 'app/util';
 import * as vex from 'app/vex';
 
@@ -14,59 +15,52 @@ import environment from 'app/environment';
 interface ServerRequest {
   module: string;
   method: string;
-  params?: object;
+  params: object | Array<any>;
+  addSession: boolean;
   success?: Function;
   error?: Function;
-  addSession?: boolean;
 }
 
-const addSession = function (options: ServerRequest): ServerRequest {
+interface ServerError {
+  code: number;
+  message: string;
+}
+
+interface RequestBody {
+  jsonrpc: '2.0';
+  id: number;
+  method: string;
+  params: object | Array<any>;
+}
+
+export const addSession = function (options: ServerRequest): ServerRequest {
   const sessionId = SessionStore.session;
 
   if (options.addSession === true && sessionId) {
     if (_.isArray(options.params)) {
       options.params = [sessionId].concat(options.params);
     } else {
-      options.params.session_id = sessionId;
+      options.params = { ...options.params, session_id: sessionId };
     }
   }
 
   return options;
 };
 
-const handleParams = function (options: ServerRequest) {
-  options = _.merge({ addSession: true, params: [] }, options);
-  if (typeof options.addSession === 'undefined') {
-    options.addSession = true;
-  }
-
-  if (typeof options.params === 'undefined') {
-    options.params = [];
-  }
-
-  // If there was only one parameter passed and it's an object, it's fine. Otherwise make it into
-  // an array to be sent off.
-  if (!_.isObject(options.params) && !_.isArray(options.params)) {
-    options.params = [options.params];
-  }
-
-  return addSession(options);
-};
-
-const createData = function (options: ServerRequest) {
-  return JSON.stringify({
+export const createBody = function (options: ServerRequest): RequestBody {
+  return {
     jsonrpc: '2.0',
     id: 1,
     method: options.method,
     params: options.params,
-  });
+  };
 };
 
-const createUrl = function (options: ServerRequest) {
+export const createUrl = function (options: ServerRequest): string {
   return environment.getServerUrl() + options.module;
 };
 
-const handleSuccess = function (options: ServerRequest, result: any) {
+const handleSuccess = function (options: ServerRequest, result: any): void {
   if (result) {
     if (result.status) {
       splitStatus(result.status);
@@ -80,7 +74,7 @@ const handleSuccess = function (options: ServerRequest, result: any) {
   }
 };
 
-const handleError = function (options: ServerRequest, error: any) {
+const handleError = function (options: ServerRequest, error: ServerError): void {
   vex.alert(`${error.message} ${error.code ? `(${error.code})` : ''}`);
   console.error('Request error: ', error);
 
@@ -89,7 +83,12 @@ const handleError = function (options: ServerRequest, error: any) {
   }
 };
 
-const sendRequest = function (url: string, data: any, options: ServerRequest, retry: Function) {
+const sendRequest = function (
+  url: string,
+  data: string,
+  options: ServerRequest,
+  retry: Function
+): void {
   console.log('Calling', `${options.module}/${options.method}`, options.params);
 
   $.ajax({
@@ -100,30 +99,18 @@ const sendRequest = function (url: string, data: any, options: ServerRequest, re
     url,
 
     success(data, textStatus, jqXHR) {
-      MenuStore.showLoader();
-
-      const dataToEmit = util.fixNumbers(data.result);
+      MenuStore.hideLoader();
 
       if (textStatus === 'success' && jqXHR.status === 200) {
-        handleSuccess(options, dataToEmit);
+        handleSuccess(options, util.fixNumbers(data.result));
       }
     },
 
     error(jqXHR) {
       MenuStore.hideLoader();
-      let error = {};
-
-      if (typeof jqXHR.responseJSON === 'undefined') {
-        error = {
-          code: -1,
-          message: jqXHR.responseText,
-        };
-      } else {
-        error = jqXHR.responseJSON.error;
-      }
-
-      const fail = function () {
-        handleError(options, error);
+      let error: ServerError = jqXHR?.responseJSON?.error || {
+        code: -1,
+        message: jqXHR.responseText,
       };
 
       if (error.code === 1016) {
@@ -131,17 +118,18 @@ const sendRequest = function (url: string, data: any, options: ServerRequest, re
           success: retry,
         });
       } else {
-        fail();
+        handleError(options, error);
       }
     },
   });
 };
 
-export const call = function (obj: ServerRequest) {
+export const call = function (obj: ServerRequest): void {
   MenuStore.showLoader();
 
-  const options = handleParams(obj);
-  const data = createData(options);
+  const options = addSession(obj);
+  const body = createBody(options);
+  const data = JSON.stringify(body);
   const url = createUrl(options);
 
   const retry = function () {
@@ -155,7 +143,7 @@ export const call = function (obj: ServerRequest) {
 // Split the status message into server, body, empire
 // and call the corresponding actions
 //
-export const splitStatus = function (status: any) {
+export const splitStatus = function (status: any): void {
   if (status.server) {
     const serverStatus = util.fixNumbers(_.cloneDeep(status.server));
     ServerRPCStore.update(serverStatus);

@@ -13,6 +13,7 @@ class EmpireService {
       module: 'empire',
       method: 'get_boosts',
       params: [],
+      addSession: true,
       success: (result: any) => {
         BoostsRPCStore.update(result);
       },
@@ -24,6 +25,7 @@ class EmpireService {
       module: 'empire',
       method: 'invite_friend',
       params: [],
+      addSession: true,
       success: (result: any) => {
         InviteRPCStore.update(result);
       },
@@ -38,6 +40,7 @@ class EmpireService {
         email,
         custom_message: message,
       },
+      addSession: true,
       success: () => {
         vex.alert('Invite email sent!');
       },

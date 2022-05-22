@@ -11,7 +11,7 @@ class ServerRPCStore {
 
   announcement = 0;
 
-  promotions = [];
+  promotions: any[] = [];
 
   rpc_limit = 10000;
 
@@ -35,9 +35,7 @@ class ServerRPCStore {
 
     // The server won't return the promotions block if there aren't any but components
     // will expect it to exist.
-    if (!this.promotions) {
-      this.promotions = [];
-    }
+    this.promotions = server.promotions || [];
   }
 
   tick() {
@@ -46,13 +44,8 @@ class ServerRPCStore {
     this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
 
     this.promotions = _.chain(this.promotions)
-      .filter(
-        (promotion) =>
-          // Note: date objects can be compared numerically,
-          // see: http://stackoverflow.com/a/493018/1978973
-          now < serverDateToDateObj(promotion.end_date)
-      )
-      .map((promotion) => {
+      .filter((promotion: any) => now < serverDateToDateObj(promotion.end_date).valueOf())
+      .map((promotion: any) => {
         promotion.header = promotion.title;
         promotion.ends = moment().to(serverDateToMoment(promotion.end_date));
 

@@ -222,6 +222,7 @@ export interface Window {
 export interface WindowOptions {
   id?: number | string;
   url?: string;
+  success?: Function;
 }
 
 export interface BuildingWindowOptions {
