@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import resources from 'app/json/resources';
 import BodyRPCStore from 'app/stores/rpc/body';
+import environment from 'app/environment';
 
 class BuildingInformation extends React.Component {
   static propTypes = {
