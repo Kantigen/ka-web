@@ -1,5 +1,26 @@
 import React from 'react';
 
+export interface BodyGetBuildingsParams {
+  0: number;
+}
+
+export interface BodyGetBuildingsResponse {
+  body: {
+    surface_image: string;
+  };
+  buildings: {
+    [index: string]: {
+      efficiency: number;
+      name: string;
+      x: number;
+      image: string;
+      y: number;
+      level: number;
+      url: string;
+    };
+  };
+}
+
 export interface BodyGetStatusParams {
   0: number;
 }
@@ -42,6 +63,27 @@ export interface BodyGetStatusResponse {
       zircon: number;
     };
   };
+}
+
+export interface BodyRearrangeBuildingsParams {
+  0: number;
+  1: Array<{
+    id: number;
+    x: number;
+    y: number;
+  }>;
+}
+
+export interface BodyRearrangeBuildingsResponse {
+  body: {
+    surface_image: string;
+  };
+  moved: Array<{
+    name: string;
+    x: number;
+    y: number;
+    id: string;
+  }>;
 }
 
 export interface Building {
@@ -251,6 +293,7 @@ export type WindowType =
   | 'invite'
   | 'login'
   | 'planetPanel'
+  | 'rearrangeBuildings'
   | 'register'
   | 'serverClock'
   | 'starPanel';

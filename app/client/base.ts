@@ -1,32 +1,50 @@
 import server from 'app/server';
 import {
+  BodyGetBuildingsParams,
+  BodyGetBuildingsResponse,
   BodyGetStatusParams,
   BodyGetStatusResponse,
+  BodyRearrangeBuildingsParams,
+  BodyRearrangeBuildingsResponse,
   CaptchaFetchParams,
   CaptchaFetchResponse,
   CaptchaSolveParams,
   CaptchaSolveResponse,
-  EmpireGetStatusParams,
-  EmpireGetStatusResponse,
+  EmpireCreateParams,
+  EmpireCreateResponse,
   EmpireFetchCaptchaParams,
   EmpireFetchCaptchaResponse,
+  EmpireGetStatusParams,
+  EmpireGetStatusResponse,
   EmpireLoginParams,
   EmpireLoginResponse,
   EmpireLogoutParams,
   EmpireLogoutResponse,
   EssentiaVeinDrainParams,
   EssentiaVeinDrainResponse,
-  EmpireCreateParams,
-  EmpireCreateResponse,
 } from 'app/interfaces';
 
 class ClientBase {
+  call(
+    module: 'body',
+    method: 'get_buildings',
+    params: BodyGetBuildingsParams,
+    addSession?: boolean
+  ): Promise<BodyGetBuildingsResponse>;
+
   call(
     module: 'body',
     method: 'get_status',
     params: BodyGetStatusParams,
     addSession?: boolean
   ): Promise<BodyGetStatusResponse>;
+
+  call(
+    module: 'body',
+    method: 'rearrange_buildings',
+    params: BodyRearrangeBuildingsParams,
+    addSession?: boolean
+  ): Promise<BodyRearrangeBuildingsResponse>;
 
   call(
     module: 'captcha',

@@ -1158,6 +1158,16 @@ const Body = {
     };
   },
 
+  rearrange_buildings() {
+    return {
+      moved: [],
+      body: {
+        surface_image: 'surface-p35',
+      },
+      status: Empire.get_status(),
+    };
+  },
+
   status_block() {
     return {
       id: 'id-goes-here',

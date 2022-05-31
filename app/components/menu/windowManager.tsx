@@ -13,6 +13,7 @@ import GenericBuildingWindow from 'app/components/genericBuilding';
 import InviteWindow from 'app/components/invite';
 import LoginWindow from 'app/components/login';
 import PlanetPanelWindow from 'app/components/planetPanel';
+import RearrangeBuildings from 'app/components/rearrangeBuildings/rearrangeBuildings';
 import RegisterWindow from 'app/components/register';
 import ServerClockWindow from 'app/components/serverClock';
 import StarPanelWindow from 'app/components/starPanel';
@@ -93,6 +94,15 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Planet Details',
       width: 700,
+      height: 'auto',
+    },
+  },
+
+  rearrangeBuildings: {
+    component: RearrangeBuildings,
+    config: {
+      title: 'Rearrange Buildings',
+      width: 900,
       height: 'auto',
     },
   },

@@ -24,6 +24,8 @@ class PanelContent extends React.Component<Props> {
           width: this.props.panelWidth,
           border: '2px solid black',
           background: `#0268AC url(${environment.getAssetsUrl()}ui/bkg.png)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'top left',
           borderRadius: '10px',
           padding: '10px',
         }}

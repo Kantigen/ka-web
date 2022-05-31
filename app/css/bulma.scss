@@ -1,0 +1,12 @@
+.bulma {
+  $primary: #5c9dff;
+
+  @import 'bulma/bulma.sass';
+
+  //
+  // Compatibility hacks to fix conflicts with other styles
+  //
+  button {
+    background: none;
+  }
+}

@@ -5,6 +5,7 @@ import 'fomantic-ui/dist/semantic.css';
 import 'vex-js/dist/css/vex.css';
 import 'vex-js/dist/css/vex-theme-default.css';
 import 'app/css/styles.css';
+import 'app/css/bulma.scss';
 import 'react-tabs/style/react-tabs.css';
 
 import 'app/yui/library';

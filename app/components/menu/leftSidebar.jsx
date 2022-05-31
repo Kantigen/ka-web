@@ -95,6 +95,16 @@ class LeftSidebar extends React.Component {
           className='item'
           onClick={function () {
             MenuStore.hideLeftSidebar();
+            WindowsStore.add('rearrangeBuildings');
+          }}
+        >
+          <i className=' icon' />
+          Rearrange Buildings
+        </a>
+        <a
+          className='item'
+          onClick={function () {
+            MenuStore.hideLeftSidebar();
             WindowsStore.add('invite');
           }}
         >

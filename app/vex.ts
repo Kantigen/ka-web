@@ -10,8 +10,8 @@ vex.registerPlugin(vexDialog);
 
 vex.defaultOptions.className = 'vex-theme-default';
 
-export const alert = function (message: string) {
-  vex.dialog.alert(message);
+export const alert = function (message: string, callback?: Function) {
+  vex.dialog.alert({ message, callback });
 };
 
 export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
