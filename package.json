@@ -25,7 +25,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "vite build",
+    "build": "vite build && ln -s ../Lacuna-Assets ./dist/Lacuna-Assets",
     "serve:app": "vite",
     "serve:stubs": "nodemon --exec \"node stubs/server.js\" --watch stubs",
     "serve:assets": "http-server ./Lacuna-Assets --cors --port 4000"
