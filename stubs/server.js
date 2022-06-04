@@ -1,4 +1,6 @@
 import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 import Body from './src/body.js';
 import Buildings from './src/buildings.js';
@@ -11,6 +13,9 @@ import Map from './src/map.js';
 import Server from './src/server.js';
 import Spaceport from './src/spaceport.js';
 import Stats from './src/stats.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const root = `${__dirname}/public`;
 
 const modules = {
   body: Body,
@@ -191,19 +196,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/announcement', (req, res) => {
-  res.sendFile('announcement.html', { root: './public' });
+  res.sendFile('announcement.html', { root });
 });
 
 app.get('/captcha.png', (req, res) => {
-  res.sendFile('captcha.png', { root: './public' });
+  res.sendFile('captcha.png', { root });
 });
 
 app.get('/email_attachment.png', (req, res) => {
-  res.sendFile('email_attachment.png', { root: './public' });
+  res.sendFile('email_attachment.png', { root });
 });
 
 app.get('/server_overview.json', (req, res) => {
-  res.sendFile('server_overview.json', { root: './public' });
+  res.sendFile('server_overview.json', { root });
 });
 
 app.post('/:module', (req, res) => {
