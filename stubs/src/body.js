@@ -38,7 +38,7 @@ const Body = {
           x: '-5',
           image: 'pyramidjunksculpture1',
         },
-        spacejunkpark: {
+        49656991: {
           y: '4',
           efficiency: '100',
           level: '30',
@@ -47,7 +47,7 @@ const Body = {
           x: '-4',
           image: 'spacejunkpark1',
         },
-        arches: {
+        49656992: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -56,7 +56,7 @@ const Body = {
           x: '-5',
           image: 'metaljunkarches1',
         },
-        henge: {
+        49656993: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -65,7 +65,7 @@ const Body = {
           x: '-4',
           image: 'junkhengesculpture1',
         },
-        greatballofjunk: {
+        49656994: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -74,7 +74,7 @@ const Body = {
           x: '-3',
           image: 'greatballofjunk1',
         },
-        panth: {
+        49656996: {
           y: '4',
           efficiency: '100',
           level: '30',
@@ -83,7 +83,7 @@ const Body = {
           x: '0',
           image: 'pantheonofhagness1',
         },
-        temple: {
+        49656997: {
           y: '4',
           efficiency: '100',
           level: '30',
@@ -92,7 +92,7 @@ const Body = {
           x: '3',
           image: 'templedrajilites1',
         },
-        essentiavein: {
+        49656998: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -443,7 +443,7 @@ const Body = {
           x: '1',
           image: 'saw9',
         },
-        'saw-1': {
+        49797115: {
           y: '0',
           efficiency: '100',
           level: '30',
@@ -452,7 +452,7 @@ const Body = {
           x: '-1',
           image: 'saw9',
         },
-        'saw-2': {
+        49797116: {
           y: '0',
           efficiency: '100',
           level: '30',
@@ -461,7 +461,7 @@ const Body = {
           x: '-2',
           image: 'saw9',
         },
-        'saw-3': {
+        49797117: {
           y: '0',
           efficiency: '100',
           level: '30',
@@ -470,7 +470,7 @@ const Body = {
           x: '-3',
           image: 'saw9',
         },
-        'saw-4': {
+        49797118: {
           y: '0',
           efficiency: '100',
           level: '30',
@@ -479,7 +479,7 @@ const Body = {
           x: '-4',
           image: 'saw9',
         },
-        'saw-5': {
+        49797119: {
           y: '0',
           efficiency: '100',
           level: '30',
@@ -497,7 +497,7 @@ const Body = {
           level: '30',
           url: '/security',
         },
-        ship5: {
+        444392791: {
           efficiency: '100',
           name: 'Shipyard',
           x: '5',
@@ -506,7 +506,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        ship4: {
+        444392792: {
           efficiency: '100',
           name: 'Shipyard',
           x: '4',
@@ -515,7 +515,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        ship3: {
+        444392793: {
           efficiency: '100',
           name: 'Shipyard',
           x: '3',
@@ -524,7 +524,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        ship2: {
+        4443927914: {
           efficiency: '100',
           name: 'Shipyard',
           x: '2',
@@ -533,7 +533,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        ship1: {
+        4443927915: {
           efficiency: '100',
           name: 'Shipyard',
           x: '1',
@@ -542,7 +542,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        ship0: {
+        444392796: {
           efficiency: '100',
           name: 'Shipyard',
           x: '0',
@@ -551,7 +551,7 @@ const Body = {
           level: '30',
           url: '/shipyard',
         },
-        'ship-1': {
+        444392797: {
           efficiency: '100',
           name: 'Shipyard',
           x: '-1',
@@ -565,7 +565,7 @@ const Body = {
             end: moment().add(5, 'hours').format(DATE_FORMAT),
           },
         },
-        'ship-2': {
+        444392798: {
           efficiency: '100',
           name: 'Shipyard',
           x: '-2',
@@ -579,7 +579,7 @@ const Body = {
             end: moment().add(5, 'hours').format(DATE_FORMAT),
           },
         },
-        'ship-3': {
+        444392799: {
           efficiency: '100',
           name: 'Shipyard',
           x: '-3',
@@ -593,7 +593,7 @@ const Body = {
             end: moment().add(5, 'hours').format(DATE_FORMAT),
           },
         },
-        'ship1-4': {
+        444392710: {
           efficiency: '100',
           name: 'Shipyard',
           x: '-4',
@@ -607,7 +607,7 @@ const Body = {
             end: moment().add(5, 'hours').format(DATE_FORMAT),
           },
         },
-        'ship-5': {
+        4443927961: {
           efficiency: '100',
           name: 'Shipyard',
           x: '-5',
@@ -639,7 +639,7 @@ const Body = {
           x: '2',
           image: 'oracleanid1',
         },
-        4943604: {
+        494360499999999: {
           y: '2',
           efficiency: '100',
           level: '30',
@@ -648,7 +648,7 @@ const Body = {
           x: '-1',
           image: 'transporter9',
         },
-        'port5,-4': {
+        997856499: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -657,7 +657,7 @@ const Body = {
           x: '5',
           image: 'spaceport9',
         },
-        'port5,-5': {
+        99785649: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -666,7 +666,7 @@ const Body = {
           x: '5',
           image: 'spaceport9',
         },
-        'port4,-4': {
+        99785648888888: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -675,7 +675,7 @@ const Body = {
           x: '4',
           image: 'spaceport9',
         },
-        'port4,-5': {
+        9978564888888: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -684,7 +684,7 @@ const Body = {
           x: '4',
           image: 'spaceport9',
         },
-        'port3,-4': {
+        99785648888: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -693,7 +693,7 @@ const Body = {
           x: '3',
           image: 'spaceport9',
         },
-        'port3,-5': {
+        997856488888: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -702,7 +702,7 @@ const Body = {
           x: '3',
           image: 'spaceport9',
         },
-        'port2,-1': {
+        997856488: {
           y: '-1',
           efficiency: '100',
           level: '30',
@@ -711,7 +711,7 @@ const Body = {
           x: '2',
           image: 'spaceport9',
         },
-        'port2,-2': {
+        99785648: {
           y: '-2',
           efficiency: '100',
           level: '30',
@@ -720,7 +720,7 @@ const Body = {
           x: '2',
           image: 'spaceport9',
         },
-        'port2,-3': {
+        99778756774: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -729,7 +729,7 @@ const Body = {
           x: '2',
           image: 'spaceport9',
         },
-        'port2,-4': {
+        9797875674: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -738,7 +738,7 @@ const Body = {
           x: '2',
           image: 'spaceport9',
         },
-        'port2,-5': {
+        99787775677: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -747,7 +747,7 @@ const Body = {
           x: '2',
           image: 'spaceport9',
         },
-        'port1,-1': {
+        9978777564: {
           y: '-1',
           efficiency: '100',
           level: '30',
@@ -756,7 +756,7 @@ const Body = {
           x: '1',
           image: 'spaceport9',
         },
-        'port1,-2': {
+        9977778564: {
           y: '-2',
           efficiency: '100',
           level: '30',
@@ -765,7 +765,7 @@ const Body = {
           x: '1',
           image: 'spaceport9',
         },
-        'port1,-3': {
+        9978567774: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -774,7 +774,7 @@ const Body = {
           x: '1',
           image: 'spaceport9',
         },
-        'port1,-4': {
+        99787775641: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -783,7 +783,7 @@ const Body = {
           x: '1',
           image: 'spaceport9',
         },
-        'port1,-5': {
+        99785647777: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -792,7 +792,7 @@ const Body = {
           x: '1',
           image: 'spaceport9',
         },
-        'port-5,-3': {
+        997856477777: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -801,7 +801,7 @@ const Body = {
           x: '-5',
           image: 'spaceport9',
         },
-        'port-4,-3': {
+        997856477767: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -810,7 +810,7 @@ const Body = {
           x: '-4',
           image: 'spaceport9',
         },
-        'port-3,-3': {
+        997856477: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -819,7 +819,7 @@ const Body = {
           x: '-3',
           image: 'spaceport9',
         },
-        'port-2,-3': {
+        997856774: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -828,7 +828,7 @@ const Body = {
           x: '-2',
           image: 'spaceport9',
         },
-        'port-1,-3': {
+        99785647: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -837,7 +837,7 @@ const Body = {
           x: '-1',
           image: 'spaceport9',
         },
-        'port0,-3': {
+        99785646666666: {
           y: '-3',
           efficiency: '100',
           level: '30',
@@ -846,7 +846,7 @@ const Body = {
           x: '0',
           image: 'spaceport9',
         },
-        'port-5,-4': {
+        9978564666666: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -855,7 +855,7 @@ const Body = {
           x: '-5',
           image: 'spaceport9',
         },
-        'port-4,-4': {
+        99785646666: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -864,7 +864,7 @@ const Body = {
           x: '-4',
           image: 'spaceport9',
         },
-        'port-3,-4': {
+        997856466: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -873,7 +873,7 @@ const Body = {
           x: '-3',
           image: 'spaceport9',
         },
-        'port-2,-4': {
+        99785646: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -882,7 +882,7 @@ const Body = {
           x: '-2',
           image: 'spaceport9',
         },
-        'port-1,-4': {
+        99785645555555: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -891,7 +891,7 @@ const Body = {
           x: '-1',
           image: 'spaceport9',
         },
-        'port0,-4': {
+        9978564555555: {
           y: '-4',
           efficiency: '100',
           level: '30',
@@ -900,7 +900,7 @@ const Body = {
           x: '0',
           image: 'spaceport9',
         },
-        'port-5,-5': {
+        997856455555: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -909,7 +909,7 @@ const Body = {
           x: '-5',
           image: 'spaceport9',
         },
-        'port-4,-5': {
+        9978564555: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -918,7 +918,7 @@ const Body = {
           x: '-4',
           image: 'spaceport9',
         },
-        'port-3,-5': {
+        997856455: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -927,7 +927,7 @@ const Body = {
           x: '-3',
           image: 'spaceport9',
         },
-        'port-2,-5': {
+        99785645: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -936,7 +936,7 @@ const Body = {
           x: '-2',
           image: 'spaceport9',
         },
-        'port-1,-5': {
+        9978564444444: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -945,7 +945,7 @@ const Body = {
           x: '-1',
           image: 'spaceport9',
         },
-        'port0,-5': {
+        997856444: {
           y: '-5',
           efficiency: '100',
           level: '30',
@@ -954,7 +954,7 @@ const Body = {
           x: '0',
           image: 'spaceport9',
         },
-        ssla: {
+        99785644444: {
           y: '5',
           efficiency: '100',
           level: '30',
@@ -963,7 +963,7 @@ const Body = {
           x: '4',
           image: 'ssla9',
         },
-        sslb: {
+        99785644: {
           y: '5',
           efficiency: '100',
           level: '30',
@@ -972,7 +972,7 @@ const Body = {
           x: '5',
           image: 'sslb9',
         },
-        sslc: {
+        9978564333333: {
           y: '4',
           efficiency: '100',
           level: '30',
@@ -981,7 +981,7 @@ const Body = {
           x: '5',
           image: 'sslc9',
         },
-        ssld: {
+        997856433333: {
           y: '4',
           efficiency: '100',
           level: '30',
@@ -990,7 +990,7 @@ const Body = {
           x: '4',
           image: 'ssld9',
         },
-        intel: {
+        99785643333: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -999,7 +999,7 @@ const Body = {
           x: '4',
           image: 'inteltraining9',
         },
-        mayhem: {
+        9978564333: {
           y: '3',
           efficiency: '100',
           level: '30',
@@ -1008,7 +1008,7 @@ const Body = {
           x: '5',
           image: 'mayhemtraining9',
         },
-        politics: {
+        997856433: {
           y: '2',
           efficiency: '100',
           level: '30',
@@ -1017,7 +1017,7 @@ const Body = {
           x: '4',
           image: 'politicstraining9',
         },
-        theft: {
+        99785643: {
           y: '2',
           efficiency: '100',
           level: '30',
@@ -1026,7 +1026,7 @@ const Body = {
           x: '5',
           image: 'thefttraining9',
         },
-        lcota: {
+        997856422222: {
           x: 4,
           y: -2,
           efficiency: 100,
@@ -1035,7 +1035,7 @@ const Body = {
           url: '/lcota',
           image: 'lcota',
         },
-        lcotb: {
+        99785642222: {
           x: 3,
           y: -2,
           efficiency: 100,
@@ -1044,7 +1044,7 @@ const Body = {
           url: '/lcotb',
           image: 'lcotb',
         },
-        lcotc: {
+        9978564222: {
           x: 5,
           y: -3,
           efficiency: 100,
@@ -1053,7 +1053,7 @@ const Body = {
           url: '/lcotc',
           image: 'lcotc',
         },
-        lcotd: {
+        997856422: {
           x: 4,
           y: -3,
           efficiency: 100,
@@ -1062,7 +1062,7 @@ const Body = {
           url: '/lcotd',
           image: 'lcotd',
         },
-        lcote: {
+        99785642: {
           x: 3,
           y: -3,
           efficiency: 100,
@@ -1071,7 +1071,7 @@ const Body = {
           url: '/lcote',
           image: 'lcote',
         },
-        lcotf: {
+        99785641111: {
           x: 5,
           y: -2,
           efficiency: 100,
@@ -1080,7 +1080,7 @@ const Body = {
           url: '/lcotf',
           image: 'lcotf',
         },
-        lcotg: {
+        9978564111: {
           x: 5,
           y: -1,
           efficiency: 100,
@@ -1089,7 +1089,7 @@ const Body = {
           url: '/lcotg',
           image: 'lcotg',
         },
-        lcoth: {
+        997856411: {
           x: 4,
           y: -1,
           efficiency: 100,
@@ -1098,7 +1098,7 @@ const Body = {
           url: '/lcoth',
           image: 'lcoth',
         },
-        lcoti: {
+        99785641: {
           x: 3,
           y: -1,
           efficiency: 100,
