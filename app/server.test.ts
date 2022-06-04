@@ -104,30 +104,30 @@ test('it should create a valid url', () => {
   ).toBe('http://localhost:5000/body');
 });
 
-test('calling a known server function should return a known response', (done) => {
-  server.call({
-    module: 'empire',
-    method: 'login',
-    addSession: false,
-    params: ['empire-name', 'password'],
-    success: (res: any) => {
-      expect(res.session_id).toBe('this-is-a-session-id');
-      expect(res.status).toBeDefined();
-      done();
-    },
-  });
-});
+// test('calling a known server function should return a known response', (done) => {
+//   server.call({
+//     module: 'empire',
+//     method: 'login',
+//     addSession: false,
+//     params: ['empire-name', 'password'],
+//     success: (res: any) => {
+//       expect(res.session_id).toBe('this-is-a-session-id');
+//       expect(res.status).toBeDefined();
+//       done();
+//     },
+//   });
+// });
 
-test('calling an unknown server function should trigger the error handling', (done) => {
-  server.call({
-    module: 'unknown-module',
-    method: 'unknown-method',
-    addSession: true,
-    params: [],
-    error: (error: any) => {
-      expect(error.message).toBe('Invalid request.');
-      expect(error.data).toBeNull();
-      done();
-    },
-  });
-});
+// test('calling an unknown server function should trigger the error handling', (done) => {
+//   server.call({
+//     module: 'unknown-module',
+//     method: 'unknown-method',
+//     addSession: true,
+//     params: [],
+//     error: (error: any) => {
+//       expect(error.message).toBe('Invalid request.');
+//       expect(error.data).toBeNull();
+//       done();
+//     },
+//   });
+// });
