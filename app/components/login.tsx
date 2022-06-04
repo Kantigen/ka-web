@@ -45,69 +45,74 @@ class LoginWindow extends React.Component {
 
   render() {
     return (
-      <>
-        <div style={{ marginBottom: '2em' }}>
+      <div className='bulma'>
+        <div className='block mb-4'>
           <img
-            className='ui fluid image'
+            className='image'
             src={environment.getAssetsUrl() + 'ui/logo.png'}
             alt='Lacuna Expanse logo'
           />
         </div>
 
-        <div className='ui form'>
-          <div className='field'>
-            <label htmlFor='empireName'>Empire Name</label>
+        <div className='field mb-4'>
+          <label htmlFor='empireName' className='label'>
+            Empire Name
+          </label>
+          <div className='control'>
             <input
               type='text'
               name='empireName'
               placeholder='Empire Name'
               autoComplete='nickname'
+              className='input'
               ref={this.empireNameField}
             />
           </div>
+        </div>
 
-          <div className='field'>
-            <label htmlFor='password'>Password</label>
+        <div className='field mb-4'>
+          <label htmlFor='password' className='label'>
+            Password
+          </label>
+          <div className='control'>
             <input
               type='password'
               name='password'
               placeholder='Password'
               autoComplete='current-password'
+              className='input'
               ref={this.passwordField}
             />
           </div>
-
-          <div className='field'>
-            <div className='ui checkbox'>
-              <input
-                type='checkbox'
-                name='rememberEmpire'
-                ref={this.rememberEmpireField}
-                defaultChecked={true}
-              />
-              <label htmlFor='rememberEmpire'>Remember Empire?</label>
-            </div>
-          </div>
-
-          <div className='field' style={{ marginTop: '2em' }}>
-            <div className='ui fluid buttons'>
-              <button className='ui button' onClick={() => this.registerClick()}>
-                Register
-              </button>
-              <div className='or'></div>
-              <button className='ui green button' onClick={() => this.loginClick()}>
-                Login
-              </button>
-            </div>
-          </div>
-
-          <div className='field' style={{ marginTop: '1em' }}>
-            <p>
-              <a onClick={() => this.forgotPasswordClick()}>Forgotten your password?</a>
-            </p>
-          </div>
         </div>
-      </>
+
+        <div className='field mb-4'>
+          <label htmlFor='rememberEmpire' className='checkbox'>
+            <input
+              type='checkbox'
+              name='rememberEmpire'
+              ref={this.rememberEmpireField}
+              defaultChecked={true}
+            />{' '}
+            Remember Empire?
+          </label>
+        </div>
+
+        <div className='field mb-4'>
+          <button className='button is-success is-fullwidth mb-2' onClick={() => this.loginClick()}>
+            Login
+          </button>
+          <button className='button is-primary is-fullwidth' onClick={() => this.registerClick()}>
+            Register
+          </button>
+        </div>
+
+        <div className='field mb-4'>
+          <p>
+            <a onClick={() => this.forgotPasswordClick()}>Forgotten your password?</a>
+          </p>
+        </div>
+      </div>
     );
   }
 }

@@ -21,8 +21,8 @@ class CreditsSection extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        <strong>{this.props.header}</strong>
+      <div className='block'>
+        <div className='has-text-weight-bold mb-2'>{this.props.header}</div>
 
         <ul>
           {_.map(this.props.names, (name) => (
@@ -30,7 +30,7 @@ class CreditsSection extends React.Component<Props> {
               key={name}
               style={{
                 listStyleType: 'disc',
-                marginLeft: 40,
+                marginLeft: '2em',
               }}
             >
               {name}

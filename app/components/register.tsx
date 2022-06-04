@@ -89,106 +89,133 @@ class RegisterWindow extends React.Component {
       >
         {() => (
           <Form>
-            <div className='ui grid'>
-              <div className='eight wide column'>
-                <div className='ui form'>
-                  <div className='required field'>
-                    <label htmlFor='empireName'>Empire Name</label>
-                    <Field
-                      type='text'
-                      name='empireName'
-                      autoComplete='nickname'
-                      placeholder='Empire Name'
-                    />
-                    <ErrorMessage name='empireName' component='p' />
+            <div className='bulma'>
+              <div className='columns'>
+                <div className='column is-half'>
+                  <div className='field mb-4'>
+                    <label htmlFor='empireName' className='label'>
+                      Empire Name
+                    </label>
+                    <div className='control'>
+                      <Field
+                        type='text'
+                        name='empireName'
+                        autoComplete='nickname'
+                        placeholder='Empire Name'
+                        className='input'
+                      />
+                    </div>
+                    <ErrorMessage name='empireName' component='p' className='help is-danger' />
                   </div>
 
-                  <div className='required field'>
-                    <label htmlFor='email'>Email</label>
-                    <Field
-                      type='text'
-                      placeholder='Email Address'
-                      autoComplete='email'
-                      name='email'
-                    />
-                    <ErrorMessage name='email' component='p' />
+                  <div className='field mb-4'>
+                    <label htmlFor='email' className='label'>
+                      Email
+                    </label>
+                    <div className='control'>
+                      <Field
+                        type='text'
+                        placeholder='Email Address'
+                        autoComplete='email'
+                        name='email'
+                        className='input'
+                      />
+                    </div>
+                    <ErrorMessage name='email' component='p' className='help is-danger' />
                   </div>
 
-                  <div className='required field'>
-                    <label htmlFor='password'>Password</label>
-                    <Field
-                      type='password'
-                      placeholder='Password'
-                      autoComplete='new-password'
-                      name='password'
-                    />
-                    <ErrorMessage name='password' component='p' />
+                  <div className='field mb-4'>
+                    <label htmlFor='password' className='label'>
+                      Password
+                    </label>
+                    <div className='control'>
+                      <Field
+                        type='password'
+                        placeholder='Password'
+                        autoComplete='new-password'
+                        name='password'
+                        className='input'
+                      />
+                    </div>
+                    <ErrorMessage name='password' component='p' className='help is-danger' />
+                  </div>
+
+                  <div className='field mb-4'>
+                    <label htmlFor='inviteCode' className='label'>
+                      Friend Invite code
+                    </label>
+                    <div className='control'>
+                      <Field
+                        type='text'
+                        placeholder='Friend Invite Code'
+                        autoComplete='off'
+                        name='inviteCode'
+                        className='input'
+                      />
+                    </div>
+                    <ErrorMessage name='inviteCode' component='p' className='help is-danger' />
+                  </div>
+                </div>
+
+                <div className='column is-half'>
+                  <div className='field mb-4'>
+                    <label htmlFor='captcha' className='label mb-2'>
+                      Captcha
+                    </label>
+                    {this.state.captcha.url ? (
+                      <img
+                        src={this.state.captcha.url}
+                        width={300}
+                        height={80}
+                        className='image mb-2'
+                      />
+                    ) : undefined}
+                    <div className='control'>
+                      <Field
+                        type='text'
+                        placeholder='Answer'
+                        autoComplete='off'
+                        name='captcha'
+                        className='input'
+                      />
+                    </div>
+                    <ErrorMessage name='captcha' component='p' className='help is-danger' />
+                  </div>
+
+                  <div className='field mb-4'>
+                    <label htmlFor='terms' className='checkbox'>
+                      <Field type='checkbox' name='terms' /> I agree to the{' '}
+                      <a
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href='https://lacunaexpanse.com/terms/'
+                      >
+                        Terms of Service
+                      </a>
+                    </label>
+                    <ErrorMessage name='terms' component='p' className='help is-danger' />
+                  </div>
+
+                  <div className='field mb-4'>
+                    <label htmlFor='rules' className='checkbox'>
+                      <Field type='checkbox' name='rules' /> I agree to abide by{' '}
+                      <a
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        href='http://lacunaexpanse.com/rules/'
+                      >
+                        the rules
+                      </a>
+                    </label>
+                    <ErrorMessage name='rules' component='p' className='help is-danger' />
                   </div>
 
                   <div className='field'>
-                    <label htmlFor='inviteCode'>Friend Invite code</label>
-                    <Field
-                      type='text'
-                      placeholder='Friend Invite Code'
-                      autoComplete='off'
-                      name='inviteCode'
-                    />
-                    <ErrorMessage name='inviteCode' component='p' />
-                  </div>
-                </div>
-              </div>
-
-              <div className='eight wide column'>
-                <div className='ui form'>
-                  <div className='required field'>
-                    <label htmlFor='captcha'>Captcha</label>
-                    {this.state.captcha.url ? (
-                      <img src={this.state.captcha.url} width={300} height={80} />
-                    ) : undefined}
-                    <Field type='text' placeholder='Answer' autoComplete='off' name='captcha' />
-                    <ErrorMessage name='captcha' component='p' />
-                  </div>
-
-                  <div className='required field'>
-                    <div className='ui checkbox'>
-                      <Field type='checkbox' name='terms' />
-                      <label htmlFor='terms'>
-                        I agree to the{' '}
-                        <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='https://lacunaexpanse.com/terms/'
-                        >
-                          Terms of Service
-                        </a>
-                      </label>
-                      <ErrorMessage name='terms' component='p' />
-                    </div>
-                  </div>
-
-                  <div className='required field'>
-                    <div className='ui checkbox'>
-                      <Field type='checkbox' name='rules' />
-                      <label htmlFor='rules'>
-                        I agree to abide by{' '}
-                        <a
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          href='http://lacunaexpanse.com/rules/'
-                        >
-                          the rules
-                        </a>
-                      </label>
-                      <ErrorMessage name='rules' component='p' />
-                    </div>
-                  </div>
-
-                  <div className='field' style={{ marginTop: '2em' }}>
-                    <div className='right floated ui buttons'>
-                      <button className='ui green button' type='submit'>
+                    <div className='is-pulled-right'>
+                      <button className='button is-success mr-2' type='submit'>
                         Create
                       </button>
-                      <button className='ui button' onClick={() => this.cancel()}>
+                      <button className='button is-primary' onClick={() => this.cancel()}>
                         Cancel
                       </button>
                     </div>

@@ -1,5 +1,32 @@
 .bulma {
   $primary: #5c9dff;
+  $success: #21ba45;
+  $white: hsl(0, 0%, 90%);
+  $white-ter: hsl(0, 0%, 96%);
+  $black: hsl(0, 0%, 4%);
+  $radius: 0.375em;
+
+  $family-sans-serif: verdana, BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 'Helvetica', 'Arial',
+    sans-serif;
+
+  $weight-light: 200;
+  $weight-normal: 300;
+  $weight-medium: 400;
+  $weight-semibold: 500;
+  $weight-bold: 600;
+
+  $text: $white;
+  $text-light: lighten($text, 10);
+  $text-strong: darken($text, 5);
+  $title-color: $white;
+
+  $link: $white;
+  $link-hover: $white-ter;
+  $link-focus: $white-ter;
+  $link-active: $white-ter;
+
+  $input-color: $black;
 
   @import 'bulma/bulma.sass';
 
@@ -8,5 +35,17 @@
   //
   button {
     background: none;
+  }
+
+  textarea {
+    min-height: 6em;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  a:hover {
+    text-decoration: none;
   }
 }

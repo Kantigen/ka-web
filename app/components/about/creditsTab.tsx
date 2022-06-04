@@ -14,8 +14,8 @@ class CreditsTab extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Credits</h1>
+      <div className='bulma'>
+        <h1 className='title is-size-3'>Credits</h1>
 
         {_.map(CreditsRPCStore.credits, (names, header) => (
           <CreditsSection key={header} header={header} names={names} />
