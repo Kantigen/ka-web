@@ -101,7 +101,7 @@ test('it should create a valid request body', () => {
 test('it should create a valid url', () => {
   expect(
     createUrl({ module: 'body', method: 'get_buildings', params: ['body-id'], addSession: true })
-  ).toBe('http://localhost:5000/body');
+  ).toBe('http://localhost:3001/body');
 });
 
 // test('calling a known server function should return a known response', (done) => {

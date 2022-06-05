@@ -28,7 +28,7 @@
     "build": "vite build && ln -s ../Lacuna-Assets ./dist/Lacuna-Assets",
     "serve:app": "vite",
     "serve:stubs": "nodemon --exec \"node stubs/server.js\" --watch stubs",
-    "serve:assets": "http-server ./Lacuna-Assets --cors --port 4000"
+    "serve:assets": "http-server ./Lacuna-Assets --cors --port 3002"
   },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
