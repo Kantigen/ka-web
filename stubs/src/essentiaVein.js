@@ -1,14 +1,14 @@
 import GenericBuilding from './genericBuilding.js';
 
 const EssentiaVein = {
-  view() {
-    const res = GenericBuilding.view();
-    res.building.drain_capable = 3;
-    return res;
+  view(req, res) {
+    const response = GenericBuilding.view(req, res);
+    response.building.drain_capable = 3;
+    return response;
   },
 
-  drain() {
-    return EssentiaVein.view();
+  drain(req, res) {
+    return EssentiaVein.view(req, res);
   },
 };
 
