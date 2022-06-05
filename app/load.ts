@@ -63,10 +63,14 @@ import 'app/yui/profile';
 import 'app/yui/stats';
 import 'app/yui/notify';
 
+interface QueryParams {
+  [index: string]: string;
+}
+
 const init = () => {
   // TODO this code can be improved.
   const l = window.location;
-  const query = {};
+  const query: QueryParams = {};
   const vars = l.hash.substring(1).split('&');
   if (vars.length > 0) {
     for (let i = 0; i < vars.length; i++) {
