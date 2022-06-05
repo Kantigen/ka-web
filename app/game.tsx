@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import GameWindow from 'app/components/menu/gameWindow';
 
@@ -48,8 +48,8 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         const container = document.createElement('div');
         container.id = 'mainGameContainer';
         body.appendChild(container);
-
-        ReactDOM.render(<GameWindow />, document.getElementById('mainGameContainer'));
+        const root = createRoot(container);
+        root.render(<GameWindow />);
 
         MenuStore.showLoader();
 
