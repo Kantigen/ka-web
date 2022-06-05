@@ -19,7 +19,7 @@
     "url": "https://github.com/Kantigen/ka-web/issues"
   },
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write app/**/*.ts app/**/*.tsx app/yui/**/*.js app/components/**/*.jsx stubs/**/*.js",
     "dev": "concurrently \"npm run serve:app\" \"npm run serve:stubs\" \"npm run serve:assets\"",
     "test": "jest",
