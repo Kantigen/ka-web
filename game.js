@@ -798,7 +798,7 @@ if (typeof YAHOO.lacuna.Game == "undefined" || !YAHOO.lacuna.Game) {
         },
 
         GetResources : function() {
-            Util.Connect.asyncRequest('GET', 'resources.json', {
+            Util.Connect.asyncRequest('GET', window.lacuna_rpc_base_url + 'resources.json', {
                 success: function(o) {
                     YAHOO.log(o, "info", "GetResources.success");
                     Lacuna.Pulser.Hide();
