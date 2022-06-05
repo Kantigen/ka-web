@@ -178,7 +178,7 @@ const modules = {
 };
 
 const app = express();
-const port = 5000;
+const port = 3001;
 
 //
 // Middleware to enable CORS
@@ -212,7 +212,7 @@ app.get('/server_overview.json', (req, res) => {
 });
 
 app.post('/:module', (req, res) => {
-  const module = req.params.module;
+  const { module } = req.params;
   const method = req.body?.method || '';
 
   console.log(`${module} ${method} was called`);
@@ -225,18 +225,17 @@ app.post('/:module', (req, res) => {
     return res.json({
       jsonrpc: '2.0',
       id: 1,
-      result: result,
-    });
-  } else {
-    return res.status(500).json({
-      jsonrpc: '2.0',
-      id: 1,
-      error: {
-        message: 'Invalid request.',
-        data: null,
-      },
+      result,
     });
   }
+  return res.status(500).json({
+    jsonrpc: '2.0',
+    id: 1,
+    error: {
+      message: 'Invalid request.',
+      data: null,
+    },
+  });
 });
 
 app.listen(port, () => {

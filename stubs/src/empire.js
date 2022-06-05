@@ -1,6 +1,6 @@
+import moment from 'moment';
 import Server from './server.js';
 import Captcha from './captcha.js';
-import moment from 'moment';
 import { DATE_FORMAT } from './constants.js';
 
 const Empire = {

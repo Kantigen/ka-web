@@ -1,5 +1,5 @@
 import 'app/shims/globalize-jquery';
 import 'app/shims/fomantic';
 // @ts-expect-error
-const $ = window.$;
+const { $ } = window;
 export default $;

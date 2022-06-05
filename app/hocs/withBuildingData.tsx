@@ -6,8 +6,8 @@ type Props = {
   options: BuildingWindowOptions;
 };
 
-const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Props> => {
-  return class extends React.Component<{ options: BuildingWindowOptions }, { building: Building }> {
+const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Props> =>
+  class extends React.Component<{ options: BuildingWindowOptions }, { building: Building }> {
     constructor(props: any) {
       super(props);
       this.state = {
@@ -104,6 +104,5 @@ const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Pr
       return <WrappedComponent building={this.state.building} {...this.props} />;
     }
   };
-};
 
 export default withBuildingData;

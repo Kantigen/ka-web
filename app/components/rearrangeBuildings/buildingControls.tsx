@@ -37,10 +37,10 @@ class BuildingControls extends React.Component<Props> {
                   width: 100,
                   height: 100,
                   background: `url(${
-                    environment.getAssetsUrl() +
-                    'planet_side/surface-' +
-                    BodyRPCStore.image +
-                    '.jpg'
+                    `${environment.getAssetsUrl() 
+                    }planet_side/surface-${ 
+                    BodyRPCStore.image 
+                    }.jpg`
                   })`,
                 }}
               >
@@ -52,7 +52,7 @@ class BuildingControls extends React.Component<Props> {
                       this.props.building.image
                     }.png`}) center center no-repeat`,
                   }}
-                ></div>
+                 />
               </div>
             </div>
 

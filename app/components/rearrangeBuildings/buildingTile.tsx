@@ -30,7 +30,7 @@ class BuildingTile extends React.Component<Props> {
           ...(building ? { background: `url(${imageUrl}) center center no-repeat` } : {}),
           ...(this.props.selected ? { border: '1px dashed #fff' } : {}),
         }}
-      ></div>
+       />
     );
   }
 }

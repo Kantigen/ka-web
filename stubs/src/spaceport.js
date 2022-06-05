@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import GenericBuilding from './genericBuilding.js';
 import Empire from './empire.js';
-import _ from 'lodash';
 
 const Spaceport = _.merge({}, GenericBuilding, {
   get_ships_for() {

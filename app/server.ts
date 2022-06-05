@@ -108,7 +108,7 @@ const sendRequest = function (
 
     error(jqXHR) {
       MenuStore.hideLoader();
-      let error: ServerError = jqXHR?.responseJSON?.error || {
+      const error: ServerError = jqXHR?.responseJSON?.error || {
         code: -1,
         message: jqXHR.responseText,
       };

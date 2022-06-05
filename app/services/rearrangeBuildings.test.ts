@@ -4,8 +4,8 @@ import { BodyGetBuildingsResponse, BodyRearrangeBuildingsParams } from 'app/inte
 import { int } from 'app/util';
 
 test('buildingsToMatrix', () => {
-  let buildings: BodyGetBuildingsResponse['buildings'] = {};
-  let matrix: Matrix = [];
+  const buildings: BodyGetBuildingsResponse['buildings'] = {};
+  const matrix: Matrix = [];
 
   for (let x = -5; x < 5; x++) {
     for (let y = -5; y < 5; y++) {
@@ -65,8 +65,8 @@ test('buildingsToMatrix', () => {
 });
 
 test('matrixToRearrangeCall', () => {
-  let buildings: BodyRearrangeBuildingsParams['1'] = [];
-  let matrix: Matrix = [];
+  const buildings: BodyRearrangeBuildingsParams['1'] = [];
+  const matrix: Matrix = [];
 
   for (let x = -5; x < 5; x++) {
     for (let y = -5; y < 5; y++) {

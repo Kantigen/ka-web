@@ -21,7 +21,7 @@ const Buildings = {
         waste_hour: 33,
         waste_capacity: 500,
         happiness_hour: 0,
-        efficiency: 95,
+        efficiency: 100,
         repair_costs: {
           food: 10,
           water: 10,

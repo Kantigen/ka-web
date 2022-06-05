@@ -7,11 +7,13 @@ import YAHOO from 'app/shims/yahoo';
 
 class LoginWindow extends React.Component {
   empireNameField = React.createRef<HTMLInputElement>();
+
   passwordField = React.createRef<HTMLInputElement>();
+
   rememberEmpireField = React.createRef<HTMLInputElement>();
 
   async loginClick() {
-    const LoginDialog = YAHOO.lacuna.Game.LoginDialog;
+    const { LoginDialog } = YAHOO.lacuna.Game;
     const empireName = this.empireNameField.current?.value || '';
     const password = this.passwordField.current?.value || '';
     const rememberEmpire = this.rememberEmpireField.current?.checked;
@@ -36,7 +38,7 @@ class LoginWindow extends React.Component {
   }
 
   forgotPasswordClick() {
-    const LoginDialog = YAHOO.lacuna.Game.LoginDialog;
+    const { LoginDialog } = YAHOO.lacuna.Game;
     LoginDialog.resetPassword();
     WindowsStore.closeAll();
     // TODO: forgot password experience
@@ -49,7 +51,7 @@ class LoginWindow extends React.Component {
         <div className='block mb-4'>
           <img
             className='image'
-            src={environment.getAssetsUrl() + 'ui/logo.png'}
+            src={`${environment.getAssetsUrl()}ui/logo.png`}
             alt='Lacuna Expanse logo'
           />
         </div>
@@ -92,7 +94,7 @@ class LoginWindow extends React.Component {
               type='checkbox'
               name='rememberEmpire'
               ref={this.rememberEmpireField}
-              defaultChecked={true}
+              defaultChecked
             />{' '}
             Remember Empire?
           </label>

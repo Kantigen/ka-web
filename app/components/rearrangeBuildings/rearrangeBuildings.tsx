@@ -69,7 +69,7 @@ class RearrangeBuildings extends React.Component<Props, State> {
     const a = this.state.matrix[x][y];
     const b = this.state.matrix[newX][newY];
 
-    let matrix = { ...this.state.matrix };
+    const matrix = { ...this.state.matrix };
     matrix[newX][newY] = a;
     matrix[x][y] = b;
 

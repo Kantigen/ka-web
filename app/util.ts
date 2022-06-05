@@ -163,6 +163,4 @@ export const fixNumbers = function (data: any) {
   return _.mapValues(data, handleObj);
 };
 
-export const ensureTrailingSlash = (url: string) => {
-  return url.slice(-1) === '/' ? url : url + '/';
-};
+export const ensureTrailingSlash = (url: string) => url.slice(-1) === '/' ? url : `${url  }/`;

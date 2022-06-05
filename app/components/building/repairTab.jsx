@@ -12,7 +12,7 @@ class RepairTab extends React.Component {
   }
 
   render() {
-    const building = this.props.building;
+    const { building } = this.props;
     const body = BodyRPCStore;
 
     return (

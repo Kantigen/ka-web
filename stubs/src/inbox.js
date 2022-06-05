@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import Empire from './empire.js';
 import Body from './body.js';
-import _ from 'lodash';
 
 const Inbox = {
   read_message(req, res) {

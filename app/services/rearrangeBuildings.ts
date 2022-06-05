@@ -15,7 +15,7 @@ class RearrangeBuildingsService {
   }
 
   buildingsToMatrix(buildings: BodyGetBuildingsResponse['buildings']): Matrix {
-    let matrix: Matrix = [];
+    const matrix: Matrix = [];
 
     _.each(buildings, (building, id) => {
       matrix[building.x] = matrix[building.x] || [];

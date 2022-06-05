@@ -2,7 +2,7 @@ import GenericBuilding from './genericBuilding.js';
 
 const EssentiaVein = {
   view() {
-    let res = GenericBuilding.view();
+    const res = GenericBuilding.view();
     res.building.drain_capable = 3;
     return res;
   },

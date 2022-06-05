@@ -46,7 +46,7 @@ class RegisterWindow extends React.Component {
     if (res.empire_id) {
       WindowsStore.close('register');
       const Lacuna = YAHOO.lacuna;
-      const Game = Lacuna.Game;
+      const { Game } = Lacuna;
 
       Game.SpeciesCreator = new Lacuna.CreateSpecies({
         handleCancel: () => {
@@ -56,7 +56,7 @@ class RegisterWindow extends React.Component {
 
       Game.SpeciesCreator.subscribe(
         'onCreateSuccessful',
-        function (oArgs: any) {
+        (oArgs: any) => {
           Game.LoginDialog.fireEvent('onLoginSuccessful', oArgs);
         },
         this,

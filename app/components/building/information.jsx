@@ -38,7 +38,7 @@ class BuildingInformation extends React.Component {
               margin: 10,
               backgroundImage: `url(${this.getImageUrl()})`,
             }}
-          ></div>
+          />
         </div>
 
         <div
