@@ -20,7 +20,44 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
       Game = Lacuna.Game,
       Lib = Lacuna.Library;
 
-    var FactoryMap = {};
+    var FactoryMap = {
+      //buildings
+      '/archaeology': Lacuna.buildings.Archaeology,
+      '/blackholegenerator': Lacuna.buildings.BlackHoleGenerator,
+      '/capitol': Lacuna.buildings.Capitol,
+      '/development': Lacuna.buildings.Development,
+      '/distributioncenter': Lacuna.buildings.DistributionCenter,
+      '/embassy': Lacuna.buildings.Embassy,
+      '/energyreserve': Lacuna.buildings.EnergyReserve,
+      '/entertainment': Lacuna.buildings.Entertainment,
+      '/foodreserve': Lacuna.buildings.FoodReserve,
+      '/geneticslab': Lacuna.buildings.GeneticsLab,
+      '/intelligence': Lacuna.buildings.Intelligence,
+      '/libraryofjith': Lacuna.buildings.LibraryOfJith,
+      '/mercenariesguild': Lacuna.buildings.MercenariesGuild,
+      '/miningministry': Lacuna.buildings.MiningMinistry,
+      '/missioncommand': Lacuna.buildings.MissionCommand,
+      '/network19': Lacuna.buildings.Network19,
+      '/observatory': Lacuna.buildings.Observatory,
+      '/orestorage': Lacuna.buildings.OreStorage,
+      '/park': Lacuna.buildings.Park,
+      '/planetarycommand': Lacuna.buildings.PlanetaryCommand,
+      '/security': Lacuna.buildings.Security,
+      '/ssla': Lacuna.buildings.SpaceStationLab,
+      '/subspacesupplydepot': Lacuna.buildings.SubspaceSupplyDepot,
+      '/templeofthedrajilites': Lacuna.buildings.TempleOfTheDrajilites,
+      '/thedillonforge': Lacuna.buildings.TheDillonForge,
+      '/themepark': Lacuna.buildings.ThemePark,
+      '/trade': Lacuna.buildings.Trade,
+      '/transporter': Lacuna.buildings.Transporter,
+      '/wasteexchanger': Lacuna.buildings.WasteExchanger,
+      '/wasterecycling': Lacuna.buildings.WasteRecycling,
+      '/waterstorage': Lacuna.buildings.WaterStorage,
+      //modules
+      '/parliament': Lacuna.modules.Parliament,
+      '/policestation': Lacuna.modules.PoliceStation,
+      '/stationcommand': Lacuna.modules.StationCommand,
+    };
 
     var MapPlanet = function () {
       this.createEvent('onMapRpc');
