@@ -28,7 +28,8 @@
     "build": "vite build && ln -s ../Lacuna-Assets ./dist/Lacuna-Assets",
     "serve:app": "vite",
     "serve:stubs": "nodemon --exec \"node stubs/server.js\" --watch stubs",
-    "serve:assets": "http-server ./Lacuna-Assets --cors --port 3002"
+    "serve:assets": "http-server ./Lacuna-Assets --cors --port 3002",
+    "prepare": "husky install"
   },
   "homepage": "https://github.com/Kantigen/ka-web",
   "dependencies": {
@@ -69,6 +70,7 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "http-server": "^14.1.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "nodemon": "^2.0.16",
