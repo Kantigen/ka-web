@@ -81,6 +81,7 @@ const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Pr
         module: this.props.options.url.replace(/^\//, ''),
         method: 'view',
         params: [this.props.options.id],
+        addSession: true,
         success: (result: BuildingsViewResponse) => {
           this.setState({ building: result.building });
         },
