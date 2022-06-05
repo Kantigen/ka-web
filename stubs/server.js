@@ -1,4 +1,5 @@
 import express from 'express';
+import _ from 'lodash';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -232,7 +233,10 @@ app.post('/:module', (req, res) => {
     jsonrpc: '2.0',
     id: 1,
     error: {
-      message: 'Invalid request.',
+      message:
+        !!module && !!method
+          ? `Call to stubbed endpoint ${_.capitalize(module)}#${method} not implemented yet.`
+          : 'Invalid request.',
       data: null,
     },
   });

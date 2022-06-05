@@ -13,6 +13,8 @@ import environment from 'app/environment';
 import resources from 'app/json/resources';
 import { Empire } from 'app/client';
 
+import * as vex from 'app/vex';
+
 import YAHOO from 'app/shims/yahoo';
 
 YAHOO.namespace('lacuna');
@@ -134,12 +136,12 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           Game.DoLogin(o.error);
         } else if (o.error.code === 1200) {
           // Game over
-          window.alert(o.error.message);
+          vex.alert(o.error.message);
           Game.Reset();
           window.location = o.error.data;
         } else if (o.error.code === 1016) {
           // Captcha
-          window.alert('Captcha not implemeneted');
+          vex.alert('Captcha not implemeneted');
           // WindowActions.windowAdd(Captcha, 'captcha', {
           //     success: retry,
           // });
@@ -310,7 +312,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                   }
                 }
                 if (!silent) {
-                  window.alert(o.error.message);
+                  vex.alert(o.error.message);
                 }
               };
               YAHOO.log(o, 'error', logNS);

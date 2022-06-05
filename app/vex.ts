@@ -11,7 +11,12 @@ vex.registerPlugin(vexDialog);
 vex.defaultOptions.className = 'vex-theme-default';
 
 export const alert = function (message: string, callback?: Function) {
-  vex.dialog.alert({ message, callback });
+  vex.dialog.alert({
+    message,
+    callback: () => {
+      if (typeof callback === 'function') callback();
+    },
+  });
 };
 
 export const confirm = function (message: string, yesCallback?: Function, noCallback?: Function) {
