@@ -43,6 +43,7 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
       '/park': Lacuna.buildings.Park,
       '/planetarycommand': Lacuna.buildings.PlanetaryCommand,
       '/security': Lacuna.buildings.Security,
+      '/shipyard': Lacuna.buildings.Shipyard,
       '/ssla': Lacuna.buildings.SpaceStationLab,
       '/subspacesupplydepot': Lacuna.buildings.SubspaceSupplyDepot,
       '/templeofthedrajilites': Lacuna.buildings.TempleOfTheDrajilites,
