@@ -10,7 +10,7 @@ const GenericBuilding = {
     const b = buildings[id];
 
     if (b) {
-      response.building = { ...response.building, ...b };
+      response.building = { ...response.building, ...b, ...{ id } };
     }
 
     return response;

@@ -120,6 +120,10 @@ const Empire = {
     };
   },
 
+  view_profile() {
+    return this.get_own_profile();
+  },
+
   get_own_profile() {
     return {
       profile: {
@@ -175,6 +179,10 @@ const Empire = {
       not_sent: [],
       status: Empire.get_status(),
     };
+  },
+
+  view_boosts() {
+    return this.get_boosts();
   },
 
   get_boosts() {
