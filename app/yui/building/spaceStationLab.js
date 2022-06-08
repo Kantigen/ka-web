@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+
 if (
   typeof YAHOO.lacuna.buildings.SpaceStationLab == 'undefined' ||
   !YAHOO.lacuna.buildings.SpaceStationLab
@@ -22,11 +24,7 @@ if (
 
     Lang.extend(SpaceStationLab, Lacuna.buildings.Building, {
       getChildTabs: function () {
-        if (this.result.make_plan && this.result.make_plan.level_costs.length > 0) {
-          return [this._getPlanTab()];
-        } else {
-          return;
-        }
+        return [this._getPlanTab()];
       },
       _getPlanTab: function () {
         Event.onContentReady('stationLabLevelsContainer', this.PlanPopulate, this, true);

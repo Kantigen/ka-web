@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+
 if (
   typeof YAHOO.lacuna.buildings.EnergyReserve == 'undefined' ||
   !YAHOO.lacuna.buildings.EnergyReserve

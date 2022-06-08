@@ -1,5 +1,6 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
 import environment from 'app/environment';
 
 if (

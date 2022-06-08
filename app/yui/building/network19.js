@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+
 if (typeof YAHOO.lacuna.buildings.Network19 == 'undefined' || !YAHOO.lacuna.buildings.Network19) {
   (function () {
     var Lang = YAHOO.lang,

@@ -3,6 +3,8 @@
 // On click of "Get Available Groups of Ships for Target" disable sends that would not arrive before arrival time.
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+
 if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.buildings.SpacePort) {
   (function () {
     var Lang = YAHOO.lang,

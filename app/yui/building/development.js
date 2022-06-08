@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+
 if (
   typeof YAHOO.lacuna.buildings.Development == 'undefined' ||
   !YAHOO.lacuna.buildings.Development
@@ -22,9 +24,7 @@ if (
 
     Lang.extend(Development, Lacuna.buildings.Building, {
       getChildTabs: function () {
-        if (this.result.build_queue && this.result.build_queue.length > 0) {
-          return [this._getQueueTab()];
-        }
+        return [this._getQueueTab()];
       },
       _getQueueTab: function () {
         var bq = this.result.build_queue,
