@@ -187,7 +187,7 @@ if (typeof YAHOO.lacuna.Library == 'undefined' || !YAHOO.lacuna.Library) {
         if (dt instanceof Date) {
           return dt.getTime();
         } else {
-          return Library.parseServerDate(dt).getTime();
+          return util.serverDateToMoment(dt).valueOf();
         }
       },
       parseServerDate: function (strDate) {

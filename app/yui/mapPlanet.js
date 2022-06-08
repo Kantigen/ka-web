@@ -126,12 +126,11 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
         this.buildingDetails.processQueue = function (e, oArgs) {
           if (this.queue.length > 0) {
             var queue = this.queue,
-              diff = oArgs[0] / 1000,
               newq = [];
 
             while (queue.length > 0) {
               var callback = queue.pop();
-              callback.secondsRemaining -= diff;
+              callback.secondsRemaining -= 1;
               if (
                 !callback.fn.call(callback.scope || this, callback.secondsRemaining, callback.el) &&
                 callback.secondsRemaining > 0

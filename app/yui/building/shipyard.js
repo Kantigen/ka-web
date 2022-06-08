@@ -1,5 +1,9 @@
 YAHOO.namespace('lacuna.buildings');
 
+import MenuStore from 'app/stores/menu';
+import ServerRPCStore from 'app/stores/rpc/server';
+import environment from 'app/environment';
+
 if (typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' || !YAHOO.lacuna.buildings.Shipyard) {
   (function () {
     var Lang = YAHOO.lang,
@@ -166,7 +170,7 @@ if (typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' || !YAHOO.lacuna.build
           var divParent = div.parentNode,
             ul = document.createElement('ul'),
             li = document.createElement('li'),
-            serverTime = Lib.getTime(Game.ServerData.time);
+            serverTime = ServerRPCStore.serverTimeMs;
 
           this.resetQueue();
           div = divParent.removeChild(div);
@@ -199,7 +203,7 @@ if (typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' || !YAHOO.lacuna.build
 
               nLi = li.cloneNode(false);
               Dom.addClass(nLi, 'shipQueueEach');
-              sbtn = document.createElement('button');
+              var sbtn = document.createElement('button');
               sbtn.setAttribute('type', 'button');
               sbtn.innerHTML = 'Subsidize';
               nLi.appendChild(sbtn);
@@ -336,10 +340,10 @@ if (typeof YAHOO.lacuna.buildings.Shipyard == 'undefined' || !YAHOO.lacuna.build
             nLi.innerHTML = [
               '<div class="yui-gb" style="margin-bottom:2px;">',
               '    <div class="yui-u first" style="width:15%;background:transparent url(',
-              Lib.AssetUrl,
+              environment.getAssetsUrl(),
               'star_system/field.png) no-repeat center;text-align:center;">',
               '        <img src="',
-              Lib.AssetUrl,
+              environment.getAssetsUrl(),
               'ships/',
               ship.image,
               '.png" style="width:100px;height:100px;" class="shipImage" />',
