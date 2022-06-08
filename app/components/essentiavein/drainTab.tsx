@@ -51,9 +51,8 @@ class DrainTab extends React.Component<Props> {
           </div>
         </div>
       );
-    } 
-      return <></>;
-    
+    }
+    return <></>;
   }
 }
 
