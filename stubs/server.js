@@ -15,6 +15,7 @@ import Server from './src/server.js';
 import Spaceport from './src/spaceport.js';
 import Stats from './src/stats.js';
 import Shipyard from './src/shipyard.js';
+import Development from './src/development.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = `${__dirname}/public`;
@@ -62,7 +63,7 @@ const modules = {
   denton: GenericBuilding,
   dentonbrambles: GenericBuilding,
   deployedbleeder: GenericBuilding,
-  development: GenericBuilding,
+  development: Development,
   distributioncenter: GenericBuilding,
   embassy: GenericBuilding,
   energyreserve: GenericBuilding,

@@ -217,8 +217,6 @@ if (
             success: function (o) {
               YAHOO.log(o, 'info', 'Development.DevSubsidizeOneBuild.success');
               MenuStore.hideLoader();
-              var e = Game.EmpireData.essentia * 1;
-              Game.EmpireData.essentia = e - o.result.essentia_spent * 1;
               this.Self.rpcSuccess(o);
               if (this.Self.queueTab) {
                 Event.purgeElement(this.Self.queueTab.get('contentEl'));
@@ -244,8 +242,6 @@ if (
             success: function (o) {
               YAHOO.log(o, 'info', 'Development.DevSubsidize.success');
               MenuStore.hideLoader();
-              var e = Game.EmpireData.essentia * 1;
-              Game.EmpireData.essentia = e - o.result.essentia_spent * 1;
               this.rpcSuccess(o);
 
               if (this.queueTab) {
