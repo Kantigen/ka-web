@@ -217,30 +217,32 @@ app.get('/server_overview.json', (req, res) => {
 app.post('/:module', (req, res) => {
   const { module } = req.params;
   const method = req.body?.method || '';
+  const params = req.body?.params || '';
 
-  console.log(`${module} ${method} was called`);
+  console.log(`${_.capitalize(module)}#${method} was called`, params);
 
   const result =
     modules[module] && modules[module][method] ? modules[module][method](req, res) : undefined;
 
   if (result) {
-    console.log('Rendering result:', result);
     return res.json({
       jsonrpc: '2.0',
       id: 1,
       result,
     });
   }
+
+  const message =
+    !!module && !!method
+      ? `Call to stubbed endpoint ${_.capitalize(module)}#${method} not implemented yet.`
+      : 'Invalid request.';
+
+  console.error(message);
+
   return res.status(500).json({
     jsonrpc: '2.0',
     id: 1,
-    error: {
-      message:
-        !!module && !!method
-          ? `Call to stubbed endpoint ${_.capitalize(module)}#${method} not implemented yet.`
-          : 'Invalid request.',
-      data: null,
-    },
+    error: { message, data: null },
   });
 });
 
