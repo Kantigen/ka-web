@@ -139,7 +139,7 @@ class BottomBar extends React.Component {
         style={{
           zIndex: 2000,
           position: 'relative',
-          top: 'calc(100vh - 175px)',
+          top: 'calc(100vh - 185px)',
         }}
       >
         <div className='center aligned column'>
@@ -156,7 +156,7 @@ class BottomBar extends React.Component {
             <BottomBarSection
               ref={this.oreSection}
               progressPercent={BodyRPCStore.ore_percent_full}
-              iconName='diamond'
+              iconName='ore'
               topText={`${rn(BodyRPCStore.ore_stored)} / ${rn(BodyRPCStore.ore_capacity)}`}
               bottomText={`${rn(BodyRPCStore.ore_hour)} / hr`}
               toolTipShow={() => this.showOreToolTip()}
@@ -165,7 +165,7 @@ class BottomBar extends React.Component {
             <BottomBarSection
               ref={this.waterSection}
               progressPercent={BodyRPCStore.water_percent_full}
-              iconName='theme'
+              iconName='water'
               topText={`${rn(BodyRPCStore.water_stored)} / ${rn(BodyRPCStore.water_capacity)}`}
               bottomText={`${rn(BodyRPCStore.water_hour)} / hr`}
               toolTipShow={() => this.showWaterToolTip()}
@@ -174,7 +174,7 @@ class BottomBar extends React.Component {
             <BottomBarSection
               ref={this.energySection}
               progressPercent={BodyRPCStore.energy_percent_full}
-              iconName='lightning'
+              iconName='energy'
               topText={`${rn(BodyRPCStore.energy_stored)} / ${rn(BodyRPCStore.energy_capacity)}`}
               bottomText={`${rn(BodyRPCStore.energy_hour)} / hr`}
               toolTipShow={() => this.showEnergyToolTip()}
@@ -184,7 +184,7 @@ class BottomBar extends React.Component {
               <BottomBarSection
                 ref={this.wasteSection}
                 progressPercent={BodyRPCStore.waste_percent_full}
-                iconName='trash'
+                iconName='waste'
                 topText={`${rn(BodyRPCStore.waste_stored)} / ${rn(BodyRPCStore.waste_capacity)}`}
                 bottomText={`${rn(BodyRPCStore.waste_hour)} / hr`}
                 toolTipShow={() => this.showWasteToolTip()}
@@ -196,7 +196,7 @@ class BottomBar extends React.Component {
             {BodyRPCStore.type !== 'space station' ? (
               <BottomBarSection
                 ref={this.happinessSection}
-                iconName='smile'
+                iconName='happiness'
                 topText={rn(BodyRPCStore.happiness)}
                 bottomText={`${rn(BodyRPCStore.happiness_hour)} / hr`}
                 toolTipShow={() => this.showHappinessToolTip()}
@@ -207,7 +207,7 @@ class BottomBar extends React.Component {
 
             <BottomBarSection
               ref={this.buildingCountSection}
-              iconName='block layout'
+              iconName='plots'
               topText={`${BodyRPCStore.building_count} / ${
                 BodyRPCStore.building_count + BodyRPCStore.plots_available
               }`}
@@ -217,7 +217,7 @@ class BottomBar extends React.Component {
 
             <BottomBarSection
               ref={this.buildQueueSection}
-              iconName='list'
+              iconName='build'
               topText={
                 BodyRPCStore.build_queue_len +
                 (BodyRPCStore.type !== 'space station' ? ` / ${BodyRPCStore.build_queue_size}` : '')
@@ -228,7 +228,7 @@ class BottomBar extends React.Component {
 
             <BottomBarSection
               ref={this.rpcCountSection}
-              iconName='exchange'
+              iconName='dashboard'
               topText={`${EmpireRPCStore.rpc_count} / ${rn(ServerRPCStore.rpc_limit)}`}
               bottomText='Actions'
               toolTipShow={() => this.showRPCCountToolTip()}

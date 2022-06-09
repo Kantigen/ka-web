@@ -164,3 +164,7 @@ export const fixNumbers = function (data: any) {
 };
 
 export const ensureTrailingSlash = (url: string) => (url.slice(-1) === '/' ? url : `${url}/`);
+
+export const humanize = (text: string) => {
+  return _.map(text.split('_'), (str) => _.capitalize(str)).join(' ');
+};

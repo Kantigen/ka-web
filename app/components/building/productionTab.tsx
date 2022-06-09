@@ -7,7 +7,6 @@ import _ from 'lodash';
 import BodyRPCStore from 'app/stores/rpc/body';
 
 import ActionButton from 'app/components/building/actionButton';
-import ResourceProduction from 'app/components/building/resourceProduction';
 import ResourceCost from 'app/components/building/resourceCost';
 import ResourceLine from 'app/components/building/resourceLine';
 
@@ -57,7 +56,6 @@ class ProductionTab extends React.Component<Props> {
 
   render() {
     const b = this.props.building;
-    const body = BodyRPCStore;
 
     // Don't let the user downgrade a level 1 building. They should demolish it instead.
     if (b.level === 1) {
@@ -66,87 +64,126 @@ class ProductionTab extends React.Component<Props> {
     }
 
     return (
-      <div className='ui grid'>
-        <div className='ui centered row'>
-          <div className='five wide column'>
-            <div
-              style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Current production
-            </div>
+      <div className='bulma'>
+        <div className='columns'>
+          <div className='column'>
+            <div className='has-text-weight-bold has-text-centered'>Current production</div>
           </div>
-          <div className='five wide column'>
-            <div
-              style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Upgrade production
-            </div>
+          <div className='column'>
+            <div className='has-text-weight-bold has-text-centered'>Upgrade production</div>
           </div>
-          <div className='five wide column'>
-            <div
-              style={{
-                textAlign: 'center',
-                fontWeight: 'bold',
-              }}
-            >
-              Upgrade cost
-            </div>
+          <div className='column'>
+            <div className='has-text-weight-bold has-text-centered'>Upgrade cost</div>
           </div>
         </div>
 
-        <div className='ui centered row'>
-          <div className='five wide column'>
-            <ResourceProduction icon='food' number={b.food_hour} />
-            <ResourceProduction icon='diamond' number={b.ore_hour} />
-
-            <ResourceProduction icon='theme' number={b.water_hour} />
-
-            <ResourceProduction icon='lightning' number={b.energy_hour} />
-
-            <ResourceProduction icon='trash' number={b.waste_hour} />
-
-            <ResourceProduction icon='smile' number={b.happiness_hour} />
-          </div>
-
-          <div className='five wide column'>
-            <ResourceProduction icon='food' number={b.upgrade.production.food_hour} />
-            <ResourceProduction icon='diamond' number={b.upgrade.production.ore_hour} />
-
-            <ResourceProduction icon='theme' number={b.upgrade.production.water_hour} />
-
-            <ResourceProduction icon='lightning' number={b.upgrade.production.energy_hour} />
-
-            <ResourceProduction icon='trash' number={b.upgrade.production.waste_hour} />
-
-            <ResourceProduction icon='smile' number={b.upgrade.production.happiness_hour} />
-          </div>
-
-          <div className='five wide column'>
-            <ResourceCost icon='food' number={b.upgrade.cost.food} stored={body.food_stored} />
-            <ResourceCost icon='diamond' number={b.upgrade.cost.ore} stored={body.ore_stored} />
-
-            <ResourceCost icon='theme' number={b.upgrade.cost.water} stored={body.water_stored} />
-
-            <ResourceCost
-              icon='lightning'
-              number={b.upgrade.cost.energy}
-              stored={body.energy_stored}
+        <div className='columns'>
+          <div className='column is-one-third px-5'>
+            <ResourceLine
+              icon='food'
+              content={`${util.reduceNumber(b.food_hour)} / hr`}
+              title={util.commify(b.food_hour)}
             />
+            <ResourceLine
+              icon='ore'
+              content={`${util.reduceNumber(b.ore_hour)} / hr`}
+              title={util.commify(b.ore_hour)}
+            />
+            <ResourceLine
+              icon='water'
+              content={`${util.reduceNumber(b.water_hour)} / hr`}
+              title={util.commify(b.water_hour)}
+            />
+            <ResourceLine
+              icon='energy'
+              content={`${util.reduceNumber(b.energy_hour)} / hr`}
+              title={util.commify(b.energy_hour)}
+            />
+            <ResourceLine
+              icon='waste'
+              content={`${util.reduceNumber(b.waste_hour)} / hr`}
+              title={util.commify(b.waste_hour)}
+            />
+            <ResourceLine
+              icon='happiness'
+              content={`${util.reduceNumber(b.food_hour)} / hr`}
+              title={util.commify(b.food_hour)}
+            />
+          </div>
 
-            <ResourceCost icon='trash' number={b.upgrade.cost.waste} />
+          <div className='column is-one-third px-5'>
+            <ResourceLine
+              icon='food'
+              content={`${util.reduceNumber(b.upgrade.production.food_hour)} / hr`}
+              title={util.commify(b.upgrade.production.food_hour)}
+              red={b.food_hour - b.upgrade.production.food_hour > BodyRPCStore.food_hour}
+            />
+            <ResourceLine
+              icon='ore'
+              content={`${util.reduceNumber(b.upgrade.production.ore_hour)} / hr`}
+              title={util.commify(b.upgrade.production.ore_hour)}
+              red={b.ore_hour - b.upgrade.production.ore_hour > BodyRPCStore.ore_hour}
+            />
+            <ResourceLine
+              icon='water'
+              content={`${util.reduceNumber(b.upgrade.production.water_hour)} / hr`}
+              title={util.commify(b.upgrade.production.water_hour)}
+              red={b.water_hour - b.upgrade.production.water_hour > BodyRPCStore.water_hour}
+            />
+            <ResourceLine
+              icon='energy'
+              content={`${util.reduceNumber(b.upgrade.production.energy_hour)} / hr`}
+              title={util.commify(b.upgrade.production.energy_hour)}
+              red={b.energy_hour - b.upgrade.production.energy_hour > BodyRPCStore.energy_hour}
+            />
+            <ResourceLine
+              icon='waste'
+              content={`${util.reduceNumber(b.upgrade.production.waste_hour)} / hr`}
+              title={util.commify(b.upgrade.production.waste_hour)}
+            />
+            <ResourceLine
+              icon='happiness'
+              content={`${util.reduceNumber(b.upgrade.production.food_hour)} / hr`}
+              title={util.commify(b.upgrade.production.food_hour)}
+            />
+          </div>
 
-            <ResourceLine icon='wait' title='' content={util.formatTime(b.upgrade.cost.time)} />
+          <div className='column is-one-third px-5'>
+            <ResourceLine
+              icon='food'
+              content={util.reduceNumber(b.upgrade.cost.food)}
+              title={util.commify(b.upgrade.cost.food)}
+              red={b.upgrade.cost.food > BodyRPCStore.food_stored}
+            />
+            <ResourceLine
+              icon='ore'
+              content={util.reduceNumber(b.upgrade.cost.ore)}
+              title={util.commify(b.upgrade.cost.ore)}
+              red={b.upgrade.cost.ore > BodyRPCStore.ore_stored}
+            />
+            <ResourceLine
+              icon='water'
+              content={util.reduceNumber(b.upgrade.cost.water)}
+              title={util.commify(b.upgrade.cost.water)}
+              red={b.upgrade.cost.water > BodyRPCStore.water_stored}
+            />
+            <ResourceLine
+              icon='energy'
+              content={util.reduceNumber(b.upgrade.cost.energy)}
+              title={util.commify(b.upgrade.cost.energy)}
+              red={b.upgrade.cost.energy > BodyRPCStore.energy_stored}
+            />
+            <ResourceLine
+              icon='waste'
+              content={util.reduceNumber(b.upgrade.cost.waste)}
+              title={util.commify(b.upgrade.cost.waste)}
+            />
+            <ResourceLine icon='time' content={util.formatTime(b.upgrade.cost.time)} title='' />
           </div>
         </div>
 
-        <div className='ui centered row'>
-          <div className='five wide column'>
+        <div className='columns'>
+          <div className='column'>
             <ActionButton
               color='red'
               actionName='Demolish'
@@ -154,7 +191,7 @@ class ProductionTab extends React.Component<Props> {
             />
           </div>
 
-          <div className='five wide column'>
+          <div className='column'>
             <ActionButton
               color='green'
               actionName='Upgrade'
@@ -163,7 +200,7 @@ class ProductionTab extends React.Component<Props> {
             />
           </div>
 
-          <div className='five wide column'>
+          <div className='column'>
             <ActionButton
               color='blue'
               actionName='Downgrade'

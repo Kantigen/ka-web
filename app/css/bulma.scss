@@ -1,6 +1,7 @@
 .bulma {
   $primary: #5c9dff;
   $success: #21ba45;
+  $danger: #d73131;
   $white: hsl(0, 0%, 90%);
   $white-ter: hsl(0, 0%, 96%);
   $black: hsl(0, 0%, 4%);
@@ -19,7 +20,7 @@
   $text: $white;
   $text-light: lighten($text, 10);
   $text-strong: darken($text, 5);
-  $title-color: $white;
+  $title-color: white;
 
   $link: $white;
   $link-hover: $white-ter;

@@ -270,6 +270,9 @@ export interface WindowOptions {
 export interface BuildingWindowOptions {
   id: number;
   url: string;
+  image: string;
+  name: string;
+  level: number;
 }
 
 export interface WindowConfig {

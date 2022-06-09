@@ -7,16 +7,14 @@ class AboutTab extends React.Component {
   render() {
     return (
       <div className='bulma'>
-        <div className='content'>
-          <h1>Kenó Antigen</h1>
+        <h1 className='title is-size-3'>Kenó Antigen</h1>
 
-          <p>
-            Copyright {new Date().getFullYear()} Kenó Antigen open source contributors. Originally
-            forked from code provided by The Lacuna Expanse Corp copyright 2010.
-          </p>
-
-          <p>Server Version: {ServerRPCStore.version}</p>
+        <div className='block'>
+          Copyright {new Date().getFullYear()} Kenó Antigen open source contributors. Originally
+          forked from code provided by The Lacuna Expanse Corp copyright 2010.
         </div>
+
+        <div className='block'>Server Version: {ServerRPCStore.version}</div>
       </div>
     );
   }

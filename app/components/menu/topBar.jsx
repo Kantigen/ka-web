@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import _ from 'lodash';
+import Icon from 'app/components/menu/icon';
 
 import EmpireService from 'app/services/empire';
 import EmpireRPCStore from 'app/stores/rpc/empire';
@@ -12,13 +13,6 @@ import MailWindowStore from 'app/stores/window/mail';
 import StatsWindowStore from 'app/stores/window/stats';
 
 class TopBar extends React.Component {
-  mapButtonTip() {
-    if (MenuStore.mapMode === PLANET_MAP_MODE) {
-      return 'To Star Map';
-    }
-    return 'To Planet Map';
-  }
-
   render() {
     const barClass = classnames('ui inverted compact small menu', {
       red: EmpireRPCStore.self_destruct_active,
@@ -35,17 +29,16 @@ class TopBar extends React.Component {
         }}
       >
         <div className='center aligned column'>
-          <div className={barClass} ref='bar'>
-            <a
-              className='item'
-              data-tip={this.mapButtonTip()}
-              onClick={() => MenuStore.toggleMapMode()}
-            >
-              <i className='map big icon' />
+          <div className={barClass}>
+            <a className='item' onClick={() => MenuStore.toggleMapMode()}>
+              <Icon
+                style={MenuStore.mapMode === PLANET_MAP_MODE ? 'star_map' : 'planet_side'}
+                size='large'
+              />
             </a>
 
             <a className='item' data-tip='Mail' onClick={() => MailWindowStore.show()}>
-              <i className='mail big icon' />
+              <Icon style='inbox' size='large' />
               {EmpireRPCStore.has_new_messages > 0 ? (
                 <div className='ui yellow label'>{EmpireRPCStore.has_new_messages}</div>
               ) : (
@@ -55,29 +48,21 @@ class TopBar extends React.Component {
 
             <a
               className='item'
-              data-tip='Essentia'
               onClick={() => {
                 WindowsStore.add('essentia');
               }}
             >
-              <i className='money big icon' />
+              <Icon style='essentia' size='large' />
               <div className='ui teal label'>{EmpireRPCStore.essentia}</div>
             </a>
 
-            <a
-              className='item'
-              data-tip='Universe Rankings'
-              onClick={() => StatsWindowStore.show()}
-            >
-              <i className='find big icon' />
+            <a className='item' onClick={() => StatsWindowStore.show()}>
+              <Icon style='stats' size='large' />
             </a>
 
             {ServerRPCStore.promotions.length > 0 ? (
               <a
                 className='item'
-                data-tip={
-                  ServerRPCStore.promotions.length > 1 ? 'Active Promotions' : 'Active Promotion'
-                }
                 onClick={function () {
                   WindowsStore.add('promotions');
                 }}
@@ -89,8 +74,8 @@ class TopBar extends React.Component {
               ''
             )}
 
-            <a className='item' data-tip='Sign Out' onClick={() => EmpireService.logout()}>
-              <i className='power big icon' />
+            <a className='item' onClick={() => EmpireService.logout()}>
+              <Icon style='logout' size='large' />
             </a>
           </div>
         </div>

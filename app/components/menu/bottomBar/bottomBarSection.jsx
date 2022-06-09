@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 
 import React from 'react';
-import classnames from 'classnames';
-
+import Icon from 'app/components/menu/icon';
 import ProgressBar from 'app/components/menu/bottomBar/progressBar';
 
 class BottomBarSection extends React.Component {
@@ -25,7 +24,7 @@ class BottomBarSection extends React.Component {
       <div className='item' onMouseEnter={this.handleToolTip}>
         {this.props.progressPercent ? <ProgressBar percent={this.props.progressPercent} /> : ''}
 
-        <i className={classnames(this.props.iconName, 'large icon')} />
+        {<Icon style={this.props.iconName} size='large' />}
 
         <p
           style={{
