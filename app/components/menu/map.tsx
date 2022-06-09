@@ -4,19 +4,21 @@ import { observer } from 'mobx-react';
 import BodyRPCStore from 'app/stores/rpc/body';
 import MenuStore, { PLANET_MAP_MODE, STAR_MAP_MODE } from 'app/stores/menu';
 
+declare const YAHOO: any;
+
 // TODO: factor out all this glue code
 
 class Map extends React.Component {
   previousMapMode = '';
 
-  previousPlanetId = '';
+  previousPlanetId = -1;
 
   componentDidUpdate() {
     // Do nothing if the menu isn't shown.
     if (MenuStore.menuShown === false) {
       // Reset these values because we're *probably* logged out.
       this.previousMapMode = PLANET_MAP_MODE;
-      this.previousPlanetId = '';
+      this.previousPlanetId = -1;
     }
 
     if (!MenuStore.planetId) {

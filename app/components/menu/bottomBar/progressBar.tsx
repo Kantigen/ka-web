@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
 
-class ProgressBar extends React.Component {
-  static propTypes = {
-    percent: PropTypes.number.isRequired,
-  };
+type Props = {
+  percent: number;
+};
 
+class ProgressBar extends React.Component<Props> {
   render() {
     return (
       <div

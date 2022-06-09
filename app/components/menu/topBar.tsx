@@ -14,11 +14,6 @@ import StatsWindowStore from 'app/stores/window/stats';
 
 class TopBar extends React.Component {
   render() {
-    const barClass = classnames('ui inverted compact small menu', {
-      red: EmpireRPCStore.self_destruct_active,
-      blue: !EmpireRPCStore.self_destruct_active,
-    });
-
     return (
       <div
         className='ui centered grid'
@@ -29,7 +24,12 @@ class TopBar extends React.Component {
         }}
       >
         <div className='center aligned column'>
-          <div className={barClass}>
+          <div
+            className={classnames('ui inverted compact small menu', {
+              red: EmpireRPCStore.self_destruct_active,
+              blue: !EmpireRPCStore.self_destruct_active,
+            })}
+          >
             <a className='item' onClick={() => MenuStore.toggleMapMode()}>
               <Icon
                 style={MenuStore.mapMode === PLANET_MAP_MODE ? 'star_map' : 'planet_side'}
@@ -64,7 +64,7 @@ class TopBar extends React.Component {
               <a
                 className='item'
                 onClick={function () {
-                  WindowsStore.add('promotions');
+                  // WindowsStore.add('promotions');
                 }}
               >
                 <i className='announcement big icon' />
