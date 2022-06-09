@@ -1,5 +1,7 @@
 YAHOO.namespace('lacuna.modules');
 
+import ServerRPCStore from 'app/stores/rpc/server';
+
 if (
   typeof YAHOO.lacuna.modules.PoliceStation == 'undefined' ||
   !YAHOO.lacuna.modules.PoliceStation
@@ -115,7 +117,7 @@ if (
           Event.purgeElement(details, true);
           details.innerHTML = '';
 
-          var serverTime = Lib.getTime(Game.ServerData.time);
+          var serverTime = ServerRPCStore.serverTimeMs;
 
           for (var i = 0; i < ships.length; i++) {
             var ship = ships[i],

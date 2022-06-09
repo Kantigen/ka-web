@@ -364,8 +364,6 @@ if (
                 YAHOO.log(o, 'info', 'PlanetaryCommand.abandon.success');
                 this.rpcSuccess(o);
 
-                delete Game.EmpireData.planets[cp.id]; // Remove the abandoned planet
-
                 // Clean up the star map
                 if (Lacuna.MapStar._map) {
                   if (cp.x && cp.y) {
@@ -420,16 +418,13 @@ if (
               YAHOO.log(o, 'info', 'PlanetaryCommand.Rename.success');
               if (o.result && planetId) {
                 Dom.get('commandPlanetRenameMessage').innerHTML = [
-                  'Successfully renamed your planet from ',
-                  Game.EmpireData.planets[planetId].name,
-                  ' to ',
+                  'Successfully renamed your planet to ',
                   newName,
                   '.',
                 ].join('');
                 Lib.fadeOutElm('commandPlanetRenameMessage');
                 Dom.get('commandPlanetNewName').value = '';
                 Dom.get('commandPlanetCurrentName').innerHTML = newName;
-                Game.EmpireData.planets[planetId].name = newName;
                 BodyRPCStore.name = newName;
 
                 if (Lacuna.MapStar._map) {

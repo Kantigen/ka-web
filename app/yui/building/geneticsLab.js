@@ -1,6 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import EmpireRPCStore from 'app/stores/rpc/empire';
 
 if (
   typeof YAHOO.lacuna.buildings.GeneticsLab == 'undefined' ||
@@ -100,7 +101,7 @@ if (
         Game.Services.Empire.view_public_profile(
           {
             session_id: Game.GetSession(),
-            empire_id: Game.EmpireData.id,
+            empire_id: EmpireRPCStore.id,
           },
           {
             success: function (o) {

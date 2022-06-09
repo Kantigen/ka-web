@@ -4,6 +4,7 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import ServerRPCStore from 'app/stores/rpc/server';
 
 if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.buildings.SpacePort) {
   (function () {
@@ -478,7 +479,7 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
         if (details) {
           var parentEl = details.parentNode,
             li = document.createElement('li'),
-            serverTime = Lib.getTime(Game.ServerData.time);
+            serverTime = ServerRPCStore.serverTimeMs;
 
           Event.purgeElement(details, true);
           details = parentEl.removeChild(details);
@@ -635,7 +636,7 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
             );
           }
         } else if (ship.task === 'Travelling') {
-          var serverTime = Lib.getTime(Game.ServerData.time),
+          var serverTime = ServerRPCStore.serverTimeMs,
             sec = (Lib.getTime(ship.date_arrives) - serverTime) / 1000;
 
           ulDet[ulDet.length] =
@@ -941,7 +942,7 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
           Event.purgeElement(details, true);
           details.innerHTML = '';
 
-          var serverTime = Lib.getTime(Game.ServerData.time);
+          var serverTime = ServerRPCStore.serverTimeMs;
 
           for (var i = 0; i < ships.length; i++) {
             var ship = ships[i],
@@ -1205,7 +1206,7 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
           });
           Event.purgeElement(details, true);
           details.innerHTML = '';
-          var serverTime = Lib.getTime(Game.ServerData.time);
+          var serverTime = ServerRPCStore.serverTimeMs;
           for (var i = 0; i < ships.length; i++) {
             var ship = ships[i],
               nUl = ul.cloneNode(false),

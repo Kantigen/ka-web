@@ -1,6 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import EmpireRPCStore from 'app/stores/rpc/empire';
 
 if (typeof YAHOO.lacuna.buildings.Capitol == 'undefined' || !YAHOO.lacuna.buildings.Capitol) {
   (function () {
@@ -27,7 +28,7 @@ if (typeof YAHOO.lacuna.buildings.Capitol == 'undefined' || !YAHOO.lacuna.buildi
         div.innerHTML = [
           '<p>',
           '    Current empire name: <span id="capitolCurrentEmpireName">',
-          Game.EmpireData.name,
+          EmpireRPCStore.name,
           '</span>',
           '</p>',
           '<fieldset style="text-align: center">',

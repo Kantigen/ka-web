@@ -2,6 +2,8 @@ YAHOO.namespace('lacuna.buildings');
 
 import environment from 'app/environment';
 import MenuStore from 'app/stores/menu';
+import EmpireRPCStore from 'app/stores/rpc/empire';
+import ServerRPCStore from 'app/stores/rpc/server';
 
 if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildings.Embassy) {
   (function () {
@@ -21,7 +23,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
 
       this.service = Game.Services.Buildings.Embassy;
       this.alliance = result.alliance_status;
-      this.isLeader = this.alliance && this.alliance.leader_id == Game.EmpireData.id;
+      this.isLeader = this.alliance && this.alliance.leader_id == EmpireRPCStore.id;
 
       if (this.building.level > 0) {
         this.subscribe('onLoad', this.MembersPopulate, this, true);
@@ -800,7 +802,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
               YAHOO.log(o, 'info', 'Embassy.CreateAlliance.success');
               this.rpcSuccess(o);
               this.alliance = o.result.alliance;
-              this.isLeader = this.alliance && this.alliance.leader_id == Game.EmpireData.id;
+              this.isLeader = this.alliance && this.alliance.leader_id == EmpireRPCStore.id;
               Dom.get('embassyCreateMessage').innerHTML = '';
               Dom.get('embassyCreateName').value = '';
               this.addTab(this._getAllianceTab());
@@ -944,7 +946,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
 
                 this.Self.alliance = o.result.alliance;
                 this.Self.isLeader =
-                  this.Self.alliance && this.Self.alliance.leader_id == Game.EmpireData.id;
+                  this.Self.alliance && this.Self.alliance.leader_id == EmpireRPCStore.id;
                 this.Self.addTab(this.Self._getAllianceTab());
                 this.Self.addTab(this.Self._getMemberTab());
                 this.Self.removeTab(this.Self.createTab);
@@ -1358,7 +1360,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
                 this.Self.rpcSuccess(o);
                 this.Self.alliance = o.result.alliance;
                 this.Self.isLeader =
-                  this.Self.alliance && this.Self.alliance.leader_id == Game.EmpireData.id;
+                  this.Self.alliance && this.Self.alliance.leader_id == EmpireRPCStore.id;
                 this.Self.removeTab(this.Self.allianceTab);
                 this.Self.addTab(this.Self._getAllianceTab());
                 this.Self.removeTab(this.Self.memberTab);
@@ -1386,7 +1388,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
           details = parentEl.removeChild(details);
           details.innerHTML = '';
 
-          var serverTime = Lib.getTime(Game.ServerData.time);
+          var serverTime = ServerRPCStore.serverTimeMs;
 
           for (var i = 0; i < props.length; i++) {
             var prop = props[i],
@@ -1623,7 +1625,7 @@ if (typeof YAHOO.lacuna.buildings.Embassy == 'undefined' || !YAHOO.lacuna.buildi
         Event.stopEvent(e);
         var res = el.href.match(/\#(-?\d+)$/);
         this.hide();
-        var planet = Game.EmpireData.planets[res[1]];
+        var planet = EmpireRPCStore.colonies[res[1]];
         //Game.PlanetJump(planet);
         MenuStore.changePlanet(res[1]);
       },

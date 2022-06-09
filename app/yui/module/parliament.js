@@ -2,6 +2,8 @@ YAHOO.namespace('lacuna.modules');
 
 import environment from 'app/environment';
 import MenuStore from 'app/stores/menu';
+import EmpireRPCStore from 'app/stores/rpc/empire';
+import ServerRPCStore from 'app/stores/rpc/server';
 
 if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modules.Parliament) {
   (function () {
@@ -293,7 +295,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modul
                     opts = [];
                   for (var n = 0; n < this.allianceMembers.length; n++) {
                     var member = this.allianceMembers[n];
-                    if (!member.isLeader && member.id != Game.EmpireData.id) {
+                    if (!member.isLeader && member.id != EmpireRPCStore.id) {
                       opts[opts.length] =
                         '<option value="' + member.id + '">' + member.name + '</option>';
                     }
@@ -329,7 +331,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modul
                     opts = [];
                   for (var n = 0; n < this.allianceMembers.length; n++) {
                     var member = this.allianceMembers[n];
-                    if (!member.isLeader && member.id != Game.EmpireData.id) {
+                    if (!member.isLeader && member.id != EmpireRPCStore.id) {
                       opts[opts.length] =
                         '<option value="' + member.id + '">' + member.name + '</option>';
                     }
@@ -1512,7 +1514,7 @@ if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modul
           details = parentEl.removeChild(details);
           details.innerHTML = '';
 
-          var serverTime = Lib.getTime(Game.ServerData.time);
+          var serverTime = ServerRPCStore.serverTimeMs;
 
           for (var i = 0; i < props.length; i++) {
             var prop = props[i],
@@ -1749,8 +1751,6 @@ if (typeof YAHOO.lacuna.modules.Parliament == 'undefined' || !YAHOO.lacuna.modul
         Event.stopEvent(e);
         var res = el.href.match(/\#(-?\d+)$/);
         this.hide();
-        var planet = Game.EmpireData.planets[res[1]];
-        //Game.PlanetJump(planet);
         MenuStore.changePlanet(res[1]);
       },
       handleAllianceLink: function (e, el) {
