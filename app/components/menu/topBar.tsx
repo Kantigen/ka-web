@@ -60,20 +60,6 @@ class TopBar extends React.Component {
               <Icon style='stats' size='large' />
             </a>
 
-            {ServerRPCStore.promotions.length > 0 ? (
-              <a
-                className='item'
-                onClick={function () {
-                  // WindowsStore.add('promotions');
-                }}
-              >
-                <i className='announcement big icon' />
-                <div className='ui orange floated right circular label'>Event!</div>
-              </a>
-            ) : (
-              ''
-            )}
-
             <a className='item' onClick={() => EmpireService.logout()}>
               <Icon style='logout' size='large' />
             </a>

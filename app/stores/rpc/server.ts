@@ -1,7 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
-import moment from 'moment';
-import { serverDateToMoment, formatMomentLong, serverDateToDateObj } from 'app/util';
+import { serverDateToMoment, formatMomentLong } from 'app/util';
 import constants from 'app/constants';
 
 class ServerRPCStore {
@@ -10,8 +9,6 @@ class ServerRPCStore {
   version = '1.0';
 
   announcement = 0;
-
-  promotions: any[] = [];
 
   rpc_limit = 10000;
 
@@ -32,26 +29,10 @@ class ServerRPCStore {
     this.rpc_limit = server.rpc_limit;
     this.star_map_size = server.star_map_size;
     this.version = server.version;
-
-    // The server won't return the promotions block if there aren't any but components
-    // will expect it to exist.
-    this.promotions = server.promotions || [];
   }
 
   tick() {
-    const now = Date.now();
-
     this.time = this.serverTimeMoment.add(1, 'second').format(constants.NEW_SERVER_DATE_FORMAT);
-
-    this.promotions = _.chain(this.promotions)
-      .filter((promotion: any) => now < serverDateToDateObj(promotion.end_date).valueOf())
-      .map((promotion: any) => {
-        promotion.header = promotion.title;
-        promotion.ends = moment().to(serverDateToMoment(promotion.end_date));
-
-        return promotion;
-      })
-      .value();
   }
 
   get serverTimeMoment() {
