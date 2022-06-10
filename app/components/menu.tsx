@@ -4,8 +4,8 @@ import { observer } from 'mobx-react';
 import TopBar from 'app/components/menu/topBar';
 import BottomBar from 'app/components/menu/bottomBar';
 
-import LeftSidebarButton from 'app/components/menu/leftSidebarButton';
-import RightSidebarButton from 'app/components/menu/rightSidebarButton';
+import LeftSidebarButton from 'app/components/menu/leftSidebar/button';
+import RightSidebarButton from 'app/components/menu/rightSidebar/button';
 
 import Loader from 'app/components/menu/loader';
 

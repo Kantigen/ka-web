@@ -1,73 +1,14 @@
 import React from 'react';
+
 import { observer } from 'mobx-react';
 
-import * as vex from 'app/vex';
-import * as util from 'app/util';
+import SelfDestructButton from 'app/components/menu/leftSidebar/selfDestructButton';
 
 import MenuStore from 'app/stores/menu';
-import EmpireRPCStore from 'app/stores/rpc/empire';
 import WindowsStore from 'app/stores/windows';
 import OptionsWindowStore from 'app/stores/window/options';
 
-// Because there's a bit of special logic going on here, this is in a separate component.
-const SelfDestruct = observer(
-  class SelfDestruct extends React.Component {
-    handleDestructClick() {
-      MenuStore.hideLeftSidebar();
-
-      if (EmpireRPCStore.self_destruct_active === 1) {
-        EmpireRPCActions.requestEmpireRPCDisableSelfDestruct();
-        return;
-      }
-
-      vex.confirm(
-        'Are you ABSOLUTELY sure you want to enable self destruct?  If enabled, your empire will be deleted after 24 hours.',
-        EmpireRPCActions.requestEmpireRPCEnableSelfDestruct
-      );
-    }
-
-    render() {
-      const destructMs = EmpireRPCStore.self_destruct_ms;
-      const destructActive = EmpireRPCStore.self_destruct_active && destructMs > 0;
-      const formattedDestructMs = destructActive ? util.formatMillisecondTime(destructMs) : '';
-
-      const itemStyle = destructActive
-        ? {
-            color: 'red',
-          }
-        : {};
-
-      const verb = destructActive ? 'Disable' : 'Enable';
-
-      return (
-        <a className='item' style={itemStyle} onClick={this.handleDestructClick}>
-          <i className='bomb icon' />
-          {verb} Self Destruct{' '}
-          {destructActive ? (
-            <span>
-              <p
-                style={{
-                  margin: 0,
-                }}
-              >
-                SELF DESTRUCT ACTIVE
-              </p>
-              <p
-                style={{
-                  textAlign: 'right !important',
-                }}
-              >
-                {formattedDestructMs}
-              </p>
-            </span>
-          ) : (
-            ''
-          )}
-        </a>
-      );
-    }
-  }
-);
+declare const YAHOO: any;
 
 class LeftSidebar extends React.Component {
   componentDidMount() {
@@ -229,7 +170,7 @@ class LeftSidebar extends React.Component {
 
         <div className='ui horizontal inverted divider'>Self Destruct</div>
 
-        <SelfDestruct />
+        <SelfDestructButton />
       </div>
     );
   }

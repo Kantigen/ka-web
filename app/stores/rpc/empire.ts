@@ -3,25 +3,12 @@ import _ from 'lodash';
 import { int, serverDateToMs } from 'app/util';
 import ServerRPCStore from 'app/stores/rpc/server';
 
-function bodyObjectToArray(bodyObj: any) {
-  const arr: any[] = [];
-  _.each(bodyObj, (value, key) => {
-    arr.push({
-      id: key,
-      name: value,
-    });
-  });
-
-  // Sort by name.
-  return _.sortBy(arr, 'name');
-}
-
 class EmpireRPCStore {
   bodies = {
     colonies: [],
     mystations: [],
     ourstations: [],
-    babies: [],
+    babies: {},
   };
 
   colonies = [];
@@ -32,9 +19,9 @@ class EmpireRPCStore {
 
   has_new_messages = 0;
 
-  home_planet_id = '';
+  home_planet_id = 0;
 
-  id = '';
+  id = 0;
 
   insurrect_value = 0;
 
@@ -106,10 +93,10 @@ class EmpireRPCStore {
         serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment.valueOf();
     }
 
-    // Fix up all the planet lists.
-    empire.colonies = bodyObjectToArray(empire.colonies);
-    empire.planets = bodyObjectToArray(empire.planets);
-    empire.stations = bodyObjectToArray(empire.stations);
+    this.bodies.colonies = empire.bodies.colonies;
+    this.bodies.mystations = empire.bodies.mystations;
+    this.bodies.ourstations = empire.bodies.ourstations;
+    this.bodies.babies = empire.bodies.babies;
   }
 
   clear() {
@@ -121,8 +108,8 @@ class EmpireRPCStore {
     this.essentia = 0;
     this.exactEssentia = 0;
     this.has_new_messages = 0;
-    this.home_planet_id = '';
-    this.id = '';
+    this.home_planet_id = 0;
+    this.id = 0;
     this.insurrect_value = 0;
     this.is_isolationist = 0;
     this.latest_message_id = 0;

@@ -82,8 +82,34 @@ const Empire = {
             zone: '0|0',
           },
         ],
-        ourstations: [],
-        babies: [],
+        ourstations: [
+          {
+            id: 3,
+            name: 'Hubble',
+            x: 150,
+            y: 500,
+            orbit: 5,
+            empire_name: 'Star Explorers',
+            empire_id: 2,
+            zone: '0|1',
+          },
+        ],
+        babies: {
+          'Taylor Swift': {
+            planets: [
+              {
+                id: 5,
+                name: 'Red',
+                x: 15,
+                y: -27,
+                orbit: 8,
+                empire_name: 'Taylor Swift',
+                empire_id: 3,
+                zone: '0|-1',
+              },
+            ],
+          },
+        },
       },
       colonies: {
         1: 'Earth',
