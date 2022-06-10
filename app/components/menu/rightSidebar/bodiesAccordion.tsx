@@ -7,75 +7,55 @@ type Props = {
   currentBody: number;
 };
 
-type IAccordionItem = {
-  title: string;
-  key: string;
-  initiallyOpen: boolean;
-  isBaby: boolean;
-};
-
 class BodiesAccordion extends React.Component<Props> {
   render() {
-    const items: IAccordionItem[] = [
-      {
-        title: 'My Colonies',
-        key: 'colonies',
-        initiallyOpen: true,
-        isBaby: false,
-      },
-      {
-        title: 'My Stations',
-        key: 'mystations',
-        initiallyOpen: true,
-        isBaby: false,
-      },
-      {
-        title: 'Our Stations',
-        key: 'ourstations',
-        initiallyOpen: true,
-        isBaby: false,
-      },
-    ];
+    const items = [];
 
-    // Handle all the babies.
-    _.chain(EmpireRPCStore.bodies.babies || {})
-      .keys()
-      .sortBy()
-      .each((babyName) => {
-        items.push({
-          title: `${babyName}'s Colonies`,
-          key: babyName,
-          initiallyOpen: true,
-          isBaby: true,
-        });
-      })
-      .value();
+    if (EmpireRPCStore.bodies.colonies.length) {
+      items.push(
+        <AccordionItem
+          title='My Colonies'
+          key='My Colonies'
+          list={EmpireRPCStore.bodies.colonies}
+          currentBody={this.props.currentBody}
+        />
+      );
+    }
 
-    return (
-      <div>
-        {_.map(items, (item) => {
-          let list = [];
+    if (EmpireRPCStore.bodies.mystations.length) {
+      items.push(
+        <AccordionItem
+          title='My Stations'
+          key='My Stations'
+          list={EmpireRPCStore.bodies.mystations}
+          currentBody={this.props.currentBody}
+        />
+      );
+    }
 
-          if (item.isBaby) {
-            list = _.values(EmpireRPCStore.bodies.babies[item.key].planets) || [];
-          } else {
-            list = _.values(EmpireRPCStore.bodies[item.key]) || [];
-          }
+    if (EmpireRPCStore.bodies.ourstations.length) {
+      items.push(
+        <AccordionItem
+          title='Our Stations'
+          key='Our Stations'
+          list={EmpireRPCStore.bodies.ourstations}
+          currentBody={this.props.currentBody}
+        />
+      );
+    }
 
-          if (list.length > 0) {
-            return (
-              <AccordionItem
-                title={item.title}
-                list={list}
-                initiallyOpen={item.initiallyOpen}
-                currentBody={this.props.currentBody}
-                key={item.title}
-              />
-            );
-          }
-        })}
-      </div>
-    );
+    _.keys(EmpireRPCStore.bodies.babies).forEach((babyName) => {
+      items.push(
+        <AccordionItem
+          title={`${babyName}'s Colonies`}
+          list={EmpireRPCStore.bodies.babies[babyName].planets}
+          key={babyName}
+          currentBody={this.props.currentBody}
+        />
+      );
+    });
+
+    return <div>{items}</div>;
   }
 }
 

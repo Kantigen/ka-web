@@ -6,7 +6,6 @@ type Props = {
   list: any;
   currentBody: number;
   title: string;
-  initiallyOpen: boolean;
 };
 
 type State = {
@@ -15,7 +14,7 @@ type State = {
 
 class AccordionItem extends React.Component<Props, State> {
   state = {
-    open: this.props.initiallyOpen,
+    open: true,
   };
 
   showList() {
@@ -38,7 +37,7 @@ class AccordionItem extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <div style={{ marginBottom: '3em' }}>
         <div
           className='ui horizontal inverted divider'
           title={`Click to ${this.state.open ? 'hide' : 'show'} ${this.props.title.toLowerCase()}`}
