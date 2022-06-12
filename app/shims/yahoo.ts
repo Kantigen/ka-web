@@ -28,6 +28,8 @@ import 'app/vendor-js/yui2/build/selector/selector';
 import 'app/vendor-js/yui2/build/slider/slider';
 import 'app/vendor-js/yui2/build/tabview/tabview';
 import 'app/vendor-js/yui2/build/tabview/assets/tabview.css';
+import 'app/vendor-js/yui2/build/grids/grids.css';
+import 'app/vendor-js/yui2/build/reset-fonts-grids/reset-fonts-grids.css';
 import 'app/vendor-js/yui2/build/yahoo/yahoo';
 
 const { YAHOO } = window;

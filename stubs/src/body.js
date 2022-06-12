@@ -1132,7 +1132,7 @@ const Body = {
           tags: ['Now'],
           reason: '',
         },
-        image: `${type}1`,
+        image: type.startsWith('lcot') ? type : `${type}1`,
         production: {
           food_hour: 1500,
           energy_hour: -144,

@@ -1050,9 +1050,15 @@ planet details
 }
 .buildingStats {
   width: 100%;
+  border: none;
+  margin-top: 1em;
 }
 .buildingStats th {
   font-weight: bold;
+  border: none;
+}
+.buildingStats td {
+  border: none;
 }
 .buildingStats .low-resource,
 .buildingDetailsNum.low-resource {
