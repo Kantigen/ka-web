@@ -33,6 +33,7 @@ class TopBar extends React.Component {
             <a className='item' onClick={() => MenuStore.toggleMapMode()}>
               <Icon
                 style={MenuStore.mapMode === PLANET_MAP_MODE ? 'star_map' : 'planet_side'}
+                title={MenuStore.mapMode === PLANET_MAP_MODE ? 'Star Map' : 'Back to Planet'}
                 size='large'
               />
             </a>

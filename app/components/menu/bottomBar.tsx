@@ -26,28 +26,28 @@ class BottomBar extends React.Component {
           <div className='ui blue inverted compact labeled icon menu small'>
             <BottomBarSection
               progressPercent={BodyRPCStore.food_percent_full}
-              iconName='food'
+              iconStyle='food'
               topText={`${rn(BodyRPCStore.food_stored)} / ${rn(BodyRPCStore.food_capacity)}`}
               bottomText={`${rn(BodyRPCStore.food_hour)} / hr`}
             />
 
             <BottomBarSection
               progressPercent={BodyRPCStore.ore_percent_full}
-              iconName='ore'
+              iconStyle='ore'
               topText={`${rn(BodyRPCStore.ore_stored)} / ${rn(BodyRPCStore.ore_capacity)}`}
               bottomText={`${rn(BodyRPCStore.ore_hour)} / hr`}
             />
 
             <BottomBarSection
               progressPercent={BodyRPCStore.water_percent_full}
-              iconName='water'
+              iconStyle='water'
               topText={`${rn(BodyRPCStore.water_stored)} / ${rn(BodyRPCStore.water_capacity)}`}
               bottomText={`${rn(BodyRPCStore.water_hour)} / hr`}
             />
 
             <BottomBarSection
               progressPercent={BodyRPCStore.energy_percent_full}
-              iconName='energy'
+              iconStyle='energy'
               topText={`${rn(BodyRPCStore.energy_stored)} / ${rn(BodyRPCStore.energy_capacity)}`}
               bottomText={`${rn(BodyRPCStore.energy_hour)} / hr`}
             />
@@ -55,7 +55,7 @@ class BottomBar extends React.Component {
             {BodyRPCStore.type !== 'space station' ? (
               <BottomBarSection
                 progressPercent={BodyRPCStore.waste_percent_full}
-                iconName='waste'
+                iconStyle='waste'
                 topText={`${rn(BodyRPCStore.waste_stored)} / ${rn(BodyRPCStore.waste_capacity)}`}
                 bottomText={`${rn(BodyRPCStore.waste_hour)} / hr`}
               />
@@ -65,7 +65,7 @@ class BottomBar extends React.Component {
 
             {BodyRPCStore.type !== 'space station' ? (
               <BottomBarSection
-                iconName='happiness'
+                iconStyle='happiness'
                 topText={rn(BodyRPCStore.happiness)}
                 bottomText={`${rn(BodyRPCStore.happiness_hour)} / hr`}
               />
@@ -74,7 +74,7 @@ class BottomBar extends React.Component {
             )}
 
             <BottomBarSection
-              iconName='plots'
+              iconStyle='plots'
               topText={`${BodyRPCStore.building_count} / ${
                 BodyRPCStore.building_count + BodyRPCStore.plots_available
               }`}
@@ -83,7 +83,8 @@ class BottomBar extends React.Component {
             />
 
             <BottomBarSection
-              iconName='build'
+              iconStyle='build'
+              iconTitle='Build Queue'
               topText={
                 BodyRPCStore.build_queue_len +
                 (BodyRPCStore.type !== 'space station' ? ` / ${BodyRPCStore.build_queue_size}` : '')
@@ -97,7 +98,8 @@ class BottomBar extends React.Component {
             />
 
             <BottomBarSection
-              iconName='dashboard'
+              iconStyle='dashboard'
+              iconTitle='RPC Count'
               topText={`${EmpireRPCStore.rpc_count} / ${rn(ServerRPCStore.rpc_limit)}`}
               bottomText='Actions'
               title='This is the maximum number of requests you can send to the server in a 24 hour period.'

@@ -4,7 +4,8 @@ import ProgressBar from 'app/components/menu/bottomBar/progressBar';
 import { IconStyle } from 'app/interfaces/menu/icons';
 
 type Props = {
-  iconName: IconStyle;
+  iconStyle: IconStyle;
+  iconTitle?: string;
   topText: string;
   bottomText: string;
   progressPercent?: number;
@@ -17,7 +18,7 @@ class BottomBarSection extends React.Component<Props> {
       <div className='item'>
         {this.props.progressPercent ? <ProgressBar percent={this.props.progressPercent} /> : ''}
 
-        {<Icon style={this.props.iconName} size='large' />}
+        {<Icon style={this.props.iconStyle} title={this.props.iconTitle} size='large' />}
 
         <span title={this.props.title}>
           <p style={{ margin: 0 }}>{this.props.topText}</p>
