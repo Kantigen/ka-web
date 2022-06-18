@@ -14,7 +14,7 @@ Requires Node and npm:
 git clone https://github.com/Kantigen/ka-web
 cd ka-web
 git submodule update --init --recursive
-npm install --ignore-scripts
+npm install
 npm run dev
 ```
 

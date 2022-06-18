@@ -9,4 +9,3 @@ workflows:
       - node/test:
           version: '16.14'
           pkg-manager: npm
-          override-ci-command: npm ci --ignore-scripts

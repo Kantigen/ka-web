@@ -1,7 +1,7 @@
 import $ from 'app/shims/jquery';
 import YAHOO from 'app/shims/yahoo';
 
-import 'fomantic-ui/dist/semantic.css';
+import 'app/vendor/fomantic/fomantic.css';
 import 'vex-js/dist/css/vex.css';
 import 'vex-js/dist/css/vex-theme-default.css';
 import 'app/css/styles.css';

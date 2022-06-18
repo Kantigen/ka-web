@@ -1,1 +1,1 @@
-import 'fomantic-ui/dist/semantic';
+import 'app/vendor/fomantic/fomantic';
