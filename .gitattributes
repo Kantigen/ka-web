@@ -1,5 +1,4 @@
 # CRLF to LF line endings
 * text=auto
 
-app/vendor-css/** linguist-vendored
-app/vendor-js/** linguist-vendored
+app/vendor/** linguist-vendored

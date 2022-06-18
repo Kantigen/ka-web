@@ -2,8 +2,7 @@ node_modules/
 build/
 scripts/
 docs/
-app/vendor-js/
-app/vendor-css/
+app/vendor/
 app/yui/
 bundle.js
 dist/
