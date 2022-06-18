@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import * as vex from 'app/vex';
 import WindowsStore from 'app/stores/windows';
 
@@ -64,4 +63,4 @@ class GetEssentiaTab extends React.Component {
   }
 }
 
-export default observer(GetEssentiaTab);
+export default GetEssentiaTab;

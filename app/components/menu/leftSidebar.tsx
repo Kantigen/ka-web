@@ -12,6 +12,7 @@ declare const YAHOO: any;
 
 class LeftSidebar extends React.Component {
   componentDidMount() {
+    //@ts-expect-error
     $('#left-sidebar').sidebar({
       context: $('#sidebarContainer'),
       duration: 300,
@@ -23,6 +24,7 @@ class LeftSidebar extends React.Component {
   }
 
   componentDidUpdate() {
+    //@ts-expect-error
     $('#left-sidebar').sidebar(MenuStore.leftSidebarShown ? 'show' : 'hide');
   }
 

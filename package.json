@@ -21,8 +21,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write app/**/*.ts app/**/*.tsx app/yui/**/*.js app/components/**/*.jsx stubs/**/*.js",
+    "compile": "tsc --noEmit",
     "dev": "concurrently \"npm run serve:app\" \"npm run serve:stubs\" \"npm run serve:assets\"",
-    "test": "jest",
+    "test": "npm run compile && jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "vite build && ln -s ../Lacuna-Assets ./dist/Lacuna-Assets",
@@ -61,6 +62,7 @@
     "@types/node": "^17.0.24",
     "@types/react": "^18.x.x",
     "@types/react-dom": "^18.x.x",
+    "@types/validator": "^13.7.3",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "concurrently": "^7.1.0",

@@ -11,8 +11,10 @@ export type IconStyle =
   | 'ore'
   | 'planet_side'
   | 'plots'
+  | 'spy'
   | 'star_map'
   | 'stats'
+  | 'storage'
   | 'time'
   | 'waste'
   | 'water';

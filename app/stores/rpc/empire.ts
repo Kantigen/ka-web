@@ -2,9 +2,10 @@ import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
 import { int, serverDateToMs } from 'app/util';
 import ServerRPCStore from 'app/stores/rpc/server';
+import { EmpireGetStatusResponse } from 'app/interfaces';
 
 class EmpireRPCStore {
-  bodies = {
+  bodies: EmpireGetStatusResponse['empire']['bodies'] = {
     colonies: [],
     mystations: [],
     ourstations: [],
@@ -65,7 +66,7 @@ class EmpireRPCStore {
     }
   }
 
-  update(empire: any) {
+  update(empire: EmpireGetStatusResponse['empire']) {
     this.has_new_messages = empire.has_new_messages;
     this.home_planet_id = empire.home_planet_id;
     this.id = empire.id;
@@ -85,9 +86,9 @@ class EmpireRPCStore {
 
     // Possible things to do here:
     //  ~ Turn self_destruct_date into a Date object.
-    this.self_destruct_active = int(empire.self_destruct_active);
-    this.exactEssentia = parseFloat(empire.essentia);
-    this.essentia = int(empire.essentia);
+    this.self_destruct_active = empire.self_destruct_active;
+    this.exactEssentia = empire.essentia;
+    this.essentia = empire.essentia;
     if (empire.self_destruct_active) {
       this.self_destruct_ms =
         serverDateToMs(empire.self_destruct_date) - ServerRPCStore.serverTimeMoment.valueOf();
@@ -103,7 +104,7 @@ class EmpireRPCStore {
     this.bodies.colonies = [];
     this.bodies.mystations = [];
     this.bodies.ourstations = [];
-    this.bodies.babies = [];
+    this.bodies.babies = {};
     this.colonies = [];
     this.essentia = 0;
     this.exactEssentia = 0;

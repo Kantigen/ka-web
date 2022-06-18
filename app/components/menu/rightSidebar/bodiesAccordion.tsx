@@ -48,7 +48,7 @@ class BodiesAccordion extends React.Component<Props> {
       items.push(
         <AccordionItem
           title={`${babyName}'s Colonies`}
-          list={EmpireRPCStore.bodies.babies[babyName].planets}
+          list={EmpireRPCStore.bodies.babies[babyName].bodies}
           key={babyName}
           currentBody={this.props.currentBody}
         />

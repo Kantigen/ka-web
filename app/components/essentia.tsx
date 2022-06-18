@@ -1,6 +1,5 @@
 import React from 'react';
 
-import EmpireRPCStore from 'app/stores/rpc/empire';
 import BoostsTab from 'app/components/essentia/boostsTab';
 import GetEssentiaTab from 'app/components/essentia/getEssentiaTab';
 
@@ -13,12 +12,7 @@ class Essentia extends React.Component {
         tabs={[
           {
             title: 'Boosts',
-            component: () => (
-              <BoostsTab
-                essentia={EmpireRPCStore.essentia}
-                exactEssentia={EmpireRPCStore.exactEssentia}
-              />
-            ),
+            component: () => <BoostsTab />,
           },
           {
             title: 'Get More Essentia',

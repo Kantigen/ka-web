@@ -7,6 +7,7 @@ class StatsService {
       module: 'stats',
       method: 'credits',
       params: [],
+      addSession: true,
       success: (result: any) => {
         CreditsRPCStore.update(result);
       },

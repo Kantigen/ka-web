@@ -10,6 +10,7 @@ import TickerStore from 'app/stores/ticker';
 import WindowsStore from 'app/stores/windows';
 
 import environment from 'app/environment';
+//@ts-expect-error
 import resources from 'app/json/resources';
 import { Empire } from 'app/client';
 
@@ -53,6 +54,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
         MenuStore.showLoader();
 
+        //@ts-expect-error
         Game.escListener = new Util.KeyListener(
           document,
           {
@@ -92,12 +94,15 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         }
         if (query.reset_password) {
           Game.InitLogin();
+          //@ts-expect-error
           Game.LoginDialog.resetPassword(query.reset_password);
           return;
         }
         if (query.facebook_uid) {
           Game.InitLogin();
+          //@ts-expect-error
           Game.LoginDialog.initEmpireCreator();
+          //@ts-expect-error
           Game.EmpireCreator.facebookReturn(
             query.facebook_uid,
             query.facebook_token,
@@ -110,7 +115,9 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           SessionStore.update(query.session_id);
         } else if (query.empire_id) {
           Game.InitLogin();
+          //@ts-expect-error
           Game.LoginDialog.initEmpireCreator();
+          //@ts-expect-error
           Game.SpeciesCreator.show(query.empire_id);
           return;
         } else if (!session) {
@@ -158,6 +165,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 {
                   text: 'Close',
                   handler() {
+                    //@ts-expect-error
                     this.hide();
                   },
                 },
@@ -197,6 +205,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                   {
                     text: 'View Tutorial',
                     handler() {
+                      //@ts-expect-error
                       this.hide();
                       Lacuna.Messaging.showMessage(result.welcome_message_id);
                     },
@@ -205,6 +214,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                   {
                     text: 'Skip Tutorial',
                     handler() {
+                      //@ts-expect-error
                       this.hide();
                     },
                   },
@@ -230,6 +240,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         // init event subscribtions if we need to
         Game.InitEvents();
         // enable esc handler
+        //@ts-expect-error
         Game.escListener.enable();
 
         document.title = `KA - ${EmpireRPCStore.name}`;
@@ -251,12 +262,16 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           Event.on(window, 'resize', () => {
             // taken from YUI Overlay
             if (YAHOO.env.ua.ie) {
+              //@ts-expect-error
               if (!window.resizeEnd) {
+                //@ts-expect-error
                 window.resizeEnd = -1;
               }
 
+              //@ts-expect-error
               clearTimeout(window.resizeEnd);
 
+              //@ts-expect-error
               window.resizeEnd = setTimeout(() => {
                 Lacuna.Game.Resize();
               }, 100);
@@ -266,12 +281,13 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           });
         }
       },
-      InitServices(smd) {
+      InitServices(smd: any) {
         const serviceOut = {};
         for (const sKey in smd) {
           if (smd.hasOwnProperty(sKey)) {
             const oSmd = smd[sKey];
             if (oSmd.services) {
+              //@ts-expect-error
               serviceOut[sKey] = new YAHOO.rpc.Service(
                 oSmd,
                 {
@@ -287,6 +303,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 environment.getServerUrl()
               );
             } else {
+              //@ts-expect-error
               serviceOut[sKey] = Game.InitServices(oSmd);
             }
           }
@@ -303,7 +320,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             func(params, opts);
           };
           const opts = {
-            failure(o) {
+            failure(o: any) {
               const self = this;
               const failure = function (silent: boolean) {
                 if (Lang.isFunction(origOpts.failure)) {
@@ -322,6 +339,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           };
           YAHOO.lang.augmentObject(opts, origOpts);
           if (!('timeout' in opts)) {
+            //@ts-expect-error
             opts.timeout = Game.Timeout;
           }
           method(params, opts);
@@ -348,12 +366,15 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         const dialog = new YAHOO.widget.SimpleDialog(container, config);
         dialog.renderEvent.subscribe(function () {
           if (afterRender) {
+            //@ts-expect-error
             afterRender.call(this);
           }
+          //@ts-expect-error
           this.show();
         });
         dialog.hideEvent.subscribe(function () {
           if (afterHide) {
+            //@ts-expect-error
             afterHide.call(this);
           }
           // let the current process complete before destroying
@@ -374,6 +395,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
       SetSession(session: string) {
         if (session) {
           Game.SetCookie('session', session);
+          //@ts-expect-error
           Game._session = session;
         } else {
           Game.RemoveCookie('session');
@@ -382,6 +404,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
       },
       GetSize() {
         const content = document.getElementById('content');
+        //@ts-expect-error
         const width = content.offsetWidth;
         const height = document.documentElement.clientHeight;
 
@@ -446,6 +469,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
       Reset() {
         // disable esc handler
+        //@ts-expect-error
         Game.escListener.disable();
 
         document.title = 'Kenó Antigen';
@@ -470,6 +494,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
         };
 
         if (expiresDate) {
+          //@ts-expect-error
           opts.expires = expiresDate;
         }
 
@@ -528,14 +553,18 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
             let el = document.createElement(TAGNAMES[eventName] || 'div');
             eventName = `on${eventName}`;
             if (eventName in cache) {
+              //@ts-expect-error
               return cache[eventName];
             }
             let isSupported = eventName in el;
             if (!isSupported) {
               el.setAttribute(eventName, 'return;');
+              //@ts-expect-error
               isSupported = typeof el[eventName] === 'function';
             }
+            //@ts-expect-error
             cache[eventName] = isSupported;
+            //@ts-expect-error
             el = null;
             return isSupported;
           }
@@ -556,6 +585,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                   xDelta /= 120;
                   yDelta /= 120;
                 }
+                //@ts-expect-error
                 fn.call(this, e, xDelta, yDelta, o);
               },
               obj,
@@ -573,6 +603,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
                 const xAxis = e.axis === e.HORIZONTAL_AXIS;
                 const xDelta = xAxis ? -e.detail : 0;
                 const yDelta = xAxis ? 0 : -e.detail;
+                //@ts-expect-error
                 fn.call(this, e, xDelta, yDelta, o);
               },
               obj,
@@ -589,6 +620,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
               // this event gets 'lines'
               const xDelta = xAxis ? -e.detail * pixelsPerLine : 0;
               const yDelta = xAxis ? 0 : -e.detail * pixelsPerLine;
+              //@ts-expect-error
               fn.call(this, e, xDelta, yDelta, o);
             },
             obj,

@@ -36,6 +36,7 @@ class ErrorBoundary extends React.Component<Props, State> {
           {
             text: 'Close',
             handler() {
+              //@ts-expect-error
               this.hide();
             },
           },

@@ -11,6 +11,7 @@ import SessionStore from 'app/stores/session';
 import WindowsStore from 'app/stores/windows';
 
 import environment from 'app/environment';
+import { StatusBlock } from 'app/interfaces';
 
 interface ServerRequest {
   module: string;
@@ -143,7 +144,7 @@ export const call = function (obj: ServerRequest): void {
 // Split the status message into server, body, empire
 // and call the corresponding actions
 //
-export const splitStatus = function (status: any): void {
+export const splitStatus = function (status: StatusBlock): void {
   if (status.server) {
     const serverStatus = util.fixNumbers(_.cloneDeep(status.server));
     ServerRPCStore.update(serverStatus);

@@ -106,6 +106,7 @@ export interface Building {
   waste_capacity: number;
   happiness_hour: number;
   efficiency: number;
+  url: string;
 
   // Essentia Vein
   drain_capable?: number;
@@ -189,9 +190,19 @@ export interface EmpireGetStatusParams {}
 
 export interface EmpireGetStatusResponse {
   empire: {
-    colonies: BodiesList[];
-    stations: BodiesList[];
-    babies: any;
+    bodies: {
+      colonies: BodiesList[];
+      mystations: BodiesList[];
+      ourstations: BodiesList[];
+      babies: {
+        [index: string]: {
+          alliance_id?: number;
+          id: number;
+          has_new_messages: number;
+          bodies: BodiesList[];
+        };
+      };
+    };
     essentia: number;
     has_new_messages: number;
     home_planet_id: number;
@@ -201,6 +212,7 @@ export interface EmpireGetStatusResponse {
     latest_message_id: number;
     name: string;
     next_colony_cost: number;
+    next_colony_srcs: number;
     next_station_cost: number;
     primary_embassy_id: number;
     rpc_count: number;
@@ -283,7 +295,7 @@ export interface WindowConfig {
 }
 
 export interface WindowDefinition {
-  component: React.ReactNode;
+  component: React.ComponentType<any>;
   config: WindowConfig;
 }
 
@@ -300,3 +312,14 @@ export type WindowType =
   | 'register'
   | 'serverClock'
   | 'starPanel';
+
+export interface BuildingComponentProps {
+  options: BuildingWindowOptions;
+  building: Building;
+}
+
+export interface StatusBlock {
+  empire?: EmpireGetStatusResponse['empire'];
+  body?: any;
+  server?: any;
+}

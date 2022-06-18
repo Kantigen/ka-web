@@ -1,4 +1,5 @@
 import React from 'react';
+//@ts-expect-error
 import resources from 'app/json/resources';
 import BodyRPCStore from 'app/stores/rpc/body';
 import environment from 'app/environment';

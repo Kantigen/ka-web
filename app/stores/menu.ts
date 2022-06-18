@@ -12,7 +12,7 @@ class MenuStore {
 
   rightSidebarShown = false;
 
-  loaderShwon = false;
+  loaderShown = false;
 
   mapMode: MapMode = PLANET_MAP_MODE;
 
@@ -65,11 +65,11 @@ class MenuStore {
   }
 
   showLoader() {
-    this.loaderShwon = true;
+    this.loaderShown = true;
   }
 
   hideLoader() {
-    this.loaderShwon = false;
+    this.loaderShown = false;
   }
 }
 

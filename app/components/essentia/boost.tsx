@@ -1,64 +1,45 @@
 import * as vex from 'app/vex';
 
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
 import validator from 'validator';
 import EmpireRPCStore from 'app/stores/rpc/empire';
 import * as util from 'app/util';
+import Icon from 'app/components/menu/icon';
+import { IconStyle } from 'app/interfaces/menu/icons';
 
-class Boost extends React.Component {
-  static propTypes = {
-    type: PropTypes.string.isRequired,
-    iconName: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    ms: PropTypes.number.isRequired,
-  };
+type Props = {
+  type: string;
+  iconStyle: IconStyle;
+  description: string;
+  ms: number;
+};
 
-  static defaultProps = {
-    type: '',
-    iconName: '',
-    description: '',
-    ms: 0,
-  };
+class Boost extends React.Component<Props> {
+  weeks = React.createRef<HTMLInputElement>();
 
-  handleBoost = () => {
+  handleBoost() {
     const { type } = this.props;
-    const weeks = this.refs.weeks.value;
+    const weeks = this.weeks?.current?.value || '';
 
-    if (
-      !validator.isInt(weeks, {
-        min: 1,
-        max: 100, // The server has no max but this seems like a reasonable limit, to me.
-      })
-    ) {
-      vex.alert('Number of weeks must be an integer between 1 and 100.');
-      return;
-    }
-    if (weeks * 5 > EmpireRPCStore.essentia) {
-      vex.alert('Insufficient Essentia.');
-      return;
-    }
-    EmpireRPCActions.requestEmpireRPCBoost({ type, weeks });
-  };
+    console.log(`Boosting ${type} for ${weeks} weeks`);
 
-  renderButton = () => {
-    const iconClassName = classnames('icon', this.props.iconName);
-
-    return (
-      <div
-        className='ui orange button'
-        onClick={this.handleBoost}
-        data-tip={this.props.description}
-        data-place='top'
-      >
-        <i className={iconClassName} />
-        Boost
-      </div>
-    );
-  };
+    // if (
+    //   !validator.isInt(weeks, {
+    //     min: 1,
+    //     max: 100, // The server has no max but this seems like a reasonable limit, to me.
+    //   })
+    // ) {
+    //   vex.alert('Number of weeks must be an integer between 1 and 100.');
+    //   return;
+    // }
+    // if (weeks * 5 > EmpireRPCStore.essentia) {
+    //   vex.alert('Insufficient Essentia.');
+    //   return;
+    // }
+    // EmpireRPCActions.requestEmpireRPCBoost({ type, weeks });
+  }
 
   tagClassNames() {
     if (this.props.ms > 0) {
@@ -84,7 +65,7 @@ class Boost extends React.Component {
           <input
             type='text'
             defaultValue='1'
-            ref='weeks'
+            ref={this.weeks}
             title='Weeks to boost for'
             disabled={EmpireRPCStore.essentia < 35}
             style={{
@@ -92,7 +73,14 @@ class Boost extends React.Component {
             }}
           />
 
-          {this.renderButton()}
+          <div
+            className='ui orange button'
+            onClick={() => this.handleBoost()}
+            title={this.props.description}
+          >
+            <Icon style={this.props.iconStyle} />
+            Boost
+          </div>
         </div>
         {this.props.ms > 0 ? (
           <div className={this.tagClassNames()}>{util.formatMillisecondTime(this.props.ms)}</div>

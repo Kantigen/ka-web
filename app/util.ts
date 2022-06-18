@@ -159,7 +159,7 @@ const handleObj = function (obj: any): any {
   return obj;
 };
 
-export const fixNumbers = function (data: any) {
+export const fixNumbers = function (data: any): any {
   return _.mapValues(data, handleObj);
 };
 

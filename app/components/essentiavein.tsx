@@ -8,14 +8,9 @@ import ProductionTab from 'app/components/building/productionTab';
 import withBuildingData from 'app/hocs/withBuildingData';
 
 import { Tabber } from 'app/components/tabber';
-import { Building, BuildingWindowOptions } from 'app/interfaces';
+import { BuildingComponentProps } from 'app/interfaces';
 
-type Props = {
-  options: BuildingWindowOptions;
-  building: Building;
-};
-
-class EssentiaVein extends React.Component<Props> {
+class EssentiaVein extends React.Component<BuildingComponentProps> {
   render() {
     return (
       <>

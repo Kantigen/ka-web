@@ -40,7 +40,7 @@ class Panel extends React.Component<Props> {
 
   render() {
     return (
-      <Draggable handle='.drag-handle' zIndex={this.props.zIndex}>
+      <Draggable handle='.drag-handle'>
         <div
           ref='container'
           style={{
@@ -66,10 +66,7 @@ class Panel extends React.Component<Props> {
             panelHeight={this.props.window.config.height}
           >
             <div style={{ marginTop: 10, marginBottom: 10 }}>
-              <this.props.window.component
-                zIndex={this.props.zIndex}
-                options={this.props.options}
-              />
+              <this.props.window.component options={this.props.options} />
             </div>
           </PanelContent>
         </div>

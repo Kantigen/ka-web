@@ -7,14 +7,9 @@ import ProductionTab from 'app/components/building/productionTab';
 
 import { Tabber } from 'app/components/tabber';
 
-import { WindowOptions, Building } from 'app/interfaces';
+import { BuildingComponentProps } from 'app/interfaces';
 
-type Props = {
-  options: WindowOptions;
-  building: Building;
-};
-
-class GenericBuilding extends React.Component<Props> {
+class GenericBuilding extends React.Component<BuildingComponentProps> {
   render() {
     return (
       <>

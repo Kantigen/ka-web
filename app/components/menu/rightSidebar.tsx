@@ -9,6 +9,7 @@ import MenuStore from 'app/stores/menu';
 
 class RightSidebar extends React.Component {
   componentDidMount() {
+    //@ts-expect-error
     $('#right-sidebar').sidebar({
       context: $('#sidebarContainer'),
       duration: 300,
@@ -20,6 +21,7 @@ class RightSidebar extends React.Component {
   }
 
   componentDidUpdate() {
+    //@ts-expect-error
     $('#right-sidebar').sidebar(MenuStore.rightSidebarShown ? 'show' : 'hide');
   }
 

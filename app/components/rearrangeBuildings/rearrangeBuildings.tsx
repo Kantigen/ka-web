@@ -10,17 +10,13 @@ import WindowsStore from 'app/stores/windows';
 import RearrangeBuildingsService from 'app/services/rearrangeBuildings';
 import RearrangeBuildingsHelper from 'app/helpers/rearrangeBuildings';
 
-type Props = {
-  building: Building;
-};
-
 type State = {
   matrix: Matrix;
   selected: SelectedBuilding;
 };
 
-class RearrangeBuildings extends React.Component<Props, State> {
-  constructor(props: Props) {
+class RearrangeBuildings extends React.Component<any, State> {
+  constructor(props: any) {
     super(props);
     this.state = {
       matrix: [],

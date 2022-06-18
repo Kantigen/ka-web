@@ -32,5 +32,6 @@ import 'app/vendor-js/yui2/build/grids/grids.css';
 import 'app/vendor-js/yui2/build/reset-fonts-grids/reset-fonts-grids.css';
 import 'app/vendor-js/yui2/build/yahoo/yahoo';
 
+//@ts-expect-error
 const { YAHOO } = window;
 export default YAHOO;

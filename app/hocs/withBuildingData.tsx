@@ -1,13 +1,22 @@
 import React from 'react';
 import server from 'app/server';
-import { BuildingWindowOptions, BuildingsViewResponse, Building } from 'app/interfaces';
+import {
+  BuildingWindowOptions,
+  BuildingsViewResponse,
+  Building,
+  BuildingComponentProps,
+} from 'app/interfaces';
 
 type Props = {
   options: BuildingWindowOptions;
 };
 
-const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Props> =>
-  class extends React.Component<{ options: BuildingWindowOptions }, { building: Building }> {
+type State = {
+  building: Building;
+};
+
+const withBuildingData = (WrappedComponent: React.ComponentType<BuildingComponentProps>) =>
+  class extends React.Component<Props, State> {
     constructor(props: any) {
       super(props);
       this.state = {
@@ -30,6 +39,7 @@ const withBuildingData = (WrappedComponent: React.ReactNode): React.Component<Pr
           waste_capacity: 0,
           happiness_hour: 0,
           efficiency: 0,
+          url: '',
 
           repair_costs: {
             food: 0,

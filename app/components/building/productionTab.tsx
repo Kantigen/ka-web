@@ -7,7 +7,6 @@ import _ from 'lodash';
 import BodyRPCStore from 'app/stores/rpc/body';
 
 import ActionButton from 'app/components/building/actionButton';
-import ResourceCost from 'app/components/building/resourceCost';
 import ResourceLine from 'app/components/building/resourceLine';
 
 import { Building } from 'app/interfaces';
@@ -23,35 +22,29 @@ class ProductionTab extends React.Component<Props> {
   onDemolishClick() {
     const name = `${this.props.building.name} ${this.props.building.level}`;
 
-    vex.confirm(
-      `Are you sure you want to demolish your ${name}?`,
-      _.bind(function () {
-        GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(this.props.building.url, {
-          building_id: this.props.building.id,
-        });
-      }, this)
-    );
+    vex.confirm(`Are you sure you want to demolish your ${name}?`, () => {
+      // GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(this.props.building.url, {
+      //   building_id: this.props.building.id,
+      // });
+    });
   }
 
   onDowngradeClick() {
     const name = `${this.props.building.name} to level ${this.props.building.level - 1}`;
 
-    vex.confirm(
-      `Are you sure you want to downgrade your ${name}?`,
-      _.bind(function () {
-        GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(
-          this.props.building.url,
-          this.props.building.id
-        );
-      }, this)
-    );
+    vex.confirm(`Are you sure you want to downgrade your ${name}?`, () => {
+      // GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(
+      //   this.props.building.url,
+      //   this.props.building.id
+      // );
+    });
   }
 
   onUpgradeClick() {
-    GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(
-      this.props.building.url,
-      this.props.building.id
-    );
+    // GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(
+    //   this.props.building.url,
+    //   this.props.building.id
+    // );
   }
 
   render() {

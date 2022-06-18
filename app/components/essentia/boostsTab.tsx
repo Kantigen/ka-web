@@ -18,7 +18,7 @@ class BoostsTab extends React.Component {
           <div className='ui large green labels'>
             <div className='ui label'>
               Essentia
-              <div className='detail'>{EmpireRPCStore.exact_essentia}</div>
+              <div className='detail'>{EmpireRPCStore.exactEssentia}</div>
             </div>
             <div className='ui label'>
               Boost Cost
@@ -32,25 +32,25 @@ class BoostsTab extends React.Component {
             <Boost
               type='food'
               description='+25% Food / hr'
-              iconName='food'
+              iconStyle='food'
               ms={BoostsRPCStore.foodMsRemaining}
             />
             <Boost
               type='water'
               description='+25% Water / hr'
-              iconName='theme'
+              iconStyle='water'
               ms={BoostsRPCStore.waterMsRemaining}
             />
             <Boost
               type='happiness'
               description='+25% Happiness / hr'
-              iconName='smile'
+              iconStyle='happiness'
               ms={BoostsRPCStore.happinessMsRemaining}
             />
             <Boost
               type='building'
               description='+25% Building Construction Speed'
-              iconName='building outline'
+              iconStyle='build'
               ms={BoostsRPCStore.buildingMsRemaining}
             />
           </div>
@@ -59,25 +59,25 @@ class BoostsTab extends React.Component {
             <Boost
               type='ore'
               description='+25% Ore / hr'
-              iconName='diamond'
+              iconStyle='ore'
               ms={BoostsRPCStore.oreMsRemaining}
             />
             <Boost
               type='energy'
               description='+25% Energy / hr'
-              iconName='lightning'
+              iconStyle='energy'
               ms={BoostsRPCStore.energyMsRemaining}
             />
             <Boost
               type='storage'
               description='+25% Storage'
-              iconName='archive'
+              iconStyle='storage'
               ms={BoostsRPCStore.storageMsRemaining}
             />
             <Boost
               type='spy_training'
               description='+50% Spy Training Speed'
-              iconName='protect'
+              iconStyle='spy'
               ms={BoostsRPCStore.spyTrainingMsRemaining}
             />
           </div>

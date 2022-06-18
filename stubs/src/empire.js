@@ -103,7 +103,7 @@ const Empire = {
         ],
         babies: {
           'Taylor Swift': {
-            planets: [
+            bodies: [
               {
                 id: 500,
                 name: 'Red',
