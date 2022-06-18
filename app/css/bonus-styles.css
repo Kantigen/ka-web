@@ -71,3 +71,7 @@ a:hover {
 a.item {
   cursor: pointer;
 }
+
+.full-width {
+  width: 100%;
+}

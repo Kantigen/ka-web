@@ -1,4 +1,5 @@
 import React from 'react';
+import { BodiesList } from 'app/interfaces/empire';
 
 export interface BodyGetBuildingsParams {
   0: number;
@@ -188,10 +189,9 @@ export interface EmpireGetStatusParams {}
 
 export interface EmpireGetStatusResponse {
   empire: {
-    bodies: any;
-    colonies: any;
-    stations: any;
-    planets: any;
+    colonies: BodiesList[];
+    stations: BodiesList[];
+    babies: any;
     essentia: number;
     has_new_messages: number;
     home_planet_id: number;

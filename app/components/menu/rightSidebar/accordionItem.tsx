@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import PlanetListItem from 'app/components/menu/rightSidebar/planetListItem';
+import { BodiesList } from 'app/interfaces/empire';
 
 type Props = {
-  list: any;
+  list: BodiesList[];
   currentBody: number;
   title: string;
 };
@@ -59,6 +60,8 @@ class AccordionItem extends React.Component<Props, State> {
                 name={planet.name}
                 id={planet.id}
                 zone={planet.zone}
+                type={planet.type}
+                orbit={planet.orbit}
                 currentBody={this.props.currentBody}
               />
             );

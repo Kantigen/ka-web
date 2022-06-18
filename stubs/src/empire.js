@@ -55,24 +55,29 @@ const Empire = {
   },
 
   status_block() {
+    const colonies = [];
+
+    for (let i = 1; i <= 40; i++) {
+      colonies.push({
+        id: i,
+        name: `Planet #${i}`,
+        x: 0,
+        y: 0,
+        orbit: 1,
+        type: `p${i}`,
+        empire_name: 'Rome',
+        empire_id: 1,
+        zone: '0|0',
+      });
+    }
+
     return {
       id: 1,
       bodies: {
-        colonies: [
-          {
-            id: 1,
-            name: 'Earth',
-            x: 0,
-            y: 0,
-            orbit: 1,
-            empire_name: 'Rome',
-            empire_id: 1,
-            zone: '0|0',
-          },
-        ],
+        colonies,
         mystations: [
           {
-            id: 2,
+            id: 200,
             name: 'Death Star',
             x: 100,
             y: -50,
@@ -80,11 +85,12 @@ const Empire = {
             empire_name: 'Rome',
             empire_id: 1,
             zone: '0|0',
+            type: 'station',
           },
         ],
         ourstations: [
           {
-            id: 3,
+            id: 300,
             name: 'Hubble',
             x: 150,
             y: 500,
@@ -92,13 +98,14 @@ const Empire = {
             empire_name: 'Star Explorers',
             empire_id: 2,
             zone: '0|1',
+            type: 'station',
           },
         ],
         babies: {
           'Taylor Swift': {
             planets: [
               {
-                id: 5,
+                id: 500,
                 name: 'Red',
                 x: 15,
                 y: -27,
@@ -106,6 +113,7 @@ const Empire = {
                 empire_name: 'Taylor Swift',
                 empire_id: 3,
                 zone: '0|-1',
+                type: 'p5',
               },
             ],
           },
@@ -113,6 +121,7 @@ const Empire = {
       },
       colonies: {
         1: 'Earth',
+        3: 'Mars',
       },
       rpc_count: 250,
       insurrect_value: 100000,
@@ -128,6 +137,7 @@ const Empire = {
       planets: {
         1: 'Earth',
         2: 'Death Star',
+        3: 'Mars',
       },
       tech_level: 30,
       self_destruct_active: 0,

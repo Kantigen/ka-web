@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuStore from 'app/stores/menu';
 import classNames from 'classnames';
+import environment from 'app/environment';
 
 declare const YAHOO: any;
 
@@ -9,6 +10,8 @@ type Props = {
   id: number;
   currentBody: number;
   zone: string;
+  type: string;
+  orbit: number;
 };
 
 class PlanetListItem extends React.Component<Props> {
@@ -31,7 +34,7 @@ class PlanetListItem extends React.Component<Props> {
     return (
       <a
         className={classNames({
-          'ui large teal label': this.isCurrentWorld(),
+          'ui large teal label full-width': this.isCurrentWorld(),
           item: !this.isCurrentWorld(),
         })}
         onClick={() => this.handleClick()}
@@ -41,6 +44,14 @@ class PlanetListItem extends React.Component<Props> {
           textDecoration: 'none',
         }}
       >
+        <img
+          alt={`${this.props.name} Planet Image`}
+          className='ui image'
+          style={{ height: '2em', display: 'inline', marginRight: 5 }}
+          src={`${environment.getAssetsUrl()}star_system/${this.props.type}-${
+            this.props.orbit
+          }.png`}
+        />{' '}
         {this.props.name} ({this.props.zone})
       </a>
     );
