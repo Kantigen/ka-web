@@ -6,16 +6,20 @@ import { dirname } from 'path';
 import Body from './src/body.js';
 import Buildings from './src/buildings.js';
 import Captcha from './src/captcha.js';
+import Development from './src/development.js';
 import Empire from './src/empire.js';
 import EssentiaVein from './src/essentiaVein.js';
-import Inbox from './src/inbox.js';
 import GenericBuilding from './src/genericBuilding.js';
+import Inbox from './src/inbox.js';
+import IntelTraining from './src/intelTraining.js';
 import Map from './src/map.js';
+import MayhemTraining from './src/mayhemTraining.js';
+import PoliticsTraining from './src/politicsTraining.js';
 import Server from './src/server.js';
+import Shipyard from './src/shipyard.js';
 import Spaceport from './src/spaceport.js';
 import Stats from './src/stats.js';
-import Shipyard from './src/shipyard.js';
-import Development from './src/development.js';
+import TheftTraining from './src/theftTraining.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = `${__dirname}/public`;
@@ -86,7 +90,7 @@ const modules = {
   hydrocarbon: GenericBuilding,
   ibs: GenericBuilding,
   intelligence: GenericBuilding,
-  inteltraining: GenericBuilding,
+  inteltraining: IntelTraining,
   interdimensionalrift: GenericBuilding,
   junkhengesculpture: GenericBuilding,
   kalavianruins: GenericBuilding,
@@ -109,7 +113,7 @@ const modules = {
   malcud: GenericBuilding,
   malcudfield: GenericBuilding,
   massadshenge: GenericBuilding,
-  mayhemtraining: GenericBuilding,
+  mayhemtraining: MayhemTraining,
   mercenariesguild: GenericBuilding,
   metaljunkarches: GenericBuilding,
   mine: GenericBuilding,
@@ -132,7 +136,7 @@ const modules = {
   pilottraining: GenericBuilding,
   planetarycommand: GenericBuilding,
   policestation: GenericBuilding,
-  politicstraining: GenericBuilding,
+  politicstraining: PoliticsTraining,
   potato: GenericBuilding,
   propulsion: GenericBuilding,
   pyramidjunksculpture: GenericBuilding,
@@ -160,7 +164,7 @@ const modules = {
   terraforminglab: GenericBuilding,
   terraformingplatform: GenericBuilding,
   thedillonforge: GenericBuilding,
-  thefttraining: GenericBuilding,
+  thefttraining: TheftTraining,
   themepark: GenericBuilding,
   trade: GenericBuilding,
   transporter: GenericBuilding,

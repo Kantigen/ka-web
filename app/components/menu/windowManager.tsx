@@ -10,15 +10,20 @@ import EssentiaVeinWindow from 'app/components/essentiavein';
 import EssentiaWindow from 'app/components/essentia';
 import ForgotPasswordWindow from 'app/components/forgotPassword';
 import GenericBuildingWindow from 'app/components/genericBuilding';
+import IntelTrainingWindow from 'app/components/inteltraining';
 import InviteWindow from 'app/components/invite';
 import LoginWindow from 'app/components/login';
+import MayhemTrainingWindow from 'app/components/mayhemtraining';
 import PlanetPanelWindow from 'app/components/planetPanel';
+import PoliticsTrainingWindow from 'app/components/politicstraining';
 import RearrangeBuildings from 'app/components/rearrangeBuildings/rearrangeBuildings';
 import RegisterWindow from 'app/components/register';
 import ServerClockWindow from 'app/components/serverClock';
 import StarPanelWindow from 'app/components/starPanel';
+import TheftTrainingWindow from 'app/components/thefttraining';
 
 import { WindowDefinition } from 'app/interfaces';
+import thefttraining from 'app/components/thefttraining';
 
 interface WindowMap {
   [index: string]: WindowDefinition;
@@ -79,6 +84,15 @@ export const WindowMap: WindowMap = {
     },
   },
 
+  inteltraining: {
+    component: IntelTrainingWindow,
+    config: {
+      title: 'Intel Training',
+      width: 700,
+      height: 'auto',
+    },
+  },
+
   login: {
     component: LoginWindow,
     config: {
@@ -89,10 +103,28 @@ export const WindowMap: WindowMap = {
     },
   },
 
+  mayhemtraining: {
+    component: MayhemTrainingWindow,
+    config: {
+      title: 'Mayhem Training',
+      width: 700,
+      height: 'auto',
+    },
+  },
+
   planetPanel: {
     component: PlanetPanelWindow,
     config: {
       title: 'Planet Details',
+      width: 700,
+      height: 'auto',
+    },
+  },
+
+  politicstraining: {
+    component: PoliticsTrainingWindow,
+    config: {
+      title: 'Politics Training',
       width: 700,
       height: 'auto',
     },
@@ -132,6 +164,15 @@ export const WindowMap: WindowMap = {
       title: 'Star Details',
       width: 700,
       height: 420,
+    },
+  },
+
+  thefttraining: {
+    component: TheftTrainingWindow,
+    config: {
+      title: 'Theft Training',
+      width: 700,
+      height: 'auto',
     },
   },
 };

@@ -112,6 +112,13 @@ export interface Building {
   // Essentia Vein
   drain_capable?: number;
 
+  // Spy training buildings
+  spies?: {
+    max_points: number;
+    points_per: number;
+    in_training: number;
+  };
+
   repair_costs: {
     food: number;
     water: number;
