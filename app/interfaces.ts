@@ -1,5 +1,6 @@
 import React from 'react';
 import { BodiesList } from 'app/interfaces/empire';
+import { Tab } from 'app/interfaces/tabber';
 
 export interface BodyGetBuildingsParams {
   0: number;
@@ -322,4 +323,8 @@ export interface StatusBlock {
   empire?: EmpireGetStatusResponse['empire'];
   body?: any;
   server?: any;
+}
+
+export interface CustomBuildingComponent {
+  getTabs(building: Building, options: BuildingWindowOptions): Tab[];
 }

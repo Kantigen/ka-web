@@ -1,13 +1,10 @@
 import React from 'react';
 import * as ReactTabs from 'react-tabs';
 import _ from 'lodash';
+import { Tab } from 'app/interfaces/tabber';
 
 type Props = {
-  tabs: Array<{
-    title: string;
-    component: Function;
-    shouldRender?: boolean;
-  }>;
+  tabs: Tab[];
 };
 
 class Tabber extends React.Component<Props> {
