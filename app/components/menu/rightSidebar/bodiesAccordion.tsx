@@ -1,56 +1,48 @@
 import React from 'react';
 import _ from 'lodash';
-import AccordionItem from 'app/components/menu/rightSidebar/accordionItem';
+import AccordionSection from 'app/components/menu/rightSidebar/accordionSection';
 import EmpireRPCStore from 'app/stores/rpc/empire';
 
-type Props = {
-  currentBody: number;
-};
-
-class BodiesAccordion extends React.Component<Props> {
+class BodiesAccordion extends React.Component {
   render() {
     const items = [];
 
     if (EmpireRPCStore.bodies.colonies.length) {
       items.push(
-        <AccordionItem
+        <AccordionSection
           title='My Colonies'
           key='My Colonies'
           list={EmpireRPCStore.bodies.colonies}
-          currentBody={this.props.currentBody}
         />
       );
     }
 
     if (EmpireRPCStore.bodies.mystations.length) {
       items.push(
-        <AccordionItem
+        <AccordionSection
           title='My Stations'
           key='My Stations'
           list={EmpireRPCStore.bodies.mystations}
-          currentBody={this.props.currentBody}
         />
       );
     }
 
     if (EmpireRPCStore.bodies.ourstations.length) {
       items.push(
-        <AccordionItem
+        <AccordionSection
           title='Our Stations'
           key='Our Stations'
           list={EmpireRPCStore.bodies.ourstations}
-          currentBody={this.props.currentBody}
         />
       );
     }
 
     _.keys(EmpireRPCStore.bodies.babies).forEach((babyName) => {
       items.push(
-        <AccordionItem
+        <AccordionSection
           title={`${babyName}'s Colonies`}
           list={EmpireRPCStore.bodies.babies[babyName].bodies}
           key={babyName}
-          currentBody={this.props.currentBody}
         />
       );
     });

@@ -5,7 +5,7 @@ import EmpireRPCStore from 'app/stores/rpc/empire';
 import MenuStore from 'app/stores/menu';
 
 class LeftSidebarButton extends React.Component {
-  clickLeftSidebarButton() {
+  click() {
     MenuStore.showLeftSidebar();
   }
 
@@ -19,7 +19,7 @@ class LeftSidebarButton extends React.Component {
           top: '15px',
         }}
       >
-        <div className='ui left labeled icon blue button' onClick={this.clickLeftSidebarButton}>
+        <div className='ui left labeled icon blue button' onClick={() => this.click()}>
           <i className='content icon' />
           {EmpireRPCStore.name}
         </div>

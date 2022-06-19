@@ -1,75 +1,60 @@
 import React from 'react';
-import _ from 'lodash';
-import PlanetListItem from 'app/components/menu/rightSidebar/planetListItem';
-import { BodiesList } from 'app/interfaces/empire';
+import MenuStore from 'app/stores/menu';
+import classNames from 'classnames';
+import environment from 'app/environment';
+
+declare const YAHOO: any;
 
 type Props = {
-  list: BodiesList[];
-  currentBody: number;
-  title: string;
+  name: string;
+  id: number;
+  zone: string;
+  type: string;
+  orbit: number;
 };
 
-type State = {
-  open: boolean;
-};
-
-class AccordionItem extends React.Component<Props, State> {
-  state = {
-    open: true,
-  };
-
-  showList() {
-    this.setState({
-      open: true,
-    });
+class PlanetListItem extends React.Component<Props> {
+  // Returns true if this list item is the the currently selected planet.
+  isCurrentWorld() {
+    return MenuStore.planetId === this.props.id;
   }
 
-  hideList() {
-    this.setState({
-      open: false,
-    });
-  }
+  handleClick() {
+    MenuStore.hideRightSidebar();
 
-  toggleList() {
-    this.setState({
-      open: !this.state.open,
-    });
+    if (this.isCurrentWorld()) {
+      YAHOO.lacuna.MapPlanet.Refresh();
+    } else {
+      MenuStore.changePlanet(this.props.id);
+    }
   }
 
   render() {
     return (
-      <div style={{ marginBottom: '3em' }}>
-        <div
-          className='ui horizontal inverted divider'
-          title={`Click to ${this.state.open ? 'hide' : 'show'} ${this.props.title.toLowerCase()}`}
-          onClick={() => this.toggleList()}
-          style={{ cursor: 'pointer' }}
-        >
-          {this.state.open ? <i className='angle down icon' /> : <i className='angle right icon' />}{' '}
-          {this.props.title}
-        </div>
-        <div
-          style={{
-            display: this.state.open ? '' : 'none',
-          }}
-        >
-          {_.map(this.props.list, (planet) => {
-            return (
-              <PlanetListItem
-                key={planet.id}
-                name={planet.name}
-                id={planet.id}
-                zone={planet.zone}
-                type={planet.type}
-                orbit={planet.orbit}
-                currentBody={this.props.currentBody}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <a
+        className={classNames({
+          'ui large teal label full-width': this.isCurrentWorld(),
+          item: !this.isCurrentWorld(),
+        })}
+        onClick={() => this.handleClick()}
+        style={{
+          // For some reason this doesn't get set on the items (by Semantic) when it should.
+          cursor: 'pointer',
+          textDecoration: 'none',
+        }}
+      >
+        <img
+          alt={`${this.props.name} Planet Image`}
+          className='ui image'
+          style={{ height: '2em', display: 'inline', marginRight: 5 }}
+          src={`${environment.getAssetsUrl()}star_system/${this.props.type}-${
+            this.props.orbit
+          }.png`}
+        />{' '}
+        {this.props.name} ({this.props.zone})
+      </a>
     );
   }
 }
 
-export default AccordionItem;
+export default PlanetListItem;

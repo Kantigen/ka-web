@@ -30,62 +30,12 @@ class RightSidebar extends React.Component {
     MenuStore.changePlanet(EmpireRPCStore.home_planet_id);
   }
 
-  expand() {
-    // TODO: how to modify child component state nicely?
-    // RightSidebarActions.rightSidebarExpand();
-  }
-
-  collapse() {
-    // TODO: how to modify child component state nicely?
-    // RightSidebarActions.rightSidebarCollapse();
-  }
-
   render() {
     const shown = MenuStore.rightSidebarShown;
     return (
       <div className='ui right vertical inverted sidebar menu' id='right-sidebar'>
-        <div style={{ paddingTop: 7 }}>
-          <a
-            title='Go to home planet'
-            className='item'
-            onClick={this.homePlanet}
-            style={{ display: 'inline' }}
-          >
-            Home
-          </a>
-
-          <div style={{ float: 'right' }}>
-            <a
-              title='Expand all'
-              className='item'
-              onClick={this.expand}
-              style={{
-                display: 'inline',
-              }}
-            >
-              [+]
-            </a>
-
-            <a
-              title='Collapse all'
-              className='item'
-              onClick={this.collapse}
-              style={{
-                display: 'inline',
-              }}
-            >
-              [-]
-            </a>
-          </div>
-        </div>
-
-        <div
-          style={{
-            overflow: 'auto',
-            overflowX: 'hidden',
-          }}
-        >
-          <BodiesAccordion currentBody={MenuStore.planetId} />
+        <div style={{ overflow: 'auto', overflowX: 'hidden' }}>
+          <BodiesAccordion />
         </div>
       </div>
     );

@@ -19,7 +19,7 @@ class RightSidebarButton extends React.Component {
           top: '15px',
         }}
       >
-        <div className='ui right labeled icon blue button' onClick={this.click}>
+        <div className='ui right labeled icon blue button' onClick={() => this.click()}>
           <i className='world icon' />
           {BodyRPCStore.name}
         </div>
