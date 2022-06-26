@@ -237,7 +237,7 @@ if (
             btn = document.createElement('button');
           for (var a = 0; a < assign.length; a++) {
             var job = assign[a];
-            nOpt = opt.cloneNode(false);
+            var nOpt = opt.cloneNode(false);
             nOpt.value = job.task;
             nOpt.innerHTML = [
               job.task,

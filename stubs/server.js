@@ -11,6 +11,7 @@ import Empire from './src/empire.js';
 import EssentiaVein from './src/essentiaVein.js';
 import GenericBuilding from './src/genericBuilding.js';
 import Inbox from './src/inbox.js';
+import Intelligence from './src/intelligence.js';
 import IntelTraining from './src/intelTraining.js';
 import Map from './src/map.js';
 import MayhemTraining from './src/mayhemTraining.js';
@@ -89,7 +90,7 @@ const modules = {
   hallsofvrbansk: GenericBuilding,
   hydrocarbon: GenericBuilding,
   ibs: GenericBuilding,
-  intelligence: GenericBuilding,
+  intelligence: Intelligence,
   inteltraining: IntelTraining,
   interdimensionalrift: GenericBuilding,
   junkhengesculpture: GenericBuilding,
