@@ -5,11 +5,14 @@ import MailWindowStore from 'app/stores/window/mail';
 import YAHOO from 'app/shims/yahoo';
 
 class MailWindow extends React.Component {
-  render() {
+  componentDidUpdate() {
     if (MailWindowStore.shown) {
       YAHOO.lacuna.Messaging.show();
     }
+  }
 
+  render() {
+    const { shown } = MailWindowStore;
     return <div />;
   }
 }

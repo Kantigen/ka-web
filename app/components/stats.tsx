@@ -5,11 +5,14 @@ import StatsWindowStore from 'app/stores/window/stats';
 import YAHOO from 'app/shims/yahoo';
 
 class StatsWindow extends React.Component {
-  render() {
+  componentDidUpdate() {
     if (StatsWindowStore.shown) {
       YAHOO.lacuna.Stats.show();
     }
+  }
 
+  render() {
+    const { shown } = StatsWindowStore;
     return <div />;
   }
 }
