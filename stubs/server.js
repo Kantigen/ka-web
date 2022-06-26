@@ -8,19 +8,23 @@ import Buildings from './src/buildings.js';
 import Captcha from './src/captcha.js';
 import Development from './src/development.js';
 import Empire from './src/empire.js';
+import EnergyReserve from './src/energyReserve.js';
 import EssentiaVein from './src/essentiaVein.js';
+import FoodReserve from './src/foodReserve.js';
 import GenericBuilding from './src/genericBuilding.js';
 import Inbox from './src/inbox.js';
 import Intelligence from './src/intelligence.js';
 import IntelTraining from './src/intelTraining.js';
 import Map from './src/map.js';
 import MayhemTraining from './src/mayhemTraining.js';
+import OreStorage from './src/oreStorage.js';
 import PoliticsTraining from './src/politicsTraining.js';
 import Server from './src/server.js';
 import Shipyard from './src/shipyard.js';
 import Spaceport from './src/spaceport.js';
 import Stats from './src/stats.js';
 import TheftTraining from './src/theftTraining.js';
+import WaterStorage from './src/waterStorage.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = `${__dirname}/public`;
@@ -71,13 +75,13 @@ const modules = {
   development: Development,
   distributioncenter: GenericBuilding,
   embassy: GenericBuilding,
-  energyreserve: GenericBuilding,
+  energyreserve: EnergyReserve,
   entertainment: GenericBuilding,
   espionage: GenericBuilding,
   essentiavein: EssentiaVein,
   fission: GenericBuilding,
   fissure: GenericBuilding,
-  foodreserve: GenericBuilding,
+  foodreserve: FoodReserve,
   fusion: GenericBuilding,
   gasgiantlab: GenericBuilding,
   gasgiantplatform: GenericBuilding,
@@ -127,7 +131,7 @@ const modules = {
   operahouse: GenericBuilding,
   oracleofanid: GenericBuilding,
   orerefinery: GenericBuilding,
-  orestorage: GenericBuilding,
+  orestorage: OreStorage,
   oversight: GenericBuilding,
   pancake: GenericBuilding,
   pantheonofhagness: GenericBuilding,
@@ -181,7 +185,7 @@ const modules = {
   waterproduction: GenericBuilding,
   waterpurification: GenericBuilding,
   waterreclamation: GenericBuilding,
-  waterstorage: GenericBuilding,
+  waterstorage: WaterStorage,
   wheat: GenericBuilding,
 };
 

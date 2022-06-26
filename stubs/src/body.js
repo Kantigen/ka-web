@@ -30,8 +30,26 @@ const Body = {
           x: '-3',
           image: 'waterstorage9',
         },
-        4965699: {
+        49422539: {
           y: '4',
+          efficiency: '100',
+          level: '30',
+          name: 'Ore Storage Tank',
+          url: '/orestorage',
+          x: '-4',
+          image: 'orestorage9',
+        },
+        494225399: {
+          y: '4',
+          efficiency: '100',
+          level: '30',
+          name: 'Food Reserve',
+          url: '/foodreserve',
+          x: '-5',
+          image: 'food-reserve9',
+        },
+        4965699: {
+          y: '3',
           efficiency: '100',
           level: '30',
           name: 'Pyramid Junk Sculpture',
@@ -40,7 +58,7 @@ const Body = {
           image: 'pyramidjunksculpture1',
         },
         49656991: {
-          y: '4',
+          y: '3',
           efficiency: '100',
           level: '30',
           name: 'Space Junk Park',
@@ -54,7 +72,7 @@ const Body = {
           level: '30',
           name: 'Metal Junk Arches',
           url: '/metaljunkarches',
-          x: '-5',
+          x: '-3',
           image: 'metaljunkarches1',
         },
         49656993: {
@@ -63,7 +81,7 @@ const Body = {
           level: '30',
           name: 'Junk Henge',
           url: '/junkhengesculpture',
-          x: '-4',
+          x: '-2',
           image: 'junkhengesculpture1',
         },
         49656994: {
@@ -72,7 +90,7 @@ const Body = {
           level: '30',
           name: 'Great Ball of Junk',
           url: '/greatballofjunk',
-          x: '-3',
+          x: '-1',
           image: 'greatballofjunk1',
         },
         49656996: {
@@ -207,7 +225,7 @@ const Body = {
           level: '30',
           name: 'Entertainment District',
           url: '/entertainment',
-          x: '-1',
+          x: '0',
           image: 'entertainment9',
         },
         4975914: {
@@ -243,7 +261,7 @@ const Body = {
           level: '30',
           name: 'Observatory',
           url: '/observatory',
-          x: '-2',
+          x: '1',
           image: 'observatory9',
         },
         4942247: {

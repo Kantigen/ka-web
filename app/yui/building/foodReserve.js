@@ -1,6 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import * as util from 'app/util';
 
 if (
   typeof YAHOO.lacuna.buildings.FoodReserve == 'undefined' ||
@@ -135,7 +136,7 @@ if (
           sel.id = 'type';
           nLi.appendChild(sel);
 
-          input = document.createElement('input');
+          var input = document.createElement('input');
           input.id = 'dumpAmount';
           input.type = 'text';
           input.value = 0;
@@ -146,7 +147,7 @@ if (
           div.appendChild(ul);
 
           var form = document.createElement('form');
-          btn = document.createElement('button');
+          var btn = document.createElement('button');
           btn.setAttribute('type', 'button');
           btn.innerHTML = 'Dump';
           btn = form.appendChild(btn);

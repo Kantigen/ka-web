@@ -1,6 +1,7 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import BodyRPCStore from 'app/stores/rpc/body';
 
 if (
   typeof YAHOO.lacuna.buildings.WaterStorage == 'undefined' ||
@@ -44,7 +45,7 @@ if (
           '<span class="smallImg"><img src="' +
           Lib.AssetUrl +
           'ui/s/water.png" class="smallWater" /></span>';
-        input = document.createElement('input');
+        var input = document.createElement('input');
         input.id = 'dumpAmount';
         input.type = 'text';
         input.value = 0;
@@ -58,7 +59,7 @@ if (
         div.appendChild(ul);
 
         var form = document.createElement('form');
-        btn = document.createElement('button');
+        var btn = document.createElement('button');
         btn.setAttribute('type', 'button');
         btn.innerHTML = 'Dump';
         btn = form.appendChild(btn);
