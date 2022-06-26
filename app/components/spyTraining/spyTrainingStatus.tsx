@@ -8,31 +8,41 @@ type Props = {
 class SpyTrainingStatus extends React.Component<Props> {
   render() {
     return this.props.building.spies ? (
-      <div className='ui teal labels'>
-        <div className='ui label'>
-          Spies in training
-          <div className='detail'>{this.props.building.spies.in_training}</div>
-        </div>
-
-        <div className='ui label'>
-          Points / hr
-          <div className='detail'>{this.props.building.spies.points_per}</div>
-        </div>
-
-        <div className='ui label'>
-          Points / hr / training spy
-          <div className='detail'>
-            {this.props.building.spies.in_training > 0
-              ? Math.floor(
-                  this.props.building.spies.points_per / this.props.building.spies.in_training
-                )
-              : 0}
+      <div className='bulma'>
+        <div className='field is-grouped is-grouped-multiline'>
+          <div className='control'>
+            <div className='tags has-addons are-medium'>
+              <span className='tag is-dark'>Spies in training</span>
+              <span className='tag is-primary'>{this.props.building.spies.in_training}</span>
+            </div>
           </div>
-        </div>
 
-        <div className='ui label'>
-          Maximum points
-          <div className='detail'>{this.props.building.spies.max_points}</div>
+          <div className='control'>
+            <div className='tags has-addons are-medium'>
+              <span className='tag is-dark'>Points / hr</span>
+              <span className='tag is-primary'>{this.props.building.spies.points_per}</span>
+            </div>
+          </div>
+
+          <div className='control'>
+            <div className='tags has-addons are-medium'>
+              <span className='tag is-dark'>Points / hr / training spy</span>
+              <span className='tag is-primary'>
+                {this.props.building.spies.in_training > 0
+                  ? Math.floor(
+                      this.props.building.spies.points_per / this.props.building.spies.in_training
+                    )
+                  : 0}
+              </span>
+            </div>
+          </div>
+
+          <div className='control'>
+            <div className='tags has-addons are-medium'>
+              <span className='tag is-dark'>Maximum points</span>
+              <span className='tag is-primary'>{this.props.building.spies.max_points}</span>
+            </div>
+          </div>
         </div>
       </div>
     ) : (
