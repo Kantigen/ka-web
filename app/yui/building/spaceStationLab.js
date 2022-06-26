@@ -1,6 +1,8 @@
 YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
+import BodyRPCStore from 'app/stores/rpc/body';
+import * as util from 'app/util';
 
 if (
   typeof YAHOO.lacuna.buildings.SpaceStationLab == 'undefined' ||

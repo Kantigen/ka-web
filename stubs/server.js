@@ -25,6 +25,7 @@ import Spaceport from './src/spaceport.js';
 import Stats from './src/stats.js';
 import TheftTraining from './src/theftTraining.js';
 import WaterStorage from './src/waterStorage.js';
+import SpaceStationLab from './src/spaceStationLab.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = `${__dirname}/public`;
@@ -156,7 +157,7 @@ const modules = {
   soup: GenericBuilding,
   spacejunkpark: GenericBuilding,
   spaceport: Spaceport,
-  ssla: GenericBuilding,
+  ssla: SpaceStationLab,
   sslb: GenericBuilding,
   sslc: GenericBuilding,
   ssld: GenericBuilding,
@@ -230,8 +231,7 @@ app.post('/:module', (req, res) => {
 
   console.log(`${_.capitalize(module)}#${method} was called`, params);
 
-  const result =
-    modules[module] && modules[module][method] ? modules[module][method](req, res) : undefined;
+  const result = modules[module]?.[method]?.(req, res);
 
   if (result) {
     return res.json({
