@@ -1,16 +1,17 @@
 import Empire from './empire.js';
 import GenericBuilding from './genericBuilding.js';
 import moment from 'moment';
-import { DATE_FORMAT, SHIP_TYPES } from './constants.js';
+import { DATE_FORMAT, SHIP_TYPES } from './../constants.js';
+import { Route } from '../interfaces.js';
 
-const Shipyard = {
+const Shipyard: Route = {
   view(req, res) {
     return GenericBuilding.view(req, res);
   },
 
-  view_build_queue() {
+  view_build_queue(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
       number_of_ships: 10,
       cost_to_subsidize: 30,
       ships_building: [
@@ -67,26 +68,26 @@ const Shipyard = {
     };
   },
 
-  subsidize_build_queue() {
+  subsidize_build_queue(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
       number_of_ships: 0,
       cost_to_subsidize: 0,
       ships_building: [],
     };
   },
 
-  subsidize_ship() {
+  subsidize_ship(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
       number_of_ships: 0,
       cost_to_subsidize: 0,
       ships_building: [],
     };
   },
 
-  get_buildable() {
-    const buildable = {};
+  get_buildable(req, res) {
+    const buildable: any = {};
 
     Object.keys(SHIP_TYPES).forEach((type) => {
       buildable[type] = {
@@ -114,11 +115,11 @@ const Shipyard = {
       };
     });
 
-    return { buildable, docks_available: 200, status: Empire.get_status() };
+    return { buildable, docks_available: 200, status: Empire.get_status(req, res) };
   },
 
-  build_ships() {
-    return this.view_build_queue();
+  build_ships(req, res) {
+    return this.view_build_queue(req, res);
   },
 };
 

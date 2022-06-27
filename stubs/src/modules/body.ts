@@ -2,12 +2,13 @@ import moment from 'moment';
 import _ from 'lodash';
 import Server from './server.js';
 import Empire from './empire.js';
-import { DATE_FORMAT, BUILDING_TYPES } from './constants.js';
+import { DATE_FORMAT, BUILDING_TYPES } from './../constants.js';
+import { Route } from './../interfaces.js';
 
-const Body = {
-  get_buildings() {
+const Body: Route = {
+  get_buildings(req, res) {
     return {
-      status: Body.get_status(),
+      status: this.get_status(req, res),
       body: {
         surface_image: 'surface-p35',
       },
@@ -1130,8 +1131,8 @@ const Body = {
     };
   },
 
-  get_buildable() {
-    const buildable = {};
+  get_buildable(req, res) {
+    const buildable: any = {};
 
     _.each(BUILDING_TYPES, (name, type) => {
       buildable[name] = {
@@ -1169,29 +1170,29 @@ const Body = {
         max: 4,
         current: 3,
       },
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  get_status() {
+  get_status(req, res) {
     return {
-      server: Server.status_block(),
-      empire: Empire.status_block(),
-      body: Body.status_block(),
+      server: Server.status_block(req, res),
+      empire: Empire.status_block(req, res),
+      body: Body.status_block(req, res),
     };
   },
 
-  rearrange_buildings() {
+  rearrange_buildings(req, res) {
     return {
       moved: [],
       body: {
         surface_image: 'surface-p35',
       },
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  status_block() {
+  status_block(req, res) {
     return {
       id: 'id-goes-here',
       x: -40,

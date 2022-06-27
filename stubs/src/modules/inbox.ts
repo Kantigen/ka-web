@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import Empire from './empire.js';
 import Body from './body.js';
+import { Route } from '../interfaces.js';
 
-const Inbox = {
+const Inbox: Route = {
   read_message(req, res) {
     return {
       message: {
@@ -37,23 +38,23 @@ const Inbox = {
           ],
           map: {
             surface: 'surface-p6',
-            buildings: _.values(Body.get_buildings().buildings),
+            buildings: _.values(Body.get_buildings(req, res).buildings),
           },
         },
       },
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_archived() {
+  view_archived(req, res) {
     return {
       messages: [],
       message_count: 0,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_inbox() {
+  view_inbox(req, res) {
     return {
       messages: [
         {
@@ -71,31 +72,31 @@ const Inbox = {
         },
       ],
       message_count: 4,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_sent() {
+  view_sent(req, res) {
     return {
       messages: [],
       message_count: 0,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_trashed() {
+  view_trashed(req, res) {
     return {
       messages: [],
       message_count: 0,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_unread() {
+  view_unread(req, res) {
     return {
       messages: [],
       message_count: 0,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 };

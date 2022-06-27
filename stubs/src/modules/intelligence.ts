@@ -1,7 +1,8 @@
 import GenericBuilding from './genericBuilding.js';
 import Empire from './empire.js';
+import { Route } from '../interfaces.js';
 
-const Intelligence = {
+const Intelligence: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
     response.spies = {
@@ -20,14 +21,14 @@ const Intelligence = {
     return response;
   },
 
-  train_spy() {
+  train_spy(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
       trained: 3,
     };
   },
 
-  view_spies() {
+  view_spies(req, res) {
     const spies = [];
 
     for (let i = 1; i <= 12; i++) {
@@ -85,33 +86,33 @@ const Intelligence = {
     return {
       spies,
       spy_count: 12,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_all_spies() {
-    return this.view_spies();
+  view_all_spies(req, res) {
+    return this.view_spies(req, res);
   },
 
-  burn_spy() {
+  burn_spy(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  name_spy() {
+  name_spy(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  name_spies() {
-    return this.view_all_spies();
+  name_spies(req, res) {
+    return this.view_all_spies(req, res);
   },
 
-  assign_spy() {
+  assign_spy(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
       mission: {
         result: 'Failure',
         message_id: 'id-goes-here',

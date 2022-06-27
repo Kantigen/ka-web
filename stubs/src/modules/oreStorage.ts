@@ -1,7 +1,8 @@
 import GenericBuilding from './genericBuilding.js';
 import Empire from './empire.js';
+import { Route } from '../interfaces.js';
 
-const OreStorage = {
+const OreStorage: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
     response.ore_stored = {
@@ -29,9 +30,9 @@ const OreStorage = {
     return response;
   },
 
-  dump() {
+  dump(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 };

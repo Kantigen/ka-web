@@ -1,6 +1,7 @@
 import GenericBuilding from './genericBuilding.js';
+import { Route } from '../interfaces.js';
 
-const PoliticsTraining = {
+const MayhemTraining: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
     response.building.spies = {
@@ -12,4 +13,4 @@ const PoliticsTraining = {
   },
 };
 
-export default PoliticsTraining;
+export default MayhemTraining;

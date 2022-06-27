@@ -1,7 +1,8 @@
 import GenericBuilding from './genericBuilding.js';
 import Empire from './empire.js';
+import { Route } from '../interfaces.js';
 
-const Development = {
+const Development: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
 
@@ -30,12 +31,12 @@ const Development = {
     return response;
   },
 
-  subsidize_build_queue() {
-    return { essentia_spent: 10, status: Empire.get_status() };
+  subsidize_build_queue(req, res) {
+    return { essentia_spent: 10, status: Empire.get_status(req, res) };
   },
 
-  subsidize_one_build() {
-    return { essentia_spent: 10, status: Empire.get_status() };
+  subsidize_one_build(req, res) {
+    return { essentia_spent: 10, status: Empire.get_status(req, res) };
   },
 
   cancel_build(req, res) {

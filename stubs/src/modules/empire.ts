@@ -1,39 +1,40 @@
 import moment from 'moment';
 import Server from './server.js';
 import Captcha from './captcha.js';
-import { DATE_FORMAT } from './constants.js';
+import { DATE_FORMAT } from './../constants.js';
+import { Route } from '../interfaces.js';
 
-const Empire = {
-  create() {
+const Empire: Route = {
+  create(req, res) {
     return {
       empire_id: 1,
     };
   },
 
-  update_species() {
+  update_species(req, res) {
     return {
       update_species: 1,
     };
   },
 
-  redefined_species() {
+  redefined_species(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  found() {
+  found(req, res) {
     return {
       session_id: 'this-is-a-session-id',
       welcome_message_id: 5,
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  get_status() {
+  get_status(req, res) {
     return {
-      empire: this.status_block(),
-      server: Server.status_block(),
+      empire: this.status_block(req, res),
+      server: Server.status_block(req, res),
     };
   },
 
@@ -41,20 +42,20 @@ const Empire = {
     return Captcha.fetch(req, res);
   },
 
-  login() {
+  login(req, res) {
     return {
       session_id: 'this-is-a-session-id',
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  logout() {
+  logout(req, res) {
     return {
       logout: 1,
     };
   },
 
-  status_block() {
+  status_block(req, res) {
     const colonies = [];
 
     for (let i = 1; i <= 40; i++) {
@@ -149,18 +150,18 @@ const Empire = {
     };
   },
 
-  get_invite_friend_url() {
+  get_invite_friend_url(req, res) {
     return {
       referral_url: 'https://demo.kenoantigen.com/',
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_profile() {
-    return this.get_own_profile();
+  view_profile(req, res) {
+    return this.get_own_profile(req, res);
   },
 
-  get_own_profile() {
+  get_own_profile(req, res) {
     return {
       profile: {
         id: 1234,
@@ -205,23 +206,23 @@ const Empire = {
         email: 'hello@example.com',
         sitter_password: '',
       },
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  invite_friend() {
+  invite_friend(req, res) {
     return {
       sent: [],
       not_sent: [],
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  view_boosts() {
-    return this.get_boosts();
+  view_boosts(req, res) {
+    return this.get_boosts(req, res);
   },
 
-  get_boosts() {
+  get_boosts(req, res) {
     return {
       boosts: {
         food: moment().add(1, 'week').format(DATE_FORMAT),
@@ -235,22 +236,22 @@ const Empire = {
         ship_speed: moment().subtract(2, 'days').format(DATE_FORMAT),
         spy_training: moment().subtract(2, 'days').format(DATE_FORMAT),
       },
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 
-  edit_profile() {
-    return Empire.get_own_profile();
+  edit_profile(req, res) {
+    return Empire.get_own_profile(req, res);
   },
 
-  send_password_reset_message() {
+  send_password_reset_message(req, res) {
     return {
       sent: 1,
     };
   },
 
-  reset_password() {
-    return Empire.login();
+  reset_password(req, res) {
+    return Empire.login(req, res);
   },
 };
 

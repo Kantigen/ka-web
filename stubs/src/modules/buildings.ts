@@ -1,7 +1,8 @@
 import Body from './body.js';
+import { Route } from './../interfaces.js';
 
-const Buildings = {
-  view() {
+const Buildings: Route = {
+  view(req, res) {
     return {
       building: {
         id: 'id-goes-here',
@@ -70,7 +71,7 @@ const Buildings = {
           image: 'command7',
         },
       },
-      status: Body.get_status(),
+      status: Body.get_status(req, res),
     };
   },
 };

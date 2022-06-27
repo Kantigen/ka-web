@@ -1,7 +1,8 @@
 import GenericBuilding from './genericBuilding.js';
 import Empire from './empire.js';
+import { Route } from '../interfaces.js';
 
-const FoodReserve = {
+const FoodReserve: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
     response.food_stored = {
@@ -31,9 +32,9 @@ const FoodReserve = {
     return response;
   },
 
-  dump() {
+  dump(req, res) {
     return {
-      status: Empire.get_status(),
+      status: Empire.get_status(req, res),
     };
   },
 };

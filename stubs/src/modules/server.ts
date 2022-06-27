@@ -1,12 +1,13 @@
 import moment from 'moment';
-import { DATE_FORMAT } from './constants.js';
+import { Route } from '../interfaces.js';
+import { DATE_FORMAT } from './../constants.js';
 
-const Server = {
-  get_status() {
-    return Server.status_block();
+const Server: Route = {
+  get_status(req, res) {
+    return Server.status_block(req, res);
   },
 
-  status_block() {
+  status_block(req, res) {
     return {
       time: moment().format(DATE_FORMAT),
       version: '1.0',

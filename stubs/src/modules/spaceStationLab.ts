@@ -1,6 +1,7 @@
+import { Route } from '../interfaces.js';
 import GenericBuilding from './genericBuilding.js';
 
-const SpaceStationLab = {
+const SpaceStationLab: Route = {
   view(req, res) {
     const level_costs = [];
 

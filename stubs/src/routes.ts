@@ -1,36 +1,30 @@
-import express from 'express';
-import _ from 'lodash';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import Body from './modules/body.js';
+import Buildings from './modules/buildings.js';
+import Captcha from './modules/captcha.js';
+import Development from './modules/development.js';
+import Empire from './modules/empire.js';
+import EnergyReserve from './modules/energyReserve.js';
+import EssentiaVein from './modules/essentiaVein.js';
+import FoodReserve from './modules/foodReserve.js';
+import GenericBuilding from './modules/genericBuilding.js';
+import Inbox from './modules/inbox.js';
+import Intelligence from './modules/intelligence.js';
+import IntelTraining from './modules/intelTraining.js';
+import Map from './modules/map.js';
+import MayhemTraining from './modules/mayhemTraining.js';
+import OreStorage from './modules/oreStorage.js';
+import PoliticsTraining from './modules/politicsTraining.js';
+import Server from './modules/server.js';
+import Shipyard from './modules/shipyard.js';
+import Spaceport from './modules/spaceport.js';
+import Stats from './modules/stats.js';
+import TheftTraining from './modules/theftTraining.js';
+import WaterStorage from './modules/waterStorage.js';
+import SpaceStationLab from './modules/spaceStationLab.js';
 
-import Body from './src/body.js';
-import Buildings from './src/buildings.js';
-import Captcha from './src/captcha.js';
-import Development from './src/development.js';
-import Empire from './src/empire.js';
-import EnergyReserve from './src/energyReserve.js';
-import EssentiaVein from './src/essentiaVein.js';
-import FoodReserve from './src/foodReserve.js';
-import GenericBuilding from './src/genericBuilding.js';
-import Inbox from './src/inbox.js';
-import Intelligence from './src/intelligence.js';
-import IntelTraining from './src/intelTraining.js';
-import Map from './src/map.js';
-import MayhemTraining from './src/mayhemTraining.js';
-import OreStorage from './src/oreStorage.js';
-import PoliticsTraining from './src/politicsTraining.js';
-import Server from './src/server.js';
-import Shipyard from './src/shipyard.js';
-import Spaceport from './src/spaceport.js';
-import Stats from './src/stats.js';
-import TheftTraining from './src/theftTraining.js';
-import WaterStorage from './src/waterStorage.js';
-import SpaceStationLab from './src/spaceStationLab.js';
+import { RouteMapping } from './interfaces.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = `${__dirname}/public`;
-
-const modules = {
+const Routes: RouteMapping = {
   body: Body,
   buildings: Buildings,
   captcha: Captcha,
@@ -190,71 +184,4 @@ const modules = {
   wheat: GenericBuilding,
 };
 
-const app = express();
-const port = 3001;
-
-//
-// Middleware to enable CORS
-//
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', req.get('origin') || '');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type,x-requested-with');
-  next();
-});
-
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
-app.get('/announcement', (req, res) => {
-  res.sendFile('announcement.html', { root });
-});
-
-app.get('/captcha.png', (req, res) => {
-  res.sendFile('captcha.png', { root });
-});
-
-app.get('/email_attachment.png', (req, res) => {
-  res.sendFile('email_attachment.png', { root });
-});
-
-app.get('/server_overview.json', (req, res) => {
-  res.sendFile('server_overview.json', { root });
-});
-
-app.post('/:module', (req, res) => {
-  const { module } = req.params;
-  const method = req.body?.method || '';
-  const params = req.body?.params || '';
-
-  console.log(`${_.capitalize(module)}#${method} was called`, params);
-
-  const result = modules[module]?.[method]?.(req, res);
-
-  if (result) {
-    return res.json({
-      jsonrpc: '2.0',
-      id: 1,
-      result,
-    });
-  }
-
-  const message =
-    !!module && !!method
-      ? `Call to stubbed endpoint ${_.capitalize(module)}#${method} not implemented yet.`
-      : 'Invalid request.';
-
-  console.error(message);
-
-  return res.status(500).json({
-    jsonrpc: '2.0',
-    id: 1,
-    error: { message, data: null },
-  });
-});
-
-app.listen(port, () => {
-  console.log(`KA Stub Server listening on port ${port}`);
-});
+export default Routes;

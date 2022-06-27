@@ -1,0 +1,6 @@
+{
+  "exec": "node --loader ts-node/esm stubs/server.ts",
+  "ext": "js,mjs,json,ts",
+  "verbose": true,
+  "watch": "stubs"
+}

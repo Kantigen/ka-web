@@ -1,6 +1,7 @@
 import GenericBuilding from './genericBuilding.js';
+import { Route } from '../interfaces.js';
 
-const IntelTraining = {
+const IntelTraining: Route = {
   view(req, res) {
     const response = GenericBuilding.view(req, res);
     response.building.spies = {

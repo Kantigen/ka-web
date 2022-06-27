@@ -1,5 +1,7 @@
-const Map = {
-  get_star_map() {
+import { Route } from '../interfaces.js';
+
+const Map: Route = {
+  get_star_map(req, res) {
     return {
       stars: [
         {

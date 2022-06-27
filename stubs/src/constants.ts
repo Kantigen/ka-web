@@ -1,6 +1,6 @@
 export const DATE_FORMAT = 'YYYY MM DD HH:mm:ss ZZ';
 
-export const BUILDING_TYPES = {
+export const BUILDING_TYPES: { [index: string]: string } = {
   'energy-reserve': 'Energy Reserve',
   'food-reserve': 'Food Reserve',
   'gas-giant-lab': 'Gas Giant Lab',
@@ -145,7 +145,7 @@ export const BUILDING_TYPES = {
   wheat: 'Wheat Farm',
 };
 
-export const SHIP_TYPES = {
+export const SHIP_TYPES: { [index: string]: string } = {
   barge: 'Barge',
   bleeder: 'Bleeder',
   cargo_ship: 'Cargo Ship',

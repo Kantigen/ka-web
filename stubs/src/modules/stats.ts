@@ -1,9 +1,10 @@
 import Empire from './empire.js';
+import { Route } from '../interfaces.js';
 
-const Stats = {
-  alliance_rank() {
+const Stats: Route = {
+  alliance_rank(req, res) {
     return {
-      status: Empire.status_block(),
+      status: Empire.get_status(req, res),
       alliances: [
         {
           alliance_id: 'id-goes-here', // unique id
@@ -26,9 +27,9 @@ const Stats = {
     };
   },
 
-  colony_rank() {
+  colony_rank(req, res) {
     return {
-      status: Empire.status_block(),
+      status: Empire.get_status(req, res),
       colonies: [
         {
           empire_id: 'id-goes-here', // unique id
@@ -44,7 +45,7 @@ const Stats = {
     };
   },
 
-  credits() {
+  credits(req, res) {
     return [
       { 'Game Design': ['JT Smith', 'Jamie Vrbsky'] },
       {
@@ -127,9 +128,9 @@ const Stats = {
     ];
   },
 
-  empire_rank() {
+  empire_rank(req, res) {
     return {
-      status: Empire.status_block(),
+      status: Empire.get_status(req, res),
       empires: [
         {
           empire_id: 'id-goes-here', // unique id
@@ -151,9 +152,9 @@ const Stats = {
     };
   },
 
-  spy_rank() {
+  spy_rank(req, res) {
     return {
-      status: Empire.status_block(),
+      status: Empire.get_status(req, res),
       spies: [
         {
           empire_id: 'id-goes-here', // unique id
@@ -169,9 +170,9 @@ const Stats = {
     };
   },
 
-  weekly_medal_winners() {
+  weekly_medal_winners(req, res) {
     return {
-      status: Empire.status_block(),
+      status: Empire.get_status(req, res),
       winners: [
         {
           empire_id: 'id-goes-here',

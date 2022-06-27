@@ -1,12 +1,12 @@
 import Buildings from './buildings.js';
 import Body from './body.js';
+import { Route } from '../interfaces.js';
 
-const { buildings } = Body.get_buildings();
-
-const GenericBuilding = {
+const GenericBuilding: Route = {
   view(req, res) {
-    const response = Buildings.view();
+    const response = Buildings.view(req, res);
     const id = req.body.params[1];
+    const { buildings } = Body.get_buildings(req, res);
     const b = buildings[id];
 
     if (b) {
