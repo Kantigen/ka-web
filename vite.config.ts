@@ -8,4 +8,7 @@ export default defineConfig({
     ],
   },
   envPrefix: 'KA_',
+  server: {
+    port: 3000,
+  },
 });
