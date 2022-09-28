@@ -183,10 +183,14 @@ class BodyRPCStore {
     this.empire.name = body.empire.name;
     this.empire.alignment = body.empire.alignment;
     this.empire.is_isolationist = body.empire.is_isolationist;
-    this.station.id = body.station.id;
-    this.station.x = body.station.x;
-    this.station.y = body.station.y;
-    this.station.name = body.station.name;
+
+    if (body.station) {
+      this.station.id = body.station.id;
+      this.station.x = body.station.x;
+      this.station.y = body.station.y;
+      this.station.name = body.station.name;
+    }
+
     this.needs_surface_refresh = body.needs_surface_refresh;
     this.building_count = int(body.building_count);
     this.build_queue_size = body.build_queue_size;
