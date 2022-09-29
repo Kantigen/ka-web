@@ -168,3 +168,7 @@ export const ensureTrailingSlash = (url: string) => (url.slice(-1) === '/' ? url
 export const humanize = (text: string) => {
   return _.map(text.split('_'), (str) => _.capitalize(str)).join(' ');
 };
+
+export const pluralize = (num: number, singular: string, plural: string) => {
+  return num === 1 ? singular : plural;
+};

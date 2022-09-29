@@ -36,9 +36,9 @@ class RearrangeBuildingsService {
   matrixToRearrangeCall(matrix: Matrix): BodyRearrangeBuildingsParams['1'] {
     const buildings: BodyRearrangeBuildingsParams['1'] = [];
 
-    for (let x = -5; x < 5; x++) {
+    for (let x = -5; x <= 5; x++) {
       if (!matrix[x]) continue;
-      for (let y = -5; y < 5; y++) {
+      for (let y = -5; y <= 5; y++) {
         const b = matrix[x][y];
         if (!b) continue;
         buildings.push({ x: b.x, y: b.y, id: b.id });

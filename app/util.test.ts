@@ -91,3 +91,12 @@ test('util.ensureTrailingSlash', () => {
   expect(util.ensureTrailingSlash('//')).toBe('//');
   expect(util.ensureTrailingSlash('///')).toBe('///');
 });
+
+test('util.pluralize', () => {
+  expect(util.pluralize(0, 'pig', 'pigs')).toBe('pigs');
+  expect(util.pluralize(1, 'pig', 'pigs')).toBe('pig');
+  expect(util.pluralize(2, 'pig', 'pigs')).toBe('pigs');
+  expect(util.pluralize(3, 'pig', 'pigs')).toBe('pigs');
+  expect(util.pluralize(4, 'pig', 'pigs')).toBe('pigs');
+  expect(util.pluralize(5, 'pig', 'pigs')).toBe('pigs');
+});

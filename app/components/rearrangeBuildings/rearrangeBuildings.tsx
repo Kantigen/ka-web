@@ -9,6 +9,9 @@ import * as vex from 'app/vex';
 import WindowsStore from 'app/stores/windows';
 import RearrangeBuildingsService from 'app/services/rearrangeBuildings';
 import RearrangeBuildingsHelper from 'app/helpers/rearrangeBuildings';
+import { pluralize } from 'app/util';
+
+declare const YAHOO: any;
 
 type State = {
   matrix: Matrix;
@@ -30,14 +33,20 @@ class RearrangeBuildings extends React.Component<any, State> {
   }
 
   async rearrangePlanet(): Promise<void> {
-    await RearrangeBuildingsService.rearrangeBuildingsFromMatrix(
+    const res = await RearrangeBuildingsService.rearrangeBuildingsFromMatrix(
       BodyRPCStore.id,
       this.state.matrix
     );
+    const moved = res.moved.length;
 
-    vex.alert('Buildings successfully rearranged!', () => {
-      WindowsStore.close('rearrangeBuildings');
-    });
+    vex.alert(
+      `Successfully rearranged ${moved} ${pluralize(moved, 'building', 'buildings')}`,
+      () => {
+        WindowsStore.close('rearrangeBuildings');
+      }
+    );
+
+    YAHOO.lacuna.MapPlanet.Refresh();
   }
 
   tileClick(selected: BuildingCoordinates): void {
@@ -64,6 +73,16 @@ class RearrangeBuildings extends React.Component<any, State> {
 
     const a = this.state.matrix[x][y];
     const b = this.state.matrix[newX][newY];
+
+    if (a) {
+      a.x = newX;
+      a.y = newY;
+    }
+
+    if (b) {
+      b.x = x;
+      b.y = y;
+    }
 
     const matrix = { ...this.state.matrix };
     matrix[newX][newY] = a;
