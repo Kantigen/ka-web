@@ -17,7 +17,7 @@ class BodiesAccordion extends React.Component {
       );
     }
 
-    if (EmpireRPCStore.bodies.mystations.length) {
+    if (EmpireRPCStore.bodies.mystations?.length) {
       items.push(
         <AccordionSection
           title='My Stations'
@@ -27,7 +27,7 @@ class BodiesAccordion extends React.Component {
       );
     }
 
-    if (EmpireRPCStore.bodies.ourstations.length) {
+    if (EmpireRPCStore.bodies.ourstations?.length) {
       items.push(
         <AccordionSection
           title='Our Stations'
@@ -37,15 +37,17 @@ class BodiesAccordion extends React.Component {
       );
     }
 
-    _.keys(EmpireRPCStore.bodies.babies).forEach((babyName) => {
-      items.push(
-        <AccordionSection
-          title={`${babyName}'s Colonies`}
-          list={EmpireRPCStore.bodies.babies[babyName].bodies}
-          key={babyName}
-        />
-      );
-    });
+    if (EmpireRPCStore.bodies.babies) {
+      _.each(EmpireRPCStore.bodies.babies, (baby, empireName) => {
+        items.push(
+          <AccordionSection
+            title={`${empireName}'s Colonies`}
+            list={baby.bodies}
+            key={empireName}
+          />
+        );
+      });
+    }
 
     return <div>{items}</div>;
   }

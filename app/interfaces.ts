@@ -200,9 +200,9 @@ export interface EmpireGetStatusResponse {
   empire: {
     bodies: {
       colonies: BodiesList[];
-      mystations: BodiesList[];
-      ourstations: BodiesList[];
-      babies: {
+      mystations?: BodiesList[];
+      ourstations?: BodiesList[];
+      babies?: {
         [index: string]: {
           alliance_id?: number;
           id: number;
