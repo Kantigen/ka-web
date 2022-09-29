@@ -6,7 +6,7 @@ Web client for the up-and-coming community edition of The Lacuna Expanse, known 
 
 [![Kenó Antigen screenshot](docs/img/screenshot.png)](https://demo.kenoantigen.com/)
 
-# Running
+# Setup
 
 Requires Node and npm:
 
@@ -15,8 +15,15 @@ git clone https://github.com/Kantigen/ka-web
 cd ka-web
 git submodule update --init --recursive
 npm install
-npm run dev
 ```
+
+# Running
+
+The client has two run modes for local development:
+
+**`npm run dev`**: assumes you have [ka-server](https://github.com/Kantigen/ka-server) set up and running on `localhost:5000`
+
+**`npm run dev:stubbed`**: uses a stubbed game server instead
 
 # Ideas
 
