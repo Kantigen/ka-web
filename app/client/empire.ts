@@ -4,7 +4,7 @@ import { EmpireCreateParams } from 'app/interfaces';
 
 class Empire extends ClientBase {
   async getStatus() {
-    return this.call('empire', 'get_status', []);
+    return this.call('empire', 'get_status', {});
   }
 
   async create(empire: EmpireCreateParams) {
