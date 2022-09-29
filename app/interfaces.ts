@@ -3,7 +3,7 @@ import { BodiesList } from 'app/interfaces/empire';
 import { Tab } from 'app/interfaces/tabber';
 
 export interface BodyGetBuildingsParams {
-  0: number;
+  body_id: number;
 }
 
 export interface BodyGetBuildingsResponse {

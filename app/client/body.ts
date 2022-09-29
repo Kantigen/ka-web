@@ -3,7 +3,7 @@ import { BodyRearrangeBuildingsParams } from 'app/interfaces';
 
 class Body extends ClientBase {
   getBuildings(id: number) {
-    return this.call('body', 'get_buildings', [id]);
+    return this.call('body', 'get_buildings', { body_id: id });
   }
 
   getStatus(id: number) {
