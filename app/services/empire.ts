@@ -12,7 +12,7 @@ class EmpireService {
     server.call({
       module: 'empire',
       method: 'get_boosts',
-      params: [],
+      params: {},
       addSession: true,
       success: (result: any) => {
         BoostsRPCStore.update(result);
