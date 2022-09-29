@@ -45,6 +45,12 @@ class LoginWindow extends React.Component {
     // WindowsStore.add('forgotPassword');
   }
 
+  handleEnter(e: React.KeyboardEvent) {
+    if (e.key === 'Enter') {
+      this.loginClick();
+    }
+  }
+
   render() {
     return (
       <div className='bulma'>
@@ -68,6 +74,7 @@ class LoginWindow extends React.Component {
               autoComplete='nickname'
               className='input'
               ref={this.empireNameField}
+              onKeyDown={(e) => this.handleEnter(e)}
             />
           </div>
         </div>
@@ -84,6 +91,7 @@ class LoginWindow extends React.Component {
               autoComplete='current-password'
               className='input'
               ref={this.passwordField}
+              onKeyDown={(e) => this.handleEnter(e)}
             />
           </div>
         </div>
