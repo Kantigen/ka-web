@@ -24,6 +24,8 @@ class BodyRPCStore {
 
   image = '';
 
+  surfaceImage = '';
+
   size = 0;
 
   water = 0;
@@ -155,6 +157,7 @@ class BodyRPCStore {
     this.type = body.type;
     this.name = body.name;
     this.image = body.image;
+    this.surfaceImage = body.image.replace(/-\d+$/, '');
     this.size = body.size;
     this.water = body.water;
 

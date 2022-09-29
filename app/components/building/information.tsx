@@ -19,7 +19,7 @@ class BuildingInformation extends React.Component<Props> {
               className='columns is-centered is-vcentered'
               style={{
                 backgroundImage: `url(${environment.getAssetsUrl()}planet_side/surface-${
-                  BodyRPCStore.image
+                  BodyRPCStore.surfaceImage
                 }.jpg)`,
               }}
             >

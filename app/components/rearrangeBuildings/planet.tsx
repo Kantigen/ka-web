@@ -34,7 +34,7 @@ class Planet extends React.Component<Props> {
         style={{
           position: 'relative',
           background: `url(${`${environment.getAssetsUrl()}planet_side/surface-${
-            BodyRPCStore.image
+            BodyRPCStore.surfaceImage
           }.jpg`})`,
           width: 550,
           height: 550,
