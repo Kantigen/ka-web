@@ -30,6 +30,7 @@ test('util.int', () => {
   expect(util.int('1')).toBe(1);
   expect(util.int('1.0')).toBe(1);
   expect(util.int('1.0sdfsl')).toBe(1);
+  expect(util.int(1.111111)).toBe(1);
 });
 
 test('util.formatTime', () => {

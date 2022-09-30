@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import ServerRPCStore from 'app/stores/rpc/server';
 import _ from 'lodash';
 import * as util from 'app/util';
+import { BodyGetStatusResponse } from 'app/interfaces';
 
 const { int } = util;
 
@@ -12,7 +13,7 @@ class BodyRPCStore {
 
   y = 0;
 
-  star_id = '';
+  star_id = 0;
 
   star_name = '';
 
@@ -54,7 +55,7 @@ class BodyRPCStore {
   };
 
   empire = {
-    id: '',
+    id: 0,
     name: '',
     alignment: '',
     is_isolationist: 0,
@@ -125,14 +126,14 @@ class BodyRPCStore {
 
   num_incoming_own = 0;
 
-  incoming_enemy_ships = [];
+  incoming_enemy_ships: any[] = [];
 
-  incoming_ally_ships = [];
+  incoming_ally_ships: any[] = [];
 
-  incoming_own_ships = [];
+  incoming_own_ships: any[] = [];
 
   alliance = {
-    id: '',
+    id: 0,
     name: '',
   };
 
@@ -147,18 +148,18 @@ class BodyRPCStore {
 
   clear() {}
 
-  update(body: any) {
+  update(body: BodyGetStatusResponse['body']) {
     this.id = body.id;
     this.x = int(body.x);
     this.y = int(body.y);
-    this.star_id = body.star_id;
+    this.star_id = int(body.star_id);
     this.star_name = body.star_name;
     this.orbit = int(body.orbit);
     this.type = body.type;
     this.name = body.name;
     this.image = body.image;
     this.surfaceImage = body.image.replace(/-\d+$/, '');
-    this.size = body.size;
+    this.size = int(body.size);
     this.water = body.water;
 
     this.ore.anthracite = body.ore.anthracite;
@@ -182,10 +183,12 @@ class BodyRPCStore {
     this.ore.uraninite = body.ore.uraninite;
     this.ore.zircon = body.ore.zircon;
 
-    this.empire.id = body.empire.id;
-    this.empire.name = body.empire.name;
-    this.empire.alignment = body.empire.alignment;
-    this.empire.is_isolationist = body.empire.is_isolationist;
+    if (body.empire) {
+      this.empire.id = body.empire.id;
+      this.empire.name = body.empire.name;
+      this.empire.alignment = body.empire.alignment;
+      this.empire.is_isolationist = body.empire.is_isolationist;
+    }
 
     if (body.station) {
       this.station.id = body.station.id;
@@ -194,40 +197,54 @@ class BodyRPCStore {
       this.station.name = body.station.name;
     }
 
-    this.needs_surface_refresh = body.needs_surface_refresh;
-    this.building_count = int(body.building_count);
-    this.build_queue_size = body.build_queue_size;
-    this.build_queue_len = body.build_queue_len;
-    this.plots_available = int(body.plots_available);
-    this.happiness = body.happiness;
-    this.happiness_hour = body.happiness_hour;
-    this.unhappy_date = body.unhappy_date;
-    this.neutral_entry = body.neutral_entry;
-    this.propaganda_boost = body.propaganda_boost;
-    this.food_stored = body.food_stored;
-    this.food_capacity = body.food_capacity;
-    this.food_hour = body.food_hour;
-    this.energy_stored = body.energy_stored;
-    this.energy_capacity = body.energy_capacity;
-    this.energy_hour = body.energy_hour;
-    this.ore_hour = body.ore_hour;
-    this.ore_capacity = body.ore_capacity;
-    this.ore_stored = body.ore_stored;
-    this.waste_hour = body.waste_hour;
-    this.waste_stored = body.waste_stored;
-    this.waste_capacity = body.waste_capacity;
-    this.water_stored = body.water_stored;
-    this.water_hour = body.water_hour;
-    this.water_capacity = body.water_capacity;
-    this.skip_incoming_ships = body.skip_incoming_ships;
-    this.num_incoming_own = int(body.num_incoming_own);
-    this.num_incoming_ally = int(body.num_incoming_ally);
-    this.num_incoming_enemy = int(body.num_incoming_enemy);
-    this.incoming_enemy_ships = body.incoming_enemy_ships;
-    this.incoming_ally_ships = body.incoming_ally_ships;
-    this.incoming_own_ships = body.incoming_own_ships;
-    this.alliance = body.alliance;
-    this.influence = body.influence;
+    //
+    // TODO: the following if conditions are a mess.
+    // They're here because we are using the same interface to define all body status responses.
+    // We should probably have separate interfaces for "our bodies" and all others.
+    // This method only handles bodies that belong to us.. however I can't find a clean way to
+    // represent this yet in TypeScript without duplicating info.. still too new to TS to know!
+    //
+
+    if (body.needs_surface_refresh) this.needs_surface_refresh = body.needs_surface_refresh;
+    if (body.building_count) this.building_count = int(body.building_count);
+    if (body.build_queue_size) this.build_queue_size = body.build_queue_size;
+    if (body.build_queue_len) this.build_queue_len = body.build_queue_len;
+    if (body.plots_available) this.plots_available = int(body.plots_available);
+    if (body.happiness) this.happiness = body.happiness;
+    if (body.happiness_hour) this.happiness_hour = body.happiness_hour;
+    if (body.unhappy_date) this.unhappy_date = body.unhappy_date;
+    if (body.neutral_entry) this.neutral_entry = body.neutral_entry;
+    if (body.propaganda_boost) this.propaganda_boost = body.propaganda_boost;
+    if (body.food_stored) this.food_stored = body.food_stored;
+    if (body.food_capacity) this.food_capacity = body.food_capacity;
+    if (body.food_hour) this.food_hour = body.food_hour;
+    if (body.energy_stored) this.energy_stored = body.energy_stored;
+    if (body.energy_capacity) this.energy_capacity = body.energy_capacity;
+    if (body.energy_hour) this.energy_hour = body.energy_hour;
+    if (body.ore_hour) this.ore_hour = body.ore_hour;
+    if (body.ore_capacity) this.ore_capacity = body.ore_capacity;
+    if (body.ore_stored) this.ore_stored = body.ore_stored;
+    if (body.waste_hour) this.waste_hour = body.waste_hour;
+    if (body.waste_stored) this.waste_stored = body.waste_stored;
+    if (body.waste_capacity) this.waste_capacity = body.waste_capacity;
+    if (body.water_stored) this.water_stored = body.water_stored;
+    if (body.water_hour) this.water_hour = body.water_hour;
+    if (body.water_capacity) this.water_capacity = body.water_capacity;
+    if (body.skip_incoming_ships) this.skip_incoming_ships = body.skip_incoming_ships;
+    if (body.num_incoming_own) this.num_incoming_own = int(body.num_incoming_own);
+    if (body.num_incoming_ally) this.num_incoming_ally = int(body.num_incoming_ally);
+    if (body.num_incoming_enemy) this.num_incoming_enemy = int(body.num_incoming_enemy);
+    if (body.incoming_enemy_ships) this.incoming_enemy_ships = body.incoming_enemy_ships;
+    if (body.incoming_ally_ships) this.incoming_ally_ships = body.incoming_ally_ships;
+    if (body.incoming_own_ships) this.incoming_own_ships = body.incoming_own_ships;
+
+    if (body.alliance) {
+      this.alliance = body.alliance;
+    }
+
+    if (body.influence) {
+      this.influence = body.influence;
+    }
 
     const updateShip = function (ship: any) {
       ship.arrival_ms = util.serverDateToMs(ship.date_arrives) - ServerRPCStore.serverTimeMs;

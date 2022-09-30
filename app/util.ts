@@ -74,8 +74,8 @@ export const serverDateToMs = function (serverDate: string) {
   return serverDateToDateObj(serverDate).getTime();
 };
 
-export const int = function (number: string) {
-  return parseInt(number, 10);
+export const int = function (value: string | number) {
+  return typeof value === 'string' ? parseInt(value, 10) : Math.trunc(value + 0);
 };
 
 export const formatTime = function (totalSeconds: number) {
