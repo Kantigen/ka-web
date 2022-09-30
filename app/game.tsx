@@ -148,10 +148,9 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
           window.location = o.error.data;
         } else if (o.error.code === 1016) {
           // Captcha
-          vex.alert('Captcha not implemeneted');
-          // WindowActions.windowAdd(Captcha, 'captcha', {
-          //     success: retry,
-          // });
+          WindowsStore.add('captcha', {
+            onCaptchaComplete: retry,
+          });
         } else if (o.error.code === -32603) {
           // Internal error
           Game.QuickDialog(

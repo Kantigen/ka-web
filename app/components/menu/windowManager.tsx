@@ -6,6 +6,7 @@ import WindowsStore from 'app/stores/windows';
 import Panel from 'app/components/menu/panel';
 
 import AboutWindow from 'app/components/about';
+import CaptchaWindow from 'app/components/captcha';
 import EssentiaVeinWindow from 'app/components/essentiaVein';
 import EssentiaWindow from 'app/components/essentia';
 import ForgotPasswordWindow from 'app/components/forgotPassword';
@@ -35,6 +36,15 @@ export const WindowMap: WindowMap = {
       title: 'About',
       width: 450,
       height: 400,
+    },
+  },
+
+  captcha: {
+    component: CaptchaWindow,
+    config: {
+      title: 'Verify Your Humanity',
+      width: 320,
+      height: 'auto',
     },
   },
 

@@ -47,6 +47,7 @@ class LoginWindow extends React.Component {
 
   handleEnter(e: React.KeyboardEvent) {
     if (e.key === 'Enter') {
+      e.preventDefault();
       this.loginClick();
     }
   }

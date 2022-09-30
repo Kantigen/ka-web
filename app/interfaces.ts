@@ -412,7 +412,7 @@ export interface Window {
 export interface WindowOptions {
   id?: number | string;
   url?: string;
-  success?: Function;
+  onCaptchaComplete?: Function;
 }
 
 export interface BuildingWindowOptions {
