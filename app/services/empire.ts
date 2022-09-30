@@ -1,4 +1,9 @@
-import { EmpireCreateParams } from 'app/interfaces';
+import {
+  EmpireCreateParams,
+  EmpireBoostParams,
+  EmpireGetBoostsParams,
+  EmpireGetBoostsResult,
+} from 'app/interfaces';
 import * as vex from 'app/vex';
 import BoostsRPCStore from 'app/stores/rpc/empire/boosts';
 import environment from 'app/environment';
@@ -48,12 +53,26 @@ class EmpireService extends ServiceBase {
   }
 
   getBoosts() {
+    const params: EmpireGetBoostsParams = {};
     server.call({
       module: 'empire',
       method: 'get_boosts',
-      params: {},
+      params: params,
       addSession: true,
-      success: (result: any) => {
+      success: (result: EmpireGetBoostsResult) => {
+        BoostsRPCStore.update(result);
+      },
+    });
+  }
+
+  setBoost(type: string, weeks: number) {
+    const params: EmpireBoostParams = { type, weeks };
+    server.call({
+      module: 'empire',
+      method: 'set_boost',
+      params: params,
+      addSession: true,
+      success: (result: EmpireGetBoostsResult) => {
         BoostsRPCStore.update(result);
       },
     });

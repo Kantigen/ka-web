@@ -300,6 +300,28 @@ export interface EmpireCreateResponse {
   empire_id: number;
 }
 
+export interface EmpireGetBoostsParams {}
+
+export interface EmpireGetBoostsResult {
+  boosts: {
+    food: ServerDate;
+    ore: ServerDate;
+    energy: ServerDate;
+    water: ServerDate;
+    happiness: ServerDate;
+    storage: ServerDate;
+    building: ServerDate;
+    ship_build: ServerDate;
+    ship_speed: ServerDate;
+    spy_training: ServerDate;
+  };
+}
+
+export interface EmpireBoostParams {
+  type: string;
+  weeks?: number;
+}
+
 export interface EmpireGetStatusParams {}
 
 export interface EmpireGetStatusResponse {

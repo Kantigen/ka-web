@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { serverDateToMoment } from 'app/util';
 import ServerRPCStore from 'app/stores/rpc/server';
+import { EmpireGetBoostsResult } from 'app/interfaces';
 
 class BoostsEmpireRPCStore {
   foodMsRemaining = 0;
@@ -23,7 +24,7 @@ class BoostsEmpireRPCStore {
     makeAutoObservable(this);
   }
 
-  update(result: any) {
+  update(result: EmpireGetBoostsResult) {
     const now = ServerRPCStore.serverTimeMoment;
     this.buildingMsRemaining = serverDateToMoment(result.boosts.building).diff(now);
     this.energyMsRemaining = serverDateToMoment(result.boosts.energy).diff(now);

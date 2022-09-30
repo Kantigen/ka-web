@@ -1,13 +1,12 @@
-import * as vex from 'app/vex';
-
 import React from 'react';
 import { observer } from 'mobx-react';
 import classnames from 'classnames';
-import validator from 'validator';
 import EmpireRPCStore from 'app/stores/rpc/empire';
 import * as util from 'app/util';
 import Icon from 'app/components/menu/icon';
 import { IconStyle } from 'app/interfaces/menu/icons';
+import EmpireService from 'app/services/empire';
+import { int } from 'app/util';
 
 type Props = {
   type: string;
@@ -21,24 +20,11 @@ class Boost extends React.Component<Props> {
 
   handleBoost() {
     const { type } = this.props;
-    const weeks = this.weeks?.current?.value || '';
+    const weeks = int(this.weeks?.current?.value || 0);
 
     console.log(`Boosting ${type} for ${weeks} weeks`);
 
-    // if (
-    //   !validator.isInt(weeks, {
-    //     min: 1,
-    //     max: 100, // The server has no max but this seems like a reasonable limit, to me.
-    //   })
-    // ) {
-    //   vex.alert('Number of weeks must be an integer between 1 and 100.');
-    //   return;
-    // }
-    // if (weeks * 5 > EmpireRPCStore.essentia) {
-    //   vex.alert('Insufficient Essentia.');
-    //   return;
-    // }
-    // EmpireRPCActions.requestEmpireRPCBoost({ type, weeks });
+    EmpireService.setBoost(type, weeks);
   }
 
   tagClassNames() {
