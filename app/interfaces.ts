@@ -244,6 +244,36 @@ export interface BuildingsViewResponse {
 
 export interface CaptchaFetchParams {}
 
+export interface BuildingsUpgradeParams {
+  0: number;
+}
+
+export interface BuildingsUpgradeResponse {
+  building: {
+    id: number;
+    pending_build: {
+      seconds_remaining: number;
+      start: ServerDate;
+      end: ServerDate;
+    };
+    level: number;
+  };
+}
+
+export interface BuildingsDowngradeParams {
+  0: number;
+}
+
+export interface BuildingsDowngradeResponse {}
+
+export interface BuildingsDemolishParams {
+  0: number;
+}
+
+export interface BuildingsDemolishResponse {
+  building: Building;
+}
+
 export interface CaptchaFetchResponse {
   guid: string;
   url: string;

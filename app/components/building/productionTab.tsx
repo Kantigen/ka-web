@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
 import { observer } from 'mobx-react';
 import _ from 'lodash';
@@ -9,10 +7,15 @@ import BodyRPCStore from 'app/stores/rpc/body';
 import ActionButton from 'app/components/building/actionButton';
 import ResourceLine from 'app/components/building/resourceLine';
 
+import BuildingsService from 'app/services/buildings';
+import WindowsStore from 'app/stores/windows';
+
 import { Building } from 'app/interfaces';
 
 import * as util from 'app/util';
 import * as vex from 'app/vex';
+
+declare const YAHOO: any;
 
 type Props = {
   building: Building;
@@ -20,31 +23,42 @@ type Props = {
 
 class ProductionTab extends React.Component<Props> {
   onDemolishClick() {
-    const name = `${this.props.building.name} ${this.props.building.level}`;
+    const { name, level, url, id } = this.props.building;
+    const module = url.replace('/', '');
 
-    vex.confirm(`Are you sure you want to demolish your ${name}?`, () => {
-      // GenericBuildingRPCActions.requestGenericBuildingRPCDemolish(this.props.building.url, {
-      //   building_id: this.props.building.id,
-      // });
+    vex.confirm(`Are you sure you want to demolish your ${name} ${level}?`, async () => {
+      await BuildingsService.demolish(module, id);
+      YAHOO.lacuna.MapPlanet.Refresh();
+      WindowsStore.closeAll();
     });
   }
 
   onDowngradeClick() {
-    const name = `${this.props.building.name} to level ${this.props.building.level - 1}`;
+    const { name, level, url, id } = this.props.building;
+    const module = url.replace('/', '');
 
-    vex.confirm(`Are you sure you want to downgrade your ${name}?`, () => {
-      // GenericBuildingRPCActions.requestGenericBuildingRPCDowngrade(
-      //   this.props.building.url,
-      //   this.props.building.id
-      // );
-    });
+    vex.confirm(
+      `Are you sure you want to downgrade your ${name} to level ${level - 1}?`,
+      async () => {
+        await BuildingsService.downgrade(module, id);
+        YAHOO.lacuna.MapPlanet.Refresh();
+        WindowsStore.closeAll();
+      }
+    );
   }
 
-  onUpgradeClick() {
-    // GenericBuildingRPCActions.requestGenericBuildingRPCUpgrade(
-    //   this.props.building.url,
-    //   this.props.building.id
-    // );
+  async onUpgradeClick() {
+    const module = this.props.building.url.replace('/', '');
+    const res = await BuildingsService.upgrade(module, this.props.building.id);
+
+    YAHOO.lacuna.MapPlanet.ReloadBuilding({
+      ...this.props.building,
+      ...{
+        pending_build: res.building.pending_build,
+      },
+    });
+
+    WindowsStore.closeAll();
   }
 
   render() {
