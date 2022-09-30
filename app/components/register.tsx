@@ -1,6 +1,6 @@
 import React from 'react';
 import WindowsStore from 'app/stores/windows';
-import Empire from 'app/client/empire';
+import EmpireService from 'app/services/empire';
 import _ from 'lodash';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { object, string, boolean, InferType } from 'yup';
@@ -28,12 +28,12 @@ class RegisterWindow extends React.Component {
   };
 
   async componentDidMount() {
-    const { guid, url } = await Empire.fetchCaptcha();
+    const { guid, url } = await EmpireService.fetchCaptcha();
     this.setState({ captcha: { guid, url } });
   }
 
   async submit(values: EmpireSchema) {
-    const res = await Empire.create({
+    const res = await EmpireService.create({
       name: values.empireName,
       email: values.email,
       password: values.password,

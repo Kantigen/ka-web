@@ -1,6 +1,6 @@
-import Body from 'app/client/body';
+import BodyService from 'app/services/body';
 import _ from 'lodash';
-import { Matrix, MatrixBuilding } from 'app/interfaces/rearrangeBuildings';
+import { Matrix } from 'app/interfaces/rearrangeBuildings';
 import { int } from 'app/util';
 import {
   BodyGetBuildingsResponse,
@@ -10,7 +10,7 @@ import {
 
 class RearrangeBuildingsService {
   async fetchBuildingsMatrix(bodyId: number): Promise<Matrix> {
-    const res = await Body.getBuildings(bodyId);
+    const res = await BodyService.getBuildings(bodyId);
     return this.buildingsToMatrix(res.buildings);
   }
 
@@ -30,7 +30,7 @@ class RearrangeBuildingsService {
     matrix: Matrix
   ): Promise<BodyRearrangeBuildingsResponse> {
     const params: BodyRearrangeBuildingsParams = [bodyId, this.matrixToRearrangeCall(matrix)];
-    return Body.rearrangeBuildings(params);
+    return BodyService.rearrangeBuildings(params);
   }
 
   matrixToRearrangeCall(matrix: Matrix): BodyRearrangeBuildingsParams['1'] {

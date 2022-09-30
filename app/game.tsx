@@ -12,7 +12,7 @@ import WindowsStore from 'app/stores/windows';
 import environment from 'app/environment';
 //@ts-expect-error
 import resources from 'app/json/resources';
-import { Empire } from 'app/client';
+import EmpireService from 'app/services/empire';
 
 import * as vex from 'app/vex';
 
@@ -127,7 +127,7 @@ if (typeof YAHOO.lacuna.Game === 'undefined' || !YAHOO.lacuna.Game) {
 
         SessionStore.update(session);
 
-        Empire.getStatus()
+        EmpireService.getStatus()
           .then(() => {
             Game.Run();
           })

@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
+import { StatsCreditsResult } from 'app/interfaces';
 
 interface Credits {
   [index: string]: string[];
@@ -29,11 +30,11 @@ class CreditsRPCStore {
   //     'Play Testers' : ['John Ottinger', 'Jamie Vrbsky']
   // }
 
-  update(result: any) {
+  update(result: StatsCreditsResult) {
     const credits: Credits = {};
 
-    _.each(result, (foo) => {
-      _.each(foo, (names, header) => {
+    _.each(result, (block) => {
+      _.each(block, (names, header) => {
         credits[header] = names;
       });
     });

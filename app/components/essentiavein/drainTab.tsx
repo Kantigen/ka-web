@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import $ from 'app/shims/jquery';
 import { Building } from 'app/interfaces';
-import EssentiaVein from 'app/client/essentiaVein';
+import EssentiaVein from 'app/services/essentiaVein';
 import * as vex from 'app/vex';
 
 type Props = {

@@ -1,13 +1,52 @@
-import ReactTooltip from 'react-tooltip';
-import BoostsRPCStore from 'app/stores/rpc/empire/boosts';
-import InviteRPCStore from 'app/stores/rpc/empire/invite';
-import server from 'app/server';
-import { Empire } from 'app/client';
+import { EmpireCreateParams } from 'app/interfaces';
 import * as vex from 'app/vex';
+import BoostsRPCStore from 'app/stores/rpc/empire/boosts';
+import environment from 'app/environment';
+import InviteRPCStore from 'app/stores/rpc/empire/invite';
+import ReactTooltip from 'react-tooltip';
+import server from 'app/server';
+import ServiceBase from 'app/services/base';
 
 import YAHOO from 'app/shims/yahoo';
 
-class EmpireService {
+class EmpireService extends ServiceBase {
+  async getStatus() {
+    return this.call('empire', 'get_status', {});
+  }
+
+  async create(empire: EmpireCreateParams) {
+    return this.call('empire', 'create', empire);
+  }
+
+  async fetchCaptcha() {
+    return this.call('empire', 'fetch_captcha', [], false);
+  }
+
+  async login(name: string, password: string, browserFingerprint: string) {
+    return this.call(
+      'empire',
+      'login',
+      {
+        name,
+        password,
+        browser: browserFingerprint,
+        api_key: environment.getApiKey(),
+      },
+      false
+    );
+  }
+
+  async logout() {
+    await this.call('empire', 'logout', []);
+
+    YAHOO.lacuna.Game.Reset();
+    YAHOO.lacuna.MapPlanet.Reset();
+    YAHOO.lacuna.Game.DoLogin();
+
+    // Hide all our tooltips
+    ReactTooltip.hide();
+  }
+
   getBoosts() {
     server.call({
       module: 'empire',
@@ -45,20 +84,6 @@ class EmpireService {
         vex.alert('Invite email sent!');
       },
     });
-  }
-
-  login() {
-    //
-  }
-
-  async logout() {
-    await Empire.logout();
-    YAHOO.lacuna.Game.Reset();
-    YAHOO.lacuna.MapPlanet.Reset();
-    YAHOO.lacuna.Game.DoLogin();
-
-    // Hide all our tooltips
-    ReactTooltip.hide();
   }
 }
 

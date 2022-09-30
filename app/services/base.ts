@@ -22,9 +22,11 @@ import {
   EmpireLogoutResponse,
   EssentiaVeinDrainParams,
   EssentiaVeinDrainResponse,
+  StatsCreditsParams,
+  StatsCreditsResult,
 } from 'app/interfaces';
 
-class ClientBase {
+class ServiceBase {
   call(
     module: 'body',
     method: 'get_buildings',
@@ -102,6 +104,13 @@ class ClientBase {
     addSession?: boolean
   ): Promise<EssentiaVeinDrainResponse>;
 
+  call(
+    module: 'stats',
+    method: 'credits',
+    params: StatsCreditsParams,
+    addSession?: boolean
+  ): Promise<StatsCreditsResult>;
+
   call(module: string, method: string, params: any, addSession = true): Promise<any> {
     return new Promise((resolve, reject) => {
       server.call({
@@ -120,4 +129,4 @@ class ClientBase {
   }
 }
 
-export default ClientBase;
+export default ServiceBase;

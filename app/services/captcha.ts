@@ -1,6 +1,6 @@
-import ClientBase from 'app/client/base';
+import ClientBase from 'app/services/base';
 
-class Captcha extends ClientBase {
+class CaptchaService extends ClientBase {
   fetch() {
     return this.call('captcha', 'fetch', []);
   }
@@ -10,4 +10,4 @@ class Captcha extends ClientBase {
   }
 }
 
-export default new Captcha();
+export default new CaptchaService();

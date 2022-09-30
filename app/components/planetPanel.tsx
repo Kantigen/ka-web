@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Body } from 'app/client';
+import BodyService from 'app/services/body';
 
 import PlanetDetailsTab from 'app/components/planetPanel/planetDetailsTab';
 import { Tabber } from 'app/components/tabber';
@@ -74,7 +74,7 @@ class PlanetPanel extends React.Component {
   };
 
   async componentDidMount() {
-    const { body } = await Body.getStatus(1);
+    const { body } = await BodyService.getStatus(1); // TODO: send request with correct ID instead of `1`
 
     this.setState({
       status: {

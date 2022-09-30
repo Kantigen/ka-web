@@ -307,6 +307,14 @@ export interface WindowDefinition {
   config: WindowConfig;
 }
 
+export interface StatsCreditsParams {}
+
+export interface StatsCreditsResult {
+  [index: number]: {
+    [index: string]: string[];
+  };
+}
+
 export type WindowType =
   | 'about'
   | 'captcha'

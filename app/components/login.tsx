@@ -1,5 +1,5 @@
 import React from 'react';
-import Empire from 'app/client/empire';
+import EmpireService from 'app/services/empire';
 import WindowsStore from 'app/stores/windows';
 import environment from 'app/environment';
 
@@ -20,7 +20,7 @@ class LoginWindow extends React.Component {
     const fingerprint = 'todo';
 
     // TODO: handle empire not founded error
-    const res = await Empire.login(empireName, password, fingerprint);
+    const res = await EmpireService.login(empireName, password, fingerprint);
 
     if (res.session_id) {
       LoginDialog.fireEvent('onLoginSuccessful', { result: res });

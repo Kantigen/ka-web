@@ -1,17 +1,10 @@
 import CreditsRPCStore from 'app/stores/rpc/stats/credits';
-import server from 'app/server';
+import ServiceBase from 'app/services/base';
 
-class StatsService {
-  getCredits() {
-    server.call({
-      module: 'stats',
-      method: 'credits',
-      params: [],
-      addSession: true,
-      success: (result: any) => {
-        CreditsRPCStore.update(result);
-      },
-    });
+class StatsService extends ServiceBase {
+  async getCredits() {
+    const res = await this.call('stats', 'credits', []);
+    CreditsRPCStore.update(res);
   }
 }
 
