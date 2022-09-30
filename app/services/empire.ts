@@ -37,7 +37,7 @@ class EmpireService extends ServiceBase {
   }
 
   async logout() {
-    await this.call('empire', 'logout', []);
+    await this.call('empire', 'logout', {});
 
     YAHOO.lacuna.Game.Reset();
     YAHOO.lacuna.MapPlanet.Reset();
