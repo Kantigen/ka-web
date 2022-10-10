@@ -15,11 +15,11 @@ const constants: AppConfig = {
     trade: 'Trade',
     mining: 'Mining',
     intelligence: 'Intelligence',
-    supply_chain: 'SupplyChain',
+    supply_chain: 'Supply Chain',
     war: 'War',
     colonization: 'Colonization',
     exploration: 'Exploration',
-    waste_chain: 'WasteChain',
+    waste_chain: 'Waste Chain',
   },
 
   FLEET_TASKS: {
@@ -35,7 +35,7 @@ const constants: AppConfig = {
   },
 
   FLEET_TYPES: {
-    probe: 'probe',
+    probe: 'Probe',
     short_range_colony_ship: 'Short Range Colony Ship',
     colony_ship: 'Colony Ship',
     spy_pod: 'Spy Pod',
@@ -52,9 +52,9 @@ const constants: AppConfig = {
     scow_mega: 'Scow Mega',
     dory: 'Dory',
     freighter: 'Freighter',
-    snark: 'Snark',
-    snark2: 'Snark2',
-    snark3: 'Snark3',
+    snark: 'Snark I',
+    snark2: 'Snark II',
+    snark3: 'Snark III',
     thud: 'Thud',
     supply_pod: 'Supply Pod',
     supply_pod2: 'Supply Pod2',

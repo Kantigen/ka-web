@@ -21,7 +21,7 @@ npm install
 
 The client has two run modes for local development:
 
-**`npm run dev`**: assumes you have [ka-server](https://github.com/Kantigen/ka-server) set up and running on `localhost:5000`
+**`npm run dev`**: assumes you have [ka-server](https://github.com/Kantigen/ka-server) set up and running.
 
 **`npm run dev:stubbed`**: uses a stubbed game server instead
 
