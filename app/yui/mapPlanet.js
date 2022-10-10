@@ -992,19 +992,23 @@ if (typeof YAHOO.lacuna.MapPlanet == 'undefined' || !YAHOO.lacuna.MapPlanet) {
         });
       },
       DetailsView: function (tile) {
-        //YAHOO.log(tile, "info", "DetailsView");
-
-        if (!FactoryMap[tile.data.url]) {
-          // Pass this off to the new React stuff.
-
-          if (WindowMap[tile.data.url.substring(1)]) {
-            WindowsStore.add(tile.data.url.substring(1), tile.data);
-          } else {
-            WindowsStore.add('genericBuilding', tile.data);
-          }
-
-          return;
+        if (FactoryMap[tile.data.url]) {
+          this.DetailsViewLegacy(tile);
         }
+        if (WindowMap[tile.data.url.substring(1)] || !FactoryMap[tile.data.url]) {
+          this.DetailsViewReact(tile);
+        }
+      },
+      DetailsViewReact: function (tile) {
+        const moduleName = tile.data.url.substring(1);
+        if (WindowMap[moduleName]) {
+          WindowsStore.add(moduleName, tile.data);
+        } else {
+          WindowsStore.add('genericBuilding', tile.data);
+        }
+      },
+      DetailsViewLegacy: function (tile) {
+        //YAHOO.log(tile, "info", "DetailsView");
 
         MenuStore.showLoader();
 
