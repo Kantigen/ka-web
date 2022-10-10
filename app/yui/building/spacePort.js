@@ -192,11 +192,11 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
         return this.sendTab;
       },
       _getSendFleetTab: function () {
-        var currYear = Lacuna.Game.ServerData.time.getUTCFullYear();
-        var currMon = Lacuna.Game.ServerData.time.getUTCMonth() + 1;
-        var currDay = Lacuna.Game.ServerData.time.getUTCDate();
-        var currHour = Lacuna.Game.ServerData.time.getUTCHours();
-        var currMin = Lacuna.Game.ServerData.time.getUTCMinutes();
+        var currYear = ServerRPCStore.serverTimeMoment.year();
+        var currMon = ServerRPCStore.serverTimeMoment.month();
+        var currDay = ServerRPCStore.serverTimeMoment.date();
+        var currHour = ServerRPCStore.serverTimeMoment.hours();
+        var currMin = ServerRPCStore.serverTimeMoment.minutes();
         var earlyset = true;
         this.sendFleetTab = new YAHOO.widget.Tab({
           label: 'Fleet',
@@ -1780,11 +1780,11 @@ if (typeof YAHOO.lacuna.buildings.SpacePort === 'undefined' || !YAHOO.lacuna.bui
         if (earliest === true) {
           arrivalDate.earliest = 1;
         } else {
-          var currYear = Lacuna.Game.ServerData.time.getUTCFullYear();
-          var currMon = Lacuna.Game.ServerData.time.getUTCMonth() + 1;
-          var currDay = Lacuna.Game.ServerData.time.getUTCDate();
-          var currHour = Lacuna.Game.ServerData.time.getUTCHours();
-          var currMin = Lacuna.Game.ServerData.time.getUTCMinutes();
+          var currYear = ServerRPCStore.time.year();
+          var currMon = ServerRPCStore.time.month();
+          var currDay = ServerRPCStore.time.date();
+          var currHour = ServerRPCStore.time.hours();
+          var currMin = ServerRPCStore.time.minutes();
 
           arrivalDate.year = Dom.get('setArrivalYear').value;
           if (isNaN(arrivalDate.year)) {
