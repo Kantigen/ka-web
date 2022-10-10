@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx';
 import _ from 'lodash';
 import { serverDateToMoment, formatMomentLong } from 'app/util';
 import constants from 'app/constants';
+import { EmpireGetStatusResponse } from 'app/interfaces';
 
 class ServerRPCStore {
   time = '01 31 2010 13:09:05 +0600';
@@ -22,7 +23,7 @@ class ServerRPCStore {
     makeAutoObservable(this);
   }
 
-  update(server: any) {
+  update(server: EmpireGetStatusResponse['server']) {
     // TODO: show announcement window if needed.
 
     this.time = server.time;
