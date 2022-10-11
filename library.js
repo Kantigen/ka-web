@@ -33,7 +33,7 @@ if (!String.prototype.titleCaps) {
     String.punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)";
   
     String.prototype.titleCaps = function(replaceVal, withVal){
-        var parts = [], split = /[:.;?!] |(?: |^)["Ò]/g, index = 0, processVal = this;
+        var parts = [], split = /[:.;?!] |(?: |^)["ï¿½]/g, index = 0, processVal = this;
         var fnUpper = function(all){
                 return (/[A-Za-z]\.[A-Za-z]/).test(all) ? all : String.upper(all);
             },
@@ -50,7 +50,7 @@ if (!String.prototype.titleCaps) {
             var m = split.exec(processVal);
 
             parts.push( processVal.substring(index, m ? m.index : processVal.length)
-                .replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, fnUpper)
+                .replace(/\b([A-Za-z][a-z.'ï¿½]*)\b/g, fnUpper)
                 .replace(RegExp("\\b" + String.small + "\\b", "ig"), String.lower)
                 .replace(RegExp("^" + String.punct + String.small + "\\b", "ig"), fnPuntUpper)
                 .replace(RegExp("\\b" + String.small + String.punct + "$", "ig"), String.upper));
@@ -62,7 +62,7 @@ if (!String.prototype.titleCaps) {
         }
         
         return parts.join("").replace(/ V(s?)\. /ig, " v$1. ")
-            .replace(/(['Õ])S\b/ig, "$1s")
+            .replace(/(['ï¿½])S\b/ig, "$1s")
             .replace(/\b(AT&T|Q&A)\b/ig, function(all){
                 return all.toUpperCase();
             });
@@ -81,7 +81,7 @@ if (typeof YAHOO.lacuna.Library == "undefined" || !YAHOO.lacuna.Library) {
     var Util = YAHOO.util,
         Lang = YAHOO.lang,
         Dom = Util.Dom,
-        assetUrl = window.lacuna_s3_base_url + 'assets/';
+        assetUrl = window.lacuna_s3_base_url;
 
     var xPad=function (x, pad, r) {
         if(typeof r === 'undefined') {
