@@ -4,8 +4,13 @@ pink: pink
 light blue: #52ACFF
 */
 
+/*
+ * TODO: replace localhost:3002 url references. Copy the images into the ka-frontend project and then
+ * use vite's build system to link them.
+ */
+
 html {
-  background: black url('/Lacuna-Assets/star_system/field.png');
+  background: black url('http://localhost:3002/star_system/field.png');
   color: #fff;
   overflow: hidden;
   box-sizing: content-box;
@@ -62,7 +67,7 @@ input[type='button'],
   border-style: solid;
   border-width: 1px;
   border-color: #fefefe #dedede #dedede #fefefe;
-  background: #103070 url('/Lacuna-Assets/ui/web/bar_bottom_back.png') 0 -10px;
+  background: #103070 url('http://localhost:3002/ui/web/bar_bottom_back.png') 0 -10px;
   color: #ffffff;
 }
 button:hover:active,
@@ -128,12 +133,12 @@ input[type='button'][disabled],
 #header {
   top: 0;
   z-index: 1000;
-  background-image: url('/Lacuna-Assets/ui/web/bar_top_back.png');
+  background-image: url('http://localhost:3002/ui/web/bar_top_back.png');
 }
 #footer {
   bottom: 0;
   z-index: 1000;
-  background-image: url('/Lacuna-Assets/ui/web/bar_bottom_back.png');
+  background-image: url('http://localhost:3002/ui/web/bar_bottom_back.png');
 }
 
 .hidden {
@@ -156,7 +161,7 @@ body.yui-skin-sam .yui-panel {
 }
 body.yui-skin-sam .yui-panel .hd {
   width: 250px;
-  background: url('/Lacuna-Assets/ui/tab.png') no-repeat scroll 0 0 transparent;
+  background: url('http://localhost:3002/ui/tab.png') no-repeat scroll 0 0 transparent;
   border-width: 0;
   margin-left: 10px;
   font-size: 110%;
@@ -166,7 +171,7 @@ body.yui-skin-sam .yui-panel .hd {
 
 .yui-skin-sam .yui-panel .bd,
 .yui-skin-sam .yui-panel .ft {
-  background-image: url('/Lacuna-Assets/ui/bkg.png');
+  background-image: url('http://localhost:3002/ui/bkg.png');
   background-color: #013e67;
 }
 body.yui-skin-sam .yui-panel .bd {
@@ -200,7 +205,7 @@ body.yui-skin-sam .nofooter .bd {
   border-color: #000;
 }
 body.yui-skin-sam .container-close {
-  background: url('/Lacuna-Assets/ui/close.png') no-repeat scroll 0 0 transparent;
+  background: url('http://localhost:3002/ui/close.png') no-repeat scroll 0 0 transparent;
   cursor: pointer;
   height: 23px;
   position: absolute;
@@ -583,7 +588,7 @@ body.yui-skin-sam .yui-pg-container .yui-pg-current-page {
 .speciesSlider_bg {
   display: inline-block; /*mozilla 3.0, ie 8*/
   position: relative;
-  background: url('/Lacuna-Assets/ui/tickbar.png') -11px 5px no-repeat;
+  background: url('http://localhost:3002/ui/tickbar.png') -11px 5px no-repeat;
   height: 28px;
   width: 198px;
   top: 5px;
@@ -809,10 +814,10 @@ Info dialogs for Empire and Alliance
   color: white;
 }
 .planetMapTileActionButton {
-  background: transparent url('/Lacuna-Assets/ui/l/build.png');
+  background: transparent url('http://localhost:3002/ui/l/build.png');
 }
 .plots-full .planetMapTileActionButton {
-  background: transparent url('/Lacuna-Assets/ui/l/build-no.png');
+  background: transparent url('http://localhost:3002/ui/l/build-no.png');
 }
 
 .tileContainer .tile50 div.planetMapTileCounter {
@@ -836,14 +841,14 @@ Info dialogs for Empire and Alliance
   font-size: 180%;
 }
 .tile50 .planetMapTileActionButton {
-  background: transparent url('/Lacuna-Assets/ui/s/build.png');
+  background: transparent url('http://localhost:3002/ui/s/build.png');
 }
 .plots-full .tile50 .planetMapTileActionButton {
-  background: transparent url('/Lacuna-Assets/ui/s/build-no.png');
+  background: transparent url('http://localhost:3002/ui/s/build-no.png');
 }
 
 .mapiator_zoom {
-  background: url(/Lacuna-Assets/ui/zoom.png);
+  background: url(http://localhost:3002/ui/zoom.png);
   background-position: -20px -60px;
   position: absolute;
   z-index: 30;
@@ -1367,7 +1372,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
 .stashItem .stashDelete,
 .tradeItem .tradeDelete,
 .distribContainers .reserveDelete {
-  background: url('/Lacuna-Assets/ui/close.png') no-repeat scroll center center transparent;
+  background: url('http://localhost:3002/ui/close.png') no-repeat scroll center center transparent;
   height: 11px;
   width: 11px;
   position: absolute;
@@ -1450,7 +1455,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
   cursor: pointer;
 }
 .probeStar .probeDelete {
-  background: url('/Lacuna-Assets/ui/close.png') no-repeat scroll center center transparent;
+  background: url('http://localhost:3002/ui/close.png') no-repeat scroll center center transparent;
   height: 11px;
   width: 11px;
   position: absolute;
@@ -1482,7 +1487,7 @@ div.archaeologyGlyphContainer div.archaeologyGlyphHeader {
   width: 100px;
   font-weight: bold;
   font-size: 100%;
-  cursor: url(/Lacuna-Assets/ui/web/pen_m.cur), text;
+  cursor: url(http://localhost:3002/ui/web/pen_m.cur), text;
 }
 .spyInfo .spyName input {
   width: 95px;
@@ -1985,7 +1990,7 @@ TextboxList
   padding: 0 15px 0 2px;
 }
 .TextboxList .TextboxListBitBoxDelete {
-  background: transparent url(/Lacuna-Assets/ui/crosssmall.gif) repeat scroll 0 0;
+  background: transparent url(http://localhost:3002/ui/crosssmall.gif) repeat scroll 0 0;
   display: block;
   font-size: 1px;
   height: 7px;
@@ -2038,7 +2043,7 @@ TextboxList
   right: 1px;
   top: 1px;
   position: absolute;
-  background: transparent url(/Lacuna-Assets/ui/dropdown.gif) repeat scroll 0 0;
+  background: transparent url(http://localhost:3002/ui/dropdown.gif) repeat scroll 0 0;
   z-index: 2;
   display: -moz-inline-stack; /*mozilla 2.0*/
   display: inline-block; /*mozilla 3.0, ie 8*/

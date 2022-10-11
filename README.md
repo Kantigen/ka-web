@@ -1,29 +1,10 @@
-# KA Web
+# KA Frontend
 
 Web client for the up-and-coming community edition of The Lacuna Expanse, known as "Kenó Antigen".
 
 [![CircleCI Build Status](https://circleci.com/gh/Kantigen/ka-web/tree/master.svg?style=svg)](https://circleci.com/gh/Kantigen/ka-web/tree/master)
 
 [![Kenó Antigen screenshot](docs/img/screenshot.png)](https://demo.kenoantigen.com/)
-
-# Setup
-
-Requires Node and npm:
-
-```bash
-git clone https://github.com/Kantigen/ka-web
-cd ka-web
-git submodule update --init --recursive
-npm install
-```
-
-# Running
-
-The client has two run modes for local development:
-
-**`npm run dev`**: assumes you have [ka-server](https://github.com/Kantigen/ka-server) set up and running.
-
-**`npm run dev:stubbed`**: uses a stubbed game server instead
 
 # Ideas
 
