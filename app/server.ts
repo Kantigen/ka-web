@@ -146,16 +146,13 @@ export const call = function (obj: ServerRequest): void {
 //
 export const splitStatus = function (status: StatusBlock): void {
   if (status.server) {
-    const serverStatus = util.fixNumbers(_.cloneDeep(status.server));
-    ServerRPCStore.update(serverStatus);
+    ServerRPCStore.update(status.server);
   }
   if (status.empire) {
-    const empireStatus = util.fixNumbers(_.cloneDeep(status.empire));
-    EmpireRPCStore.update(empireStatus);
+    EmpireRPCStore.update(status.empire);
   }
   if (status.body) {
-    const bodyStatus = util.fixNumbers(_.cloneDeep(status.body));
-    BodyRPCStore.update(bodyStatus);
+    BodyRPCStore.update(status.body);
   }
 };
 
