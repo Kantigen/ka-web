@@ -10,6 +10,7 @@ import WindowsStore from 'app/stores/windows';
 import RearrangeBuildingsService from 'app/services/rearrangeBuildings';
 import RearrangeBuildingsHelper from 'app/helpers/rearrangeBuildings';
 import { pluralize } from 'app/util';
+import LegacyHooks from 'app/legacyHooks';
 
 declare const YAHOO: any;
 
@@ -46,7 +47,7 @@ class RearrangeBuildings extends React.Component<any, State> {
       }
     );
 
-    YAHOO.lacuna.MapPlanet.Refresh();
+    LegacyHooks.refreshPlanet();
   }
 
   tileClick(selected: BuildingCoordinates): void {

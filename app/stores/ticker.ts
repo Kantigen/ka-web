@@ -11,6 +11,7 @@ import ServerRPCStore from 'app/stores/rpc/server';
 import BodyRPCStore from 'app/stores/rpc/body';
 
 import YAHOO from 'app/shims/yahoo';
+import LegacyHooks from 'app/legacyHooks';
 
 const INTERVAL_TIME = 1000;
 
@@ -31,7 +32,7 @@ class TickerStore {
     BodyRPCStore.tick();
     EmpireRPCStore.tick();
     ServerRPCStore.tick();
-    YAHOO.lacuna.Game.onTick.fire();
+    LegacyHooks.tick();
   }
 
   start() {

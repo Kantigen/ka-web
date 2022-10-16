@@ -2,8 +2,7 @@ import React from 'react';
 import MenuStore from 'app/stores/menu';
 import classNames from 'classnames';
 import environment from 'app/environment';
-
-declare const YAHOO: any;
+import LegacyHooks from 'app/legacyHooks';
 
 type Props = {
   name: string;
@@ -23,7 +22,7 @@ class PlanetListItem extends React.Component<Props> {
     MenuStore.hideRightSidebar();
 
     if (this.isCurrentWorld()) {
-      YAHOO.lacuna.MapPlanet.Refresh();
+      LegacyHooks.refreshPlanet();
     } else {
       MenuStore.changePlanet(this.props.id);
     }

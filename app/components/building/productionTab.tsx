@@ -14,6 +14,7 @@ import { Building } from 'app/interfaces';
 
 import * as util from 'app/util';
 import * as vex from 'app/vex';
+import LegacyHooks from 'app/legacyHooks';
 
 declare const YAHOO: any;
 
@@ -28,7 +29,7 @@ class ProductionTab extends React.Component<Props> {
 
     vex.confirm(`Are you sure you want to demolish your ${name} ${level}?`, async () => {
       await BuildingsService.demolish(module, id);
-      YAHOO.lacuna.MapPlanet.Refresh();
+      LegacyHooks.refreshPlanet();
       WindowsStore.closeAll();
     });
   }
@@ -41,7 +42,7 @@ class ProductionTab extends React.Component<Props> {
       `Are you sure you want to downgrade your ${name} to level ${level - 1}?`,
       async () => {
         await BuildingsService.downgrade(module, id);
-        YAHOO.lacuna.MapPlanet.Refresh();
+        LegacyHooks.refreshPlanet();
         WindowsStore.closeAll();
       }
     );

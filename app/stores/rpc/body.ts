@@ -3,6 +3,8 @@ import ServerRPCStore from 'app/stores/rpc/server';
 import _ from 'lodash';
 import * as util from 'app/util';
 import { BodyGetStatusResponse } from 'app/interfaces';
+import YAHOO from 'app/shims/yahoo';
+import LegacyHooks from 'app/legacyHooks';
 
 const { int } = util;
 
@@ -105,6 +107,8 @@ class BodyRPCStore {
   ore_capacity = 0;
 
   ore_stored = 0;
+
+  population = 0;
 
   waste_hour = 0;
 
@@ -224,6 +228,7 @@ class BodyRPCStore {
     if (body.ore_hour) this.ore_hour = body.ore_hour;
     if (body.ore_capacity) this.ore_capacity = body.ore_capacity;
     if (body.ore_stored) this.ore_stored = body.ore_stored;
+    if (body.population) this.population = body.population;
     if (body.waste_hour) this.waste_hour = body.waste_hour;
     if (body.waste_stored) this.waste_stored = body.waste_stored;
     if (body.waste_capacity) this.waste_capacity = body.waste_capacity;
@@ -254,6 +259,10 @@ class BodyRPCStore {
     _.map(this.incoming_own_ships, updateShip);
     _.map(this.incoming_ally_ships, updateShip);
     _.map(this.incoming_enemy_ships, updateShip);
+
+    if (body.needs_surface_refresh) {
+      LegacyHooks.refreshPlanet();
+    }
   }
 
   tick() {

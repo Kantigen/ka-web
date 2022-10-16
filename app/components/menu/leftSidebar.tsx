@@ -7,8 +7,7 @@ import SelfDestructButton from 'app/components/menu/leftSidebar/selfDestructButt
 import MenuStore from 'app/stores/menu';
 import WindowsStore from 'app/stores/windows';
 import OptionsWindowStore from 'app/stores/window/options';
-
-declare const YAHOO: any;
+import LegacyHooks from 'app/legacyHooks';
 
 class LeftSidebar extends React.Component {
   componentDidMount() {
@@ -58,7 +57,7 @@ class LeftSidebar extends React.Component {
           className='item'
           onClick={function () {
             MenuStore.hideLeftSidebar();
-            YAHOO.lacuna.MapPlanet.Refresh();
+            LegacyHooks.refreshPlanet();
           }}
         >
           <i className='refresh icon' />
