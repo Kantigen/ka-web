@@ -2,6 +2,7 @@ YAHOO.namespace('lacuna.buildings');
 
 import MenuStore from 'app/stores/menu';
 import EmpireRPCStore from 'app/stores/rpc/empire';
+import BodyRPCStore from 'app/stores/rpc/body';
 
 if (
   typeof YAHOO.lacuna.buildings.WasteRecycling == 'undefined' ||
@@ -264,8 +265,8 @@ if (
           maxVal =
             cp.waste_stored <= this.recycle.max_recycle
               ? cp.waste_stored
-              : this.recycle.max_recycle;
-        third = Math.round(maxVal / 3);
+              : this.recycle.max_recycle,
+          third = Math.round(maxVal / 3);
 
         this.recycleOreEl.value = third;
 
