@@ -722,9 +722,11 @@ if (typeof YAHOO.lacuna.MapStar == 'undefined' || !YAHOO.lacuna.MapStar) {
           var tile = this._map.tileLayer.findTileById(matchedEl.id);
           if (tile && tile.data) {
             if (tile.data.isStar) {
+              console.log('Showing star panel', tile);
               this.ShowStar(tile);
               WindowsStore.add('starPanel', tile);
             } else if (tile.data.isPlanet) {
+              console.log('Showing planet panel', tile);
               WindowsStore.add('planetPanel', tile);
             }
           }

@@ -1,33 +1,54 @@
 import React from 'react';
 
 import constants from 'app/constants';
+import SpacePortService from 'app/services/spacePort';
 import { Building } from 'app/interfaces';
+import { Fleet } from 'app/interfaces/spacePort';
 import _ from 'lodash';
 
-import OwnFleetItem from 'app/components/spacePort/ownFleets/item';
+import FleetItem from 'app/components/spacePort/fleetItem';
 
 type Props = {
   building: Building;
 };
 
-class OwnFleetsTab extends React.Component<Props> {
-  constructor(props: any) {
+type State = {
+  task: string;
+  tag: string;
+  type: string;
+  name: string;
+  fleets: Fleet[],
+  count: number;
+}
+
+class OwnFleetsTab extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       task: 'all',
       tag: 'all',
       type: 'all',
       name: '',
+      fleets: [],
+      count: 0,
     };
   }
 
-  handleFilterChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ [e.target.name]: e.target.value });
+  async componentDidMount() {
+    console.log(this.props.building.id);
+    const res = await SpacePortService.viewAllFleets({ building_id: this.props.building.id });
+    this.setState({
+      fleets: res.fleets,
+      count: res.number_of_fleets,
+    });
+  }
+
+  handleFilterChange(e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) {
+    // TODO: why do we need ...this.state for typescript to accept this?
+    this.setState({ ...this.state, ...{ [e.target.name]: e.target.value }});
   }
 
   render() {
-    const fleetItems = [];
-
     // // Filter based on Task
     // if (this.state.task !== 'all') {
     //   fleetItems = $.grep(fleetItems, function (item, index) {
@@ -106,7 +127,7 @@ class OwnFleetsTab extends React.Component<Props> {
 
         <div className='ui divider' />
 
-        <div>{fleetItems}</div>
+        <div>{_.map(this.state.fleets, (fleet) => <FleetItem fleet={fleet} />)}</div>
       </div>
     );
   }

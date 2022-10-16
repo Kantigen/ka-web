@@ -13,6 +13,7 @@ import server from 'app/server';
 import ServiceBase from 'app/services/base';
 
 import YAHOO from 'app/shims/yahoo';
+import LegacyHooks from 'app/legacyHooks';
 
 class EmpireService extends ServiceBase {
   async getStatus() {
@@ -44,9 +45,7 @@ class EmpireService extends ServiceBase {
   async logout() {
     await this.call('empire', 'logout', {});
 
-    YAHOO.lacuna.Game.Reset();
-    YAHOO.lacuna.MapPlanet.Reset();
-    YAHOO.lacuna.Game.DoLogin();
+    LegacyHooks.resetGame();
 
     // Hide all our tooltips
     ReactTooltip.hide();

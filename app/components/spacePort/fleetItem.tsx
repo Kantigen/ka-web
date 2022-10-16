@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
+import { Fleet } from 'app/interfaces/spacePort';
 
 import ResourceAttribute from 'app/components/shipyard/resourceAttribute';
 
 import environment from 'app/environment';
 
-class BuildFleetItem extends React.Component {
-  static propTypes = {
-    obj: PropTypes.object.isRequired,
-    buildingId: PropTypes.number.isRequired,
-  };
+type Props = {
+  fleet: Fleet,
+};
 
+class FleetItem extends React.Component<Props> {
   render() {
     const starfieldStyle = {
       width: 100,
@@ -19,7 +17,7 @@ class BuildFleetItem extends React.Component {
       background: `transparent url(${environment.getAssetsUrl()}star_system/field.png) no-repeat center`,
     };
 
-    const { obj } = this.props;
+    const obj = this.props.fleet;
     const shipImage = `${environment.getAssetsUrl()}ships/${obj.details.type}.png`;
 
     return (
@@ -45,7 +43,7 @@ class BuildFleetItem extends React.Component {
             <ResourceAttribute name='Combat' attr={obj.details.combat} />
             <ResourceAttribute name='Stealth' attr={obj.details.stealth} />
             <ResourceAttribute name='Name' attr={obj.details.name} />
-            <ResourceAttribute name='Type' attr={obj.details.type} />
+            <ResourceAttribute name='Type' attr={obj.details.type_human} />
             <ResourceAttribute name='Marque' attr={obj.details.mark} />
           </div>
 
@@ -58,4 +56,4 @@ class BuildFleetItem extends React.Component {
   }
 }
 
-export default BuildFleetItem;
+export default FleetItem;

@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import withBuildingTabs from 'app/hocs/withBuildingTabs';
 import OwnFleetsTab from 'app/components/spacePort/ownFleetsTab';
+import TravellingFleetsTab from 'app/components/spacePort/travellingFleetsTab';
 
 export default withBuildingTabs({
   getTabs(building) {
@@ -34,7 +35,11 @@ export default withBuildingTabs({
 
     return [
       {
-        title: 'Own Fleets',
+        title: 'Travelling',
+        component: () => <TravellingFleetsTab building={building} />,
+      },
+      {
+        title: 'View',
         component: () => <OwnFleetsTab building={building} />,
       },
     ];

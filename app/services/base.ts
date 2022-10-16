@@ -26,6 +26,13 @@ import {
   StatsCreditsResult,
 } from 'app/interfaces';
 
+import {
+  SpacePortViewAllFleetsParams,
+  SpacePortViewAllFleetsResponse ,
+  SpacePortViewTravellingFleetsParams,
+  SpacePortViewTravellingFleetsResponse
+} from 'app/interfaces/spacePort';
+
 class ServiceBase {
   call(
     module: 'body',
@@ -103,6 +110,20 @@ class ServiceBase {
     params: EssentiaVeinDrainParams,
     addSession?: boolean
   ): Promise<EssentiaVeinDrainResponse>;
+
+  call(
+    module: 'spaceport',
+    method: 'view_all_fleets',
+    params: SpacePortViewAllFleetsParams,
+    addSession?: boolean,
+  ): Promise<SpacePortViewAllFleetsResponse>
+
+  call(
+    module: 'spaceport',
+    method: 'view_travelling_fleets',
+    params: SpacePortViewTravellingFleetsParams,
+    addSession?: boolean,
+  ): Promise<SpacePortViewTravellingFleetsResponse>
 
   call(
     module: 'stats',

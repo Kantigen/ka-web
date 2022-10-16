@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { makeAutoObservable } from 'mobx';
-import { Window, WindowType, WindowOptions } from 'app/interfaces';
+import { Window, WindowType, WindowOptions, CaptchaWindowOptions } from 'app/interfaces';
 
 const findWindowByType = function (windows: Window[], type: WindowType) {
   const index = _.findIndex(windows, (o) => {
@@ -34,6 +34,9 @@ class WindowsStore {
   //
   // We only allow one window of each type (e.g. 'about' or 'building')
   //
+  add(type: 'captcha', options: CaptchaWindowOptions): void;
+  add(type: 'starPanel', options: {}): void;
+  add(type: 'login'): void;
   add(type: WindowType, options: WindowOptions = {}) {
     let index = this.windows.length;
 
