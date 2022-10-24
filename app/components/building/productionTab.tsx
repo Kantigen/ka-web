@@ -86,7 +86,7 @@ class ProductionTab extends React.Component<Props> {
         </div>
 
         <div className='columns'>
-          <div className='column is-one-third px-5'>
+          <div className='column is-one-third px-6'>
             <ResourceLine
               icon='food'
               content={`${util.reduceNumber(b.food_hour)} / hr`}
@@ -119,7 +119,7 @@ class ProductionTab extends React.Component<Props> {
             />
           </div>
 
-          <div className='column is-one-third px-5'>
+          <div className='column is-one-third px-6'>
             <ResourceLine
               icon='food'
               content={`${util.reduceNumber(b.upgrade.production.food_hour)} / hr`}
@@ -156,7 +156,7 @@ class ProductionTab extends React.Component<Props> {
             />
           </div>
 
-          <div className='column is-one-third px-5'>
+          <div className='column is-one-third px-6'>
             <ResourceLine
               icon='food'
               content={util.reduceNumber(b.upgrade.cost.food)}
