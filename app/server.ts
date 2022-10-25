@@ -116,7 +116,7 @@ const sendRequest = function (
 
       if (error.code === 1016) {
         WindowsStore.add('captcha', {
-          onCaptchaComplete: retry,
+          onCaptchaComplete: () => retry(),
         });
       } else {
         handleError(options, error);

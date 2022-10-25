@@ -13,7 +13,7 @@ export type WindowType =
   | 'rearrangeBuildings'
   | 'register'
   | 'serverClock'
-  | 'starPanel';
+  | 'starInfo';
 
 export interface Window {
   type: WindowType;
@@ -25,11 +25,20 @@ export interface Window {
 export interface WindowOptions {
   id?: number | string;
   url?: string;
-  onCaptchaComplete?: Function;
 }
 
 export interface CaptchaWindowOptions {
-  onCaptchaComplete: Function;
+  onCaptchaComplete(): void;
+}
+
+export interface StarInfoWindowOptions {
+  color: string;
+  id: number;
+  name: string;
+  x: number;
+  y: number;
+  zone: string;
+  influence: number;
 }
 
 export interface BuildingWindowOptions {
@@ -52,11 +61,11 @@ export interface WindowDefinition {
   config: WindowConfig;
 }
 
-export interface BuildingComponentProps {
+export interface BuildingComponentProps<Type = Building> {
   options: BuildingWindowOptions;
-  building: Building;
+  building: Type;
 }
 
-export interface CustomBuildingComponent {
-  getTabs(building: Building, options: BuildingWindowOptions): Tab[];
+export interface CustomBuildingComponent<Type = Building> {
+  getTabs(building: Type, options: BuildingWindowOptions): Tab[];
 }

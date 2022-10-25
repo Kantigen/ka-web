@@ -11,12 +11,12 @@ type Props = {
   options: BuildingWindowOptions;
 };
 
-type State = {
-  building: Building;
+type State<Type> = {
+  building: Type;
 };
 
-const withBuildingData = (WrappedComponent: React.ComponentType<BuildingComponentProps>) =>
-  class extends React.Component<Props, State> {
+function withBuildingData<Type extends Building>(WrappedComponent: React.ComponentType<BuildingComponentProps<Type>>) {
+  return class extends React.Component<Props, State<Type>> {
     constructor(props: any) {
       super(props);
       this.state = {
@@ -115,5 +115,6 @@ const withBuildingData = (WrappedComponent: React.ComponentType<BuildingComponen
       return <WrappedComponent building={this.state.building} {...this.props} />;
     }
   };
+}
 
 export default withBuildingData;

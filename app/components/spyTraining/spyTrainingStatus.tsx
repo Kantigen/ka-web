@@ -1,8 +1,8 @@
 import React from 'react';
-import { Building } from 'app/interfaces';
+import { SpyTrainingBuilding } from 'app/interfaces';
 
 type Props = {
-  building: Building;
+  building: SpyTrainingBuilding;
 };
 
 class SpyTrainingStatus extends React.Component<Props> {

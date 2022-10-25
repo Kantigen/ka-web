@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomBuildingComponent, BuildingComponentProps } from 'app/interfaces';
+import { CustomBuildingComponent, BuildingComponentProps, Building } from 'app/interfaces';
 import withBuildingData from 'app/hocs/withBuildingData';
 import { Tabber } from 'app/components/tabber';
 import { Tab } from 'app/interfaces/tabber';
@@ -7,9 +7,9 @@ import BuildingInformation from 'app/components/building/information';
 import ProductionTab from 'app/components/building/productionTab';
 import RepairTab from 'app/components/building/repairTab';
 
-const withBuildingTabs = (customBuilding: CustomBuildingComponent) =>
-  withBuildingData(
-    class WithBuildingTabs extends React.Component<BuildingComponentProps> {
+function withBuildingTabs<Type extends Building>(customBuilding: CustomBuildingComponent<Type>) {
+  return withBuildingData<Type>(
+    class WithBuildingTabs extends React.Component<BuildingComponentProps<Type>> {
       render() {
         const tabs: Tab[] = [
           {
@@ -33,5 +33,6 @@ const withBuildingTabs = (customBuilding: CustomBuildingComponent) =>
       }
     }
   );
+}
 
 export default withBuildingTabs;

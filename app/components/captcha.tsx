@@ -1,10 +1,10 @@
 import React from 'react';
 import CaptchaService from 'app/services/captcha';
-import { WindowOptions } from 'app/interfaces';
+import { CaptchaWindowOptions } from 'app/interfaces';
 import WindowsStore from 'app/stores/windows';
 
 type Props = {
-  options: WindowOptions;
+  options: CaptchaWindowOptions;
 };
 
 type State = {
@@ -46,7 +46,7 @@ class Captcha extends React.Component<Props, State> {
   async onClickSolve() {
     await CaptchaService.solve(this.state.guid, this.state.solution);
     WindowsStore.close('captcha');
-    this.props.options.onCaptchaComplete?.();
+    this.props.options.onCaptchaComplete();
   }
 
   onClickRefresh() {

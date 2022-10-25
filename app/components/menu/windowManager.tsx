@@ -22,7 +22,7 @@ import RegisterWindow from 'app/components/register';
 import ServerClockWindow from 'app/components/serverClock';
 import ShipyardWindow from 'app/components/shipyard';
 import SpacePortWindow from 'app/components/spaceport';
-import StarPanelWindow from 'app/components/starPanel';
+import StarInfoWindow from 'app/components/starInfo';
 import TheftTrainingWindow from 'app/components/theftTraining';
 
 import { WindowDefinition } from 'app/interfaces';
@@ -183,12 +183,12 @@ export const WindowMap: WindowMap = {
     config: {
       title: 'Space Port',
       width: 700,
-      height: 'auto',
+      height: 500,
     },
   },
 
-  starPanel: {
-    component: StarPanelWindow,
+  starInfo: {
+    component: StarInfoWindow,
     config: {
       title: 'Star Details',
       width: 700,
