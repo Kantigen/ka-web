@@ -20,6 +20,7 @@ import PoliticsTrainingWindow from 'app/components/politicsTraining';
 import RearrangeBuildings from 'app/components/rearrangeBuildings/rearrangeBuildings';
 import RegisterWindow from 'app/components/register';
 import ServerClockWindow from 'app/components/serverClock';
+import ShipyardWindow from 'app/components/shipyard';
 import SpacePortWindow from 'app/components/spaceport';
 import StarPanelWindow from 'app/components/starPanel';
 import TheftTrainingWindow from 'app/components/theftTraining';
@@ -165,6 +166,15 @@ export const WindowMap: WindowMap = {
       title: 'Server Clock',
       width: 330,
       height: 'auto',
+    },
+  },
+
+  shipyard: {
+    component: ShipyardWindow,
+    config: {
+      title: 'Shipyard',
+      width: 700,
+      height: 500,
     },
   },
 

@@ -33,6 +33,15 @@ import {
   SpacePortViewTravellingFleetsResponse
 } from 'app/interfaces/spacePort';
 
+import {
+  ShipyardViewBuildQueueParams,
+  ShipyardViewBuildQueueResponse,
+  ShipyardGetBuildableParams,
+  ShipyardGetBuildableResponse,
+  ShipyardBuildFleetParams,
+  ShipyardBuildFleetResponse,
+ } from 'app/interfaces/shipyard';
+
 class ServiceBase {
   call(
     module: 'body',
@@ -110,6 +119,34 @@ class ServiceBase {
     params: EssentiaVeinDrainParams,
     addSession?: boolean
   ): Promise<EssentiaVeinDrainResponse>;
+
+  call(
+    module: 'shipyard',
+    method: 'view_build_queue',
+    params: ShipyardViewBuildQueueParams,
+    addSession?: boolean,
+  ): Promise<ShipyardViewBuildQueueResponse>;
+
+  call(
+    module: 'shipyard',
+    method: 'build_fleet',
+    params: ShipyardBuildFleetParams,
+    addSession?: boolean,
+  ): Promise<ShipyardBuildFleetResponse>;
+
+  call(
+    module: 'shipyard',
+    method: 'get_buildable',
+    params: ShipyardGetBuildableParams,
+    addSession?: boolean,
+  ): Promise<ShipyardGetBuildableResponse>;
+
+  call(
+    module: 'spaceport',
+    method: 'send_fleet',
+    params: SpacePortSendFleetParams,
+    addSession?: boolean,
+  ): Promise<SpacePortSendFleetResponse>;
 
   call(
     module: 'spaceport',

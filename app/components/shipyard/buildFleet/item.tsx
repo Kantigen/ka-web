@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
 
 import ResourceLine from 'app/components/shipyard/resourceLine';
@@ -7,15 +5,17 @@ import ResourceAttribute from 'app/components/shipyard/resourceAttribute';
 import BuildButton from 'app/components/shipyard/buildFleet/button';
 
 import environment from 'app/environment';
+import { Building } from 'app/interfaces/building';
+import { BuildableFleet } from 'app/interfaces/shipyard';
 
-class BuildFleetItem extends React.Component {
-  static propTypes = {
-    fleetType: PropTypes.string.isRequired,
-    obj: PropTypes.object.isRequired,
-    buildingId: PropTypes.number.isRequired,
-    autoSelect: PropTypes.string.isRequired,
-  };
+type Props = {
+  fleetType: string;
+  obj: BuildableFleet;
+  building: Building;
+  autoSelect: string;
+};
 
+class BuildFleetItem extends React.Component<Props> {
   handleQuantity = (o) => {};
 
   render() {
@@ -57,7 +57,7 @@ class BuildFleetItem extends React.Component {
             <ResourceLine icon='diamond' cost={obj.cost.ore} />
             <ResourceLine icon='theme' cost={obj.cost.water} />
             <ResourceLine icon='lightning' cost={obj.cost.energy} />
-            <ResourceLine icon='wait' cost={obj.cost.time} />
+            <ResourceLine icon='wait' cost={obj.cost.seconds} />
           </div>
 
           <div className='four wide column'>
@@ -70,13 +70,15 @@ class BuildFleetItem extends React.Component {
           </div>
 
           <div className='four wide column'>
-            <BuildButton
-              canBuild={canBuild}
-              obj={obj}
-              buildingId={this.props.buildingId}
-              fleetType={this.props.fleetType}
-              autoSelect={this.props.autoSelect}
-            />
+            {canBuild === 1 ? (
+              <BuildButton
+                building={this.props.building}
+                fleetType={this.props.fleetType}
+                autoSelect={this.props.autoSelect}
+              />
+            ) : (
+              ''
+            )}
           </div>
 
           <div className='sixteen wide column'>

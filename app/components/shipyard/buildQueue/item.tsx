@@ -1,20 +1,19 @@
-import PropTypes from 'prop-types';
-
 import React from 'react';
 
 import ResourceAttribute from 'app/components/shipyard/resourceAttribute';
 import SubsidizeButton from 'app/components/shipyard/buildQueue/subsidizeButton';
 import CountdownTimer from 'app/components/countdownTimer';
 
-import * as util from 'app/util';
-import constants from 'app/constants';
+import environment from 'app/environment';
+import { FleetBeingWorkedOn } from 'app/interfaces/shipyard';
+import { Building } from 'app/interfaces/building';
 
-class BuildQueueItem extends React.Component {
-  static propTypes = {
-    obj: PropTypes.object.isRequired,
-    buildingId: PropTypes.number.isRequired,
-  };
+type Props = {
+  obj: FleetBeingWorkedOn;
+  building: Building;
+}
 
+class BuildQueueItem extends React.Component<Props> {
   render() {
     const starfieldStyle = {
       width: 100,
@@ -23,7 +22,7 @@ class BuildQueueItem extends React.Component {
     };
 
     const { obj } = this.props;
-    const shipImage = `${environment.getAssetsUrl()}ships/${this.props.obj.type}.png`;
+    const shipImage = `${environment.getAssetsUrl()}ships/${obj.type}.png`;
 
     return (
       <div>
@@ -53,13 +52,11 @@ class BuildQueueItem extends React.Component {
           </div>
 
           <div className='four wide column'>
-            <CountdownTimer
-              endDate={util.formatMomentLong(util.serverDateToMoment(obj.date_completed))}
-            />
+            <CountdownTimer endDate={obj.date_completed} />
           </div>
 
           <div className='five wide column'>
-            <SubsidizeButton obj={obj} buildingId={this.props.buildingId} />
+            <SubsidizeButton obj={obj} building={this.props.building} />
           </div>
         </div>
 

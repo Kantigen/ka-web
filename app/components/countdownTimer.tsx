@@ -1,17 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { formatTime, serverDateToMoment } from 'app/util';
 
 type Props = {
   endDate: string;
 };
 
-class CountdownTimer extends React.Component<Props> {
-  static propTypes = {
-    endDate: PropTypes.string,
-  };
+type State = {
+  secondsRemaining: number;
+};
+
+class CountdownTimer extends React.Component<Props, State> {
+
+  interval: any; // TODO: what type should this be?
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      secondsRemaining: Math.floor(
+        (serverDateToMoment(props.endDate).valueOf() - Date.now()) / 1000
+      ),
+    };
+  }
+
+  componentDidMount() {
+    // TODO: subscribe to a global tick instead of duplicated local intervals
+    this.interval = setInterval(() => {
+      this.setState({ secondsRemaining: this.state.secondsRemaining - 1 });
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
 
   render() {
-    return <div>{this.props.endDate}</div>;
+    return <>{formatTime(this.state.secondsRemaining)}</>;
   }
 }
 
