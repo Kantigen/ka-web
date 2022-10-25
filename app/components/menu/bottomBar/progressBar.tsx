@@ -15,7 +15,7 @@ class ProgressBar extends React.Component<Props> {
           left: '0',
           width: `${this.props.percent}%`,
           maxWidth: '100% !important',
-          height: '2px',
+          height: '4px',
           boxShadow: '1px 1px 1px rgba(0,0,0,0.4)',
           borderRadius: '1px 1px 1px 1px',
           backgroundColor: '#4cd964',
