@@ -21,6 +21,7 @@ class BuildingInformation extends React.Component<Props> {
                 backgroundImage: `url(${environment.getAssetsUrl()}planet_side/surface-${
                   BodyRPCStore.surfaceImage
                 }.jpg)`,
+                borderRadius: 5,
               }}
             >
               <div
