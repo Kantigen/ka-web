@@ -30,7 +30,11 @@ import {
   SpacePortViewAllFleetsParams,
   SpacePortViewAllFleetsResponse ,
   SpacePortViewTravellingFleetsParams,
-  SpacePortViewTravellingFleetsResponse
+  SpacePortViewTravellingFleetsResponse,
+  SpacePortViewAvailableFleetsParams,
+  SpacePortViewAvailableFleetsResponse,
+  SpacePortSendFleetParams,
+  SpacePortSendFleetResponse,
 } from 'app/interfaces/spacePort';
 
 import {
@@ -153,14 +157,21 @@ class ServiceBase {
     method: 'view_all_fleets',
     params: SpacePortViewAllFleetsParams,
     addSession?: boolean,
-  ): Promise<SpacePortViewAllFleetsResponse>
+  ): Promise<SpacePortViewAllFleetsResponse>;
+
+  call(
+    module: 'spaceport',
+    method: 'view_available_fleets',
+    params: SpacePortViewAvailableFleetsParams,
+    addSession?: boolean,
+  ): Promise<SpacePortViewAvailableFleetsResponse>;
 
   call(
     module: 'spaceport',
     method: 'view_travelling_fleets',
     params: SpacePortViewTravellingFleetsParams,
     addSession?: boolean,
-  ): Promise<SpacePortViewTravellingFleetsResponse>
+  ): Promise<SpacePortViewTravellingFleetsResponse>;
 
   call(
     module: 'stats',
